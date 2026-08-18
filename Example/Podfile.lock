@@ -1,0 +1,16 @@
+PODS:
+  - LampsSDK (0.1.0)
+
+DEPENDENCIES:
+  - LampsSDK (from `../`)
+
+EXTERNAL SOURCES:
+  LampsSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LampsSDK: 68770559fb9f4dcf3e78e919de5ed35828fa46c4
+
+PODFILE CHECKSUM: 6ec12bd656f5369e4d6be2a4b039611984f1021d
+
+COCOAPODS: 1.16.2
