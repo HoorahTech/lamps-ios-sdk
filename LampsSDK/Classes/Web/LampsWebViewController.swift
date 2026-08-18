@@ -1,35 +1,33 @@
 import UIKit
 
-/// WebView 容器。第一阶段仅提供页面骨架，下一阶段再接入 WKWebView 与 Bridge。
+/// 全屏 Web 页面容器。真正的加载与 Bridge 都在 `LampsWebView` 上。
 @objcMembers
 public final class LampsWebViewController: UIViewController {
     public let urlString: String
+    public let htmlString: String?
 
-    private lazy var hintLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .darkGray
-        label.text = "WebView 与 Bridge 将在下一阶段接入。\n当前只验证页面可以打开。"
-        return label
-    }()
-
-    private lazy var urlLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 13)
-        label.textColor = .gray
-        label.text = urlString.isEmpty ? "(未传入 URL)" : urlString
-        return label
+    public private(set) lazy var webView: LampsWebView = {
+        let webView = LampsWebView()
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.closeHandler = { [weak self] in
+            self?.closePage()
+        }
+        return webView
     }()
 
     @objc(initWithURLString:)
-    public init(urlString: String) {
+    public convenience init(urlString: String) {
+        self.init(urlString: urlString, htmlString: nil)
+    }
+
+    @objc(initWithHTMLString:)
+    public convenience init(htmlString: String) {
+        self.init(urlString: "", htmlString: htmlString)
+    }
+
+    public init(urlString: String, htmlString: String?) {
         self.urlString = urlString
+        self.htmlString = htmlString
         super.init(nibName: nil, bundle: nil)
         title = "Lamps WebView"
     }
@@ -48,20 +46,21 @@ public final class LampsWebViewController: UIViewController {
             target: self,
             action: #selector(closePage)
         )
-        view.addSubview(hintLabel)
-        view.addSubview(urlLabel)
+        view.addSubview(webView)
         NSLayoutConstraint.activate([
-            hintLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            hintLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            hintLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
-            urlLabel.leadingAnchor.constraint(equalTo: hintLabel.leadingAnchor),
-            urlLabel.trailingAnchor.constraint(equalTo: hintLabel.trailingAnchor),
-            urlLabel.topAnchor.constraint(equalTo: hintLabel.bottomAnchor, constant: 16)
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        LampsSDKLog.debug("open web placeholder, url=\(urlString)")
+        if let htmlString = htmlString {
+            webView.loadHTMLString(htmlString, baseURL: nil)
+        } else {
+            webView.load(urlString: urlString)
+        }
     }
 
-    @objc private func closePage() {
+    @objc func closePage() {
         if presentingViewController != nil {
             dismiss(animated: true)
             return

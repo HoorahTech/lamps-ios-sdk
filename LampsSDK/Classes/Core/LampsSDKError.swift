@@ -6,12 +6,18 @@ public let LampsSDKErrorDomain = "com.hupu.lamps.sdk"
     case notImplemented = -1001
     case notStarted = -1002
     case invalidConfig = -1003
+    case invalidURL = -1004
+    case network = -1005
+    case api = -1006
 }
 
 enum LampsSDKError {
     case notImplemented(String)
     case notStarted(String)
     case invalidConfig(String)
+    case invalidURL(String)
+    case network(String)
+    case api(String)
 
     var nsError: NSError {
         NSError(
@@ -26,6 +32,9 @@ enum LampsSDKError {
         case .notImplemented: return .notImplemented
         case .notStarted: return .notStarted
         case .invalidConfig: return .invalidConfig
+        case .invalidURL: return .invalidURL
+        case .network: return .network
+        case .api: return .api
         }
     }
 
@@ -33,7 +42,10 @@ enum LampsSDKError {
         switch self {
         case .notImplemented(let message),
              .notStarted(let message),
-             .invalidConfig(let message):
+             .invalidConfig(let message),
+             .invalidURL(let message),
+             .network(let message),
+             .api(let message):
             return message
         }
     }

@@ -1,5 +1,16 @@
 PODS:
-  - LampsSDK (0.1.0)
+  - LampsSDK (0.1.0):
+    - LampsSDK/Core (= 0.1.0)
+    - LampsSDK/CSJAdapter (= 0.1.0)
+    - LampsSDK/GDTAdapter (= 0.1.0)
+    - LampsSDK/NoahAdapter (= 0.1.0)
+  - LampsSDK/Core (0.1.0)
+  - LampsSDK/CSJAdapter (0.1.0):
+    - LampsSDK/Core
+  - LampsSDK/GDTAdapter (0.1.0):
+    - LampsSDK/Core
+  - LampsSDK/NoahAdapter (0.1.0):
+    - LampsSDK/Core
 
 DEPENDENCIES:
   - LampsSDK (from `../`)
@@ -9,7 +20,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LampsSDK: 05fe64de1a96a7300482e9fbebc29e6692f787d9
+  LampsSDK: 5dc0d716c3e46ceed9d23ab60829c94af5d21ec9
 
 PODFILE CHECKSUM: fdf245336b99279e4969acb1e57772a63e28506b
 
