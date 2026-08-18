@@ -1,29 +1,46 @@
 # LampsSDK
 
-[![CI Status](https://img.shields.io/travis/yujianchao/LampsSDK.svg?style=flat)](https://travis-ci.org/yujianchao/LampsSDK)
-[![Version](https://img.shields.io/cocoapods/v/LampsSDK.svg?style=flat)](https://cocoapods.org/pods/LampsSDK)
-[![License](https://img.shields.io/cocoapods/l/LampsSDK.svg?style=flat)](https://cocoapods.org/pods/LampsSDK)
-[![Platform](https://img.shields.io/cocoapods/p/LampsSDK.svg?style=flat)](https://cocoapods.org/pods/LampsSDK)
+面向三方 App 的 iOS SDK：WebView + Bridge、激励视频、CM/PM/XM 监测上报。
 
-## Example
+当前仓库：`git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git`
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+实现语言以 **Swift** 为主。公开 API 带 `@objc`，ObjC 宿主仍可调用。
 
-## Requirements
+## 分阶段
 
-## Installation
+| 阶段 | 内容 | 状态 |
+| --- | --- | --- |
+| 1 | 工程骨架、对外入口、Demo | 进行中 |
+| 2 | WKWebView 展示 | 未开始 |
+| 3 | Bridge 通信 | 未开始 |
+| 4 | CM / PM / XM 上报 | 未开始 |
+| 5 | 激励视频框架（不含三方广告 SDK 二进制） | 未开始 |
+| 6 | 穿山甲 / 优量汇 / 汇川 Adapter（宿主已有则复用） | 未开始 |
+| 7 | xcframework 手动集成出包 | 未开始 |
 
-LampsSDK is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+## 安装
 
 ```ruby
-pod 'LampsSDK'
+pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch => 'main'
 ```
 
-## Author
+本地 Demo：
 
-yujianchao, yujianchao@hupu.com
+```bash
+cd Example
+pod install
+open LampsSDK.xcworkspace
+```
 
-## License
+## 第一阶段用法
 
-LampsSDK is available under the MIT license. See the LICENSE file for more info.
+```swift
+import LampsSDK
+
+let config = LampsSDKConfig()
+config.appId = "your-app-id"
+config.debugLogEnabled = true
+try LampsSDK.start(config: config)
+```
+
+WebView / 激励视频 / 上报目前只有占位 API，调用后不会真正加载页面或广告。

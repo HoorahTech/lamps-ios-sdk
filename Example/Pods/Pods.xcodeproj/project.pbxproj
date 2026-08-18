@@ -7,72 +7,95 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043EDFEDF0AEF80882E4646B9F3DF901 /* LampsSDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B7DDF0A871FA0DFD86070F4503A830 /* LampsSDKConfig.swift */; };
+		0B72498CF222B9C0FD186492FA6DAC1B /* LampsSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EAA5E9D8DC4A921D24EEF43DF038A /* LampsSDK.swift */; };
+		1DC09C21292A294D5C50797E4606A075 /* LampsRewardAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4711DEE6DC16F27E17559AE03B2DA14 /* LampsRewardAd.swift */; };
+		2BAF8B86DE8F3E7CAD73FB9FDC618A54 /* LampsSDKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346D1CEA1D6FC92FFBB856057E55479 /* LampsSDKError.swift */; };
 		2CE93DFF5DB4713C66262ED0DE0B2972 /* Pods-LampsSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE234C0F4D5CF3E29234D889EA4ADE /* Pods-LampsSDK_Example-dummy.m */; };
+		35704EDD70850395671FF2A2F29A0D3F /* LampsSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C1ADA7D884DB3D07040DAB49FAA91C4 /* LampsSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66613BCC107D9CA909D19983A1FE2FF6 /* Pods-LampsSDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 045429A75D13D3EEED7E5778B264931A /* Pods-LampsSDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BB14F211E3CDE6C85A8190B2B5B5D65 /* Pods-LampsSDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 494121175C83EFBC755CE7482CB4761F /* Pods-LampsSDK_Tests-dummy.m */; };
-		83BF9F82DEEAA58E46BB1E00A9D0DC30 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
-		A8F033C5EC12158C39932DBE9D8D372C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
-		C6A8C4E028C796D0FBF399F26655E562 /* LampsSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EFCD51674615DEA63806E3744C65915D /* LampsSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D38B1A389FE983047C01429F30A3E00D /* ReplaceMe.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4352AF40FF7E54471FF2DFCF7E6A5 /* ReplaceMe.m */; };
-		D61C325F6676F3AE434F9F7EEFB964AA /* LampsSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5437FDC7C1136DB586CC9923581FBEDF /* LampsSDK-dummy.m */; };
+		9D957DFE4DAC17BB57DC0E13AFDDAA33 /* LampsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF84B8EA1B169EFF3A687AA2380327 /* LampsReporter.swift */; };
+		A8F033C5EC12158C39932DBE9D8D372C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8193349D819536E58C58A34C1B7DF545 /* Foundation.framework */; };
+		B52894C3A77A78A9300D7FCC0CFAA02F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8193349D819536E58C58A34C1B7DF545 /* Foundation.framework */; };
+		C02FB3BE55D0871C348F4D61D30C9F4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF4CA3AF5536D14B4E015504E7AEEC0 /* UIKit.framework */; };
+		CE14E43FA73D5571B73147A287D21BD4 /* LampsSDKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A0F22E371F471622D5DDC1E775E592 /* LampsSDKLog.swift */; };
 		DCC0C0D3157FB637ABEC16634F3AC3DC /* Pods-LampsSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BF070754F0B76C3CECCCACC0E9C8C1D /* Pods-LampsSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F404CF7A69856369680F800E1F05D004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		E04EC7D4B2CF5DAE1284B3B56C6F3F74 /* LampsSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A47EC9679810E7E1314DCDB62A0E71F7 /* LampsSDK-dummy.m */; };
+		F404CF7A69856369680F800E1F05D004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8193349D819536E58C58A34C1B7DF545 /* Foundation.framework */; };
+		F6D3052FB00FFA7DF39AF93B1B9F03DA /* LampsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08625362B3E0305F78A38B92D151DAC /* LampsWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		ACA779C0884887CD82D7A421BBF80654 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C4E820CF0670A7DE4EE6CE94E7487F1E;
-			remoteInfo = "Pods-LampsSDK_Example";
-		};
-		B7D6F4127C29406E9033E0134A29CC8D /* PBXContainerItemProxy */ = {
+		971E883F4D67367460D1F195C035F582 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F64035C8BBE74DBF593F506AB9E84BA8;
 			remoteInfo = LampsSDK;
 		};
+		AE80C1BCD8905C8C0CD9E506F57BC80D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4E820CF0670A7DE4EE6CE94E7487F1E;
+			remoteInfo = "Pods-LampsSDK_Example";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		03209876A7A1166E38FEE2034FE3B0BC /* Pods-LampsSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		045429A75D13D3EEED7E5778B264931A /* Pods-LampsSDK_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LampsSDK_Tests-umbrella.h"; sourceTree = "<group>"; };
-		1145937CB02DD673F7719CDE033A4E02 /* LampsSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LampsSDK-Info.plist"; sourceTree = "<group>"; };
+		1346D1CEA1D6FC92FFBB856057E55479 /* LampsSDKError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKError.swift; sourceTree = "<group>"; };
+		13B7DDF0A871FA0DFD86070F4503A830 /* LampsSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKConfig.swift; sourceTree = "<group>"; };
 		17ED012FBA91428EC5D2911F5E3A18A9 /* Pods-LampsSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		18EC9DB1E1C55EF4A5A214F363712C7F /* Pods-LampsSDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LampsSDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1BF070754F0B76C3CECCCACC0E9C8C1D /* Pods-LampsSDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LampsSDK_Example-umbrella.h"; sourceTree = "<group>"; };
 		2A557FC741C67CFC12A4C9FE45C2E5DC /* Pods-LampsSDK_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Tests-Info.plist"; sourceTree = "<group>"; };
 		30CE234C0F4D5CF3E29234D889EA4ADE /* Pods-LampsSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Example-dummy.m"; sourceTree = "<group>"; };
-		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EB8C1294E94C83BCE9AD5641254439E /* Pods-LampsSDK_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LampsSDK_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		407B3A9D0B02BC3B9CB4466C1D5BD8D2 /* LampsSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-prefix.pch"; sourceTree = "<group>"; };
-		46B8F9B480CD563EED36683F17EB8128 /* LampsSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = LampsSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		494121175C83EFBC755CE7482CB4761F /* Pods-LampsSDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Tests-dummy.m"; sourceTree = "<group>"; };
-		5437FDC7C1136DB586CC9923581FBEDF /* LampsSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LampsSDK-dummy.m"; sourceTree = "<group>"; };
+		49D1A9E5ED7839D79E79E66D1D9644B9 /* LampsSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LampsSDK.modulemap; sourceTree = "<group>"; };
 		548EDEFA81E8252592B5CC150B86F1E6 /* Pods-LampsSDK_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		553800B708FE6BE5BA7F1AF08E47CD49 /* Pods-LampsSDK_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-LampsSDK_Tests"; path = Pods_LampsSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C43DEA10DD8AE3FCB7A0882F5B6DF3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		5B4BECAE76370B7ADF902E72AF2E3248 /* Pods-LampsSDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		69E4352AF40FF7E54471FF2DFCF7E6A5 /* ReplaceMe.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ReplaceMe.m; path = LampsSDK/Classes/ReplaceMe.m; sourceTree = "<group>"; };
+		647EAA5E9D8DC4A921D24EEF43DF038A /* LampsSDK.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDK.swift; sourceTree = "<group>"; };
 		6D23EB82A4C9A588AAE55FD088AD5CD7 /* Pods-LampsSDK_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LampsSDK_Tests.modulemap"; sourceTree = "<group>"; };
 		712BDEC9BA7970EAF4F433BA917808BE /* Pods-LampsSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		83144E89D3B163F516311E2E8C3AF84F /* LampsSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.debug.xcconfig; sourceTree = "<group>"; };
-		86C17EA506793153A0694F480A32CDAB /* LampsSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.release.xcconfig; sourceTree = "<group>"; };
+		753A1F6E2DBF76FFA070083D3B07C9DE /* LampsSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-prefix.pch"; sourceTree = "<group>"; };
+		8193349D819536E58C58A34C1B7DF545 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		8C1ADA7D884DB3D07040DAB49FAA91C4 /* LampsSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-umbrella.h"; sourceTree = "<group>"; };
+		933660E74BBCEEDD459DA80DF19298DB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LampsSDK; path = LampsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A47EC9679810E7E1314DCDB62A0E71F7 /* LampsSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LampsSDK-dummy.m"; sourceTree = "<group>"; };
 		AB213AB3C631721AE154369A7805799E /* Pods-LampsSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
-		AC035A0A4AF0A25E92EA76E924540D24 /* LampsSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LampsSDK.modulemap; sourceTree = "<group>"; };
 		AC13C58603AC19CE4C4BFAACD240F16F /* Pods-LampsSDK_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LampsSDK_Example.modulemap"; sourceTree = "<group>"; };
 		B7D0F7D134008A6D6929D427ED51C9B2 /* Pods-LampsSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LampsSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
-		BD2D6251AF9CA02DD7F8F76F8FCADC80 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		CBAF84B8EA1B169EFF3A687AA2380327 /* LampsReporter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReporter.swift; sourceTree = "<group>"; };
+		D1A0F22E371F471622D5DDC1E775E592 /* LampsSDKLog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKLog.swift; sourceTree = "<group>"; };
+		DD4F12B6D907C029AAAC03C85EDDBA33 /* LampsSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.release.xcconfig; sourceTree = "<group>"; };
+		DFCD9EFF94DE9490F7D300FFEB8E17D6 /* LampsSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LampsSDK-Info.plist"; sourceTree = "<group>"; };
 		DFF01089E36EDC08B23B2218CE8A5EBB /* Pods-LampsSDK_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Example-Info.plist"; sourceTree = "<group>"; };
+		E08625362B3E0305F78A38B92D151DAC /* LampsWebViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWebViewController.swift; sourceTree = "<group>"; };
+		E14D194AD1355FE03B1C6BF9238EB758 /* LampsSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = LampsSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E34BC0BD1F1EF787BAF707863A1092EC /* Pods-LampsSDK_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-LampsSDK_Example"; path = Pods_LampsSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFCD51674615DEA63806E3744C65915D /* LampsSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-umbrella.h"; sourceTree = "<group>"; };
-		FAD0904C81061E22C752B759226721E0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		EAE3761B125496FF159B370522834797 /* LampsSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.debug.xcconfig; sourceTree = "<group>"; };
+		ECF4CA3AF5536D14B4E015504E7AEEC0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		F4711DEE6DC16F27E17559AE03B2DA14 /* LampsRewardAd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardAd.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0137A54231ECAFE57513C17A5FAA32EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B52894C3A77A78A9300D7FCC0CFAA02F /* Foundation.framework in Frameworks */,
+				C02FB3BE55D0871C348F4D61D30C9F4B /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A6352D1460465793CE92AD0D827D4E6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,17 +112,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9F424BAE694FD6839D99C17105B2963 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83BF9F82DEEAA58E46BB1E00A9D0DC30 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DE6440B6853131A80C53DDA34375AAB /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		19BC8B5DA22EE865139AFEB424FD1DE6 /* Pods-LampsSDK_Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +139,30 @@
 			path = "Target Support Files/Pods-LampsSDK_Tests";
 			sourceTree = "<group>";
 		};
+		1DE6440B6853131A80C53DDA34375AAB /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8193349D819536E58C58A34C1B7DF545 /* Foundation.framework */,
+				ECF4CA3AF5536D14B4E015504E7AEEC0 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		2A25B67CBE44930C84FA5DA1DC89DA47 /* LampsSDK */ = {
+			isa = PBXGroup;
+			children = (
+				43C701C6AED01B1B182DCEBBAD0AFA8D /* Core */,
+				EA78178D75C6FD14C4EEA4673BD54CB6 /* Pod */,
+				B25FB01F62ADEE0F46C2C91D82B7AB74 /* Public */,
+				8BF845C1C11D4A7079362AE62EB13482 /* Report */,
+				F7B255BD259B8E10AC99B4ECFE652120 /* Reward */,
+				95A7E67E4565E5B4B4FC6828F6834DAB /* Support Files */,
+				4A45BB39EDB68162FE877AB5A3073B87 /* Web */,
+			);
+			name = LampsSDK;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		2E3C5B15DD74727F26FA6F479EDFAB9A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +173,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		43C701C6AED01B1B182DCEBBAD0AFA8D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1346D1CEA1D6FC92FFBB856057E55479 /* LampsSDKError.swift */,
+				D1A0F22E371F471622D5DDC1E775E592 /* LampsSDKLog.swift */,
+			);
+			name = Core;
+			path = LampsSDK/Classes/Core;
+			sourceTree = "<group>";
+		};
 		4A06CADDC0CF355598CDF22ED6BC305A /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +190,15 @@
 				19BC8B5DA22EE865139AFEB424FD1DE6 /* Pods-LampsSDK_Tests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		4A45BB39EDB68162FE877AB5A3073B87 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				E08625362B3E0305F78A38B92D151DAC /* LampsWebViewController.swift */,
+			);
+			name = Web;
+			path = LampsSDK/Classes/Web;
 			sourceTree = "<group>";
 		};
 		822DC97BF7F61CC22367822B69747AFD /* Pods-LampsSDK_Example */ = {
@@ -152,75 +218,76 @@
 			path = "Target Support Files/Pods-LampsSDK_Example";
 			sourceTree = "<group>";
 		};
-		85EC1C290BD1F5283C3C49465755BFA2 /* Development Pods */ = {
+		8BF845C1C11D4A7079362AE62EB13482 /* Report */ = {
 			isa = PBXGroup;
 			children = (
-				C8D0DE2DD12A7A9E5AA55D51A1B478AD /* LampsSDK */,
+				CBAF84B8EA1B169EFF3A687AA2380327 /* LampsReporter.swift */,
 			);
-			name = "Development Pods";
+			name = Report;
+			path = LampsSDK/Classes/Report;
 			sourceTree = "<group>";
 		};
-		AF48529D79B6DBAF9E81B979A886E6CA /* Pod */ = {
+		95A7E67E4565E5B4B4FC6828F6834DAB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				46B8F9B480CD563EED36683F17EB8128 /* LampsSDK.podspec */,
-				FAD0904C81061E22C752B759226721E0 /* LICENSE */,
-				BD2D6251AF9CA02DD7F8F76F8FCADC80 /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		C5CBD589E17B7DAC395D7CBC7A18CA5B /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				AC035A0A4AF0A25E92EA76E924540D24 /* LampsSDK.modulemap */,
-				5437FDC7C1136DB586CC9923581FBEDF /* LampsSDK-dummy.m */,
-				1145937CB02DD673F7719CDE033A4E02 /* LampsSDK-Info.plist */,
-				407B3A9D0B02BC3B9CB4466C1D5BD8D2 /* LampsSDK-prefix.pch */,
-				EFCD51674615DEA63806E3744C65915D /* LampsSDK-umbrella.h */,
-				83144E89D3B163F516311E2E8C3AF84F /* LampsSDK.debug.xcconfig */,
-				86C17EA506793153A0694F480A32CDAB /* LampsSDK.release.xcconfig */,
+				49D1A9E5ED7839D79E79E66D1D9644B9 /* LampsSDK.modulemap */,
+				A47EC9679810E7E1314DCDB62A0E71F7 /* LampsSDK-dummy.m */,
+				DFCD9EFF94DE9490F7D300FFEB8E17D6 /* LampsSDK-Info.plist */,
+				753A1F6E2DBF76FFA070083D3B07C9DE /* LampsSDK-prefix.pch */,
+				8C1ADA7D884DB3D07040DAB49FAA91C4 /* LampsSDK-umbrella.h */,
+				EAE3761B125496FF159B370522834797 /* LampsSDK.debug.xcconfig */,
+				DD4F12B6D907C029AAAC03C85EDDBA33 /* LampsSDK.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/LampsSDK";
 			sourceTree = "<group>";
 		};
-		C8D0DE2DD12A7A9E5AA55D51A1B478AD /* LampsSDK */ = {
+		B25FB01F62ADEE0F46C2C91D82B7AB74 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				69E4352AF40FF7E54471FF2DFCF7E6A5 /* ReplaceMe.m */,
-				AF48529D79B6DBAF9E81B979A886E6CA /* Pod */,
-				C5CBD589E17B7DAC395D7CBC7A18CA5B /* Support Files */,
+				647EAA5E9D8DC4A921D24EEF43DF038A /* LampsSDK.swift */,
+				13B7DDF0A871FA0DFD86070F4503A830 /* LampsSDKConfig.swift */,
 			);
-			name = LampsSDK;
-			path = ../..;
+			name = Public;
+			path = LampsSDK/Classes/Public;
+			sourceTree = "<group>";
+		};
+		C1324FD3AC0058DBA32E46A73555A7FE /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2A25B67CBE44930C84FA5DA1DC89DA47 /* LampsSDK */,
+			);
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				85EC1C290BD1F5283C3C49465755BFA2 /* Development Pods */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				C1324FD3AC0058DBA32E46A73555A7FE /* Development Pods */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
 				2E3C5B15DD74727F26FA6F479EDFAB9A /* Products */,
 				4A06CADDC0CF355598CDF22ED6BC305A /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+		EA78178D75C6FD14C4EEA4673BD54CB6 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				E4801F62A6B08CD9B5410329F1A18FDE /* iOS */,
+				E14D194AD1355FE03B1C6BF9238EB758 /* LampsSDK.podspec */,
+				933660E74BBCEEDD459DA80DF19298DB /* LICENSE */,
+				56C43DEA10DD8AE3FCB7A0882F5B6DF3 /* README.md */,
 			);
-			name = Frameworks;
+			name = Pod;
 			sourceTree = "<group>";
 		};
-		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
+		F7B255BD259B8E10AC99B4ECFE652120 /* Reward */ = {
 			isa = PBXGroup;
 			children = (
-				384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */,
+				F4711DEE6DC16F27E17559AE03B2DA14 /* LampsRewardAd.swift */,
 			);
-			name = iOS;
+			name = Reward;
+			path = LampsSDK/Classes/Reward;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,19 +301,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A850CF04E046178C0E4675A9C97F06FE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35704EDD70850395671FF2A2F29A0D3F /* LampsSDK-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AF4289187C8B64599CEC8E05BF83C515 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				DCC0C0D3157FB637ABEC16634F3AC3DC /* Pods-LampsSDK_Example-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EBE86C854AFDE37DE2E0B7BEFF2AEF50 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C6A8C4E028C796D0FBF399F26655E562 /* LampsSDK-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +332,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				EF4358C72863E8EECF9148433A1701A5 /* PBXTargetDependency */,
+				1FEF86BD89982D652CB770DB3C7B98C1 /* PBXTargetDependency */,
 			);
 			name = "Pods-LampsSDK_Tests";
 			productName = Pods_LampsSDK_Tests;
@@ -284,7 +351,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				924A1D3E22EC5EF16A8C856849CD6E3B /* PBXTargetDependency */,
+				7DF4E3B9BFDA40163D4272BA1AF3BE23 /* PBXTargetDependency */,
 			);
 			name = "Pods-LampsSDK_Example";
 			productName = Pods_LampsSDK_Example;
@@ -293,12 +360,12 @@
 		};
 		F64035C8BBE74DBF593F506AB9E84BA8 /* LampsSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 849AB283011B96697041BD38D905B2AB /* Build configuration list for PBXNativeTarget "LampsSDK" */;
+			buildConfigurationList = 1F6C7275768BF400C8AD4C4BF7FF1BA1 /* Build configuration list for PBXNativeTarget "LampsSDK" */;
 			buildPhases = (
-				EBE86C854AFDE37DE2E0B7BEFF2AEF50 /* Headers */,
-				DC52D52F9F0F8A3F9DBC86CDEE6DD32A /* Sources */,
-				E9F424BAE694FD6839D99C17105B2963 /* Frameworks */,
-				D9539EDB0E164C129AC6D3861D9681A3 /* Resources */,
+				A850CF04E046178C0E4675A9C97F06FE /* Headers */,
+				80974A3C42ADF4366448DD76F084859D /* Sources */,
+				0137A54231ECAFE57513C17A5FAA32EF /* Frameworks */,
+				FD3D72C987020C3AAD10447C388E7942 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -355,7 +422,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D9539EDB0E164C129AC6D3861D9681A3 /* Resources */ = {
+		FD3D72C987020C3AAD10447C388E7942 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -381,274 +448,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC52D52F9F0F8A3F9DBC86CDEE6DD32A /* Sources */ = {
+		80974A3C42ADF4366448DD76F084859D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D61C325F6676F3AE434F9F7EEFB964AA /* LampsSDK-dummy.m in Sources */,
-				D38B1A389FE983047C01429F30A3E00D /* ReplaceMe.m in Sources */,
+				9D957DFE4DAC17BB57DC0E13AFDDAA33 /* LampsReporter.swift in Sources */,
+				1DC09C21292A294D5C50797E4606A075 /* LampsRewardAd.swift in Sources */,
+				0B72498CF222B9C0FD186492FA6DAC1B /* LampsSDK.swift in Sources */,
+				E04EC7D4B2CF5DAE1284B3B56C6F3F74 /* LampsSDK-dummy.m in Sources */,
+				043EDFEDF0AEF80882E4646B9F3DF901 /* LampsSDKConfig.swift in Sources */,
+				2BAF8B86DE8F3E7CAD73FB9FDC618A54 /* LampsSDKError.swift in Sources */,
+				CE14E43FA73D5571B73147A287D21BD4 /* LampsSDKLog.swift in Sources */,
+				F6D3052FB00FFA7DF39AF93B1B9F03DA /* LampsWebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		924A1D3E22EC5EF16A8C856849CD6E3B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LampsSDK;
-			target = F64035C8BBE74DBF593F506AB9E84BA8 /* LampsSDK */;
-			targetProxy = B7D6F4127C29406E9033E0134A29CC8D /* PBXContainerItemProxy */;
-		};
-		EF4358C72863E8EECF9148433A1701A5 /* PBXTargetDependency */ = {
+		1FEF86BD89982D652CB770DB3C7B98C1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-LampsSDK_Example";
 			target = C4E820CF0670A7DE4EE6CE94E7487F1E /* Pods-LampsSDK_Example */;
-			targetProxy = ACA779C0884887CD82D7A421BBF80654 /* PBXContainerItemProxy */;
+			targetProxy = AE80C1BCD8905C8C0CD9E506F57BC80D /* PBXContainerItemProxy */;
+		};
+		7DF4E3B9BFDA40163D4272BA1AF3BE23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LampsSDK;
+			target = F64035C8BBE74DBF593F506AB9E84BA8 /* LampsSDK */;
+			targetProxy = 971E883F4D67367460D1F195C035F582 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1EF92B6A7441E476A193CFAC3EA457CE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17ED012FBA91428EC5D2911F5E3A18A9 /* Pods-LampsSDK_Example.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		6F11F7C39D98F790CFA306AFB623A556 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03209876A7A1166E38FEE2034FE3B0BC /* Pods-LampsSDK_Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		7EE7A78859F657F6BEFC651185B43192 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Release;
-		};
-		86E6A9A78323E0EB3D8D62AE32EBA2E3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86C17EA506793153A0694F480A32CDAB /* LampsSDK.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/LampsSDK/LampsSDK-prefix.pch";
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "Target Support Files/LampsSDK/LampsSDK-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/LampsSDK/LampsSDK.modulemap";
-				PRODUCT_MODULE_NAME = LampsSDK;
-				PRODUCT_NAME = LampsSDK;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		9D84AAFD6F31FFA31EC7173C09F878FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB213AB3C631721AE154369A7805799E /* Pods-LampsSDK_Example.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		AD48F0412492AB6F76240BC33F1C2923 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 712BDEC9BA7970EAF4F433BA917808BE /* Pods-LampsSDK_Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D299434AB35E7FD6F7921C8EF24742FF /* Debug */ = {
+		2B9E26EAE2CD392AD762421F663075A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -701,7 +534,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -714,10 +547,12 @@
 			};
 			name = Debug;
 		};
-		E2193D36BB4A3082966D0ECCE14EEDD4 /* Debug */ = {
+		4D94DE2046AE226E91170456D4559F80 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 83144E89D3B163F516311E2E8C3AF84F /* LampsSDK.debug.xcconfig */;
+			baseConfigurationReference = 03209876A7A1166E38FEE2034FE3B0BC /* Pods-LampsSDK_Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -729,11 +564,180 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5A3566CC7447A21370EFB30C6A153D12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 712BDEC9BA7970EAF4F433BA917808BE /* Pods-LampsSDK_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		63FAF33E1C55B71A5F5A8B3CC8749F99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		6B7805BFD08A247B8807472F15E637E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17ED012FBA91428EC5D2911F5E3A18A9 /* Pods-LampsSDK_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D4A74EA35069E03A99342E8BC548A200 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAE3761B125496FF159B370522834797 /* LampsSDK.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/LampsSDK/LampsSDK-prefix.pch";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Target Support Files/LampsSDK/LampsSDK-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/LampsSDK/LampsSDK.modulemap";
 				PRODUCT_MODULE_NAME = LampsSDK;
@@ -742,30 +746,103 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
+		D8D6D089A2A5E867E1D8551FFB1476EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB213AB3C631721AE154369A7805799E /* Pods-LampsSDK_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DEA06CA99C1F686E48E691E3B0A2C87A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD4F12B6D907C029AAAC03C85EDDBA33 /* LampsSDK.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/LampsSDK/LampsSDK-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/LampsSDK/LampsSDK-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/LampsSDK/LampsSDK.modulemap";
+				PRODUCT_MODULE_NAME = LampsSDK;
+				PRODUCT_NAME = LampsSDK;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+		1F6C7275768BF400C8AD4C4BF7FF1BA1 /* Build configuration list for PBXNativeTarget "LampsSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D299434AB35E7FD6F7921C8EF24742FF /* Debug */,
-				7EE7A78859F657F6BEFC651185B43192 /* Release */,
+				D4A74EA35069E03A99342E8BC548A200 /* Debug */,
+				DEA06CA99C1F686E48E691E3B0A2C87A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		849AB283011B96697041BD38D905B2AB /* Build configuration list for PBXNativeTarget "LampsSDK" */ = {
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E2193D36BB4A3082966D0ECCE14EEDD4 /* Debug */,
-				86E6A9A78323E0EB3D8D62AE32EBA2E3 /* Release */,
+				2B9E26EAE2CD392AD762421F663075A1 /* Debug */,
+				63FAF33E1C55B71A5F5A8B3CC8749F99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -773,8 +850,8 @@
 		DCA97651110CA4B533FACABBE9AA00C9 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1EF92B6A7441E476A193CFAC3EA457CE /* Debug */,
-				9D84AAFD6F31FFA31EC7173C09F878FF /* Release */,
+				6B7805BFD08A247B8807472F15E637E5 /* Debug */,
+				D8D6D089A2A5E867E1D8551FFB1476EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -782,8 +859,8 @@
 		F6CA8415D3ADA08DE5B68A9047DD9685 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AD48F0412492AB6F76240BC33F1C2923 /* Debug */,
-				6F11F7C39D98F790CFA306AFB623A556 /* Release */,
+				5A3566CC7447A21370EFB30C6A153D12 /* Debug */,
+				4D94DE2046AE226E91170456D4559F80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

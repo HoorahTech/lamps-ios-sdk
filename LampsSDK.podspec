@@ -2,41 +2,32 @@
 # Be sure to run `pod lib lint LampsSDK.podspec' to ensure this is a
 # valid spec before submitting.
 #
-# Any lines starting with a # are optional, but their use is encouraged
 # To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
 #
 
 Pod::Spec.new do |s|
   s.name             = 'LampsSDK'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of LampsSDK.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.summary          = 'WebView、Bridge、激励视频与监测上报 SDK'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  LampsSDK 面向三方 App，提供 WebView 展示与 Bridge 通信、激励视频、CM/PM/XM 监测上报。
+  第一阶段仅包含模块骨架与 Demo，广告 SDK 按宿主是否已接入再决定是否自带。
                        DESC
 
-  s.homepage         = 'https://github.com/yujianchao/LampsSDK'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'http://gitlab.hupu.com/HPBase/lamps-ios-sdk'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'yujianchao' => 'yujianchao@hupu.com' }
-  s.source           = { :git => 'https://github.com/yujianchao/LampsSDK.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
+  s.swift_version = '5.0'
 
-  s.source_files = 'LampsSDK/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'LampsSDK' => ['LampsSDK/Assets/*.png']
-  # }
+  s.source_files = 'LampsSDK/Classes/**/*.swift'
+  s.frameworks = 'Foundation', 'UIKit'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.pod_target_xcconfig = {
+    'DEFINES_MODULE' => 'YES',
+    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
+  }
 end
