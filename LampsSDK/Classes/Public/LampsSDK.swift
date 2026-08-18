@@ -1,20 +1,26 @@
 import Foundation
 
-/// 对外总入口。宿主 `import LampsSDK` 后调用 `LampsSDK.start(config:)`。
+public typealias LampsSDKStartCompletion = (Bool, Error?) -> Void
+
+/// 对外总入口。宿主 `import LampsSDK` 后调用 `LampsSDK.start(config:completion:)`。
 @objcMembers
 public final class LampsSDK: NSObject {
     private static var storedConfig: LampsSDKConfig?
     private static var started = false
 
     /// 启动 SDK。应在使用 Web / 激励视频 / 上报之前调用。
-    @objc(startWithConfig:error:)
-    public static func start(config: LampsSDKConfig) throws {
+    @objc(startWithConfig:completion:)
+    public static func start(config: LampsSDKConfig, completion: LampsSDKStartCompletion? = nil) {
         guard !config.appId.isEmpty else {
-            throw LampsSDKError.invalidConfig("appId 不能为空").nsError
+            let error = LampsSDKError.invalidConfig("appId 不能为空").nsError
+            LampsSDKLog.debug("start failed: \(error.localizedDescription)")
+            completion?(false, error)
+            return
         }
         storedConfig = config.copy() as? LampsSDKConfig
         started = true
         LampsSDKLog.debug("started, appId=\(config.appId)")
+        completion?(true, nil)
     }
 
     public static var isStarted: Bool {

@@ -10,7 +10,7 @@ public final class LampsRewardAd: NSObject {
         _ = viewController
         guard LampsSDK.isStarted else {
             LampsSDKLog.debug("reward skipped: SDK not started")
-            completion?(false, LampsSDKError.notStarted("请先调用 LampsSDK.start(config:)").nsError)
+            completion?(false, LampsSDKError.notStarted("请先调用 LampsSDK.start(config:completion:)").nsError)
             return
         }
         LampsSDKLog.debug("reward placeholder called, will be implemented later")

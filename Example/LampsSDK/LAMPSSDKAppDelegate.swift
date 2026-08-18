@@ -13,10 +13,10 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
         let config = LampsSDKConfig()
         config.appId = "lamps-sdk-demo"
         config.debugLogEnabled = true
-        do {
-            try LampsSDK.start(config: config)
-        } catch {
-            NSLog("[LampsSDK Demo] start failed: %@", error.localizedDescription)
+        LampsSDK.start(config: config) { success, error in
+            if !success {
+                NSLog("[LampsSDK Demo] start failed: %@", error?.localizedDescription ?? "")
+            }
         }
         return true
     }

@@ -40,7 +40,11 @@ import LampsSDK
 let config = LampsSDKConfig()
 config.appId = "your-app-id"
 config.debugLogEnabled = true
-try LampsSDK.start(config: config)
+LampsSDK.start(config: config) { success, error in
+    if !success {
+        print(error?.localizedDescription ?? "")
+    }
+}
 ```
 
 WebView / 激励视频 / 上报目前只有占位 API，调用后不会真正加载页面或广告。
