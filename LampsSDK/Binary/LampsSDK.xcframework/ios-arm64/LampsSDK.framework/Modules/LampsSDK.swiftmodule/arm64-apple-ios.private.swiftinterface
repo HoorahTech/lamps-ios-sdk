@@ -1,0 +1,398 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.3 effective-5.10 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name LampsSDK
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
+import AdSupport
+import AppTrackingTransparency
+import CommonCrypto
+import CoreGraphics
+import Foundation
+@_exported import LampsSDK
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swift.Void
+@objc @_inheritsConvenienceInitializers @objcMembers final public class Lamps : ObjectiveC.NSObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(startWithConfig:completion:) public static func start(config: LampsSDK.LampsSDKConfig, completion: LampsSDK.LampsStartCompletion? = nil)
+  #endif
+  @objc public static var isStarted: Swift.Bool {
+    @objc get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static var config: LampsSDK.LampsSDKConfig? {
+    @objc get
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static var remoteConfig: LampsSDK.LampsRemoteConfig? {
+    @objc get
+  }
+  #endif
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsBaseBridgeHandler : ObjectiveC.NSObject, LampsSDK.LampsBridgeHandler {
+  @objc weak final public var bridge: LampsSDK.LampsBridge?
+  @objc final public var supportedMethods: [Swift.String] {
+    @objc get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func handle(method: Swift.String, data: [Swift.AnyHashable : Any], success: LampsSDK.LampsBridgeToH5Callback?, error: LampsSDK.LampsBridgeToH5Callback?)
+  #endif
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsBridge : ObjectiveC.NSObject, WebKit.WKScriptMessageHandler {
+  @objc @_Concurrency.MainActor @preconcurrency public static let messageName: Swift.String
+  @objc @_Concurrency.MainActor @preconcurrency weak final public var webView: LampsSDK.LampsWebView?
+  @objc @_Concurrency.MainActor @preconcurrency final public var handlers: [any LampsSDK.LampsBridgeHandler] {
+    get
+  }
+  @objc @_Concurrency.MainActor @preconcurrency public init(webView: LampsSDK.LampsWebView)
+  @objc(addHandler:) @_Concurrency.MainActor @preconcurrency final public func addHandler(_ handler: any LampsSDK.LampsBridgeHandler)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(sendMethod:data:success:error:) @_Concurrency.MainActor @preconcurrency final public func send(method: Swift.String, data: [Swift.AnyHashable : Any] = [:], success: LampsSDK.LampsBridgeToH5Callback? = nil, error: LampsSDK.LampsBridgeToH5Callback? = nil)
+  #endif
+  @objc(flushMessageQueue:) @_Concurrency.MainActor @preconcurrency final public func flushMessageQueue(_ jsStr: Swift.String)
+  @_Concurrency.MainActor @preconcurrency @objc final public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
+  @objc deinit
+}
+public typealias LampsBridgeToH5Callback = ([Swift.AnyHashable : Any]) -> Swift.Void
+@objc public protocol LampsBridgeHandler {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc var bridge: LampsSDK.LampsBridge? { get set }
+  #endif
+  @objc var supportedMethods: [Swift.String] { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc func handle(method: Swift.String, data: [Swift.AnyHashable : Any], success: LampsSDK.LampsBridgeToH5Callback?, error: LampsSDK.LampsBridgeToH5Callback?)
+  #endif
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsNavigationBridgeHandler : ObjectiveC.NSObject, LampsSDK.LampsBridgeHandler {
+  @objc weak final public var bridge: LampsSDK.LampsBridge?
+  @objc final public var closeHandler: (() -> Swift.Void)?
+  @objc final public var supportedMethods: [Swift.String] {
+    @objc get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func handle(method: Swift.String, data: [Swift.AnyHashable : Any], success: LampsSDK.LampsBridgeToH5Callback?, error: LampsSDK.LampsBridgeToH5Callback?)
+  #endif
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsRemoteConfig : ObjectiveC.NSObject {
+  @objc final public var rewardAdSlots: [LampsSDK.LampsRewardAdSlot]
+  @objc final public var token: Swift.String
+  @objc final public var clientIp: Swift.String
+  @objc final public var monitorLinks: LampsSDK.LampsMonitorLinks
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsRewardAdSlot : ObjectiveC.NSObject {
+  @objc final public var slotId: Swift.String
+  @objc final public var type: Swift.String
+  @objc final public var channelName: Swift.String
+  @objc final public var channelId: Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsMonitorLinks : ObjectiveC.NSObject {
+  @objc final public var rm: [Swift.String]
+  @objc final public var pm: [Swift.String]
+  @objc final public var cm: [Swift.String]
+  @objc final public var dm: [Swift.String]
+  @objc final public var wm: [Swift.String]
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsReporter : ObjectiveC.NSObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(reportWithType:urls:adInfo:extra:) public static func report(type: LampsSDK.LampsReportType, urls: [Swift.String], adInfo: [Swift.AnyHashable : Any]? = nil, extra: [Swift.AnyHashable : Any]? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(reportRMWithURLs:adInfo:extra:) public static func reportRM(urls: [Swift.String], adInfo: [Swift.AnyHashable : Any]? = nil, extra: [Swift.AnyHashable : Any]? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(reportWMWithURLs:adInfo:extra:) public static func reportWM(urls: [Swift.String], adInfo: [Swift.AnyHashable : Any]? = nil, extra: [Swift.AnyHashable : Any]? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(reportCMWithURLs:adInfo:extra:) public static func reportCM(urls: [Swift.String], adInfo: [Swift.AnyHashable : Any]? = nil, extra: [Swift.AnyHashable : Any]? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(reportPMWithURLs:adInfo:extra:) public static func reportPM(urls: [Swift.String], adInfo: [Swift.AnyHashable : Any]? = nil, extra: [Swift.AnyHashable : Any]? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(reportREMWithURLs:adInfo:extra:) public static func reportREM(urls: [Swift.String], adInfo: [Swift.AnyHashable : Any]? = nil, extra: [Swift.AnyHashable : Any]? = nil)
+  #endif
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum LampsReportType : Swift.Int {
+  case rm = 0
+  case wm
+  case cm
+  case pm
+  case rem
+  public var name: Swift.String {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum LampsRewardCallbackName : Swift.Int {
+  case busy = 0
+  case reqError
+  case loadSuccess
+  case loadError
+  case showSuccess
+  case showError
+  case rewardArrived
+  case close
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsRewardCallback : ObjectiveC.NSObject {
+  @objc final public var name: LampsSDK.LampsRewardCallbackName
+  @objc final public var status: Swift.Bool
+  @objc final public var rewardStatus: Swift.Bool
+  @objc final public var errCode: Swift.Int
+  @objc final public var errMessage: Swift.String?
+  @objc final public var channelName: Swift.String
+  @objc final public var slotId: Swift.String
+  @objc final public var price: CoreFoundation.CGFloat
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias LampsRewardEventHandler = (LampsSDK.LampsRewardCallback) -> Swift.Void
+public typealias LampsRewardCompletion = (Swift.Bool, (any Swift.Error)?) -> Swift.Void
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsRewardVideoManager : ObjectiveC.NSObject {
+  @objc public static let shared: LampsSDK.LampsRewardVideoManager
+  @objc final public var isActive: Swift.Bool {
+    @objc get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(startFromViewController:handler:) final public func start(from viewController: UIKit.UIViewController, handler: LampsSDK.LampsRewardEventHandler?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(startFromViewController:handler:completion:) final public func start(from viewController: UIKit.UIViewController, handler: LampsSDK.LampsRewardEventHandler?, completion: LampsSDK.LampsRewardCompletion?)
+  #endif
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsRewardAd : ObjectiveC.NSObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(showFromViewController:completion:) public static func show(from viewController: UIKit.UIViewController, completion: LampsSDK.LampsRewardCompletion?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(showFromViewController:handler:completion:) public static func show(from viewController: UIKit.UIViewController, handler: LampsSDK.LampsRewardEventHandler?, completion: LampsSDK.LampsRewardCompletion?)
+  #endif
+  @objc public static func isAdapterAvailable(_ channel: LampsSDK.LampsRewardChannel) -> Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol LampsRewardAdapting : AnyObject {
+  var model: LampsSDK.LampsRewardAdModel { get }
+  var isReadyToShow: Swift.Bool { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  var delegate: (any LampsSDK.LampsRewardAdapterDelegate)? { get set }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  func load(from viewController: UIKit.UIViewController?)
+  #endif
+  func show()
+  func notifyAuctionWin(secondPrice: CoreFoundation.CGFloat)
+  func notifyAuctionLoss(winnerPrice: CoreFoundation.CGFloat)
+}
+public protocol LampsRewardAdapterDelegate : AnyObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  func rewardAdapter(_ adapter: any LampsSDK.LampsRewardAdapting, didFinishLoad success: Swift.Bool, error: (any Swift.Error)?)
+  #endif
+  func rewardAdapterDidBecomeReadyToShow(_ adapter: any LampsSDK.LampsRewardAdapting)
+  func rewardAdapterDidShow(_ adapter: any LampsSDK.LampsRewardAdapting)
+  #if compiler(>=5.3) && $NonescapableTypes
+  func rewardAdapter(_ adapter: any LampsSDK.LampsRewardAdapting, didFailToShow error: (any Swift.Error)?)
+  #endif
+  func rewardAdapterDidReceiveReward(_ adapter: any LampsSDK.LampsRewardAdapting)
+  func rewardAdapterDidClose(_ adapter: any LampsSDK.LampsRewardAdapting, hasRewarded: Swift.Bool)
+  func rewardAdapterDidClick(_ adapter: any LampsSDK.LampsRewardAdapting)
+}
+@objc public enum LampsRewardChannel : Swift.Int {
+  case csj = 1
+  case gdt = 2
+  case noah = 3
+  public var name: Swift.String {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func from(channelId: Swift.String?) -> LampsSDK.LampsRewardChannel?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc final public class LampsRewardAdModel : ObjectiveC.NSObject {
+  final public let slot: LampsSDK.LampsRewardAdSlot
+  final public let channel: LampsSDK.LampsRewardChannel
+  final public var price: CoreFoundation.CGFloat
+  final public var bidfloor: CoreFoundation.CGFloat
+  final public var timeoutMs: Swift.Int
+  final public var userId: Swift.String
+  final public var slotId: Swift.String {
+    get
+  }
+  public init(slot: LampsSDK.LampsRewardAdSlot, channel: LampsSDK.LampsRewardChannel, timeoutMs: Swift.Int, userId: Swift.String)
+  final public var adInfo: [Swift.AnyHashable : Any] {
+    get
+  }
+  @objc deinit
+}
+public enum LampsRewardMonitorReporter {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func reportRM(model: LampsSDK.LampsRewardAdModel, isSuccess: Swift.Bool, filterReason: Swift.String? = nil, delayTimeMs: Swift.Int? = nil, error: (any Swift.Error)? = nil)
+  #endif
+  public static func reportPM(model: LampsSDK.LampsRewardAdModel)
+  public static func reportCM(model: LampsSDK.LampsRewardAdModel)
+  public static func reportWM(model: LampsSDK.LampsRewardAdModel)
+  public static func reportREM(model: LampsSDK.LampsRewardAdModel)
+}
+public typealias LampsRewardAdapterMaker = (LampsSDK.LampsRewardAdModel) -> any LampsSDK.LampsRewardAdapting
+public enum LampsSDKAdapterCenter {
+  public static func register(channel: LampsSDK.LampsRewardChannel, maker: @escaping LampsSDK.LampsRewardAdapterMaker)
+  public static func registerInitializer(channel: LampsSDK.LampsRewardChannel, initializer: any LampsSDK.LampsSDKInitializing.Type)
+  public static func isAvailable(_ channel: LampsSDK.LampsRewardChannel) -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsSDKConfig : ObjectiveC.NSObject, Foundation.NSCopying {
+  @objc final public var appId: Swift.String
+  @objc final public var debugLogEnabled: Swift.Bool
+  @objc final public var rewardSignKey: Swift.String
+  @objc final public var environment: LampsSDK.LampsSDKEnvironment
+  @objc final public var csjAppId: Swift.String
+  @objc final public var gdtAppId: Swift.String
+  @objc final public var noahAppKey: Swift.String
+  @objc final public var rewardTimeoutMs: Swift.Int
+  @objc final public var rewardUserId: Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  #endif
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum LampsSDKEnvironment : Swift.Int {
+  case prd = 0
+  case dev = 1
+  public var baseURL: Swift.String {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public let LampsSDKErrorDomain: Swift.String
+@objc public enum LampsSDKErrorCode : Swift.Int {
+  case notImplemented = -1001
+  case notStarted = -1002
+  case invalidConfig = -1003
+  case invalidURL = -1004
+  case network = -1005
+  case api = -1006
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum LampsSDKError {
+  case notImplemented(Swift.String)
+  case notStarted(Swift.String)
+  case invalidConfig(Swift.String)
+  case invalidURL(Swift.String)
+  case network(Swift.String)
+  case api(Swift.String)
+  public var nsError: Foundation.NSError {
+    get
+  }
+}
+public protocol LampsSDKInitializing {
+  #if compiler(>=5.3) && $NonescapableTypes
+  static func initialize(config: LampsSDK.LampsSDKConfig, completion: @escaping (Swift.Bool, (any Swift.Error)?) -> Swift.Void)
+  #endif
+}
+@objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency public class LampsWebView : WebKit.WKWebView {
+  @objc @_Concurrency.MainActor @preconcurrency public var bridge: LampsSDK.LampsBridge! {
+    get
+  }
+  @objc @_Concurrency.MainActor @preconcurrency public var closeHandler: (() -> Swift.Void)? {
+    @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor @preconcurrency @objc convenience dynamic public init()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect, configuration: WebKit.WKWebViewConfiguration)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  #endif
+  @objc deinit
+  @discardableResult
+  @objc(loadURLString:) @_Concurrency.MainActor @preconcurrency public func load(urlString: Swift.String) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @_Concurrency.MainActor @preconcurrency public static func makeURL(from string: Swift.String) -> Foundation.URL?
+  #endif
+  @objc @_Concurrency.MainActor @preconcurrency public static func makeConfiguration() -> WebKit.WKWebViewConfiguration
+}
+extension LampsSDK.LampsWebView : WebKit.WKUIDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
+  #endif
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsWebViewController : UIKit.UIViewController {
+  @objc @_Concurrency.MainActor @preconcurrency final public let urlString: Swift.String
+  @objc @_Concurrency.MainActor @preconcurrency final public let htmlString: Swift.String?
+  @objc @_Concurrency.MainActor @preconcurrency final public var webView: LampsSDK.LampsWebView {
+    @objc get
+  }
+  @objc(initWithURLString:) @_Concurrency.MainActor @preconcurrency convenience public init(urlString: Swift.String)
+  @objc(initWithHTMLString:) @_Concurrency.MainActor @preconcurrency convenience public init(htmlString: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @_Concurrency.MainActor @preconcurrency public init(urlString: Swift.String, htmlString: Swift.String?)
+  #endif
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @objc deinit
+}
+extension LampsSDK.LampsBridge : Swift.Sendable {}
+extension LampsSDK.LampsReportType : Swift.Equatable {}
+extension LampsSDK.LampsReportType : Swift.Hashable {}
+extension LampsSDK.LampsReportType : Swift.RawRepresentable {}
+extension LampsSDK.LampsRewardCallbackName : Swift.Equatable {}
+extension LampsSDK.LampsRewardCallbackName : Swift.Hashable {}
+extension LampsSDK.LampsRewardCallbackName : Swift.RawRepresentable {}
+extension LampsSDK.LampsRewardChannel : Swift.Equatable {}
+extension LampsSDK.LampsRewardChannel : Swift.Hashable {}
+extension LampsSDK.LampsRewardChannel : Swift.RawRepresentable {}
+extension LampsSDK.LampsSDKEnvironment : Swift.Equatable {}
+extension LampsSDK.LampsSDKEnvironment : Swift.Hashable {}
+extension LampsSDK.LampsSDKEnvironment : Swift.RawRepresentable {}
+extension LampsSDK.LampsSDKErrorCode : Swift.Equatable {}
+extension LampsSDK.LampsSDKErrorCode : Swift.Hashable {}
+extension LampsSDK.LampsSDKErrorCode : Swift.RawRepresentable {}

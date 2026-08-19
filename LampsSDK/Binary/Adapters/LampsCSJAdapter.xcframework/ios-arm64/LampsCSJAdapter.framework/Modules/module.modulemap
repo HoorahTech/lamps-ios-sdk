@@ -1,0 +1,11 @@
+framework module LampsCSJAdapter {
+  umbrella header "LampsCSJAdapter-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module LampsCSJAdapter.Swift {
+  header "LampsCSJAdapter-Swift.h"
+  requires objc
+}

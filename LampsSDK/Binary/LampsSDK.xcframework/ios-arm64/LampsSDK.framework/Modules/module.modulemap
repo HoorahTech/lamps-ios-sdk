@@ -1,0 +1,11 @@
+framework module LampsSDK {
+  umbrella header "LampsSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module LampsSDK.Swift {
+  header "LampsSDK-Swift.h"
+  requires objc
+}

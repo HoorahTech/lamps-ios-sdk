@@ -99,6 +99,19 @@ cp -R "$OUT/LampsCSJAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsGDTAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsNoahAdapter.xcframework" "$RELEASE/Adapters/"
 
+# 同步到仓库 Binary 目录，供 LampsSDK.podspec use_binary = true 引用
+BINARY_DIR="$ROOT/LampsSDK/Binary"
+echo "==> Sync to $BINARY_DIR"
+mkdir -p "$BINARY_DIR/Adapters"
+rm -rf "$BINARY_DIR/LampsSDK.xcframework"
+rm -rf "$BINARY_DIR/Adapters/LampsCSJAdapter.xcframework"
+rm -rf "$BINARY_DIR/Adapters/LampsGDTAdapter.xcframework"
+rm -rf "$BINARY_DIR/Adapters/LampsNoahAdapter.xcframework"
+cp -R "$OUT/LampsSDK.xcframework" "$BINARY_DIR/"
+cp -R "$OUT/LampsCSJAdapter.xcframework" "$BINARY_DIR/Adapters/"
+cp -R "$OUT/LampsGDTAdapter.xcframework" "$BINARY_DIR/Adapters/"
+cp -R "$OUT/LampsNoahAdapter.xcframework" "$BINARY_DIR/Adapters/"
+
 if [[ -d "$ROOT/LampsSDK/Vendor/Noah" ]]; then
   mkdir -p "$RELEASE/ThirdParty/Noah"
   rsync -a --exclude '.git' "$ROOT/LampsSDK/Vendor/Noah/" "$RELEASE/ThirdParty/Noah/"

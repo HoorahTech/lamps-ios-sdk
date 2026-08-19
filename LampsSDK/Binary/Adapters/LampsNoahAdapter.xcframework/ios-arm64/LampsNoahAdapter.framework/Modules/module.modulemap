@@ -1,0 +1,11 @@
+framework module LampsNoahAdapter {
+  umbrella header "LampsNoahAdapter-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module LampsNoahAdapter.Swift {
+  header "LampsNoahAdapter-Swift.h"
+  requires objc
+}

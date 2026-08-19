@@ -16,6 +16,7 @@
 			dependencies = (
 			);
 			name = GDTMobSDK;
+			productName = GDTMobSDK;
 		};
 		726ABAA3B995C2690CAF752FB08ABF6D /* Ads-CN */ = {
 			isa = PBXAggregateTarget;
@@ -26,6 +27,7 @@
 			dependencies = (
 			);
 			name = "Ads-CN";
+			productName = "Ads-CN";
 		};
 /* End PBXAggregateTarget section */
 
@@ -131,15 +133,15 @@
 		19A79DC2942587FD21C511F54C9028DD /* LampsWeakScriptMessageHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWeakScriptMessageHandler.swift; sourceTree = "<group>"; };
 		2093D4CFB264C277C99B2A9FC111D2AB /* Pods-LampsSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		20D47CCE6A2E8504179BCEE871FAEA3D /* Pods-LampsSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LampsSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
-		231169D8902F44596E117C035A6A42AD /* BUAdSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = BUAdSDK.xcframework; path = SDK/BUAdSDK.xcframework; sourceTree = "<group>"; };
+		231169D8902F44596E117C035A6A42AD /* BUAdSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = BUAdSDK.xcframework; path = SDK/BUAdSDK.xcframework; sourceTree = "<group>"; };
 		23AF22ECB58668078B39C9DC39B6F07B /* Pods-LampsSDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Tests-dummy.m"; sourceTree = "<group>"; };
 		2519803DCBD7B2CDB14FB1A0BB86103C /* LampsGDTSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsGDTSDKInitializer.swift; path = LampsSDK/Classes/GDTAdapter/LampsGDTSDKInitializer.swift; sourceTree = "<group>"; };
 		27931814E6C1BB0CDD42F8BD26CA483B /* LampsSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKConfig.swift; sourceTree = "<group>"; };
 		2D91B83EECE4489B37E53D1FDC34C761 /* LampsSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LampsSDK-dummy.m"; sourceTree = "<group>"; };
-		34AE0DF462C750F3F0FEEFC30EF39F4F /* LampsSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = LampsSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		34AE0DF462C750F3F0FEEFC30EF39F4F /* LampsSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = LampsSDK.podspec; sourceTree = "<group>"; tabWidth = 2; };
 		35BC8ED75154694BBE3B5E5941BBEA23 /* Pods-LampsSDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LampsSDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		37174C144524381DD834B28B600E2938 /* LampsGDTRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsGDTRegister.m; path = LampsSDK/Classes/GDTAdapter/LampsGDTRegister.m; sourceTree = "<group>"; };
-		3D8B3A8EEA1B5DC7BD2A0621BD65CFE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		3D8B3A8EEA1B5DC7BD2A0621BD65CFE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3F78725AAB078158F790EB1D9DF1653B /* LampsBaseBridgeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsBaseBridgeHandler.swift; sourceTree = "<group>"; };
 		42C38D6706D32704E5EB7EF038BAE4AA /* LampsRewardChannel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardChannel.swift; sourceTree = "<group>"; };
 		445AA816B360823D342D1ADD39DC0C66 /* Pods-LampsSDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LampsSDK_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -147,11 +149,11 @@
 		4EFF5EA01C879665F21F86D36B7ACEDA /* Pods-LampsSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		4FE77B45375679D8508C64BAA0765937 /* LampsCSJRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsCSJRewardAdapter.swift; path = LampsSDK/Classes/CSJAdapter/LampsCSJRewardAdapter.swift; sourceTree = "<group>"; };
 		51881C207CDDF7C7BEA0950AA26F034F /* LampsWebViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWebViewController.swift; sourceTree = "<group>"; };
-		553800B708FE6BE5BA7F1AF08E47CD49 /* Pods-LampsSDK_Tests */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-LampsSDK_Tests"; path = "libPods-LampsSDK_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		553800B708FE6BE5BA7F1AF08E47CD49 /* libPods-LampsSDK_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LampsSDK_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5686A2E07141D0C044C8CCA0F73D281D /* LampsNoahSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsNoahSDKInitializer.swift; path = LampsSDK/Classes/NoahAdapter/LampsNoahSDKInitializer.swift; sourceTree = "<group>"; };
 		59AD506D0A05209ACB854A4F6DF34BFF /* LampsSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.debug.xcconfig; sourceTree = "<group>"; };
 		5F2749771825D4B7D46F0D6822EF2EF7 /* LampsSDKError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKError.swift; sourceTree = "<group>"; };
-		68FD76200D450061CD680D4EC1F3BF39 /* Tquic.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = Tquic.xcframework; path = GDTFramework/Tquic.xcframework; sourceTree = "<group>"; };
+		68FD76200D450061CD680D4EC1F3BF39 /* Tquic.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = Tquic.xcframework; path = GDTFramework/Tquic.xcframework; sourceTree = "<group>"; };
 		6C066500C14BF236333417DFABCDA9A8 /* LampsSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LampsSDK.modulemap; sourceTree = "<group>"; };
 		6FE521360E955C5C55218D9B6D254CF1 /* LampsSDKAdapterCenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKAdapterCenter.swift; sourceTree = "<group>"; };
 		725B31E4F323D1593A3CDC643AC981A2 /* LampsRewardAdapting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardAdapting.swift; sourceTree = "<group>"; };
@@ -166,9 +168,9 @@
 		95012FA5080FF97F7B86B2294EC46BF9 /* LampsSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.release.xcconfig; sourceTree = "<group>"; };
 		99C6842A300DC2FB078CA986D6DC5766 /* GDTMobSDK-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "GDTMobSDK-xcframeworks.sh"; sourceTree = "<group>"; };
 		9CA4483B5A28E3E3FD0CA78984020542 /* LampsNoahRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsNoahRegister.m; path = LampsSDK/Classes/NoahAdapter/LampsNoahRegister.m; sourceTree = "<group>"; };
-		9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = LampsSDK; path = libLampsSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CE3580168FEC08F5ACBDD0F22D16B48 /* libLampsSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLampsSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3692AE901225E33DA5A8D4BB7B9B23 /* Ads-CN-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Ads-CN-xcframeworks.sh"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F8F432F9C938EC71F51EF4E73319FB2 /* LampsConfigService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsConfigService.swift; sourceTree = "<group>"; };
 		A7292C74A231A31D140BB6788CD6461D /* Pods-LampsSDK_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LampsSDK_Example-resources.sh"; sourceTree = "<group>"; };
 		ABB354D05CD634213D5F3C68300A13A6 /* Ads-CN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Ads-CN.debug.xcconfig"; sourceTree = "<group>"; };
@@ -180,9 +182,9 @@
 		C2F2068FC54723F186FDC6C908BFDB65 /* GDTMobSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GDTMobSDK.release.xcconfig; sourceTree = "<group>"; };
 		C44E7C08F73063AB84D3249E3FE7A333 /* LampsNoahRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsNoahRewardAdapter.swift; path = LampsSDK/Classes/NoahAdapter/LampsNoahRewardAdapter.swift; sourceTree = "<group>"; };
 		C9F61914DB2469712C167BDF7E3AD374 /* LampsSDKInitializing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKInitializing.swift; sourceTree = "<group>"; };
-		D2BE70FF38726425C50C14E90EB94DAD /* GDTMobSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GDTMobSDK.xcframework; path = GDTFramework/GDTMobSDK.xcframework; sourceTree = "<group>"; };
+		D2BE70FF38726425C50C14E90EB94DAD /* GDTMobSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = GDTMobSDK.xcframework; path = GDTFramework/GDTMobSDK.xcframework; sourceTree = "<group>"; };
 		DCD2397DAFC01953913E171AC9CB830C /* LampsReportType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReportType.swift; sourceTree = "<group>"; };
-		E34BC0BD1F1EF787BAF707863A1092EC /* Pods-LampsSDK_Example */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-LampsSDK_Example"; path = "libPods-LampsSDK_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E34BC0BD1F1EF787BAF707863A1092EC /* libPods-LampsSDK_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LampsSDK_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E64311CBBF9C9651248F73BA3691A44A /* Pods-LampsSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Example-dummy.m"; sourceTree = "<group>"; };
 		E9E23287BA5BCF2368A4659AE4553E55 /* LampsMacroReplacer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsMacroReplacer.swift; sourceTree = "<group>"; };
 		EAF56EB698B7BBD22E9EF908864251A7 /* LampsSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-umbrella.h"; sourceTree = "<group>"; };
@@ -307,7 +309,6 @@
 				0AEEA55731E6BB4396A2E94FC7CB447A /* BUAdSDK */,
 				1F8454B71CBADAF5E19BE4440EC12BFB /* Support Files */,
 			);
-			name = "Ads-CN";
 			path = "Ads-CN";
 			sourceTree = "<group>";
 		};
@@ -413,7 +414,6 @@
 				BF75204D66B57164A3EE6117011C1C06 /* LampsNavigationBridgeHandler.swift */,
 				19A79DC2942587FD21C511F54C9028DD /* LampsWeakScriptMessageHandler.swift */,
 			);
-			name = Bridge;
 			path = Bridge;
 			sourceTree = "<group>";
 		};
@@ -488,7 +488,6 @@
 				00E28C0230A0719A1B044174A5235BE3 /* Frameworks */,
 				55191C77E0EF7201ECDFAAB1CFC8A37F /* Support Files */,
 			);
-			name = GDTMobSDK;
 			path = GDTMobSDK;
 			sourceTree = "<group>";
 		};
@@ -541,9 +540,9 @@
 		E9C40452FDB1D8C1B02719C9D597D7A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */,
-				E34BC0BD1F1EF787BAF707863A1092EC /* Pods-LampsSDK_Example */,
-				553800B708FE6BE5BA7F1AF08E47CD49 /* Pods-LampsSDK_Tests */,
+				9CE3580168FEC08F5ACBDD0F22D16B48 /* libLampsSDK.a */,
+				E34BC0BD1F1EF787BAF707863A1092EC /* libPods-LampsSDK_Example.a */,
+				553800B708FE6BE5BA7F1AF08E47CD49 /* libPods-LampsSDK_Tests.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -602,7 +601,7 @@
 			);
 			name = "Pods-LampsSDK_Tests";
 			productName = "Pods-LampsSDK_Tests";
-			productReference = 553800B708FE6BE5BA7F1AF08E47CD49 /* Pods-LampsSDK_Tests */;
+			productReference = 553800B708FE6BE5BA7F1AF08E47CD49 /* libPods-LampsSDK_Tests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		C4E820CF0670A7DE4EE6CE94E7487F1E /* Pods-LampsSDK_Example */ = {
@@ -622,7 +621,7 @@
 			);
 			name = "Pods-LampsSDK_Example";
 			productName = "Pods-LampsSDK_Example";
-			productReference = E34BC0BD1F1EF787BAF707863A1092EC /* Pods-LampsSDK_Example */;
+			productReference = E34BC0BD1F1EF787BAF707863A1092EC /* libPods-LampsSDK_Example.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		F64035C8BBE74DBF593F506AB9E84BA8 /* LampsSDK */ = {
@@ -642,7 +641,7 @@
 			);
 			name = LampsSDK;
 			productName = LampsSDK;
-			productReference = 9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */;
+			productReference = 9CE3580168FEC08F5ACBDD0F22D16B48 /* libLampsSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -663,8 +662,6 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			minimizedProjectReferenceProxies = 0;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = E9C40452FDB1D8C1B02719C9D597D7A2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -993,8 +990,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};

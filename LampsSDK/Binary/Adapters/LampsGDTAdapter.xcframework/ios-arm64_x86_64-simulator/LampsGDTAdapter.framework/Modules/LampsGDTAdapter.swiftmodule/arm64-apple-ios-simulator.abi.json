@@ -1,0 +1,382 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "LampsGDTAdapter",
+    "printedName": "LampsGDTAdapter",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "LampsSDK",
+        "printedName": "LampsSDK",
+        "declKind": "Import",
+        "moduleName": "LampsGDTAdapter"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsGDTAdapter"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsGDTAdapter"
+      },
+      {
+        "kind": "Import",
+        "name": "GDTMobSDK",
+        "printedName": "GDTMobSDK",
+        "declKind": "Import",
+        "moduleName": "LampsGDTAdapter"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LampsGDTRewardAdapterRegistrar",
+        "printedName": "LampsGDTRewardAdapterRegistrar",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "registerIfNeeded",
+            "printedName": "registerIfNeeded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTRewardAdapterRegistrar(cm)registerIfNeeded",
+            "mangledName": "$s15LampsGDTAdapter0A25GDTRewardAdapterRegistrarC16registerIfNeededyyFZ",
+            "moduleName": "LampsGDTAdapter",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LampsGDTRewardAdapterRegistrar",
+                "printedName": "LampsGDTAdapter.LampsGDTRewardAdapterRegistrar",
+                "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTRewardAdapterRegistrar"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTRewardAdapterRegistrar(im)init",
+            "mangledName": "$s15LampsGDTAdapter0A25GDTRewardAdapterRegistrarCACycfc",
+            "moduleName": "LampsGDTAdapter",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTRewardAdapterRegistrar",
+        "mangledName": "$s15LampsGDTAdapter0A25GDTRewardAdapterRegistrarC",
+        "moduleName": "LampsGDTAdapter",
+        "objc_name": "LampsGDTRewardAdapterRegistrar",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "LampsSDK",
+        "printedName": "LampsSDK",
+        "declKind": "Import",
+        "moduleName": "LampsGDTAdapter"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsGDTAdapter"
+      },
+      {
+        "kind": "Import",
+        "name": "GDTMobSDK",
+        "printedName": "GDTMobSDK",
+        "declKind": "Import",
+        "moduleName": "LampsGDTAdapter"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LampsGDTSDKInitializerRegistrar",
+        "printedName": "LampsGDTSDKInitializerRegistrar",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "registerIfNeeded",
+            "printedName": "registerIfNeeded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTSDKInitializerRegistrar(cm)registerIfNeeded",
+            "mangledName": "$s15LampsGDTAdapter0A26GDTSDKInitializerRegistrarC16registerIfNeededyyFZ",
+            "moduleName": "LampsGDTAdapter",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LampsGDTSDKInitializerRegistrar",
+                "printedName": "LampsGDTAdapter.LampsGDTSDKInitializerRegistrar",
+                "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTSDKInitializerRegistrar"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTSDKInitializerRegistrar(im)init",
+            "mangledName": "$s15LampsGDTAdapter0A26GDTSDKInitializerRegistrarCACycfc",
+            "moduleName": "LampsGDTAdapter",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@LampsGDTAdapter@objc(cs)LampsGDTSDKInitializerRegistrar",
+        "mangledName": "$s15LampsGDTAdapter0A26GDTSDKInitializerRegistrarC",
+        "moduleName": "LampsGDTAdapter",
+        "objc_name": "LampsGDTSDKInitializerRegistrar",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTRewardAdapter.swift",
+      "kind": "BooleanLiteral",
+      "offset": 343,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTRewardAdapter.swift",
+      "kind": "IntegerLiteral",
+      "offset": 621,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTRewardAdapter.swift",
+      "kind": "BooleanLiteral",
+      "offset": 650,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTRewardAdapter.swift",
+      "kind": "BooleanLiteral",
+      "offset": 686,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTRewardAdapter.swift",
+      "kind": "BooleanLiteral",
+      "offset": 718,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTRewardAdapter.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5421,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTSDKInitializer.swift",
+      "kind": "BooleanLiteral",
+      "offset": 997,
+      "length": 5,
+      "value": "false"
+    }
+  ]
+}

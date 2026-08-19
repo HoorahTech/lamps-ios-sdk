@@ -22,6 +22,8 @@
 
 ```ruby
 pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch => 'main'
+# 本地联调：
+# pod 'LampsSDK', :path => '../lamps-ios-sdk', :subspecs => ['Core', 'CSJAdapter', 'GDTAdapter', 'NoahAdapter']
 
 # 需要顺带拉广告 SDK 时：
 # pod 'LampsSDK/CSJ'    # Ads-CN（公有源）
@@ -34,6 +36,27 @@ pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch 
 # pod 'LampsSDK/GDTAdapter'
 # pod 'LampsSDK/NoahAdapter'   # 已有 NoahSDK 时用这个，勿与 Noah 同时开
 ```
+
+### 源码 / 二进制切换
+
+根目录 [`LampsSDK.podspec`](LampsSDK.podspec) 顶部：
+
+```ruby
+use_binary = true   # true=Binary 下 xcframework；false=Classes 源码
+```
+
+| `use_binary` | Pods 里看到什么 |
+| --- | --- |
+| `true` | `LampsSDK/Binary/*.xcframework`（业务源码不可见） |
+| `false` | `LampsSDK/Classes/**` 源码编译 |
+
+出包并同步到 Binary：
+
+```bash
+./scripts/build_xcframeworks.sh
+```
+
+切换后宿主需重新 `pod install`。二进制模式下宿主仍建议加 `-ObjC`（Adapter `+load`）。
 
 本地 Demo：
 

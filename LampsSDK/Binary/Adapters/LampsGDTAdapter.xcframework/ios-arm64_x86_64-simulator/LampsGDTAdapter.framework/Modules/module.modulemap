@@ -1,0 +1,11 @@
+framework module LampsGDTAdapter {
+  umbrella header "LampsGDTAdapter-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module LampsGDTAdapter.Swift {
+  header "LampsGDTAdapter-Swift.h"
+  requires objc
+}

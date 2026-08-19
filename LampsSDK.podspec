@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC
   LampsSDK 面向三方 App，提供 WebView 展示与 Bridge 通信、激励视频、CM/PM/XM 监测上报。
-  默认包含 Core 与各渠道 Adapter 源码；广告 SDK 二进制通过 CSJ / GDT / Noah Subspec 按需拉取。
+  支持源码 / 二进制两种分发；广告 SDK 通过 CSJ / GDT / Noah Subspec 按需拉取。
                        DESC
 
   s.homepage         = 'http://gitlab.hupu.com/HPBase/lamps-ios-sdk'
@@ -24,39 +24,65 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
   s.default_subspecs = 'Core', 'CSJ', 'GDT', 'Noah'
 
+  # true = LampsSDK/Binary xcframework；false = Classes 源码。切换后宿主需 pod install。
+  # 二进制请先执行 ./scripts/build_xcframeworks.sh（会同步到 Binary/）。
+  use_binary = false
+
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
     'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
   }
 
+  binary_adapter_xcconfig = {
+    'OTHER_LDFLAGS' => '$(inherited) -ObjC'
+  }
+
   s.subspec 'Core' do |ss|
-    ss.source_files = [
-      'LampsSDK/Classes/Public/**/*.swift',
-      'LampsSDK/Classes/Core/**/*.swift',
-      'LampsSDK/Classes/Config/**/*.swift',
-      'LampsSDK/Classes/Web/**/*.swift',
-      'LampsSDK/Classes/Report/**/*.swift',
-      'LampsSDK/Classes/Reward/*.swift',
-      'LampsSDK/Classes/Adapter/*.swift'
-    ]
+    if use_binary
+      ss.vendored_frameworks = 'LampsSDK/Binary/LampsSDK.xcframework'
+    else
+      ss.source_files = [
+        'LampsSDK/Classes/Public/**/*.swift',
+        'LampsSDK/Classes/Core/**/*.swift',
+        'LampsSDK/Classes/Config/**/*.swift',
+        'LampsSDK/Classes/Web/**/*.swift',
+        'LampsSDK/Classes/Report/**/*.swift',
+        'LampsSDK/Classes/Reward/*.swift',
+        'LampsSDK/Classes/Adapter/*.swift'
+      ]
+    end
     ss.frameworks = 'Foundation', 'UIKit', 'WebKit', 'AdSupport'
     ss.weak_frameworks = 'AppTrackingTransparency'
   end
 
-  # 渠道包：Initializer + RewardAdapter 平铺在同目录，Pods 展示更干净
   s.subspec 'CSJAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    ss.source_files = 'LampsSDK/Classes/CSJAdapter/**/*.{swift,m,h}'
+    if use_binary
+      ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsCSJAdapter.xcframework'
+      ss.pod_target_xcconfig = binary_adapter_xcconfig
+    else
+      ss.source_files = 'LampsSDK/Classes/CSJAdapter/**/*.{swift,m,h}'
+    end
   end
 
   s.subspec 'GDTAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    ss.source_files = 'LampsSDK/Classes/GDTAdapter/**/*.{swift,m,h}'
+    if use_binary
+      ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsGDTAdapter.xcframework'
+      ss.pod_target_xcconfig = binary_adapter_xcconfig
+    else
+      ss.source_files = 'LampsSDK/Classes/GDTAdapter/**/*.{swift,m,h}'
+    end
   end
 
   s.subspec 'NoahAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    ss.source_files = 'LampsSDK/Classes/NoahAdapter/**/*.{swift,m,h}'
+    if use_binary
+      ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsNoahAdapter.xcframework'
+      ss.pod_target_xcconfig = binary_adapter_xcconfig
+    else
+      ss.source_files = 'LampsSDK/Classes/NoahAdapter/**/*.{swift,m,h}'
+    end
   end
 
   s.subspec 'CSJ' do |ss|
@@ -72,7 +98,6 @@ Pod::Spec.new do |s|
   # 汇川：自带官方二进制（方案 B），不依赖私有 NoahAdSdks
   s.subspec 'Noah' do |ss|
     ss.dependency 'LampsSDK/NoahAdapter'
-    # NoahSDK 运行时依赖（与 NoahAdSdks 一致）
     ss.dependency 'AFNetworking'
     ss.dependency 'SDWebImage'
     ss.dependency 'YYModel'
