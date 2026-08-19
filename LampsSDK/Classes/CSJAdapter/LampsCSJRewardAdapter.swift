@@ -49,7 +49,7 @@ final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
             return
         }
         didShow = true
-        _ = expressAd.showAd(fromRootViewController: viewController)
+        _ = expressAd.show(fromRootViewController: viewController)
         LampsRewardMonitorReporter.reportPM(model: model)
     }
 
@@ -183,10 +183,17 @@ extension LampsCSJRewardAdapter: BUNativeExpressRewardedVideoAdDelegate {
     }
 }
 
-@objc(LampsCSJRewardAdapterLoader)
-private final class LampsCSJRewardAdapterLoader: NSObject {
-    @objc public override class func load() {
+#endif
+
+@objc(LampsCSJRewardAdapterRegistrar)
+public final class LampsCSJRewardAdapterRegistrar: NSObject {
+    private static var didRegister = false
+
+    @objc public static func registerIfNeeded() {
+        guard !didRegister else { return }
+        didRegister = true
+        #if canImport(BUAdSDK)
         LampsSDKAdapterCenter.register(channel: .csj) { LampsCSJRewardAdapter(model: $0) }
+        #endif
     }
 }
-#endif

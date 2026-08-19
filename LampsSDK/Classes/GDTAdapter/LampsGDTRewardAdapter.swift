@@ -41,7 +41,7 @@ final class LampsGDTRewardAdapter: NSObject, LampsRewardAdapting {
         ad.videoMuted = false
         ad.serverSideVerificationOptions = options
         rewardedAd = ad
-        ad.loadAd()
+        ad.load()
     }
 
     func show() {
@@ -51,7 +51,7 @@ final class LampsGDTRewardAdapter: NSObject, LampsRewardAdapting {
             return
         }
         didShow = true
-        _ = rewardedAd.showAd(fromRootViewController: viewController)
+        _ = rewardedAd.show(fromRootViewController: viewController)
         LampsRewardMonitorReporter.reportPM(model: model)
     }
 
@@ -160,10 +160,17 @@ extension LampsGDTRewardAdapter: GDTRewardedVideoAdDelegate {
     }
 }
 
-@objc(LampsGDTRewardAdapterLoader)
-private final class LampsGDTRewardAdapterLoader: NSObject {
-    @objc public override class func load() {
+#endif
+
+@objc(LampsGDTRewardAdapterRegistrar)
+public final class LampsGDTRewardAdapterRegistrar: NSObject {
+    private static var didRegister = false
+
+    @objc public static func registerIfNeeded() {
+        guard !didRegister else { return }
+        didRegister = true
+        #if canImport(GDTMobSDK)
         LampsSDKAdapterCenter.register(channel: .gdt) { LampsGDTRewardAdapter(model: $0) }
+        #endif
     }
 }
-#endif

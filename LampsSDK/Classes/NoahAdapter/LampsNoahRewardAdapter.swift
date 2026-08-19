@@ -36,7 +36,7 @@ final class LampsNoahRewardAdapter: NSObject, LampsRewardAdapting {
         requestInfo.timeoutInterval = model.timeoutMs > 0
             ? Double(model.timeoutMs) / 1000.0
             : 5
-        RewardedVideoAd.loadAd(withReqInfo: requestInfo, adDelegate: self)
+        RewardedVideoAd.load(withReqInfo: requestInfo, adDelegate: self)
     }
 
     func show() {
@@ -46,7 +46,7 @@ final class LampsNoahRewardAdapter: NSObject, LampsRewardAdapting {
             return
         }
         didShow = true
-        rewardedAd.showAd(inViewController: viewController)
+        rewardedAd.show(in: viewController)
     }
 
     func notifyAuctionWin(secondPrice: CGFloat) {
@@ -141,8 +141,8 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
     func onReVidoAdLoadFail(_ reqInfo: RequestInfo, error: AdError?) {
         guard !timedOut else { return }
         loadTimeMs = elapsedMs()
-        let message = error?.getErrorMessage() ?? error?.toString() ?? "汇川激励视频加载失败"
-        let code = Int(error?.getErrorCode() ?? -1)
+        let message = error?.getMessage() ?? error?.toString() ?? "汇川激励视频加载失败"
+        let code = Int(error?.getCode() ?? -1)
         let requestError = NSError(
             domain: LampsSDKErrorDomain,
             code: code,
@@ -184,10 +184,17 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
     }
 }
 
-@objc(LampsNoahRewardAdapterLoader)
-private final class LampsNoahRewardAdapterLoader: NSObject {
-    @objc public override class func load() {
+#endif
+
+@objc(LampsNoahRewardAdapterRegistrar)
+public final class LampsNoahRewardAdapterRegistrar: NSObject {
+    private static var didRegister = false
+
+    @objc public static func registerIfNeeded() {
+        guard !didRegister else { return }
+        didRegister = true
+        #if canImport(NoahSDK)
         LampsSDKAdapterCenter.register(channel: .noah) { LampsNoahRewardAdapter(model: $0) }
+        #endif
     }
 }
-#endif

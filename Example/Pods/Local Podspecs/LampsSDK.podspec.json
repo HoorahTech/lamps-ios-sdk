@@ -21,9 +21,9 @@
   "swift_versions": "5.0",
   "default_subspecs": [
     "Core",
-    "CSJAdapter",
-    "GDTAdapter",
-    "NoahAdapter"
+    "CSJ",
+    "GDT",
+    "Noah"
   ],
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES",
@@ -54,21 +54,21 @@
       "dependencies": {
         "LampsSDK/Core": []
       },
-      "source_files": "LampsSDK/Classes/CSJAdapter/**/*.swift"
+      "source_files": "LampsSDK/Classes/CSJAdapter/**/*.{swift,m,h}"
     },
     {
       "name": "GDTAdapter",
       "dependencies": {
         "LampsSDK/Core": []
       },
-      "source_files": "LampsSDK/Classes/GDTAdapter/**/*.swift"
+      "source_files": "LampsSDK/Classes/GDTAdapter/**/*.{swift,m,h}"
     },
     {
       "name": "NoahAdapter",
       "dependencies": {
         "LampsSDK/Core": []
       },
-      "source_files": "LampsSDK/Classes/NoahAdapter/**/*.swift"
+      "source_files": "LampsSDK/Classes/NoahAdapter/**/*.{swift,m,h}"
     },
     {
       "name": "CSJ",
@@ -88,7 +88,57 @@
       "name": "Noah",
       "dependencies": {
         "LampsSDK/NoahAdapter": [],
-        "NoahAdSdks": []
+        "AFNetworking": [],
+        "SDWebImage": [],
+        "YYModel": []
+      },
+      "vendored_frameworks": [
+        "LampsSDK/Vendor/Noah/NoahSDK.framework",
+        "LampsSDK/Vendor/Noah/Other/*.framework"
+      ],
+      "resources": [
+        "LampsSDK/Vendor/Noah/NoahSDK.framework/*.bundle",
+        "LampsSDK/Vendor/Noah/Other/**/*.bundle"
+      ],
+      "frameworks": [
+        "CoreTelephony",
+        "SystemConfiguration",
+        "WebKit",
+        "ImageIO",
+        "Accelerate",
+        "CoreServices",
+        "AVKit",
+        "CoreData",
+        "Security",
+        "CoreGraphics",
+        "MobileCoreServices",
+        "MessageUI",
+        "SafariServices",
+        "StoreKit",
+        "AVFoundation",
+        "MediaPlayer",
+        "JavaScriptCore",
+        "QuickLook",
+        "CoreMotion",
+        "CoreMedia",
+        "CoreLocation",
+        "MapKit",
+        "AdSupport"
+      ],
+      "weak_frameworks": [
+        "AppTrackingTransparency",
+        "DeviceCheck"
+      ],
+      "libraries": [
+        "c++abi",
+        "sqlite3",
+        "c++",
+        "xml2",
+        "resolv",
+        "z"
+      ],
+      "pod_target_xcconfig": {
+        "OTHER_LDFLAGS": "$(inherited) -ObjC"
       }
     },
     {

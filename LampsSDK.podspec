@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.0'
-  s.default_subspecs = 'Core', 'CSJAdapter', 'GDTAdapter', 'NoahAdapter'
+  s.default_subspecs = 'Core', 'CSJ', 'GDT', 'Noah'
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
@@ -46,17 +46,17 @@ Pod::Spec.new do |s|
   # 渠道包：Initializer + RewardAdapter 平铺在同目录，Pods 展示更干净
   s.subspec 'CSJAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    ss.source_files = 'LampsSDK/Classes/CSJAdapter/**/*.swift'
+    ss.source_files = 'LampsSDK/Classes/CSJAdapter/**/*.{swift,m,h}'
   end
 
   s.subspec 'GDTAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    ss.source_files = 'LampsSDK/Classes/GDTAdapter/**/*.swift'
+    ss.source_files = 'LampsSDK/Classes/GDTAdapter/**/*.{swift,m,h}'
   end
 
   s.subspec 'NoahAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    ss.source_files = 'LampsSDK/Classes/NoahAdapter/**/*.swift'
+    ss.source_files = 'LampsSDK/Classes/NoahAdapter/**/*.{swift,m,h}'
   end
 
   s.subspec 'CSJ' do |ss|
@@ -69,9 +69,31 @@ Pod::Spec.new do |s|
     ss.dependency 'GDTMobSDK'
   end
 
+  # 汇川：自带官方二进制（方案 B），不依赖私有 NoahAdSdks
   s.subspec 'Noah' do |ss|
     ss.dependency 'LampsSDK/NoahAdapter'
-    ss.dependency 'NoahAdSdks'
+    # NoahSDK 运行时依赖（与 NoahAdSdks 一致）
+    ss.dependency 'AFNetworking'
+    ss.dependency 'SDWebImage'
+    ss.dependency 'YYModel'
+    ss.vendored_frameworks = [
+      'LampsSDK/Vendor/Noah/NoahSDK.framework',
+      'LampsSDK/Vendor/Noah/Other/*.framework'
+    ]
+    ss.resources = [
+      'LampsSDK/Vendor/Noah/NoahSDK.framework/*.bundle',
+      'LampsSDK/Vendor/Noah/Other/**/*.bundle'
+    ]
+    ss.frameworks = 'CoreTelephony', 'SystemConfiguration', 'WebKit', 'ImageIO', 'Accelerate',
+                    'CoreServices', 'AVKit', 'CoreData', 'Security', 'CoreGraphics',
+                    'MobileCoreServices', 'MessageUI', 'SafariServices', 'StoreKit',
+                    'AVFoundation', 'MediaPlayer', 'JavaScriptCore', 'QuickLook',
+                    'CoreMotion', 'CoreMedia', 'CoreLocation', 'MapKit', 'AdSupport'
+    ss.weak_frameworks = 'AppTrackingTransparency', 'DeviceCheck'
+    ss.libraries = 'c++abi', 'sqlite3', 'c++', 'xml2', 'resolv', 'z'
+    ss.pod_target_xcconfig = {
+      'OTHER_LDFLAGS' => '$(inherited) -ObjC'
+    }
   end
 
   s.subspec 'Ads' do |ss|

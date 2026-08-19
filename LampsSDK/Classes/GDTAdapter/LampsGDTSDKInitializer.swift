@@ -21,10 +21,17 @@ enum LampsGDTSDKInitializer: LampsSDKInitializing {
     }
 }
 
-@objc(LampsGDTSDKInitializerLoader)
-private final class LampsGDTSDKInitializerLoader: NSObject {
-    @objc public override class func load() {
+#endif
+
+@objc(LampsGDTSDKInitializerRegistrar)
+public final class LampsGDTSDKInitializerRegistrar: NSObject {
+    private static var didRegister = false
+
+    @objc public static func registerIfNeeded() {
+        guard !didRegister else { return }
+        didRegister = true
+        #if canImport(GDTMobSDK)
         LampsSDKAdapterCenter.registerInitializer(channel: .gdt, initializer: LampsGDTSDKInitializer.self)
+        #endif
     }
 }
-#endif

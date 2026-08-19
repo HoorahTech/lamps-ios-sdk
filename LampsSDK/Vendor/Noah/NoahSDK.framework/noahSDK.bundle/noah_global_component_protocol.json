@@ -1,0 +1,198 @@
+{
+    "version": "1.0",
+    "templates": [
+        {
+            "template_id": 1001,
+            "config": {
+                "reward_duration": 15000
+            },
+            "components": [
+                {
+                    "component_id": 21,
+                    "gravity": 1,
+                    "start": -1,
+                    "duration": -1,
+                    "cta_text": "点击体验千问",
+                    "unfinish_cta_text": "还没完成体验哦，点击继续",
+                    "finish_cta_text": "奖励已发放，继续免费体验",
+                    "disable_click": 0
+                },
+                {
+                    "component_id": 1,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 3,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 4,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 5,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 6,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 7,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 10000
+                }
+            ]
+        },
+        {
+            "template_id": 1000,
+            "config": {
+                "reward_duration": 15000
+            },
+            "components": [
+                {
+                    "component_id": 21,
+                    "gravity": 1,
+                    "start": -1,
+                    "duration": -1,
+                    "cta_text": "点击广告浏览",
+                    "custom_data": {
+                        "reward_pause_time": 15,
+                        "reward_task_text": "去看'{time}秒'可直接拿奖励",
+                        "reward_button_text": "去看{time}秒 直接拿奖",
+                        "return_prompt_text": "再看'{time}'秒可获得奖励",
+                        "reward_moment_type": 1,
+                        "is_forced":1
+                    },
+                    "disable_click": 0
+                },
+                {
+                    "component_id": 1,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 3,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 4,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 5,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 6,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 3000
+                },
+                {
+                    "component_id": 7,
+                    "type": "1",
+                    "start": 2000,
+                    "duration": 10000
+                }
+            ]
+        },
+        {
+            "version": "1.0",
+            "template_id": 103,
+            "components": [
+                {
+                    "component_id": 103,
+                    "type": "1",
+                    "start": 0,
+                    "duration": 0,
+                    "gravity": 1
+                },
+                {
+                    "component_id": 105,
+                    "ext": {
+                        "noah_advre_ck": -1
+                    }
+                }
+            ]
+        },
+        {
+            "template_id": 1002,
+            "components": [
+              {
+                "component_id": 15,
+                "incentive_template_ids": [
+                  1
+                ],
+                "custom_data": {
+                    "reward_pause_time": 15,
+                    "reward_task_text": "去看'{time}秒'可直接拿奖励",
+                    "reward_button_text": "去看{time}秒 直接拿奖",
+                    "return_prompt_text": "再看'{time}'秒可获得奖励",
+                    "reward_moment_type": 1,
+                    "is_forced":1
+                }
+              },
+              {
+                "component_id": 21,
+                "cta_text": "点击体验千问",
+                "unfinish_cta_text": "还没完成体验哦，点击继续",
+                "finish_cta_text": "奖励已发放，继续免费体验",
+                "incentive_template_ids": [
+                  1
+                ],
+                "custom_data": {
+                    "reward_pause_time": 3,
+                    "reward_task_text": "'点击跳转后停留'{time}秒'秒立即获奖",
+                    "reward_button_text": "立即点击领取",
+                    "return_prompt_text": "跳转后还需停留'{time}秒'立即获奖",
+                    "reward_moment_type": 1,
+                    "is_forced":1
+                }
+              },
+              {
+                "component_id": 5,
+                "type": "1",
+                "start": 2000,
+                "duration": 3000
+              }]
+            },
+            {
+                "template_id": 1004,
+                "config": {
+                    "reward_duration": -1
+                },
+                "components": [
+                    {
+                        "component_id": 106,
+                        "start": 0,
+                        "duration": -1,
+                        "custom_data": {
+                            "multi_reward_task_text": "点击或下载APP后，体验'{time}秒'",
+                            "multi_reward_button_text": "立即下载",
+                            "multi_reward_moment_type": 1,
+                            "multi_reward_pause_time": 15
+                        }
+                    }
+                ]
+            }
+    ]
+}

@@ -1,0 +1,6 @@
+framework module ATokenSDK {
+  umbrella header "ATokenSDK.h"
+
+  export *
+  module * { export * }
+}

@@ -22,17 +22,17 @@
 
 ```ruby
 pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch => 'main'
-# 按需接入广告 Adapter（会拉取对应广告 SDK）：
-# pod 'LampsSDK/CSJ'
-# pod 'LampsSDK/GDT'
-# pod 'LampsSDK/Noah'
-# 或一次接入三家：
-# pod 'LampsSDK/Ads'
 
-# 宿主已通过 HPByteThirdParty / 自带 GDT / Noah 提供二进制时，用 *Adapter 仅编源码：
+# 需要顺带拉广告 SDK 时：
+# pod 'LampsSDK/CSJ'    # Ads-CN（公有源）
+# pod 'LampsSDK/GDT'    # GDTMobSDK（公有源）
+# pod 'LampsSDK/Noah'   # 自带汇川二进制（Vendor/Noah），无需私有 NoahAdSdks
+# pod 'LampsSDK/Ads'    # CSJ + GDT + Noah
+
+# 宿主已自带对应广告 SDK 时，只编适配代码：
 # pod 'LampsSDK/CSJAdapter'
 # pod 'LampsSDK/GDTAdapter'
-# pod 'LampsSDK/NoahAdapter'
+# pod 'LampsSDK/NoahAdapter'   # 已有 NoahSDK 时用这个，勿与 Noah 同时开
 ```
 
 本地 Demo：

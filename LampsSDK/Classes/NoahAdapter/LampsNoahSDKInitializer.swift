@@ -12,15 +12,22 @@ enum LampsNoahSDKInitializer: LampsSDKInitializing {
         let sdkConfig = NoahSdkConfig()
         sdkConfig.setAppKeyValue(appKey)
         sdkConfig.forbidHcGetLocationInfo = true
-        NoahSdk.initWithConfig(sdkConfig, globalConfig: nil)
+        NoahSdk.initWith(sdkConfig, globalConfig: nil)
         completion(true, nil)
     }
 }
 
-@objc(LampsNoahSDKInitializerLoader)
-private final class LampsNoahSDKInitializerLoader: NSObject {
-    @objc public override class func load() {
+#endif
+
+@objc(LampsNoahSDKInitializerRegistrar)
+public final class LampsNoahSDKInitializerRegistrar: NSObject {
+    private static var didRegister = false
+
+    @objc public static func registerIfNeeded() {
+        guard !didRegister else { return }
+        didRegister = true
+        #if canImport(NoahSDK)
         LampsSDKAdapterCenter.registerInitializer(channel: .noah, initializer: LampsNoahSDKInitializer.self)
+        #endif
     }
 }
-#endif
