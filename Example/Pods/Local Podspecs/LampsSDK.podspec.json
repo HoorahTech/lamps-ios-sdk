@@ -21,9 +21,9 @@
   "swift_versions": "5.0",
   "default_subspecs": [
     "Core",
-    "CSJ",
+    "CSJAdapter",
     "GDT",
-    "Noah"
+    "NoahAdapter"
   ],
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES",

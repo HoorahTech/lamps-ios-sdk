@@ -15,12 +15,12 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
         config.debugLogEnabled = true
         config.environment = .dev
         config.rewardSignKey = "TESTKEY123"
-        LampsSDK.start(config: config) { success, error in
+        Lamps.start(config: config) { success, error in
             if !success {
                 NSLog("[LampsSDK Demo] start failed: %@", error?.localizedDescription ?? "")
                 return
             }
-            if let remote = LampsSDK.remoteConfig {
+            if let remote = Lamps.remoteConfig {
                 NSLog(
                     "[LampsSDK Demo] remote config slots=%lu tokenLen=%lu",
                     UInt(remote.rewardAdSlots.count),

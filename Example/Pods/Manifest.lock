@@ -1,68 +1,11 @@
 PODS:
-  - Ads-CN (7.7.0.6):
-    - Ads-CN/BUAdLive-Framework (= 7.7.0.6)
-    - Ads-CN/BUAdSDK (= 7.7.0.6)
-  - Ads-CN/BUAdLive (7.7.0.6)
-  - Ads-CN/BUAdLive-Framework (7.7.0.6):
-    - Ads-CN/BUAdLive
-    - BUTTSDKFramework/LivePull-Lite (= 1.48.2.3-premium)
-  - Ads-CN/BUAdSDK (7.7.0.6)
-  - AFNetworking (4.0.1):
-    - AFNetworking/NSURLSession (= 4.0.1)
-    - AFNetworking/Reachability (= 4.0.1)
-    - AFNetworking/Security (= 4.0.1)
-    - AFNetworking/Serialization (= 4.0.1)
-    - AFNetworking/UIKit (= 4.0.1)
-  - AFNetworking/NSURLSession (4.0.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - AFNetworking/UIKit (4.0.1):
-    - AFNetworking/NSURLSession
-  - BUTTSDKFramework/Core (1.48.2.3-premium)
-  - BUTTSDKFramework/LiveBase (1.48.2.3-premium):
-    - BUTTSDKFramework/Core
-    - BUTTSDKFramework/Reachability
-  - BUTTSDKFramework/LivePlayer/Base (1.48.2.3-premium):
-    - BUTTSDKFramework/Core
-    - BUTTSDKFramework/LiveBase
-    - BUTTSDKFramework/LivePull-VolcLog
-    - BUTTSDKFramework/Reachability
-  - BUTTSDKFramework/LivePlayer/Lite (1.48.2.3-premium):
-    - BUTTSDKFramework/LivePlayer/Base
-    - BUTTSDKFramework/PlayerCore/LiveLite
-  - BUTTSDKFramework/LivePull-Lite (1.48.2.3-premium):
-    - BUTTSDKFramework/LivePlayer/Lite
-    - BUTTSDKFramework/Strategy/Lite
-  - BUTTSDKFramework/LivePull-VolcLog (1.48.2.3-premium):
-    - BUTTSDKFramework/VolcLog
-  - BUTTSDKFramework/PlayerCore/Base (1.48.2.3-premium):
-    - BUTTSDKFramework/Core
-  - BUTTSDKFramework/PlayerCore/LiveLite (1.48.2.3-premium):
-    - BUTTSDKFramework/PlayerCore/Base
-    - BUTTSDKFramework/TTFFmpeg/LiveLite
-  - BUTTSDKFramework/Reachability (1.48.2.3-premium)
-  - BUTTSDKFramework/Strategy/Core (1.48.2.3-premium):
-    - BUTTSDKFramework/LiveBase
-    - BUTTSDKFramework/Reachability
-  - BUTTSDKFramework/Strategy/Lite (1.48.2.3-premium):
-    - BUTTSDKFramework/LivePlayer/Lite
-    - BUTTSDKFramework/Strategy/Core
-  - BUTTSDKFramework/TTFFmpeg/LiveLite (1.48.2.3-premium)
-  - BUTTSDKFramework/VolcLog (1.48.2.3-premium)
   - GDTMobSDK (4.16.05)
   - LampsSDK (0.1.0):
     - LampsSDK/Core (= 0.1.0)
-    - LampsSDK/CSJ (= 0.1.0)
+    - LampsSDK/CSJAdapter (= 0.1.0)
     - LampsSDK/GDT (= 0.1.0)
-    - LampsSDK/Noah (= 0.1.0)
+    - LampsSDK/NoahAdapter (= 0.1.0)
   - LampsSDK/Core (0.1.0)
-  - LampsSDK/CSJ (0.1.0):
-    - Ads-CN
-    - LampsSDK/CSJAdapter
   - LampsSDK/CSJAdapter (0.1.0):
     - LampsSDK/Core
   - LampsSDK/GDT (0.1.0):
@@ -70,42 +13,23 @@ PODS:
     - LampsSDK/GDTAdapter
   - LampsSDK/GDTAdapter (0.1.0):
     - LampsSDK/Core
-  - LampsSDK/Noah (0.1.0):
-    - AFNetworking
-    - LampsSDK/NoahAdapter
-    - SDWebImage
-    - YYModel
   - LampsSDK/NoahAdapter (0.1.0):
     - LampsSDK/Core
-  - SDWebImage (5.21.7):
-    - SDWebImage/Core (= 5.21.7)
-  - SDWebImage/Core (5.21.7)
-  - YYModel (1.0.4)
 
 DEPENDENCIES:
   - LampsSDK (from `../`)
 
 SPEC REPOS:
   trunk:
-    - Ads-CN
-    - AFNetworking
-    - BUTTSDKFramework
     - GDTMobSDK
-    - SDWebImage
-    - YYModel
 
 EXTERNAL SOURCES:
   LampsSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Ads-CN: 13a913e6c7b1874bb1676322046e864ac312dbaa
-  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
-  BUTTSDKFramework: 34f8f8d541da07e79e9c479eb71336d1e4d90fdd
   GDTMobSDK: 29605d509a4c2ff68afce3736ffc32d6e7290e71
-  LampsSDK: b30bcde227b65893faf9f6e9f335b3806a89fb3d
-  SDWebImage: e9fc87c1aab89a8ab1bbd74eba378c6f53be8abf
-  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  LampsSDK: 0e3d0a7e038ceb8c82fdbc5982ac69a56d597926
 
 PODFILE CHECKSUM: 890b50fa2b7fd889e6c3c92f66f99c9ba3cff79a
 

@@ -55,13 +55,13 @@ config.environment = .prd // .dev -> https://api-dev.hoorahgo.com
 config.csjAppId = ""
 config.gdtAppId = ""
 config.noahAppKey = ""
-LampsSDK.start(config: config) { success, error in
+Lamps.start(config: config) { success, error in
     if !success {
         print(error?.localizedDescription ?? "")
         return
     }
     // 启动时会请求 GET /v1/lamps/config；失败不阻断 start
-    _ = LampsSDK.remoteConfig // rewardAdSlots / token / monitorLinks
+    _ = Lamps.remoteConfig // rewardAdSlots / token / monitorLinks
 }
 
 let webVC = LampsWebViewController(urlString: "https://www.hupu.com")
@@ -80,7 +80,7 @@ webView.load(urlString: "https://www.hupu.com")
 - prd: `https://api.hoorahgo.com/v1/lamps/config`
 - dev: `https://api-dev.hoorahgo.com/v1/lamps/config`
 
-Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `LampsSDK.remoteConfig` 读取代码位、`token`、`monitorLinks`。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
+Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `Lamps.remoteConfig` 读取代码位、`token`、`monitorLinks`。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
 
 ### 激励视频 / Adapter
 

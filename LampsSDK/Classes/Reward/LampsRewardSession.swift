@@ -21,18 +21,18 @@ final class LampsRewardSession: NSObject {
         self.loadListener = loadListener
         self.interactionListener = wrap(interactionListener)
 
-        guard LampsSDK.isStarted else {
-            loadListener.onReqError?(-1002, "请先调用 LampsSDK.start")
+        guard Lamps.isStarted else {
+            loadListener.onReqError?(-1002, "请先调用 Lamps.start")
             return
         }
-        let slots = LampsSDK.remoteConfig?.rewardAdSlots ?? []
+        let slots = Lamps.remoteConfig?.rewardAdSlots ?? []
         guard !slots.isEmpty else {
             loadListener.onReqError?(0, "rewardAdSlots 为空")
             return
         }
 
-        let timeout = LampsSDK.config?.rewardTimeoutMs ?? 5000
-        let userId = LampsSDK.config?.rewardUserId ?? ""
+        let timeout = Lamps.config?.rewardTimeoutMs ?? 5000
+        let userId = Lamps.config?.rewardUserId ?? ""
         var built: [LampsRewardAdModel] = []
         for slot in slots {
             guard let channel = LampsRewardChannel.from(channelId: slot.channelId) else {

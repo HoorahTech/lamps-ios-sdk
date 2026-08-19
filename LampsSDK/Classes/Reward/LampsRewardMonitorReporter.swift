@@ -8,7 +8,7 @@ enum LampsRewardMonitorReporter {
         delayTimeMs: Int? = nil,
         error: Error? = nil
     ) {
-        guard let urls = LampsSDK.remoteConfig?.monitorLinks.rm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.rm, !urls.isEmpty else { return }
         var extra: [AnyHashable: Any] = ["is_success": isSuccess ? "1" : "0"]
         if let filterReason { extra["filter_reason"] = filterReason }
         if let delayTimeMs { extra["delay_time"] = "\(delayTimeMs)" }
@@ -17,17 +17,17 @@ enum LampsRewardMonitorReporter {
     }
 
     static func reportPM(model: LampsRewardAdModel) {
-        guard let urls = LampsSDK.remoteConfig?.monitorLinks.pm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.pm, !urls.isEmpty else { return }
         LampsReporter.reportPM(urls: urls, adInfo: model.adInfo, extra: ["exposure_type": "1"])
     }
 
     static func reportCM(model: LampsRewardAdModel) {
-        guard let urls = LampsSDK.remoteConfig?.monitorLinks.cm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.cm, !urls.isEmpty else { return }
         LampsReporter.reportCM(urls: urls, adInfo: model.adInfo, extra: nil)
     }
 
     static func reportWM(model: LampsRewardAdModel) {
-        guard let urls = LampsSDK.remoteConfig?.monitorLinks.wm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.wm, !urls.isEmpty else { return }
         LampsReporter.reportWM(urls: urls, adInfo: model.adInfo, extra: nil)
     }
 

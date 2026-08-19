@@ -114,7 +114,7 @@ enum LampsMacroReplacer {
     /// REM：query 7 参字母升序拼接 + rewardSignKey，MD5 小写 hex 替换 `__REM_SIGN__`
     private static func replaceRemSignIfNeeded(in url: String) -> String {
         guard url.contains("__REM_SIGN__") else { return url }
-        let key = LampsSDK.effectiveRewardSignKey
+        let key = Lamps.effectiveRewardSignKey
         guard !key.isEmpty else { return url }
         let sign = remSign(for: url, rewardSignKey: key) ?? ""
         return url.replacingOccurrences(of: "__REM_SIGN__", with: sign)

@@ -12,7 +12,7 @@ public final class LampsReporter: NSObject {
         adInfo: [AnyHashable: Any]? = nil,
         extra: [AnyHashable: Any]? = nil
     ) {
-        guard LampsSDK.isStarted else {
+        guard Lamps.isStarted else {
             LampsSDKLog.debug("report \(type.name) skipped: SDK not started")
             return
         }

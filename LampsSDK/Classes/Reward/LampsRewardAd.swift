@@ -67,8 +67,8 @@ public final class LampsRewardVideoManager: NSObject {
             completion?(false, LampsSDKError.api("激励视频进行中").nsError)
             return
         }
-        guard LampsSDK.isStarted else {
-            let error = LampsSDKError.notStarted("请先调用 LampsSDK.start").nsError
+        guard Lamps.isStarted else {
+            let error = LampsSDKError.notStarted("请先调用 Lamps.start").nsError
             handler?(makeCallback(name: .reqError, status: false, code: error.code, message: error.localizedDescription))
             completion?(false, error)
             return
