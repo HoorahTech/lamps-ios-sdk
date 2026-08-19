@@ -11,7 +11,7 @@ public let LampsSDKErrorDomain = "com.hupu.lamps.sdk"
     case api = -1006
 }
 
-enum LampsSDKError {
+public enum LampsSDKError {
     case notImplemented(String)
     case notStarted(String)
     case invalidConfig(String)
@@ -19,7 +19,7 @@ enum LampsSDKError {
     case network(String)
     case api(String)
 
-    var nsError: NSError {
+    public var nsError: NSError {
         NSError(
             domain: LampsSDKErrorDomain,
             code: code.rawValue,

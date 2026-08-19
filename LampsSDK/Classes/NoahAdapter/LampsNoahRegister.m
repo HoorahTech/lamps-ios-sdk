@@ -1,4 +1,8 @@
-#if __has_include("LampsSDK-Swift.h")
+#if __has_include("LampsNoahAdapter-Swift.h")
+#import "LampsNoahAdapter-Swift.h"
+#elif __has_include(<LampsNoahAdapter/LampsNoahAdapter-Swift.h>)
+#import <LampsNoahAdapter/LampsNoahAdapter-Swift.h>
+#elif __has_include("LampsSDK-Swift.h")
 #import "LampsSDK-Swift.h"
 #else
 #import <LampsSDK/LampsSDK-Swift.h>

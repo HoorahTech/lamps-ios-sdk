@@ -1,3 +1,7 @@
+#if LampsADAPTER_SEPARATE_MODULE
+import LampsSDK
+#endif
+
 #if canImport(NoahSDK)
 import Foundation
 import NoahSDK

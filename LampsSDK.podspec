@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.0'
-  s.default_subspecs = 'Core', 'CSJAdapter', 'GDT', 'NoahAdapter'
+  s.default_subspecs = 'Core', 'CSJ', 'GDT', 'Noah'
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
@@ -61,7 +61,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'CSJ' do |ss|
     ss.dependency 'LampsSDK/CSJAdapter'
-    ss.dependency 'Ads-CN'
+    ss.dependency 'Ads-CN/BUAdSDK'
   end
 
   s.subspec 'GDT' do |ss|

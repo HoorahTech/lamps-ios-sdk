@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2AA0CE6A66D39AAE8AC3100A /* Pods_LampsSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6FFC8682754377124607055 /* Pods_LampsSDK_Tests.framework */; };
-		497F61AFE882AD1C4155D94F /* Pods_LampsSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B84146AE0EAF0343EC6395 /* Pods_LampsSDK_Example.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -23,6 +21,8 @@
 		A01111111111111111111102 /* LAMPSSDKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111101 /* LAMPSSDKAppDelegate.swift */; };
 		A01111111111111111111104 /* LAMPSSDKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111103 /* LAMPSSDKViewController.swift */; };
 		A01111111111111111111106 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111105 /* Tests.swift */; };
+		D094AF57D651AF4DF2A842C1 /* libPods-LampsSDK_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0859E0DDAFC2DF327DF691 /* libPods-LampsSDK_Example.a */; };
+		E561276284549A1924AD0C24 /* libPods-LampsSDK_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF82C9325203947600B11A78 /* libPods-LampsSDK_Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,10 +59,10 @@
 		A01111111111111111111101 /* LAMPSSDKAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKAppDelegate.swift; sourceTree = "<group>"; };
 		A01111111111111111111103 /* LAMPSSDKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKViewController.swift; sourceTree = "<group>"; };
 		A01111111111111111111105 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		A6FFC8682754377124607055 /* Pods_LampsSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LampsSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B749028FDBCAF72F86D318F3 /* Pods-LampsSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampsSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C6BC21A48FC032426EAD1F36 /* Pods-LampsSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampsSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		D5B84146AE0EAF0343EC6395 /* Pods_LampsSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LampsSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF82C9325203947600B11A78 /* libPods-LampsSDK_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LampsSDK_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED0859E0DDAFC2DF327DF691 /* libPods-LampsSDK_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LampsSDK_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +73,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				497F61AFE882AD1C4155D94F /* Pods_LampsSDK_Example.framework in Frameworks */,
+				D094AF57D651AF4DF2A842C1 /* libPods-LampsSDK_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +84,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				2AA0CE6A66D39AAE8AC3100A /* Pods_LampsSDK_Tests.framework in Frameworks */,
+				E561276284549A1924AD0C24 /* libPods-LampsSDK_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,8 +130,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				D5B84146AE0EAF0343EC6395 /* Pods_LampsSDK_Example.framework */,
-				A6FFC8682754377124607055 /* Pods_LampsSDK_Tests.framework */,
+				ED0859E0DDAFC2DF327DF691 /* libPods-LampsSDK_Example.a */,
+				CF82C9325203947600B11A78 /* libPods-LampsSDK_Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -201,6 +201,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				4468F05E58EF75F05E28F606 /* [CP] Embed Pods Frameworks */,
+				46B0179FAF9E30F54A09D831 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -331,6 +332,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46B0179FAF9E30F54A09D831 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-resources.sh",
+				"${PODS_ROOT}/Ads-CN/SDK/CSJAdSDK.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSJAdSDK.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FCBF6A24124300144790EB8B /* [CP] Check Pods Manifest.lock */ = {

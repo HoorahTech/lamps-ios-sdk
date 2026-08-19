@@ -16,7 +16,7 @@
 | 4 | RM / WM / CM / PM / REM 上报 | 完成 |
 | 5 | 激励视频框架（不含三方广告 SDK 二进制） | 完成 |
 | 6 | 穿山甲 / 优量汇 / 汇川 Adapter（宿主已有则复用） | 完成 |
-| 7 | xcframework 手动集成出包 | 未开始 |
+| 7 | xcframework 手动集成出包 | 完成 |
 
 ## 安装
 
@@ -198,3 +198,33 @@ webView.closeHandler = { /* 关闭页面 */ }
 
 - `LampsBaseBridgeHandler`：`ping`
 - `LampsNavigationBridgeHandler`：`close`
+
+## 手动 Framework（xcframework）集成
+
+### 出包
+
+```bash
+./scripts/build_xcframeworks.sh
+# 产物：build/xcframeworks/LampsSDK-iOS-0.1.0/
+```
+
+产出 4 个包：`LampsSDK`（Core）+ `LampsCSJAdapter` / `LampsGDTAdapter` / `LampsNoahAdapter`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。
+
+详细接入（无 / 全有 / 只有部分广告 SDK）见 [scripts/FRAMEWORK_INTEGRATION.md](scripts/FRAMEWORK_INTEGRATION.md)。
+
+### 原则（与 Pod Subspec 对齐）
+
+- 必选：`LampsSDK.xcframework`
+- 按渠道选 Adapter；缺哪家广告 SDK 就补 `ThirdParty` 里哪家；已有则只加 Adapter
+- `Other Linker Flags` 加 `-ObjC`
+- 不要打「含全部 Adapter 的单一静态大包」给所有宿主
+
+| Pod | Framework |
+| --- | --- |
+| `LampsSDK/Core` | `LampsSDK.xcframework` |
+| `LampsSDK/CSJAdapter` | `Adapters/LampsCSJAdapter.xcframework` |
+| `LampsSDK/CSJ` | Adapter + `ThirdParty/Ads-CN` |
+| `LampsSDK/GDTAdapter` | `Adapters/LampsGDTAdapter.xcframework` |
+| `LampsSDK/GDT` | Adapter + `ThirdParty/GDTMobSDK` |
+| `LampsSDK/NoahAdapter` | `Adapters/LampsNoahAdapter.xcframework` |
+| `LampsSDK/Noah` | Adapter + `ThirdParty/Noah` |

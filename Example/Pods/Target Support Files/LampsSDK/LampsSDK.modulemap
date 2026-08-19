@@ -1,4 +1,4 @@
-framework module LampsSDK {
+module LampsSDK {
   umbrella header "LampsSDK-umbrella.h"
 
   export *

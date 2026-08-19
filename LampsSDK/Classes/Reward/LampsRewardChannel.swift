@@ -40,18 +40,18 @@ enum LampsRewardRequestState {
 }
 
 /// 单次激励候选素材（由 rewardAdSlots 映射，无 getOther）。
-final class LampsRewardAdModel: NSObject {
-    let slot: LampsRewardAdSlot
-    let channel: LampsRewardChannel
-    var price: CGFloat = 0
-    var bidfloor: CGFloat = 0
-    var timeoutMs: Int
-    var userId: String
+public final class LampsRewardAdModel: NSObject {
+    public let slot: LampsRewardAdSlot
+    public let channel: LampsRewardChannel
+    public var price: CGFloat = 0
+    public var bidfloor: CGFloat = 0
+    public var timeoutMs: Int
+    public var userId: String
     var requestState: LampsRewardRequestState = .unknown
 
-    var slotId: String { slot.slotId }
+    public var slotId: String { slot.slotId }
 
-    init(slot: LampsRewardAdSlot, channel: LampsRewardChannel, timeoutMs: Int, userId: String) {
+    public init(slot: LampsRewardAdSlot, channel: LampsRewardChannel, timeoutMs: Int, userId: String) {
         self.slot = slot
         self.channel = channel
         self.timeoutMs = timeoutMs
@@ -59,7 +59,7 @@ final class LampsRewardAdModel: NSObject {
         super.init()
     }
 
-    var adInfo: [AnyHashable: Any] {
+    public var adInfo: [AnyHashable: Any] {
         [
             "slot_id": slotId,
             "channel": channel.name,

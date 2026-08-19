@@ -1,3 +1,7 @@
+#if LampsADAPTER_SEPARATE_MODULE
+import LampsSDK
+#endif
+
 #if canImport(GDTMobSDK)
 import Foundation
 import GDTMobSDK

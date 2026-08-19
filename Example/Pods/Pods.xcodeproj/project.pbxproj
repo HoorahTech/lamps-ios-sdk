@@ -17,81 +17,101 @@
 			);
 			name = GDTMobSDK;
 		};
+		726ABAA3B995C2690CAF752FB08ABF6D /* Ads-CN */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = CF2B6369F4C4DAE70C69072934CCCA43 /* Build configuration list for PBXAggregateTarget "Ads-CN" */;
+			buildPhases = (
+				3E264E16F435753D4188B2112E6D2555 /* [CP] Copy XCFrameworks */,
+			);
+			dependencies = (
+			);
+			name = "Ads-CN";
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0035A01193EF216617430C4014E8BE76 /* LampsSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F1E694FA0ADE6200C70D32C9B8BFC8 /* LampsSDK-dummy.m */; };
-		03504273C12C9FC94F4A60B58D1A4543 /* LampsBaseBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9EFD4A984912D3D55C1142065958B8 /* LampsBaseBridgeHandler.swift */; };
-		067F3C8C9D64A27DE193576BA189DF7B /* LampsRewardChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2CC5CE19572E04F35F55B1351F0F47 /* LampsRewardChannel.swift */; };
-		110BC3267DD2345790666DD3276D2426 /* LampsNoahRewardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B935D0D796573554DE699182362AE0A3 /* LampsNoahRewardAdapter.swift */; };
-		1722F2F48BC4FB21FFB1108D71CD4BD5 /* LampsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D7B9DDE5D8F796F7118125CD25ED16 /* LampsReporter.swift */; };
-		1C3B77FD7B5E915D67136FF028187A54 /* LampsSDKEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1FD0C0FB4AACFD9D363D4F1B9DF173 /* LampsSDKEnvironment.swift */; };
-		33F9570D70D8DD8DF67F99FDE7EF87D2 /* LampsMacroReplacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C9BA336B2FB93FF5568D27652B275 /* LampsMacroReplacer.swift */; };
-		350887D568EF0E0063D8F50A6CA2E5F1 /* LampsNoahRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28E09F21D05E94ED455E556DDE2337 /* LampsNoahRegister.m */; };
-		39370FC344DE07D034160F28BB5650CD /* LampsNoahSDKInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFE56C0C18D2BFB87DC1CD8232E98D5 /* LampsNoahSDKInitializer.swift */; };
-		436213C0886407605DEF3B2EFACFC1FE /* LampsGDTSDKInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6B4AD5CB7C054718A969D268F58723 /* LampsGDTSDKInitializer.swift */; };
-		4715F772493BC71676C3B44C13491972 /* Pods-LampsSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BF070754F0B76C3CECCCACC0E9C8C1D /* Pods-LampsSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		47E9E688CB3C3DDAFE17252B4AB9C417 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
-		4887DF4683C58B22610A4797D38117F5 /* LampsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217F14541D31C9D8AFDAC0D43F005457 /* LampsWebViewController.swift */; };
-		4D358D6960AB74B996D22C55AF56A934 /* LampsSDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F46D13A460F48D092C1F4D173D3AB0 /* LampsSDKConfig.swift */; };
-		5185A6D2D3F297BDB5A7119A3F394F2A /* LampsBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F168A8A31F412D2C2A0285966305E3 /* LampsBridgeHandler.swift */; };
-		522DE79BA724E0DB4C959158EF6DC3F5 /* LampsGDTRewardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45B620E83CA8AD9975556F459321DF /* LampsGDTRewardAdapter.swift */; };
-		536A487A2B6077DA056DC63863E6CB54 /* LampsSDKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455B822D3903DC0DB3FF7472D4E97F5 /* LampsSDKError.swift */; };
-		58FC961049B8C79EF4C2C29E26DFD88A /* LampsRewardAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B6F822DA3C7687BDB88E4ACF556F6D /* LampsRewardAdapting.swift */; };
-		61C46BA7924AD5584CBBF736A1431131 /* LampsRewardSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6438AAE0C15FCD24703D441B62AAA7F /* LampsRewardSession.swift */; };
-		66613BCC107D9CA909D19983A1FE2FF6 /* Pods-LampsSDK_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 045429A75D13D3EEED7E5778B264931A /* Pods-LampsSDK_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		675A5C7ED8A7AC1CC786B514C1C8F0C8 /* LampsCSJSDKInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95423811D288715D5ED6AB91D28EF8DB /* LampsCSJSDKInitializer.swift */; };
-		6BB14F211E3CDE6C85A8190B2B5B5D65 /* Pods-LampsSDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 494121175C83EFBC755CE7482CB4761F /* Pods-LampsSDK_Tests-dummy.m */; };
-		6E4A9C31B9085C85BC1F15BEBFDA8F84 /* LampsConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B433E7F4C211BBBFD963C3AAC082EB5 /* LampsConfigService.swift */; };
-		7083351A426700D26AE916DC34C8AD84 /* LampsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F144933ABE010810DB734D543F2FF8BF /* LampsWebView.swift */; };
-		7DB6D9A6B01E5C8E0E7FA73F76FDD4F3 /* LampsRewardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C56C9535B2858A8DE1806BBD1D9FE /* LampsRewardListener.swift */; };
-		7E171522A1743F6D346D799E1D4D4C7F /* LampsDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59D89C2C26ED096082BA586384594E6 /* LampsDeviceInfo.swift */; };
-		848D616E12A9A44048AA2A213FB059A4 /* LampsRewardAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DBC16988B42017D6DCA1C5080225F6 /* LampsRewardAd.swift */; };
-		8503CB0FF2E433E5B9933FFE6E6392A4 /* LampsReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5E895572FD3898DC69FA47B27D2DA5 /* LampsReportRequest.swift */; };
-		8CC829BCC4C53514510FB1DEC46D77C5 /* LampsGDTRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = D33ACB0F9ED787BDF426592AF65C3F65 /* LampsGDTRegister.m */; };
-		8CF44D51ED118DDBD798643E637E3D05 /* LampsSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B158A8BD6B50515A8CD4C59D9AD53 /* LampsSDK-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		957802162994B15E0575FB44ACE506E9 /* LampsRewardMonitorReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD50737B1EF095453D3C49B26A0F4B6 /* LampsRewardMonitorReporter.swift */; };
-		9FF7F68CD0B54900B0517812DFA7BD79 /* LampsNavigationBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B76FEF0584B25AF7E4928B56C8681 /* LampsNavigationBridgeHandler.swift */; };
-		A844CD036E8E9B8479B30AA40F66212D /* LampsSDKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97B15B604C9CA7121174900F36E71DD /* LampsSDKLog.swift */; };
-		BE57DBFCE97075982AF6D4982D32EF5E /* LampsCSJRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = D00B6EFD0D64772CD185935376934782 /* LampsCSJRegister.m */; };
-		BF7612D0DCDFDE80F29C39FF4BA397B4 /* LampsSDKInitializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55ED16BCA2928DDA64D8885E793CC4F /* LampsSDKInitializing.swift */; };
-		C0B71E3EBB1E7C82C7E4B5F7712CBDA8 /* Lamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5A72685A54B95D734D4A8E2211ACF7 /* Lamps.swift */; };
-		C64E519E4964E22AF4C7AC88DFAD14A8 /* LampsCSJRewardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFC03E54C669A2431092C84E4343013 /* LampsCSJRewardAdapter.swift */; };
-		D017480D8B7B6707291421C8A38D3DF8 /* LampsBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24765A676AC45970E89FD7703A50EDA /* LampsBridge.swift */; };
-		D616BC5CD3268C4EA4D973E4860D717A /* LampsReportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B6073A1AA323731E6FB5F0FE21FB0D /* LampsReportType.swift */; };
-		E75904108C39A5AA6D4DC34EDEC29AC2 /* Pods-LampsSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE234C0F4D5CF3E29234D889EA4ADE /* Pods-LampsSDK_Example-dummy.m */; };
-		EA1BD7541B98BEED5AF612330D352AF2 /* LampsRewardBidding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C7D464D61D5DAAD9D21BAFEAF0BE0E /* LampsRewardBidding.swift */; };
-		EE11E1F99B92108243FA3DCCF626E71B /* LampsRewardSDKLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3840F0C0088B31EDB6D9BECED744A721 /* LampsRewardSDKLoader.swift */; };
-		F404CF7A69856369680F800E1F05D004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
-		F7ADF3B2AB06707BC02296FBDACB229E /* LampsWeakScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BCD41565DFFADC8B77C363A236704 /* LampsWeakScriptMessageHandler.swift */; };
-		F82E10C6F46DE40CFBB9AA62B2A42C4C /* LampsRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267E43224C60F661D5700A1A091883C /* LampsRemoteConfig.swift */; };
-		FCC9A8FACB1966F4527F820DC071B373 /* LampsSDKAdapterCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AA1540B2F1F827F0D799F199BC6E42 /* LampsSDKAdapterCenter.swift */; };
-		FCF51ECAF27BAE7B035329E5234E750B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		0126248603D7EFDDDA8BAE175C687A3F /* LampsBaseBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F78725AAB078158F790EB1D9DF1653B /* LampsBaseBridgeHandler.swift */; };
+		0430E16C02E6E2A4C98B6DE3B4018D04 /* LampsReportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD2397DAFC01953913E171AC9CB830C /* LampsReportType.swift */; };
+		152981E0BF56B86589D479F32468C9F4 /* LampsRewardSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DFBFA1D8E2E16E5AB2D88C188F55FD /* LampsRewardSession.swift */; };
+		20114389AA092215F1120F9FDD45ADDF /* LampsRewardMonitorReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF7584D65D1037C1294473FF813B895 /* LampsRewardMonitorReporter.swift */; };
+		26CD31B2914F49D1710A0977B6C0FF26 /* LampsGDTRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 37174C144524381DD834B28B600E2938 /* LampsGDTRegister.m */; };
+		285A753E7485FD137D04D90069E93724 /* LampsRewardBidding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B8D8334E787CA667A2BAD86C4D5CD7 /* LampsRewardBidding.swift */; };
+		291FB82A22A3D818535C30B20D806D65 /* LampsSDKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2749771825D4B7D46F0D6822EF2EF7 /* LampsSDKError.swift */; };
+		3CDA4A70EE750C865F231FCEB516DCA2 /* LampsNavigationBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75204D66B57164A3EE6117011C1C06 /* LampsNavigationBridgeHandler.swift */; };
+		3EC9B4E6F16995B2E7271C156F07A8FA /* LampsWeakScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A79DC2942587FD21C511F54C9028DD /* LampsWeakScriptMessageHandler.swift */; };
+		416C7DD309C32FB30620D1D81A33455F /* LampsNoahRewardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44E7C08F73063AB84D3249E3FE7A333 /* LampsNoahRewardAdapter.swift */; };
+		44D97212B1985210703DFFD522E5F553 /* LampsCSJRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FEF633203710F0EEBF1739024874D9 /* LampsCSJRegister.m */; };
+		4D893BD243042AAE93146D850AB71072 /* LampsNoahSDKInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5686A2E07141D0C044C8CCA0F73D281D /* LampsNoahSDKInitializer.swift */; };
+		536414B6F748B0964026763673EE6786 /* Pods-LampsSDK_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E64311CBBF9C9651248F73BA3691A44A /* Pods-LampsSDK_Example-dummy.m */; };
+		5502B3D4FD98C98F123E83CFE5C94460 /* LampsBridgeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC05E023F8EFC8426E515E39CBE15BE /* LampsBridgeHandler.swift */; };
+		556D27A700BBA959633E688386ABDF8B /* LampsSDKEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBAC14DF872FE9857906CB7B8196BED /* LampsSDKEnvironment.swift */; };
+		663C7E4C395ADD1729D70459E8B078AE /* LampsSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D91B83EECE4489B37E53D1FDC34C761 /* LampsSDK-dummy.m */; };
+		6AA9AC717C2029721FB4AF8B52689540 /* LampsRewardAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = F655E3111B7056B05FE0628A7162FCFE /* LampsRewardAd.swift */; };
+		6E8492EC0A592FDBD95BD5090C267EA3 /* LampsDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1318316A5D361C8130DE38B419D189E9 /* LampsDeviceInfo.swift */; };
+		7072EC8CF3313B0000EAE93177A40AEC /* LampsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE68E22FF9045134C897E96C5E573D1 /* LampsWebView.swift */; };
+		71C0BF8CBCAE6AEB6AA7A10ADC6605CF /* LampsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51881C207CDDF7C7BEA0950AA26F034F /* LampsWebViewController.swift */; };
+		7332C7A553A248ADC1C31D4C913CCC7F /* Pods-LampsSDK_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23AF22ECB58668078B39C9DC39B6F07B /* Pods-LampsSDK_Tests-dummy.m */; };
+		7E329555C5B2F237F18F6418AC672986 /* Pods-LampsSDK_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 445AA816B360823D342D1ADD39DC0C66 /* Pods-LampsSDK_Example-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		83F2DECB1D110C9D02A38B68612A0111 /* LampsRewardChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C38D6706D32704E5EB7EF038BAE4AA /* LampsRewardChannel.swift */; };
+		856D56D7D55DA71FD22BBEC45837E82C /* LampsSDKConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27931814E6C1BB0CDD42F8BD26CA483B /* LampsSDKConfig.swift */; };
+		87525A7F18E74C42F85BF497C32A4F57 /* Lamps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E600B7553286DBCFE026860AD6907 /* Lamps.swift */; };
+		8AAB7F6007E929690BFF1431AD7A90BB /* LampsGDTSDKInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519803DCBD7B2CDB14FB1A0BB86103C /* LampsGDTSDKInitializer.swift */; };
+		90C2951CE741C8AF1CC58372DF07EDD6 /* LampsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0417B9C6ACE69D25167E28575D0C873E /* LampsReporter.swift */; };
+		9A58C5E763D9D02E6406AE89C0788FE6 /* LampsCSJSDKInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E76505F7244589E44EE87716D8FA29 /* LampsCSJSDKInitializer.swift */; };
+		9A8555392C20690120D3B29DCCF7FF13 /* LampsSDKAdapterCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE521360E955C5C55218D9B6D254CF1 /* LampsSDKAdapterCenter.swift */; };
+		A314BE451E7B389913A1A82A0FEACF98 /* LampsRewardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40E8F4BE3F959ECE78BD3F202224005 /* LampsRewardListener.swift */; };
+		ACA51730AFE74F53886FC543928F6F87 /* LampsRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D30E333450B7876B494ADFA8C634B9 /* LampsRemoteConfig.swift */; };
+		B064411336E4842AD9915B187266A775 /* LampsBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8793E20C0B6A75D4D3BCB9F3998593A8 /* LampsBridge.swift */; };
+		CDB3796CA0DDAEDED431F311D5AB9BDF /* LampsRewardAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B31E4F323D1593A3CDC643AC981A2 /* LampsRewardAdapting.swift */; };
+		D20C773EB4A98B28F7DA1749956F8E4A /* LampsSDKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DAD1AF03B2A61523C7B8C3CD926373 /* LampsSDKLog.swift */; };
+		D56CC842EEF3F2DF9B96B8A3E5B85E13 /* LampsSDKInitializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F61914DB2469712C167BDF7E3AD374 /* LampsSDKInitializing.swift */; };
+		DC1F421B0D5CFC85B2C2C42F0825B2EB /* LampsReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533AE6C1C091395DB7836DAD2356CA5 /* LampsReportRequest.swift */; };
+		ED33CA60C8BC86A6CE5650A80BE12A2F /* LampsConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F432F9C938EC71F51EF4E73319FB2 /* LampsConfigService.swift */; };
+		EE8C1AFCC96B0C3E1F78C3A15D1EE5F8 /* LampsNoahRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA4483B5A28E3E3FD0CA78984020542 /* LampsNoahRegister.m */; };
+		EEEA37AAF31A906E7415DBC265F8348B /* LampsMacroReplacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E23287BA5BCF2368A4659AE4553E55 /* LampsMacroReplacer.swift */; };
+		F2F529CECF1E658AAC3F500EB0F77F11 /* LampsSDK-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF56EB698B7BBD22E9EF908864251A7 /* LampsSDK-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F2FB5ADA1580B9ECEBB2E5B10075569F /* LampsRewardSDKLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8F63863065432C738989E1CDE22C33 /* LampsRewardSDKLoader.swift */; };
+		FBAC71F32FC713A4A0096BD7C5FEFD51 /* LampsGDTRewardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF7CA09BE4506E64FC27D82EF2033CE /* LampsGDTRewardAdapter.swift */; };
+		FF98E6DD5A4476DE333CDE50A9845841 /* LampsCSJRewardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE77B45375679D8508C64BAA0765937 /* LampsCSJRewardAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		138B7943142E61F29C170D78B34FC485 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F64035C8BBE74DBF593F506AB9E84BA8;
-			remoteInfo = LampsSDK;
-		};
-		862F8DAC275631948573FA14DD8A9FE0 /* PBXContainerItemProxy */ = {
+		308E0C5310BC012EC4CBC2CB76D3771B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C4E820CF0670A7DE4EE6CE94E7487F1E;
 			remoteInfo = "Pods-LampsSDK_Example";
 		};
-		D80E22B40B4F6CED07489321F2058CF6 /* PBXContainerItemProxy */ = {
+		40DE1230A854D45F1A7B350FF9DE18BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F64035C8BBE74DBF593F506AB9E84BA8;
+			remoteInfo = LampsSDK;
+		};
+		5D66CA97D5F9C6A06EF486EAF4BC524A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 726ABAA3B995C2690CAF752FB08ABF6D;
+			remoteInfo = "Ads-CN";
+		};
+		695278436C27B3E7D9B196B20F2BE3A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6F2BDBDBBAD8487EF4614E1D729C5DD0;
 			remoteInfo = GDTMobSDK;
 		};
-		E450608D934D1C5531BA8054094FEC58 /* PBXContainerItemProxy */ = {
+		6FCD797701676EFD41BFC88B2FF4B011 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 726ABAA3B995C2690CAF752FB08ABF6D;
+			remoteInfo = "Ads-CN";
+		};
+		A205279BBE5104146517062A3BFB3425 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -101,168 +121,424 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00F46D13A460F48D092C1F4D173D3AB0 /* LampsSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKConfig.swift; sourceTree = "<group>"; };
-		03209876A7A1166E38FEE2034FE3B0BC /* Pods-LampsSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		045429A75D13D3EEED7E5778B264931A /* Pods-LampsSDK_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LampsSDK_Tests-umbrella.h"; sourceTree = "<group>"; };
-		07AFEEC3859DBC9AF278FBCAA515C8DF /* GDTMobSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GDTMobSDK.xcframework; path = GDTFramework/GDTMobSDK.xcframework; sourceTree = "<group>"; };
-		091C15725A7B9095AB9D3BD0228B8DD9 /* LampsSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = LampsSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		0DD50737B1EF095453D3C49B26A0F4B6 /* LampsRewardMonitorReporter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardMonitorReporter.swift; sourceTree = "<group>"; };
-		17ED012FBA91428EC5D2911F5E3A18A9 /* Pods-LampsSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		18EC9DB1E1C55EF4A5A214F363712C7F /* Pods-LampsSDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LampsSDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		1B433E7F4C211BBBFD963C3AAC082EB5 /* LampsConfigService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsConfigService.swift; sourceTree = "<group>"; };
-		1BF070754F0B76C3CECCCACC0E9C8C1D /* Pods-LampsSDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LampsSDK_Example-umbrella.h"; sourceTree = "<group>"; };
-		20F168A8A31F412D2C2A0285966305E3 /* LampsBridgeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsBridgeHandler.swift; sourceTree = "<group>"; };
-		217F14541D31C9D8AFDAC0D43F005457 /* LampsWebViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWebViewController.swift; sourceTree = "<group>"; };
-		2A557FC741C67CFC12A4C9FE45C2E5DC /* Pods-LampsSDK_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Tests-Info.plist"; sourceTree = "<group>"; };
-		2D9EFD4A984912D3D55C1142065958B8 /* LampsBaseBridgeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsBaseBridgeHandler.swift; sourceTree = "<group>"; };
-		2F1996BCB3E55B0124F1EBDBF12D6EA2 /* LampsSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-prefix.pch"; sourceTree = "<group>"; };
-		30CE234C0F4D5CF3E29234D889EA4ADE /* Pods-LampsSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Example-dummy.m"; sourceTree = "<group>"; };
-		338BCD41565DFFADC8B77C363A236704 /* LampsWeakScriptMessageHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWeakScriptMessageHandler.swift; sourceTree = "<group>"; };
-		34176CE197D83F845C25C7A701E924A0 /* LampsSDK-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "LampsSDK-Info.plist"; sourceTree = "<group>"; };
-		34AA1540B2F1F827F0D799F199BC6E42 /* LampsSDKAdapterCenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKAdapterCenter.swift; sourceTree = "<group>"; };
-		37B6F822DA3C7687BDB88E4ACF556F6D /* LampsRewardAdapting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardAdapting.swift; sourceTree = "<group>"; };
-		3840F0C0088B31EDB6D9BECED744A721 /* LampsRewardSDKLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardSDKLoader.swift; sourceTree = "<group>"; };
-		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3EB8C1294E94C83BCE9AD5641254439E /* Pods-LampsSDK_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LampsSDK_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		410B158A8BD6B50515A8CD4C59D9AD53 /* LampsSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-umbrella.h"; sourceTree = "<group>"; };
-		494121175C83EFBC755CE7482CB4761F /* Pods-LampsSDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Tests-dummy.m"; sourceTree = "<group>"; };
-		548EDEFA81E8252592B5CC150B86F1E6 /* Pods-LampsSDK_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		553800B708FE6BE5BA7F1AF08E47CD49 /* Pods-LampsSDK_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-LampsSDK_Tests"; path = Pods_LampsSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5B4BECAE76370B7ADF902E72AF2E3248 /* Pods-LampsSDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		5C45B620E83CA8AD9975556F459321DF /* LampsGDTRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsGDTRewardAdapter.swift; path = LampsSDK/Classes/GDTAdapter/LampsGDTRewardAdapter.swift; sourceTree = "<group>"; };
-		5E2CC5CE19572E04F35F55B1351F0F47 /* LampsRewardChannel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardChannel.swift; sourceTree = "<group>"; };
-		6A6B4AD5CB7C054718A969D268F58723 /* LampsGDTSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsGDTSDKInitializer.swift; path = LampsSDK/Classes/GDTAdapter/LampsGDTSDKInitializer.swift; sourceTree = "<group>"; };
-		6AF1D754FF74FF33AD29E42AD2A5B01A /* GDTMobSDK-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "GDTMobSDK-xcframeworks.sh"; sourceTree = "<group>"; };
-		6D23EB82A4C9A588AAE55FD088AD5CD7 /* Pods-LampsSDK_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LampsSDK_Tests.modulemap"; sourceTree = "<group>"; };
-		712BDEC9BA7970EAF4F433BA917808BE /* Pods-LampsSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		77C3354F0D8E0877345C8B9CC0754130 /* Tquic.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = Tquic.xcframework; path = GDTFramework/Tquic.xcframework; sourceTree = "<group>"; };
-		86D7B9DDE5D8F796F7118125CD25ED16 /* LampsReporter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReporter.swift; sourceTree = "<group>"; };
-		8B8A23B96983EE92938FD0D4C57EF28A /* LampsSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LampsSDK.modulemap; sourceTree = "<group>"; };
-		8EFE56C0C18D2BFB87DC1CD8232E98D5 /* LampsNoahSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsNoahSDKInitializer.swift; path = LampsSDK/Classes/NoahAdapter/LampsNoahSDKInitializer.swift; sourceTree = "<group>"; };
-		9455B822D3903DC0DB3FF7472D4E97F5 /* LampsSDKError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKError.swift; sourceTree = "<group>"; };
-		95423811D288715D5ED6AB91D28EF8DB /* LampsCSJSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsCSJSDKInitializer.swift; path = LampsSDK/Classes/CSJAdapter/LampsCSJSDKInitializer.swift; sourceTree = "<group>"; };
-		9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LampsSDK; path = LampsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0417B9C6ACE69D25167E28575D0C873E /* LampsReporter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReporter.swift; sourceTree = "<group>"; };
+		0455B015D0C45F0C2F2C227F65D58743 /* Pods-LampsSDK_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LampsSDK_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		0576D75863645797BF9508B7C24A4676 /* LampsSDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-prefix.pch"; sourceTree = "<group>"; };
+		0E8F63863065432C738989E1CDE22C33 /* LampsRewardSDKLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardSDKLoader.swift; sourceTree = "<group>"; };
+		1318316A5D361C8130DE38B419D189E9 /* LampsDeviceInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsDeviceInfo.swift; sourceTree = "<group>"; };
+		14834A8B30FB0A4EEBE7B80E1A90F564 /* Ads-CN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Ads-CN.release.xcconfig"; sourceTree = "<group>"; };
+		16B8D8334E787CA667A2BAD86C4D5CD7 /* LampsRewardBidding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardBidding.swift; sourceTree = "<group>"; };
+		19A79DC2942587FD21C511F54C9028DD /* LampsWeakScriptMessageHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWeakScriptMessageHandler.swift; sourceTree = "<group>"; };
+		2093D4CFB264C277C99B2A9FC111D2AB /* Pods-LampsSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		20D47CCE6A2E8504179BCEE871FAEA3D /* Pods-LampsSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LampsSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
+		231169D8902F44596E117C035A6A42AD /* BUAdSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = BUAdSDK.xcframework; path = SDK/BUAdSDK.xcframework; sourceTree = "<group>"; };
+		23AF22ECB58668078B39C9DC39B6F07B /* Pods-LampsSDK_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Tests-dummy.m"; sourceTree = "<group>"; };
+		2519803DCBD7B2CDB14FB1A0BB86103C /* LampsGDTSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsGDTSDKInitializer.swift; path = LampsSDK/Classes/GDTAdapter/LampsGDTSDKInitializer.swift; sourceTree = "<group>"; };
+		27931814E6C1BB0CDD42F8BD26CA483B /* LampsSDKConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKConfig.swift; sourceTree = "<group>"; };
+		2D91B83EECE4489B37E53D1FDC34C761 /* LampsSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LampsSDK-dummy.m"; sourceTree = "<group>"; };
+		34AE0DF462C750F3F0FEEFC30EF39F4F /* LampsSDK.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = LampsSDK.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		35BC8ED75154694BBE3B5E5941BBEA23 /* Pods-LampsSDK_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LampsSDK_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		37174C144524381DD834B28B600E2938 /* LampsGDTRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsGDTRegister.m; path = LampsSDK/Classes/GDTAdapter/LampsGDTRegister.m; sourceTree = "<group>"; };
+		3D8B3A8EEA1B5DC7BD2A0621BD65CFE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		3F78725AAB078158F790EB1D9DF1653B /* LampsBaseBridgeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsBaseBridgeHandler.swift; sourceTree = "<group>"; };
+		42C38D6706D32704E5EB7EF038BAE4AA /* LampsRewardChannel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardChannel.swift; sourceTree = "<group>"; };
+		445AA816B360823D342D1ADD39DC0C66 /* Pods-LampsSDK_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LampsSDK_Example-umbrella.h"; sourceTree = "<group>"; };
+		4AF19F618A3E745E643B47A77C735DCE /* Pods-LampsSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
+		4EFF5EA01C879665F21F86D36B7ACEDA /* Pods-LampsSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		4FE77B45375679D8508C64BAA0765937 /* LampsCSJRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsCSJRewardAdapter.swift; path = LampsSDK/Classes/CSJAdapter/LampsCSJRewardAdapter.swift; sourceTree = "<group>"; };
+		51881C207CDDF7C7BEA0950AA26F034F /* LampsWebViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWebViewController.swift; sourceTree = "<group>"; };
+		553800B708FE6BE5BA7F1AF08E47CD49 /* Pods-LampsSDK_Tests */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-LampsSDK_Tests"; path = "libPods-LampsSDK_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5686A2E07141D0C044C8CCA0F73D281D /* LampsNoahSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsNoahSDKInitializer.swift; path = LampsSDK/Classes/NoahAdapter/LampsNoahSDKInitializer.swift; sourceTree = "<group>"; };
+		59AD506D0A05209ACB854A4F6DF34BFF /* LampsSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.debug.xcconfig; sourceTree = "<group>"; };
+		5F2749771825D4B7D46F0D6822EF2EF7 /* LampsSDKError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKError.swift; sourceTree = "<group>"; };
+		68FD76200D450061CD680D4EC1F3BF39 /* Tquic.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = Tquic.xcframework; path = GDTFramework/Tquic.xcframework; sourceTree = "<group>"; };
+		6C066500C14BF236333417DFABCDA9A8 /* LampsSDK.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LampsSDK.modulemap; sourceTree = "<group>"; };
+		6FE521360E955C5C55218D9B6D254CF1 /* LampsSDKAdapterCenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKAdapterCenter.swift; sourceTree = "<group>"; };
+		725B31E4F323D1593A3CDC643AC981A2 /* LampsRewardAdapting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardAdapting.swift; sourceTree = "<group>"; };
+		731E600B7553286DBCFE026860AD6907 /* Lamps.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Lamps.swift; sourceTree = "<group>"; };
+		76DAD1AF03B2A61523C7B8C3CD926373 /* LampsSDKLog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKLog.swift; sourceTree = "<group>"; };
+		77E76505F7244589E44EE87716D8FA29 /* LampsCSJSDKInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsCSJSDKInitializer.swift; path = LampsSDK/Classes/CSJAdapter/LampsCSJSDKInitializer.swift; sourceTree = "<group>"; };
+		7E6F4471D4CE8F02FB9535B86074FFBC /* Pods-LampsSDK_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LampsSDK_Example.modulemap"; sourceTree = "<group>"; };
+		876CE2DA457B07837D016E9E18238661 /* Pods-LampsSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		8793E20C0B6A75D4D3BCB9F3998593A8 /* LampsBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsBridge.swift; sourceTree = "<group>"; };
+		8DF7CA09BE4506E64FC27D82EF2033CE /* LampsGDTRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsGDTRewardAdapter.swift; path = LampsSDK/Classes/GDTAdapter/LampsGDTRewardAdapter.swift; sourceTree = "<group>"; };
+		90FEF633203710F0EEBF1739024874D9 /* LampsCSJRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsCSJRegister.m; path = LampsSDK/Classes/CSJAdapter/LampsCSJRegister.m; sourceTree = "<group>"; };
+		95012FA5080FF97F7B86B2294EC46BF9 /* LampsSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.release.xcconfig; sourceTree = "<group>"; };
+		99C6842A300DC2FB078CA986D6DC5766 /* GDTMobSDK-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "GDTMobSDK-xcframeworks.sh"; sourceTree = "<group>"; };
+		9CA4483B5A28E3E3FD0CA78984020542 /* LampsNoahRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsNoahRegister.m; path = LampsSDK/Classes/NoahAdapter/LampsNoahRegister.m; sourceTree = "<group>"; };
+		9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = LampsSDK; path = libLampsSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D3692AE901225E33DA5A8D4BB7B9B23 /* Ads-CN-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Ads-CN-xcframeworks.sh"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A41C9BA336B2FB93FF5568D27652B275 /* LampsMacroReplacer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsMacroReplacer.swift; sourceTree = "<group>"; };
-		A4DBC16988B42017D6DCA1C5080225F6 /* LampsRewardAd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardAd.swift; sourceTree = "<group>"; };
-		AB213AB3C631721AE154369A7805799E /* Pods-LampsSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LampsSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
-		AC13C58603AC19CE4C4BFAACD240F16F /* Pods-LampsSDK_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LampsSDK_Example.modulemap"; sourceTree = "<group>"; };
-		AE5E895572FD3898DC69FA47B27D2DA5 /* LampsReportRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReportRequest.swift; sourceTree = "<group>"; };
-		B2C7D464D61D5DAAD9D21BAFEAF0BE0E /* LampsRewardBidding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardBidding.swift; sourceTree = "<group>"; };
-		B7D0F7D134008A6D6929D427ED51C9B2 /* Pods-LampsSDK_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LampsSDK_Example-frameworks.sh"; sourceTree = "<group>"; };
-		B8B411614C30FF1319DCC87DBE921EC8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		B935D0D796573554DE699182362AE0A3 /* LampsNoahRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsNoahRewardAdapter.swift; path = LampsSDK/Classes/NoahAdapter/LampsNoahRewardAdapter.swift; sourceTree = "<group>"; };
-		BE1FD0C0FB4AACFD9D363D4F1B9DF173 /* LampsSDKEnvironment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKEnvironment.swift; sourceTree = "<group>"; };
-		BF28E09F21D05E94ED455E556DDE2337 /* LampsNoahRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsNoahRegister.m; path = LampsSDK/Classes/NoahAdapter/LampsNoahRegister.m; sourceTree = "<group>"; };
-		C24765A676AC45970E89FD7703A50EDA /* LampsBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsBridge.swift; sourceTree = "<group>"; };
-		C267E43224C60F661D5700A1A091883C /* LampsRemoteConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRemoteConfig.swift; sourceTree = "<group>"; };
-		C4F1E694FA0ADE6200C70D32C9B8BFC8 /* LampsSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LampsSDK-dummy.m"; sourceTree = "<group>"; };
-		C50D678AA23E48A7F558DB25824F6EC9 /* GDTMobSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GDTMobSDK.release.xcconfig; sourceTree = "<group>"; };
-		C55ED16BCA2928DDA64D8885E793CC4F /* LampsSDKInitializing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKInitializing.swift; sourceTree = "<group>"; };
-		CAAB085E56A3A675233F3B4618B9D119 /* LampsSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.release.xcconfig; sourceTree = "<group>"; };
-		CB8CB2D6E1773B48CD622201D150A261 /* LampsSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LampsSDK.debug.xcconfig; sourceTree = "<group>"; };
-		D00B6EFD0D64772CD185935376934782 /* LampsCSJRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsCSJRegister.m; path = LampsSDK/Classes/CSJAdapter/LampsCSJRegister.m; sourceTree = "<group>"; };
-		D33ACB0F9ED787BDF426592AF65C3F65 /* LampsGDTRegister.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LampsGDTRegister.m; path = LampsSDK/Classes/GDTAdapter/LampsGDTRegister.m; sourceTree = "<group>"; };
-		D59D89C2C26ED096082BA586384594E6 /* LampsDeviceInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsDeviceInfo.swift; sourceTree = "<group>"; };
-		D97B15B604C9CA7121174900F36E71DD /* LampsSDKLog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKLog.swift; sourceTree = "<group>"; };
-		D9B6073A1AA323731E6FB5F0FE21FB0D /* LampsReportType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReportType.swift; sourceTree = "<group>"; };
-		DC2C56C9535B2858A8DE1806BBD1D9FE /* LampsRewardListener.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardListener.swift; sourceTree = "<group>"; };
-		DC35AB0262C3B7C9498A79812A9FDBB5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		DFF01089E36EDC08B23B2218CE8A5EBB /* Pods-LampsSDK_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Example-Info.plist"; sourceTree = "<group>"; };
-		E34BC0BD1F1EF787BAF707863A1092EC /* Pods-LampsSDK_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-LampsSDK_Example"; path = Pods_LampsSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E43B76FEF0584B25AF7E4928B56C8681 /* LampsNavigationBridgeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsNavigationBridgeHandler.swift; sourceTree = "<group>"; };
-		EC5A72685A54B95D734D4A8E2211ACF7 /* Lamps.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Lamps.swift; sourceTree = "<group>"; };
-		F144933ABE010810DB734D543F2FF8BF /* LampsWebView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWebView.swift; sourceTree = "<group>"; };
-		F6438AAE0C15FCD24703D441B62AAA7F /* LampsRewardSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardSession.swift; sourceTree = "<group>"; };
-		FBFC03E54C669A2431092C84E4343013 /* LampsCSJRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsCSJRewardAdapter.swift; path = LampsSDK/Classes/CSJAdapter/LampsCSJRewardAdapter.swift; sourceTree = "<group>"; };
-		FD11CBCE74824C3BF9B46627BEFB9C5D /* GDTMobSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GDTMobSDK.debug.xcconfig; sourceTree = "<group>"; };
+		9F8F432F9C938EC71F51EF4E73319FB2 /* LampsConfigService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsConfigService.swift; sourceTree = "<group>"; };
+		A7292C74A231A31D140BB6788CD6461D /* Pods-LampsSDK_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LampsSDK_Example-resources.sh"; sourceTree = "<group>"; };
+		ABB354D05CD634213D5F3C68300A13A6 /* Ads-CN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Ads-CN.debug.xcconfig"; sourceTree = "<group>"; };
+		B2D30E333450B7876B494ADFA8C634B9 /* LampsRemoteConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRemoteConfig.swift; sourceTree = "<group>"; };
+		B39E390585FDB2F1854695DB7C81B348 /* Pods-LampsSDK_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		B40E8F4BE3F959ECE78BD3F202224005 /* LampsRewardListener.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardListener.swift; sourceTree = "<group>"; };
+		BEF7584D65D1037C1294473FF813B895 /* LampsRewardMonitorReporter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardMonitorReporter.swift; sourceTree = "<group>"; };
+		BF75204D66B57164A3EE6117011C1C06 /* LampsNavigationBridgeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsNavigationBridgeHandler.swift; sourceTree = "<group>"; };
+		C2F2068FC54723F186FDC6C908BFDB65 /* GDTMobSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GDTMobSDK.release.xcconfig; sourceTree = "<group>"; };
+		C44E7C08F73063AB84D3249E3FE7A333 /* LampsNoahRewardAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LampsNoahRewardAdapter.swift; path = LampsSDK/Classes/NoahAdapter/LampsNoahRewardAdapter.swift; sourceTree = "<group>"; };
+		C9F61914DB2469712C167BDF7E3AD374 /* LampsSDKInitializing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKInitializing.swift; sourceTree = "<group>"; };
+		D2BE70FF38726425C50C14E90EB94DAD /* GDTMobSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GDTMobSDK.xcframework; path = GDTFramework/GDTMobSDK.xcframework; sourceTree = "<group>"; };
+		DCD2397DAFC01953913E171AC9CB830C /* LampsReportType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReportType.swift; sourceTree = "<group>"; };
+		E34BC0BD1F1EF787BAF707863A1092EC /* Pods-LampsSDK_Example */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-LampsSDK_Example"; path = "libPods-LampsSDK_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E64311CBBF9C9651248F73BA3691A44A /* Pods-LampsSDK_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LampsSDK_Example-dummy.m"; sourceTree = "<group>"; };
+		E9E23287BA5BCF2368A4659AE4553E55 /* LampsMacroReplacer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsMacroReplacer.swift; sourceTree = "<group>"; };
+		EAF56EB698B7BBD22E9EF908864251A7 /* LampsSDK-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LampsSDK-umbrella.h"; sourceTree = "<group>"; };
+		EDE68E22FF9045134C897E96C5E573D1 /* LampsWebView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsWebView.swift; sourceTree = "<group>"; };
+		F1DFBFA1D8E2E16E5AB2D88C188F55FD /* LampsRewardSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardSession.swift; sourceTree = "<group>"; };
+		F533AE6C1C091395DB7836DAD2356CA5 /* LampsReportRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsReportRequest.swift; sourceTree = "<group>"; };
+		F655E3111B7056B05FE0628A7162FCFE /* LampsRewardAd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsRewardAd.swift; sourceTree = "<group>"; };
+		F8ABCC9D9018408A2B352D1D2B1249E2 /* Pods-LampsSDK_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LampsSDK_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		F931DE4EF9C55F9F48A08929C57BD38A /* CSJAdSDK.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = CSJAdSDK.bundle; path = SDK/CSJAdSDK.bundle; sourceTree = "<group>"; };
+		FCC05E023F8EFC8426E515E39CBE15BE /* LampsBridgeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsBridgeHandler.swift; sourceTree = "<group>"; };
+		FEBAC14DF872FE9857906CB7B8196BED /* LampsSDKEnvironment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LampsSDKEnvironment.swift; sourceTree = "<group>"; };
+		FF01C8C2FB77EC50CD319094F870D6D7 /* GDTMobSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GDTMobSDK.debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2CE1AB0E30FE1D87577DDEB4E563C434 /* Frameworks */ = {
+		BB6C6625528E02B7A8E2A3298A5AF366 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F404CF7A69856369680F800E1F05D004 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7CB10DD1974EAD2C033D9A96BF534404 /* Frameworks */ = {
+		EC4EDFFF7505B123C8997CD113E32999 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCF51ECAF27BAE7B035329E5234E750B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0F8660C7614D4620E3C613849967476 /* Frameworks */ = {
+		FD77B2EBD7BAE55E78A44A71872023DD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47E9E688CB3C3DDAFE17252B4AB9C417 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04412B3A393F7E551443240282D7E77D /* Support Files */ = {
+		00E28C0230A0719A1B044174A5235BE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8B8A23B96983EE92938FD0D4C57EF28A /* LampsSDK.modulemap */,
-				C4F1E694FA0ADE6200C70D32C9B8BFC8 /* LampsSDK-dummy.m */,
-				34176CE197D83F845C25C7A701E924A0 /* LampsSDK-Info.plist */,
-				2F1996BCB3E55B0124F1EBDBF12D6EA2 /* LampsSDK-prefix.pch */,
-				410B158A8BD6B50515A8CD4C59D9AD53 /* LampsSDK-umbrella.h */,
-				CB8CB2D6E1773B48CD622201D150A261 /* LampsSDK.debug.xcconfig */,
-				CAAB085E56A3A675233F3B4618B9D119 /* LampsSDK.release.xcconfig */,
+				D2BE70FF38726425C50C14E90EB94DAD /* GDTMobSDK.xcframework */,
+				68FD76200D450061CD680D4EC1F3BF39 /* Tquic.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0AEEA55731E6BB4396A2E94FC7CB447A /* BUAdSDK */ = {
+			isa = PBXGroup;
+			children = (
+				45E452E182DA73A782C0035200C53EC1 /* Frameworks */,
+				BE61437A6812D464C4FDD38DA673A9C7 /* Resources */,
+			);
+			name = BUAdSDK;
+			sourceTree = "<group>";
+		};
+		1867E8C48A4C99FC0AECED5D816B713D /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				E9E23287BA5BCF2368A4659AE4553E55 /* LampsMacroReplacer.swift */,
+				0417B9C6ACE69D25167E28575D0C873E /* LampsReporter.swift */,
+				F533AE6C1C091395DB7836DAD2356CA5 /* LampsReportRequest.swift */,
+				DCD2397DAFC01953913E171AC9CB830C /* LampsReportType.swift */,
+			);
+			name = Report;
+			path = LampsSDK/Classes/Report;
+			sourceTree = "<group>";
+		};
+		1F8454B71CBADAF5E19BE4440EC12BFB /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9D3692AE901225E33DA5A8D4BB7B9B23 /* Ads-CN-xcframeworks.sh */,
+				ABB354D05CD634213D5F3C68300A13A6 /* Ads-CN.debug.xcconfig */,
+				14834A8B30FB0A4EEBE7B80E1A90F564 /* Ads-CN.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "Example/Pods/Target Support Files/LampsSDK";
+			path = "../Target Support Files/Ads-CN";
 			sourceTree = "<group>";
 		};
-		19BC8B5DA22EE865139AFEB424FD1DE6 /* Pods-LampsSDK_Tests */ = {
+		2A1821E6AE7506C3D450E8F16A700CE0 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				6D23EB82A4C9A588AAE55FD088AD5CD7 /* Pods-LampsSDK_Tests.modulemap */,
-				3EB8C1294E94C83BCE9AD5641254439E /* Pods-LampsSDK_Tests-acknowledgements.markdown */,
-				548EDEFA81E8252592B5CC150B86F1E6 /* Pods-LampsSDK_Tests-acknowledgements.plist */,
-				494121175C83EFBC755CE7482CB4761F /* Pods-LampsSDK_Tests-dummy.m */,
-				2A557FC741C67CFC12A4C9FE45C2E5DC /* Pods-LampsSDK_Tests-Info.plist */,
-				045429A75D13D3EEED7E5778B264931A /* Pods-LampsSDK_Tests-umbrella.h */,
-				712BDEC9BA7970EAF4F433BA917808BE /* Pods-LampsSDK_Tests.debug.xcconfig */,
-				03209876A7A1166E38FEE2034FE3B0BC /* Pods-LampsSDK_Tests.release.xcconfig */,
+				58542211D032560602F341DD38347626 /* Pods-LampsSDK_Example */,
+				D67B4AA7C961F10CF5889EBBBF6E77A4 /* Pods-LampsSDK_Tests */,
 			);
-			name = "Pods-LampsSDK_Tests";
-			path = "Target Support Files/Pods-LampsSDK_Tests";
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		24D721E00066D1DD170B3E35BB71BF9B /* Core */ = {
+		33A4539C319E3D99D4C6599E37CBD0E0 /* GDTAdapter */ = {
 			isa = PBXGroup;
 			children = (
-				7ECE833293F379E0703BE4C6FAF072C1 /* Adapter */,
-				B0E1489D928F58B0B74EC2640D7EA109 /* Config */,
-				C3599711C20823A522CCB6C2EA8A3CEF /* Core */,
-				A7041AA3B98F34388C6831DBAB8B1C42 /* Public */,
-				F248EB3E51FE89E144AAE71DBD02423B /* Report */,
-				8755FCFED3A0BFB8001D4CFFB11E6C38 /* Reward */,
-				797C98DA5D275EDC72DD2C2B4A447AB7 /* Web */,
+				37174C144524381DD834B28B600E2938 /* LampsGDTRegister.m */,
+				8DF7CA09BE4506E64FC27D82EF2033CE /* LampsGDTRewardAdapter.swift */,
+				2519803DCBD7B2CDB14FB1A0BB86103C /* LampsGDTSDKInitializer.swift */,
+			);
+			name = GDTAdapter;
+			sourceTree = "<group>";
+		};
+		3B78DF7E31713B13CCF8FC862D0CBA42 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				EDE68E22FF9045134C897E96C5E573D1 /* LampsWebView.swift */,
+				51881C207CDDF7C7BEA0950AA26F034F /* LampsWebViewController.swift */,
+				992678FF315997DAA6697F9A06375285 /* Bridge */,
+			);
+			name = Web;
+			path = LampsSDK/Classes/Web;
+			sourceTree = "<group>";
+		};
+		45E452E182DA73A782C0035200C53EC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				231169D8902F44596E117C035A6A42AD /* BUAdSDK.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4F43F727D437B9612B2FF75963281CED /* Ads-CN */ = {
+			isa = PBXGroup;
+			children = (
+				0AEEA55731E6BB4396A2E94FC7CB447A /* BUAdSDK */,
+				1F8454B71CBADAF5E19BE4440EC12BFB /* Support Files */,
+			);
+			name = "Ads-CN";
+			path = "Ads-CN";
+			sourceTree = "<group>";
+		};
+		54132AC0713B2B983A524EFE43F914BD /* Reward */ = {
+			isa = PBXGroup;
+			children = (
+				F655E3111B7056B05FE0628A7162FCFE /* LampsRewardAd.swift */,
+				725B31E4F323D1593A3CDC643AC981A2 /* LampsRewardAdapting.swift */,
+				16B8D8334E787CA667A2BAD86C4D5CD7 /* LampsRewardBidding.swift */,
+				42C38D6706D32704E5EB7EF038BAE4AA /* LampsRewardChannel.swift */,
+				B40E8F4BE3F959ECE78BD3F202224005 /* LampsRewardListener.swift */,
+				BEF7584D65D1037C1294473FF813B895 /* LampsRewardMonitorReporter.swift */,
+				0E8F63863065432C738989E1CDE22C33 /* LampsRewardSDKLoader.swift */,
+				F1DFBFA1D8E2E16E5AB2D88C188F55FD /* LampsRewardSession.swift */,
+			);
+			name = Reward;
+			path = LampsSDK/Classes/Reward;
+			sourceTree = "<group>";
+		};
+		547FBBC841D7D19897F1AFC3313B758F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				5F2749771825D4B7D46F0D6822EF2EF7 /* LampsSDKError.swift */,
+				76DAD1AF03B2A61523C7B8C3CD926373 /* LampsSDKLog.swift */,
 			);
 			name = Core;
+			path = LampsSDK/Classes/Core;
 			sourceTree = "<group>";
 		};
-		27AB8C2627DB22F47E157934695AFD34 /* Support Files */ = {
+		55191C77E0EF7201ECDFAAB1CFC8A37F /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				6AF1D754FF74FF33AD29E42AD2A5B01A /* GDTMobSDK-xcframeworks.sh */,
-				FD11CBCE74824C3BF9B46627BEFB9C5D /* GDTMobSDK.debug.xcconfig */,
-				C50D678AA23E48A7F558DB25824F6EC9 /* GDTMobSDK.release.xcconfig */,
+				99C6842A300DC2FB078CA986D6DC5766 /* GDTMobSDK-xcframeworks.sh */,
+				FF01C8C2FB77EC50CD319094F870D6D7 /* GDTMobSDK.debug.xcconfig */,
+				C2F2068FC54723F186FDC6C908BFDB65 /* GDTMobSDK.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/GDTMobSDK";
 			sourceTree = "<group>";
 		};
-		2E3C5B15DD74727F26FA6F479EDFAB9A /* Products */ = {
+		58542211D032560602F341DD38347626 /* Pods-LampsSDK_Example */ = {
+			isa = PBXGroup;
+			children = (
+				7E6F4471D4CE8F02FB9535B86074FFBC /* Pods-LampsSDK_Example.modulemap */,
+				35BC8ED75154694BBE3B5E5941BBEA23 /* Pods-LampsSDK_Example-acknowledgements.markdown */,
+				B39E390585FDB2F1854695DB7C81B348 /* Pods-LampsSDK_Example-acknowledgements.plist */,
+				E64311CBBF9C9651248F73BA3691A44A /* Pods-LampsSDK_Example-dummy.m */,
+				20D47CCE6A2E8504179BCEE871FAEA3D /* Pods-LampsSDK_Example-frameworks.sh */,
+				A7292C74A231A31D140BB6788CD6461D /* Pods-LampsSDK_Example-resources.sh */,
+				445AA816B360823D342D1ADD39DC0C66 /* Pods-LampsSDK_Example-umbrella.h */,
+				4EFF5EA01C879665F21F86D36B7ACEDA /* Pods-LampsSDK_Example.debug.xcconfig */,
+				4AF19F618A3E745E643B47A77C735DCE /* Pods-LampsSDK_Example.release.xcconfig */,
+			);
+			name = "Pods-LampsSDK_Example";
+			path = "Target Support Files/Pods-LampsSDK_Example";
+			sourceTree = "<group>";
+		};
+		79EF982DAD1115367E36ED3657D6AFC7 /* NoahAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				9CA4483B5A28E3E3FD0CA78984020542 /* LampsNoahRegister.m */,
+				C44E7C08F73063AB84D3249E3FE7A333 /* LampsNoahRewardAdapter.swift */,
+				5686A2E07141D0C044C8CCA0F73D281D /* LampsNoahSDKInitializer.swift */,
+			);
+			name = NoahAdapter;
+			sourceTree = "<group>";
+		};
+		7F89FAECB1CF86F074E18CFC5B764518 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				9F8F432F9C938EC71F51EF4E73319FB2 /* LampsConfigService.swift */,
+				1318316A5D361C8130DE38B419D189E9 /* LampsDeviceInfo.swift */,
+				B2D30E333450B7876B494ADFA8C634B9 /* LampsRemoteConfig.swift */,
+				FEBAC14DF872FE9857906CB7B8196BED /* LampsSDKEnvironment.swift */,
+			);
+			name = Config;
+			path = LampsSDK/Classes/Config;
+			sourceTree = "<group>";
+		};
+		8A3D5825EE3EFB3AF4429B752FD1BF51 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9B0B371EDD00113E2C249B84C2987F80 /* LampsSDK */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		91ACDAC5D2AF479BE957CC3E3C390914 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4F43F727D437B9612B2FF75963281CED /* Ads-CN */,
+				C429C13D35F6C4A6D192DA50C930A3D0 /* GDTMobSDK */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		992678FF315997DAA6697F9A06375285 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				3F78725AAB078158F790EB1D9DF1653B /* LampsBaseBridgeHandler.swift */,
+				8793E20C0B6A75D4D3BCB9F3998593A8 /* LampsBridge.swift */,
+				FCC05E023F8EFC8426E515E39CBE15BE /* LampsBridgeHandler.swift */,
+				BF75204D66B57164A3EE6117011C1C06 /* LampsNavigationBridgeHandler.swift */,
+				19A79DC2942587FD21C511F54C9028DD /* LampsWeakScriptMessageHandler.swift */,
+			);
+			name = Bridge;
+			path = Bridge;
+			sourceTree = "<group>";
+		};
+		9928005496527C74454DDA7B79F0B72F /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				34AE0DF462C750F3F0FEEFC30EF39F4F /* LampsSDK.podspec */,
+				3D8B3A8EEA1B5DC7BD2A0621BD65CFE7 /* LICENSE */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		9A9E9A9EF2C3F18F399BF57A1209AF55 /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				6FE521360E955C5C55218D9B6D254CF1 /* LampsSDKAdapterCenter.swift */,
+				C9F61914DB2469712C167BDF7E3AD374 /* LampsSDKInitializing.swift */,
+			);
+			name = Adapter;
+			path = LampsSDK/Classes/Adapter;
+			sourceTree = "<group>";
+		};
+		9B0B371EDD00113E2C249B84C2987F80 /* LampsSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D2881637BF51803EF523E81C7C2260C5 /* Core */,
+				FA164CD96943559D06BA1822729A838E /* CSJAdapter */,
+				33A4539C319E3D99D4C6599E37CBD0E0 /* GDTAdapter */,
+				79EF982DAD1115367E36ED3657D6AFC7 /* NoahAdapter */,
+				9928005496527C74454DDA7B79F0B72F /* Pod */,
+				A4EED8F138603BEC9C12406207AE82DD /* Support Files */,
+			);
+			name = LampsSDK;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		9FB01B7B62F78535A326E5231565E311 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				731E600B7553286DBCFE026860AD6907 /* Lamps.swift */,
+				27931814E6C1BB0CDD42F8BD26CA483B /* LampsSDKConfig.swift */,
+			);
+			name = Public;
+			path = LampsSDK/Classes/Public;
+			sourceTree = "<group>";
+		};
+		A4EED8F138603BEC9C12406207AE82DD /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C066500C14BF236333417DFABCDA9A8 /* LampsSDK.modulemap */,
+				2D91B83EECE4489B37E53D1FDC34C761 /* LampsSDK-dummy.m */,
+				0576D75863645797BF9508B7C24A4676 /* LampsSDK-prefix.pch */,
+				EAF56EB698B7BBD22E9EF908864251A7 /* LampsSDK-umbrella.h */,
+				59AD506D0A05209ACB854A4F6DF34BFF /* LampsSDK.debug.xcconfig */,
+				95012FA5080FF97F7B86B2294EC46BF9 /* LampsSDK.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/LampsSDK";
+			sourceTree = "<group>";
+		};
+		BE61437A6812D464C4FDD38DA673A9C7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F931DE4EF9C55F9F48A08929C57BD38A /* CSJAdSDK.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		C429C13D35F6C4A6D192DA50C930A3D0 /* GDTMobSDK */ = {
+			isa = PBXGroup;
+			children = (
+				00E28C0230A0719A1B044174A5235BE3 /* Frameworks */,
+				55191C77E0EF7201ECDFAAB1CFC8A37F /* Support Files */,
+			);
+			name = GDTMobSDK;
+			path = GDTMobSDK;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				8A3D5825EE3EFB3AF4429B752FD1BF51 /* Development Pods */,
+				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
+				91ACDAC5D2AF479BE957CC3E3C390914 /* Pods */,
+				E9C40452FDB1D8C1B02719C9D597D7A2 /* Products */,
+				2A1821E6AE7506C3D450E8F16A700CE0 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D2881637BF51803EF523E81C7C2260C5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E9A9EF2C3F18F399BF57A1209AF55 /* Adapter */,
+				7F89FAECB1CF86F074E18CFC5B764518 /* Config */,
+				547FBBC841D7D19897F1AFC3313B758F /* Core */,
+				9FB01B7B62F78535A326E5231565E311 /* Public */,
+				1867E8C48A4C99FC0AECED5D816B713D /* Report */,
+				54132AC0713B2B983A524EFE43F914BD /* Reward */,
+				3B78DF7E31713B13CCF8FC862D0CBA42 /* Web */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		D67B4AA7C961F10CF5889EBBBF6E77A4 /* Pods-LampsSDK_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0455B015D0C45F0C2F2C227F65D58743 /* Pods-LampsSDK_Tests-acknowledgements.markdown */,
+				F8ABCC9D9018408A2B352D1D2B1249E2 /* Pods-LampsSDK_Tests-acknowledgements.plist */,
+				23AF22ECB58668078B39C9DC39B6F07B /* Pods-LampsSDK_Tests-dummy.m */,
+				876CE2DA457B07837D016E9E18238661 /* Pods-LampsSDK_Tests.debug.xcconfig */,
+				2093D4CFB264C277C99B2A9FC111D2AB /* Pods-LampsSDK_Tests.release.xcconfig */,
+			);
+			name = "Pods-LampsSDK_Tests";
+			path = "Target Support Files/Pods-LampsSDK_Tests";
+			sourceTree = "<group>";
+		};
+		D89477F20FB1DE18A04690586D7808C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E9C40452FDB1D8C1B02719C9D597D7A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */,
@@ -272,267 +548,39 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4A06CADDC0CF355598CDF22ED6BC305A /* Targets Support Files */ = {
+		FA164CD96943559D06BA1822729A838E /* CSJAdapter */ = {
 			isa = PBXGroup;
 			children = (
-				822DC97BF7F61CC22367822B69747AFD /* Pods-LampsSDK_Example */,
-				19BC8B5DA22EE865139AFEB424FD1DE6 /* Pods-LampsSDK_Tests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		52B97D33E5BD1F2D5793699193364DE5 /* NoahAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				BF28E09F21D05E94ED455E556DDE2337 /* LampsNoahRegister.m */,
-				B935D0D796573554DE699182362AE0A3 /* LampsNoahRewardAdapter.swift */,
-				8EFE56C0C18D2BFB87DC1CD8232E98D5 /* LampsNoahSDKInitializer.swift */,
-			);
-			name = NoahAdapter;
-			sourceTree = "<group>";
-		};
-		6808F55E0C7951774B638A400D5F83C4 /* CSJAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				D00B6EFD0D64772CD185935376934782 /* LampsCSJRegister.m */,
-				FBFC03E54C669A2431092C84E4343013 /* LampsCSJRewardAdapter.swift */,
-				95423811D288715D5ED6AB91D28EF8DB /* LampsCSJSDKInitializer.swift */,
+				90FEF633203710F0EEBF1739024874D9 /* LampsCSJRegister.m */,
+				4FE77B45375679D8508C64BAA0765937 /* LampsCSJRewardAdapter.swift */,
+				77E76505F7244589E44EE87716D8FA29 /* LampsCSJSDKInitializer.swift */,
 			);
 			name = CSJAdapter;
-			sourceTree = "<group>";
-		};
-		6EC39567D278EFF84E55299D877A74C0 /* Bridge */ = {
-			isa = PBXGroup;
-			children = (
-				2D9EFD4A984912D3D55C1142065958B8 /* LampsBaseBridgeHandler.swift */,
-				C24765A676AC45970E89FD7703A50EDA /* LampsBridge.swift */,
-				20F168A8A31F412D2C2A0285966305E3 /* LampsBridgeHandler.swift */,
-				E43B76FEF0584B25AF7E4928B56C8681 /* LampsNavigationBridgeHandler.swift */,
-				338BCD41565DFFADC8B77C363A236704 /* LampsWeakScriptMessageHandler.swift */,
-			);
-			name = Bridge;
-			path = Bridge;
-			sourceTree = "<group>";
-		};
-		797C98DA5D275EDC72DD2C2B4A447AB7 /* Web */ = {
-			isa = PBXGroup;
-			children = (
-				F144933ABE010810DB734D543F2FF8BF /* LampsWebView.swift */,
-				217F14541D31C9D8AFDAC0D43F005457 /* LampsWebViewController.swift */,
-				6EC39567D278EFF84E55299D877A74C0 /* Bridge */,
-			);
-			name = Web;
-			path = LampsSDK/Classes/Web;
-			sourceTree = "<group>";
-		};
-		7ECE833293F379E0703BE4C6FAF072C1 /* Adapter */ = {
-			isa = PBXGroup;
-			children = (
-				34AA1540B2F1F827F0D799F199BC6E42 /* LampsSDKAdapterCenter.swift */,
-				C55ED16BCA2928DDA64D8885E793CC4F /* LampsSDKInitializing.swift */,
-			);
-			name = Adapter;
-			path = LampsSDK/Classes/Adapter;
-			sourceTree = "<group>";
-		};
-		812857AA66852A6E3C5419C59146065D /* GDTAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				D33ACB0F9ED787BDF426592AF65C3F65 /* LampsGDTRegister.m */,
-				5C45B620E83CA8AD9975556F459321DF /* LampsGDTRewardAdapter.swift */,
-				6A6B4AD5CB7C054718A969D268F58723 /* LampsGDTSDKInitializer.swift */,
-			);
-			name = GDTAdapter;
-			sourceTree = "<group>";
-		};
-		822DC97BF7F61CC22367822B69747AFD /* Pods-LampsSDK_Example */ = {
-			isa = PBXGroup;
-			children = (
-				AC13C58603AC19CE4C4BFAACD240F16F /* Pods-LampsSDK_Example.modulemap */,
-				18EC9DB1E1C55EF4A5A214F363712C7F /* Pods-LampsSDK_Example-acknowledgements.markdown */,
-				5B4BECAE76370B7ADF902E72AF2E3248 /* Pods-LampsSDK_Example-acknowledgements.plist */,
-				30CE234C0F4D5CF3E29234D889EA4ADE /* Pods-LampsSDK_Example-dummy.m */,
-				B7D0F7D134008A6D6929D427ED51C9B2 /* Pods-LampsSDK_Example-frameworks.sh */,
-				DFF01089E36EDC08B23B2218CE8A5EBB /* Pods-LampsSDK_Example-Info.plist */,
-				1BF070754F0B76C3CECCCACC0E9C8C1D /* Pods-LampsSDK_Example-umbrella.h */,
-				17ED012FBA91428EC5D2911F5E3A18A9 /* Pods-LampsSDK_Example.debug.xcconfig */,
-				AB213AB3C631721AE154369A7805799E /* Pods-LampsSDK_Example.release.xcconfig */,
-			);
-			name = "Pods-LampsSDK_Example";
-			path = "Target Support Files/Pods-LampsSDK_Example";
-			sourceTree = "<group>";
-		};
-		8755FCFED3A0BFB8001D4CFFB11E6C38 /* Reward */ = {
-			isa = PBXGroup;
-			children = (
-				A4DBC16988B42017D6DCA1C5080225F6 /* LampsRewardAd.swift */,
-				37B6F822DA3C7687BDB88E4ACF556F6D /* LampsRewardAdapting.swift */,
-				B2C7D464D61D5DAAD9D21BAFEAF0BE0E /* LampsRewardBidding.swift */,
-				5E2CC5CE19572E04F35F55B1351F0F47 /* LampsRewardChannel.swift */,
-				DC2C56C9535B2858A8DE1806BBD1D9FE /* LampsRewardListener.swift */,
-				0DD50737B1EF095453D3C49B26A0F4B6 /* LampsRewardMonitorReporter.swift */,
-				3840F0C0088B31EDB6D9BECED744A721 /* LampsRewardSDKLoader.swift */,
-				F6438AAE0C15FCD24703D441B62AAA7F /* LampsRewardSession.swift */,
-			);
-			name = Reward;
-			path = LampsSDK/Classes/Reward;
-			sourceTree = "<group>";
-		};
-		8A3D5825EE3EFB3AF4429B752FD1BF51 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E1017CF64539F89A6A7C01664790C014 /* LampsSDK */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		8BDAA437EF53755E024FB7AC6917ECCD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				07AFEEC3859DBC9AF278FBCAA515C8DF /* GDTMobSDK.xcframework */,
-				77C3354F0D8E0877345C8B9CC0754130 /* Tquic.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8F76D118CF297D230BE6DB138863ABD4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				BEC06BA45BFA0956988F4221E04FD5FC /* GDTMobSDK */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		A09EC022E1E7AC7B54EA8E063DAC9953 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				091C15725A7B9095AB9D3BD0228B8DD9 /* LampsSDK.podspec */,
-				DC35AB0262C3B7C9498A79812A9FDBB5 /* LICENSE */,
-				B8B411614C30FF1319DCC87DBE921EC8 /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		A7041AA3B98F34388C6831DBAB8B1C42 /* Public */ = {
-			isa = PBXGroup;
-			children = (
-				EC5A72685A54B95D734D4A8E2211ACF7 /* Lamps.swift */,
-				00F46D13A460F48D092C1F4D173D3AB0 /* LampsSDKConfig.swift */,
-			);
-			name = Public;
-			path = LampsSDK/Classes/Public;
-			sourceTree = "<group>";
-		};
-		B0E1489D928F58B0B74EC2640D7EA109 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				1B433E7F4C211BBBFD963C3AAC082EB5 /* LampsConfigService.swift */,
-				D59D89C2C26ED096082BA586384594E6 /* LampsDeviceInfo.swift */,
-				C267E43224C60F661D5700A1A091883C /* LampsRemoteConfig.swift */,
-				BE1FD0C0FB4AACFD9D363D4F1B9DF173 /* LampsSDKEnvironment.swift */,
-			);
-			name = Config;
-			path = LampsSDK/Classes/Config;
-			sourceTree = "<group>";
-		};
-		BEC06BA45BFA0956988F4221E04FD5FC /* GDTMobSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8BDAA437EF53755E024FB7AC6917ECCD /* Frameworks */,
-				27AB8C2627DB22F47E157934695AFD34 /* Support Files */,
-			);
-			name = GDTMobSDK;
-			path = GDTMobSDK;
-			sourceTree = "<group>";
-		};
-		C3599711C20823A522CCB6C2EA8A3CEF /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				9455B822D3903DC0DB3FF7472D4E97F5 /* LampsSDKError.swift */,
-				D97B15B604C9CA7121174900F36E71DD /* LampsSDKLog.swift */,
-			);
-			name = Core;
-			path = LampsSDK/Classes/Core;
-			sourceTree = "<group>";
-		};
-		CF1408CF629C7361332E53B88F7BD30C = {
-			isa = PBXGroup;
-			children = (
-				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				8A3D5825EE3EFB3AF4429B752FD1BF51 /* Development Pods */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				8F76D118CF297D230BE6DB138863ABD4 /* Pods */,
-				2E3C5B15DD74727F26FA6F479EDFAB9A /* Products */,
-				4A06CADDC0CF355598CDF22ED6BC305A /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E4801F62A6B08CD9B5410329F1A18FDE /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E1017CF64539F89A6A7C01664790C014 /* LampsSDK */ = {
-			isa = PBXGroup;
-			children = (
-				24D721E00066D1DD170B3E35BB71BF9B /* Core */,
-				6808F55E0C7951774B638A400D5F83C4 /* CSJAdapter */,
-				812857AA66852A6E3C5419C59146065D /* GDTAdapter */,
-				52B97D33E5BD1F2D5793699193364DE5 /* NoahAdapter */,
-				A09EC022E1E7AC7B54EA8E063DAC9953 /* Pod */,
-				04412B3A393F7E551443240282D7E77D /* Support Files */,
-			);
-			name = LampsSDK;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		F248EB3E51FE89E144AAE71DBD02423B /* Report */ = {
-			isa = PBXGroup;
-			children = (
-				A41C9BA336B2FB93FF5568D27652B275 /* LampsMacroReplacer.swift */,
-				86D7B9DDE5D8F796F7118125CD25ED16 /* LampsReporter.swift */,
-				AE5E895572FD3898DC69FA47B27D2DA5 /* LampsReportRequest.swift */,
-				D9B6073A1AA323731E6FB5F0FE21FB0D /* LampsReportType.swift */,
-			);
-			name = Report;
-			path = LampsSDK/Classes/Report;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5334D904B77CDDDFABF11FA955E3BA7D /* Headers */ = {
+		441DD7A203CFC8187C2E0720F38F2827 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4715F772493BC71676C3B44C13491972 /* Pods-LampsSDK_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6FB664ACFA9CB466A43105F311FD818A /* Headers */ = {
+		8391BE2F521CDC25B5C569714DFE80D2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66613BCC107D9CA909D19983A1FE2FF6 /* Pods-LampsSDK_Tests-umbrella.h in Headers */,
+				7E329555C5B2F237F18F6418AC672986 /* Pods-LampsSDK_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C97EC1A7747B14BA1EB35FA05C137646 /* Headers */ = {
+		B096AD60FDD28E6663321DD1D793A8F1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CF44D51ED118DDBD798643E637E3D05 /* LampsSDK-umbrella.h in Headers */,
+				F2F529CECF1E658AAC3F500EB0F77F11 /* LampsSDK-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,61 +589,61 @@
 /* Begin PBXNativeTarget section */
 		06E85100CB70ABECCD70289013A6248F /* Pods-LampsSDK_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F6CA8415D3ADA08DE5B68A9047DD9685 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Tests" */;
+			buildConfigurationList = F097EC7CE8CB3CF3F0FC99CDF7DA2B7F /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Tests" */;
 			buildPhases = (
-				6FB664ACFA9CB466A43105F311FD818A /* Headers */,
-				09850D0DD67EB1153325FB25236DF168 /* Sources */,
-				2CE1AB0E30FE1D87577DDEB4E563C434 /* Frameworks */,
-				76468451BC2782DE846FCC0F238C3CB1 /* Resources */,
+				441DD7A203CFC8187C2E0720F38F2827 /* Headers */,
+				2497E9CEBA6A5D03F6FC28658642FE71 /* Sources */,
+				BB6C6625528E02B7A8E2A3298A5AF366 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3CB47A911BD200DA0C1F2B64A26D3C85 /* PBXTargetDependency */,
+				A52A655DF20AD7BC553AB4C78C92EDEC /* PBXTargetDependency */,
 			);
 			name = "Pods-LampsSDK_Tests";
-			productName = Pods_LampsSDK_Tests;
+			productName = "Pods-LampsSDK_Tests";
 			productReference = 553800B708FE6BE5BA7F1AF08E47CD49 /* Pods-LampsSDK_Tests */;
-			productType = "com.apple.product-type.framework";
+			productType = "com.apple.product-type.library.static";
 		};
 		C4E820CF0670A7DE4EE6CE94E7487F1E /* Pods-LampsSDK_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55B9A16D1795640240916010AF0E96E6 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Example" */;
+			buildConfigurationList = E38E0539ACF66C83F302ACBA8D470870 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Example" */;
 			buildPhases = (
-				5334D904B77CDDDFABF11FA955E3BA7D /* Headers */,
-				012EBA2461E15939B1BEA330F02934CF /* Sources */,
-				7CB10DD1974EAD2C033D9A96BF534404 /* Frameworks */,
-				245A35D2CB5C5FEA45C103C0673C6BEF /* Resources */,
+				8391BE2F521CDC25B5C569714DFE80D2 /* Headers */,
+				AC05E0BB1B7A77BA96B985294569C07B /* Sources */,
+				EC4EDFFF7505B123C8997CD113E32999 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C9B02218D9ADCFA90F64D73C3903EE50 /* PBXTargetDependency */,
-				4486BE05FF156E1E5DEE3BF95EAFCC91 /* PBXTargetDependency */,
+				AF75F398068DD03818C1C26E26150D72 /* PBXTargetDependency */,
+				651751A1FB27A101A98DB149E592FC88 /* PBXTargetDependency */,
+				55288104452ED80D574C9B75A0DE9BC2 /* PBXTargetDependency */,
 			);
 			name = "Pods-LampsSDK_Example";
-			productName = Pods_LampsSDK_Example;
+			productName = "Pods-LampsSDK_Example";
 			productReference = E34BC0BD1F1EF787BAF707863A1092EC /* Pods-LampsSDK_Example */;
-			productType = "com.apple.product-type.framework";
+			productType = "com.apple.product-type.library.static";
 		};
 		F64035C8BBE74DBF593F506AB9E84BA8 /* LampsSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D2C2E7D8C18FEF92609DBC86D323FB10 /* Build configuration list for PBXNativeTarget "LampsSDK" */;
+			buildConfigurationList = 228C7A8443E6B60C0530781E30976B36 /* Build configuration list for PBXNativeTarget "LampsSDK" */;
 			buildPhases = (
-				C97EC1A7747B14BA1EB35FA05C137646 /* Headers */,
-				EEEE2A15C6FFB6A4EF6E5E81211652B4 /* Sources */,
-				A0F8660C7614D4620E3C613849967476 /* Frameworks */,
-				0822C7B50F802ED86CACE62BA6604899 /* Resources */,
+				B096AD60FDD28E6663321DD1D793A8F1 /* Headers */,
+				4135CE4071B1B7FADB8A7A3C2291A40F /* Sources */,
+				FD77B2EBD7BAE55E78A44A71872023DD /* Frameworks */,
+				2C65E01CFD9D3D194692ABD86C9A31FE /* Copy generated compatibility header */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				932F519D76133F36AAB1C410C4206A70 /* PBXTargetDependency */,
+				91EAE6D3D6EBC63ED0E6EE17A6A29899 /* PBXTargetDependency */,
+				C8DD1CBF2F632B964E9DB8B54A10252C /* PBXTargetDependency */,
 			);
 			name = LampsSDK;
 			productName = LampsSDK;
 			productReference = 9CE3580168FEC08F5ACBDD0F22D16B48 /* LampsSDK */;
-			productType = "com.apple.product-type.framework";
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -617,10 +665,11 @@
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 2E3C5B15DD74727F26FA6F479EDFAB9A /* Products */;
+			productRefGroup = E9C40452FDB1D8C1B02719C9D597D7A2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				726ABAA3B995C2690CAF752FB08ABF6D /* Ads-CN */,
 				6F2BDBDBBAD8487EF4614E1D729C5DD0 /* GDTMobSDK */,
 				F64035C8BBE74DBF593F506AB9E84BA8 /* LampsSDK */,
 				C4E820CF0670A7DE4EE6CE94E7487F1E /* Pods-LampsSDK_Example */,
@@ -629,31 +678,49 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		0822C7B50F802ED86CACE62BA6604899 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		245A35D2CB5C5FEA45C103C0673C6BEF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		76468451BC2782DE846FCC0F238C3CB1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXShellScriptBuildPhase section */
+		2C65E01CFD9D3D194692ABD86C9A31FE /* Copy generated compatibility header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h",
+				"${PODS_ROOT}/Headers/Public/LampsSDK/LampsSDK.modulemap",
+				"${PODS_ROOT}/Headers/Public/LampsSDK/LampsSDK-umbrella.h",
+			);
+			name = "Copy generated compatibility header";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap",
+				"${BUILT_PRODUCTS_DIR}/LampsSDK-umbrella.h",
+				"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/LampsSDK/LampsSDK.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/LampsSDK/LampsSDK-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
+		};
+		3E264E16F435753D4188B2112E6D2555 /* [CP] Copy XCFrameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Ads-CN/Ads-CN-xcframeworks.sh",
+				"${PODS_ROOT}/Ads-CN/SDK/BUAdSDK.xcframework",
+			);
+			name = "[CP] Copy XCFrameworks";
+			outputPaths = (
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Ads-CN/BUAdSDK/BUAdSDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Ads-CN/Ads-CN-xcframeworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A898C4D2EDC42356AF1A6C968411C06D /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -677,94 +744,106 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		012EBA2461E15939B1BEA330F02934CF /* Sources */ = {
+		2497E9CEBA6A5D03F6FC28658642FE71 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E75904108C39A5AA6D4DC34EDEC29AC2 /* Pods-LampsSDK_Example-dummy.m in Sources */,
+				7332C7A553A248ADC1C31D4C913CCC7F /* Pods-LampsSDK_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09850D0DD67EB1153325FB25236DF168 /* Sources */ = {
+		4135CE4071B1B7FADB8A7A3C2291A40F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BB14F211E3CDE6C85A8190B2B5B5D65 /* Pods-LampsSDK_Tests-dummy.m in Sources */,
+				87525A7F18E74C42F85BF497C32A4F57 /* Lamps.swift in Sources */,
+				0126248603D7EFDDDA8BAE175C687A3F /* LampsBaseBridgeHandler.swift in Sources */,
+				B064411336E4842AD9915B187266A775 /* LampsBridge.swift in Sources */,
+				5502B3D4FD98C98F123E83CFE5C94460 /* LampsBridgeHandler.swift in Sources */,
+				ED33CA60C8BC86A6CE5650A80BE12A2F /* LampsConfigService.swift in Sources */,
+				44D97212B1985210703DFFD522E5F553 /* LampsCSJRegister.m in Sources */,
+				FF98E6DD5A4476DE333CDE50A9845841 /* LampsCSJRewardAdapter.swift in Sources */,
+				9A58C5E763D9D02E6406AE89C0788FE6 /* LampsCSJSDKInitializer.swift in Sources */,
+				6E8492EC0A592FDBD95BD5090C267EA3 /* LampsDeviceInfo.swift in Sources */,
+				26CD31B2914F49D1710A0977B6C0FF26 /* LampsGDTRegister.m in Sources */,
+				FBAC71F32FC713A4A0096BD7C5FEFD51 /* LampsGDTRewardAdapter.swift in Sources */,
+				8AAB7F6007E929690BFF1431AD7A90BB /* LampsGDTSDKInitializer.swift in Sources */,
+				EEEA37AAF31A906E7415DBC265F8348B /* LampsMacroReplacer.swift in Sources */,
+				3CDA4A70EE750C865F231FCEB516DCA2 /* LampsNavigationBridgeHandler.swift in Sources */,
+				EE8C1AFCC96B0C3E1F78C3A15D1EE5F8 /* LampsNoahRegister.m in Sources */,
+				416C7DD309C32FB30620D1D81A33455F /* LampsNoahRewardAdapter.swift in Sources */,
+				4D893BD243042AAE93146D850AB71072 /* LampsNoahSDKInitializer.swift in Sources */,
+				ACA51730AFE74F53886FC543928F6F87 /* LampsRemoteConfig.swift in Sources */,
+				90C2951CE741C8AF1CC58372DF07EDD6 /* LampsReporter.swift in Sources */,
+				DC1F421B0D5CFC85B2C2C42F0825B2EB /* LampsReportRequest.swift in Sources */,
+				0430E16C02E6E2A4C98B6DE3B4018D04 /* LampsReportType.swift in Sources */,
+				6AA9AC717C2029721FB4AF8B52689540 /* LampsRewardAd.swift in Sources */,
+				CDB3796CA0DDAEDED431F311D5AB9BDF /* LampsRewardAdapting.swift in Sources */,
+				285A753E7485FD137D04D90069E93724 /* LampsRewardBidding.swift in Sources */,
+				83F2DECB1D110C9D02A38B68612A0111 /* LampsRewardChannel.swift in Sources */,
+				A314BE451E7B389913A1A82A0FEACF98 /* LampsRewardListener.swift in Sources */,
+				20114389AA092215F1120F9FDD45ADDF /* LampsRewardMonitorReporter.swift in Sources */,
+				F2FB5ADA1580B9ECEBB2E5B10075569F /* LampsRewardSDKLoader.swift in Sources */,
+				152981E0BF56B86589D479F32468C9F4 /* LampsRewardSession.swift in Sources */,
+				663C7E4C395ADD1729D70459E8B078AE /* LampsSDK-dummy.m in Sources */,
+				9A8555392C20690120D3B29DCCF7FF13 /* LampsSDKAdapterCenter.swift in Sources */,
+				856D56D7D55DA71FD22BBEC45837E82C /* LampsSDKConfig.swift in Sources */,
+				556D27A700BBA959633E688386ABDF8B /* LampsSDKEnvironment.swift in Sources */,
+				291FB82A22A3D818535C30B20D806D65 /* LampsSDKError.swift in Sources */,
+				D56CC842EEF3F2DF9B96B8A3E5B85E13 /* LampsSDKInitializing.swift in Sources */,
+				D20C773EB4A98B28F7DA1749956F8E4A /* LampsSDKLog.swift in Sources */,
+				3EC9B4E6F16995B2E7271C156F07A8FA /* LampsWeakScriptMessageHandler.swift in Sources */,
+				7072EC8CF3313B0000EAE93177A40AEC /* LampsWebView.swift in Sources */,
+				71C0BF8CBCAE6AEB6AA7A10ADC6605CF /* LampsWebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EEEE2A15C6FFB6A4EF6E5E81211652B4 /* Sources */ = {
+		AC05E0BB1B7A77BA96B985294569C07B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0B71E3EBB1E7C82C7E4B5F7712CBDA8 /* Lamps.swift in Sources */,
-				03504273C12C9FC94F4A60B58D1A4543 /* LampsBaseBridgeHandler.swift in Sources */,
-				D017480D8B7B6707291421C8A38D3DF8 /* LampsBridge.swift in Sources */,
-				5185A6D2D3F297BDB5A7119A3F394F2A /* LampsBridgeHandler.swift in Sources */,
-				6E4A9C31B9085C85BC1F15BEBFDA8F84 /* LampsConfigService.swift in Sources */,
-				BE57DBFCE97075982AF6D4982D32EF5E /* LampsCSJRegister.m in Sources */,
-				C64E519E4964E22AF4C7AC88DFAD14A8 /* LampsCSJRewardAdapter.swift in Sources */,
-				675A5C7ED8A7AC1CC786B514C1C8F0C8 /* LampsCSJSDKInitializer.swift in Sources */,
-				7E171522A1743F6D346D799E1D4D4C7F /* LampsDeviceInfo.swift in Sources */,
-				8CC829BCC4C53514510FB1DEC46D77C5 /* LampsGDTRegister.m in Sources */,
-				522DE79BA724E0DB4C959158EF6DC3F5 /* LampsGDTRewardAdapter.swift in Sources */,
-				436213C0886407605DEF3B2EFACFC1FE /* LampsGDTSDKInitializer.swift in Sources */,
-				33F9570D70D8DD8DF67F99FDE7EF87D2 /* LampsMacroReplacer.swift in Sources */,
-				9FF7F68CD0B54900B0517812DFA7BD79 /* LampsNavigationBridgeHandler.swift in Sources */,
-				350887D568EF0E0063D8F50A6CA2E5F1 /* LampsNoahRegister.m in Sources */,
-				110BC3267DD2345790666DD3276D2426 /* LampsNoahRewardAdapter.swift in Sources */,
-				39370FC344DE07D034160F28BB5650CD /* LampsNoahSDKInitializer.swift in Sources */,
-				F82E10C6F46DE40CFBB9AA62B2A42C4C /* LampsRemoteConfig.swift in Sources */,
-				1722F2F48BC4FB21FFB1108D71CD4BD5 /* LampsReporter.swift in Sources */,
-				8503CB0FF2E433E5B9933FFE6E6392A4 /* LampsReportRequest.swift in Sources */,
-				D616BC5CD3268C4EA4D973E4860D717A /* LampsReportType.swift in Sources */,
-				848D616E12A9A44048AA2A213FB059A4 /* LampsRewardAd.swift in Sources */,
-				58FC961049B8C79EF4C2C29E26DFD88A /* LampsRewardAdapting.swift in Sources */,
-				EA1BD7541B98BEED5AF612330D352AF2 /* LampsRewardBidding.swift in Sources */,
-				067F3C8C9D64A27DE193576BA189DF7B /* LampsRewardChannel.swift in Sources */,
-				7DB6D9A6B01E5C8E0E7FA73F76FDD4F3 /* LampsRewardListener.swift in Sources */,
-				957802162994B15E0575FB44ACE506E9 /* LampsRewardMonitorReporter.swift in Sources */,
-				EE11E1F99B92108243FA3DCCF626E71B /* LampsRewardSDKLoader.swift in Sources */,
-				61C46BA7924AD5584CBBF736A1431131 /* LampsRewardSession.swift in Sources */,
-				0035A01193EF216617430C4014E8BE76 /* LampsSDK-dummy.m in Sources */,
-				FCC9A8FACB1966F4527F820DC071B373 /* LampsSDKAdapterCenter.swift in Sources */,
-				4D358D6960AB74B996D22C55AF56A934 /* LampsSDKConfig.swift in Sources */,
-				1C3B77FD7B5E915D67136FF028187A54 /* LampsSDKEnvironment.swift in Sources */,
-				536A487A2B6077DA056DC63863E6CB54 /* LampsSDKError.swift in Sources */,
-				BF7612D0DCDFDE80F29C39FF4BA397B4 /* LampsSDKInitializing.swift in Sources */,
-				A844CD036E8E9B8479B30AA40F66212D /* LampsSDKLog.swift in Sources */,
-				F7ADF3B2AB06707BC02296FBDACB229E /* LampsWeakScriptMessageHandler.swift in Sources */,
-				7083351A426700D26AE916DC34C8AD84 /* LampsWebView.swift in Sources */,
-				4887DF4683C58B22610A4797D38117F5 /* LampsWebViewController.swift in Sources */,
+				536414B6F748B0964026763673EE6786 /* Pods-LampsSDK_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3CB47A911BD200DA0C1F2B64A26D3C85 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-LampsSDK_Example";
-			target = C4E820CF0670A7DE4EE6CE94E7487F1E /* Pods-LampsSDK_Example */;
-			targetProxy = 862F8DAC275631948573FA14DD8A9FE0 /* PBXContainerItemProxy */;
-		};
-		4486BE05FF156E1E5DEE3BF95EAFCC91 /* PBXTargetDependency */ = {
+		55288104452ED80D574C9B75A0DE9BC2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = LampsSDK;
 			target = F64035C8BBE74DBF593F506AB9E84BA8 /* LampsSDK */;
-			targetProxy = 138B7943142E61F29C170D78B34FC485 /* PBXContainerItemProxy */;
+			targetProxy = 40DE1230A854D45F1A7B350FF9DE18BB /* PBXContainerItemProxy */;
 		};
-		932F519D76133F36AAB1C410C4206A70 /* PBXTargetDependency */ = {
+		651751A1FB27A101A98DB149E592FC88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = GDTMobSDK;
 			target = 6F2BDBDBBAD8487EF4614E1D729C5DD0 /* GDTMobSDK */;
-			targetProxy = D80E22B40B4F6CED07489321F2058CF6 /* PBXContainerItemProxy */;
+			targetProxy = A205279BBE5104146517062A3BFB3425 /* PBXContainerItemProxy */;
 		};
-		C9B02218D9ADCFA90F64D73C3903EE50 /* PBXTargetDependency */ = {
+		91EAE6D3D6EBC63ED0E6EE17A6A29899 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Ads-CN";
+			target = 726ABAA3B995C2690CAF752FB08ABF6D /* Ads-CN */;
+			targetProxy = 5D66CA97D5F9C6A06EF486EAF4BC524A /* PBXContainerItemProxy */;
+		};
+		A52A655DF20AD7BC553AB4C78C92EDEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-LampsSDK_Example";
+			target = C4E820CF0670A7DE4EE6CE94E7487F1E /* Pods-LampsSDK_Example */;
+			targetProxy = 308E0C5310BC012EC4CBC2CB76D3771B /* PBXContainerItemProxy */;
+		};
+		AF75F398068DD03818C1C26E26150D72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Ads-CN";
+			target = 726ABAA3B995C2690CAF752FB08ABF6D /* Ads-CN */;
+			targetProxy = 6FCD797701676EFD41BFC88B2FF4B011 /* PBXContainerItemProxy */;
+		};
+		C8DD1CBF2F632B964E9DB8B54A10252C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = GDTMobSDK;
 			target = 6F2BDBDBBAD8487EF4614E1D729C5DD0 /* GDTMobSDK */;
-			targetProxy = E450608D934D1C5531BA8054094FEC58 /* PBXContainerItemProxy */;
+			targetProxy = 695278436C27B3E7D9B196B20F2BE3A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -835,9 +914,9 @@
 			};
 			name = Debug;
 		};
-		3674937568C0E21065D9A69721CF476A /* Debug */ = {
+		36FD2A0C0CC6085A3B1939CCE13D58D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17ED012FBA91428EC5D2911F5E3A18A9 /* Pods-LampsSDK_Example.debug.xcconfig */;
+			baseConfigurationReference = 876CE2DA457B07837D016E9E18238661 /* Pods-LampsSDK_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -845,139 +924,17 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		41C3FB94AE3843B82023AE7B714DD785 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB213AB3C631721AE154369A7805799E /* Pods-LampsSDK_Example.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		4D94DE2046AE226E91170456D4559F80 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03209876A7A1166E38FEE2034FE3B0BC /* Pods-LampsSDK_Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		5A3566CC7447A21370EFB30C6A153D12 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 712BDEC9BA7970EAF4F433BA917808BE /* Pods-LampsSDK_Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -1043,46 +1000,60 @@
 			};
 			name = Release;
 		};
-		78AD8CA108252B13BB04462061AC4D94 /* Release */ = {
+		64C5C22380B0B94848CFEB1446B960CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAAB085E56A3A675233F3B4618B9D119 /* LampsSDK.release.xcconfig */;
+			baseConfigurationReference = 4EFF5EA01C879665F21F86D36B7ACEDA /* Pods-LampsSDK_Example.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/LampsSDK/LampsSDK-prefix.pch";
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "Target Support Files/LampsSDK/LampsSDK-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/LampsSDK/LampsSDK.modulemap";
-				PRODUCT_MODULE_NAME = LampsSDK;
-				PRODUCT_NAME = LampsSDK;
+				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		683035E317423F0C438E37460951E271 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4AF19F618A3E745E643B47A77C735DCE /* Pods-LampsSDK_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
 		832AB67C533F8B349AE56F4F70080276 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C50D678AA23E48A7F558DB25824F6EC9 /* GDTMobSDK.release.xcconfig */;
+			baseConfigurationReference = C2F2068FC54723F186FDC6C908BFDB65 /* GDTMobSDK.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1096,45 +1067,72 @@
 			};
 			name = Release;
 		};
-		92FCE8D4ABD0B9ED7B6ED537623589F9 /* Debug */ = {
+		9A0B834583171CD862A58D5DD8A68B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB8CB2D6E1773B48CD622201D150A261 /* LampsSDK.debug.xcconfig */;
+			baseConfigurationReference = 59AD506D0A05209ACB854A4F6DF34BFF /* LampsSDK.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/LampsSDK/LampsSDK-prefix.pch";
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "Target Support Files/LampsSDK/LampsSDK-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/LampsSDK/LampsSDK.modulemap";
+				MODULEMAP_FILE = Headers/Public/LampsSDK/LampsSDK.modulemap;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_MODULE_NAME = LampsSDK;
 				PRODUCT_NAME = LampsSDK;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
+		A32F6C2708ACBD0FC50312FF60B797E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABB354D05CD634213D5F3C68300A13A6 /* Ads-CN.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AE64AD8F53131777E8CD8CBE18E7E02A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14834A8B30FB0A4EEBE7B80E1A90F564 /* Ads-CN.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		BF52E8D450B5B0A8699615E400148679 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD11CBCE74824C3BF9B46627BEFB9C5D /* GDTMobSDK.debug.xcconfig */;
+			baseConfigurationReference = FF01C8C2FB77EC50CD319094F870D6D7 /* GDTMobSDK.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1147,23 +1145,79 @@
 			};
 			name = Debug;
 		};
+		CD2340864CD7D54A45F02C287C7C32C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2093D4CFB264C277C99B2A9FC111D2AB /* Pods-LampsSDK_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E973AAAD6046245DB97A8437D8A077D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95012FA5080FF97F7B86B2294EC46BF9 /* LampsSDK.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/LampsSDK/LampsSDK-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MODULEMAP_FILE = Headers/Public/LampsSDK/LampsSDK.modulemap;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = LampsSDK;
+				PRODUCT_NAME = LampsSDK;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		228C7A8443E6B60C0530781E30976B36 /* Build configuration list for PBXNativeTarget "LampsSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A0B834583171CD862A58D5DD8A68B17 /* Debug */,
+				E973AAAD6046245DB97A8437D8A077D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B9E26EAE2CD392AD762421F663075A1 /* Debug */,
 				63FAF33E1C55B71A5F5A8B3CC8749F99 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		55B9A16D1795640240916010AF0E96E6 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3674937568C0E21065D9A69721CF476A /* Debug */,
-				41C3FB94AE3843B82023AE7B714DD785 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1177,20 +1231,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D2C2E7D8C18FEF92609DBC86D323FB10 /* Build configuration list for PBXNativeTarget "LampsSDK" */ = {
+		CF2B6369F4C4DAE70C69072934CCCA43 /* Build configuration list for PBXAggregateTarget "Ads-CN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				92FCE8D4ABD0B9ED7B6ED537623589F9 /* Debug */,
-				78AD8CA108252B13BB04462061AC4D94 /* Release */,
+				A32F6C2708ACBD0FC50312FF60B797E4 /* Debug */,
+				AE64AD8F53131777E8CD8CBE18E7E02A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F6CA8415D3ADA08DE5B68A9047DD9685 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Tests" */ = {
+		E38E0539ACF66C83F302ACBA8D470870 /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5A3566CC7447A21370EFB30C6A153D12 /* Debug */,
-				4D94DE2046AE226E91170456D4559F80 /* Release */,
+				64C5C22380B0B94848CFEB1446B960CD /* Debug */,
+				683035E317423F0C438E37460951E271 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F097EC7CE8CB3CF3F0FC99CDF7DA2B7F /* Build configuration list for PBXNativeTarget "Pods-LampsSDK_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36FD2A0C0CC6085A3B1939CCE13D58D2 /* Debug */,
+				CD2340864CD7D54A45F02C287C7C32C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

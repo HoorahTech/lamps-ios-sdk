@@ -1,11 +1,15 @@
 PODS:
+  - Ads-CN/BUAdSDK (7.7.0.6)
   - GDTMobSDK (4.16.05)
   - LampsSDK (0.1.0):
     - LampsSDK/Core (= 0.1.0)
-    - LampsSDK/CSJAdapter (= 0.1.0)
+    - LampsSDK/CSJ (= 0.1.0)
     - LampsSDK/GDT (= 0.1.0)
     - LampsSDK/NoahAdapter (= 0.1.0)
   - LampsSDK/Core (0.1.0)
+  - LampsSDK/CSJ (0.1.0):
+    - Ads-CN/BUAdSDK
+    - LampsSDK/CSJAdapter
   - LampsSDK/CSJAdapter (0.1.0):
     - LampsSDK/Core
   - LampsSDK/GDT (0.1.0):
@@ -21,6 +25,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Ads-CN
     - GDTMobSDK
 
 EXTERNAL SOURCES:
@@ -28,9 +33,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  Ads-CN: 13a913e6c7b1874bb1676322046e864ac312dbaa
   GDTMobSDK: 29605d509a4c2ff68afce3736ffc32d6e7290e71
-  LampsSDK: 0e3d0a7e038ceb8c82fdbc5982ac69a56d597926
+  LampsSDK: 342dd08cd2cb973941f228c485e3ef7378670fc4
 
-PODFILE CHECKSUM: 890b50fa2b7fd889e6c3c92f66f99c9ba3cff79a
+PODFILE CHECKSUM: 7eab619b4650d89fcab299f5b0dde33574516f2a
 
 COCOAPODS: 1.16.2

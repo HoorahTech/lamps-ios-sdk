@@ -21,7 +21,7 @@
   "swift_versions": "5.0",
   "default_subspecs": [
     "Core",
-    "CSJAdapter",
+    "CSJ",
     "GDT",
     "NoahAdapter"
   ],
@@ -74,7 +74,7 @@
       "name": "CSJ",
       "dependencies": {
         "LampsSDK/CSJAdapter": [],
-        "Ads-CN": []
+        "Ads-CN/BUAdSDK": []
       }
     },
     {

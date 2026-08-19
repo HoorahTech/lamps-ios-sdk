@@ -1,0 +1,20 @@
+# 仅用于打 xcframework，不改变主工程 / Example 的 Pod 接入方式。
+# 用法：见 ../scripts/build_xcframeworks.sh
+
+use_frameworks! :linkage => :static
+platform :ios, '12.0'
+
+# 固定出包时广告 SDK 版本（宿主侧请尽量对齐）
+# Ads-CN / GDTMobSDK 版本以 pod install 解析结果为准，发布说明中钉死。
+
+target 'XCBuildHost' do
+  project 'XCBuildHost/XCBuildHost.xcodeproj'
+
+  # Core（模块名 LampsSDK）
+  pod 'LampsSDK/Core', :path => '../'
+
+  # 独立 Adapter 模块（出包产物；编译期依赖对应广告 SDK）
+  pod 'LampsCSJAdapter', :path => '../'
+  pod 'LampsGDTAdapter', :path => '../'
+  pod 'LampsNoahAdapter', :path => '../'
+end

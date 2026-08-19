@@ -1,28 +1,29 @@
 import Foundation
 
-typealias LampsRewardAdapterMaker = (LampsRewardAdModel) -> LampsRewardAdapting
+public typealias LampsRewardAdapterMaker = (LampsRewardAdModel) -> LampsRewardAdapting
 
 /// 广告 SDK Adapter / Initializer 注册中心（不放在 Reward 目录）。
-enum LampsSDKAdapterCenter {
+/// Adapter 独立 xcframework 出包时会跨模块调用，故需 `public`。
+public enum LampsSDKAdapterCenter {
     private static var makers: [LampsRewardChannel: LampsRewardAdapterMaker] = [:]
     private static var initializers: [LampsRewardChannel: LampsSDKInitializing.Type] = [:]
     private static let lock = NSLock()
 
-    static func register(channel: LampsRewardChannel, maker: @escaping LampsRewardAdapterMaker) {
+    public static func register(channel: LampsRewardChannel, maker: @escaping LampsRewardAdapterMaker) {
         lock.lock()
         makers[channel] = maker
         lock.unlock()
         LampsSDKLog.debug("adapter registered: \(channel.name)")
     }
 
-    static func registerInitializer(channel: LampsRewardChannel, initializer: LampsSDKInitializing.Type) {
+    public static func registerInitializer(channel: LampsRewardChannel, initializer: LampsSDKInitializing.Type) {
         lock.lock()
         initializers[channel] = initializer
         lock.unlock()
         LampsSDKLog.debug("sdk initializer registered: \(channel.name)")
     }
 
-    static func isAvailable(_ channel: LampsRewardChannel) -> Bool {
+    public static func isAvailable(_ channel: LampsRewardChannel) -> Bool {
         lock.lock()
         defer { lock.unlock() }
         return makers[channel] != nil

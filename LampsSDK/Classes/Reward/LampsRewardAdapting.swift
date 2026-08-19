@@ -3,7 +3,7 @@ import UIKit
 import CoreGraphics
 
 /// 单家 SDK 激励适配器：只 load / show，不负责竞价与自动播放。
-protocol LampsRewardAdapting: AnyObject {
+public protocol LampsRewardAdapting: AnyObject {
     var model: LampsRewardAdModel { get }
     var isReadyToShow: Bool { get }
     var delegate: LampsRewardAdapterDelegate? { get set }
@@ -14,7 +14,7 @@ protocol LampsRewardAdapting: AnyObject {
     func notifyAuctionLoss(winnerPrice: CGFloat)
 }
 
-protocol LampsRewardAdapterDelegate: AnyObject {
+public protocol LampsRewardAdapterDelegate: AnyObject {
     func rewardAdapter(_ adapter: LampsRewardAdapting, didFinishLoad success: Bool, error: Error?)
     func rewardAdapterDidBecomeReadyToShow(_ adapter: LampsRewardAdapting)
     func rewardAdapterDidShow(_ adapter: LampsRewardAdapting)
