@@ -41,9 +41,6 @@ public final class Lamps: NSObject {
                     switch result {
                     case .success(let remote):
                         storedRemoteConfig = remote
-                        if !remote.token.isEmpty, let cfg = storedConfig, cfg.rewardSignKey.isEmpty {
-                            cfg.rewardSignKey = remote.token
-                        }
                         LampsSDKLog.debug("start finished with remote config")
                     case .failure(let error):
                         LampsSDKLog.debug("start finished, config failed: \(error.localizedDescription)")
@@ -68,11 +65,8 @@ public final class Lamps: NSObject {
         storedRemoteConfig
     }
 
-    /// REM 签名用 key：优先本地 `rewardSignKey`，否则用远端 `token`。
+    /// REM 签名用 key：配置接口返回的 `token`。
     static var effectiveRewardSignKey: String {
-        if let key = storedConfig?.rewardSignKey, !key.isEmpty {
-            return key
-        }
-        return storedRemoteConfig?.token ?? ""
+        storedRemoteConfig?.token ?? ""
     }
 }

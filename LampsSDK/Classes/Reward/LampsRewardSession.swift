@@ -31,8 +31,7 @@ final class LampsRewardSession: NSObject {
             return
         }
 
-        let timeout = Lamps.config?.rewardTimeoutMs ?? 5000
-        let userId = Lamps.config?.rewardUserId ?? ""
+        let timeout = 5000
         var built: [LampsRewardAdModel] = []
         for slot in slots {
             guard let channel = LampsRewardChannel.from(channelId: slot.channelId) else {
@@ -48,7 +47,7 @@ final class LampsRewardSession: NSObject {
                     slot: slot,
                     channel: channel,
                     timeoutMs: timeout,
-                    userId: userId
+                    userId: ""
                 )
             )
         }
