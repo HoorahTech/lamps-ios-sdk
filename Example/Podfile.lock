@@ -1,5 +1,6 @@
 PODS:
   - Ads-CN/BUAdSDK (7.7.0.6)
+  - Ads-CN/BUAdTestMeasurement (7.7.0.6)
   - AFNetworking (4.0.1):
     - AFNetworking/NSURLSession (= 4.0.1)
     - AFNetworking/Reachability (= 4.0.1)
@@ -15,6 +16,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - GDTDevToolSDK (1.9)
   - GDTMobSDK (4.16.05)
   - LampsSDK (0.1.0):
     - LampsSDK/Core (= 0.1.0)
@@ -26,6 +28,10 @@ PODS:
     - Ads-CN/BUAdSDK
     - LampsSDK/CSJAdapter
   - LampsSDK/CSJAdapter (0.1.0):
+    - LampsSDK/Core
+  - LampsSDK/DevTools (0.1.0):
+    - Ads-CN/BUAdTestMeasurement
+    - GDTDevToolSDK
     - LampsSDK/Core
   - LampsSDK/GDT (0.1.0):
     - GDTMobSDK
@@ -46,11 +52,13 @@ PODS:
 
 DEPENDENCIES:
   - LampsSDK (from `../`)
+  - LampsSDK/DevTools (from `../`)
 
 SPEC REPOS:
   trunk:
     - Ads-CN
     - AFNetworking
+    - GDTDevToolSDK
     - GDTMobSDK
     - SDWebImage
     - YYModel
@@ -62,11 +70,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Ads-CN: 13a913e6c7b1874bb1676322046e864ac312dbaa
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  GDTDevToolSDK: 18424c3599f830bd7f37975fc267d998f904f632
   GDTMobSDK: 29605d509a4c2ff68afce3736ffc32d6e7290e71
-  LampsSDK: fe2724fda12064342447b16f00c4b6a3a7c57382
+  LampsSDK: 9f1e9e6aa74f3a89ab3eb09484fece1ef055b75e
   SDWebImage: e9fc87c1aab89a8ab1bbd74eba378c6f53be8abf
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: a26e9ac09136b0dbe9d791ad2a8c5bc025d5a91e
+PODFILE CHECKSUM: b903c026b96e90bf136c5e51d14db4023b71ba3b
 
 COCOAPODS: 1.16.2

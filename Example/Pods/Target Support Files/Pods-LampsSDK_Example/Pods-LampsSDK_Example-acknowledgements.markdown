@@ -49,6 +49,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+## GDTDevToolSDK
+
+Copyright 2022 Tencent Inc. All Rights Reserved.
+
 ## GDTMobSDK
 
 Copyright 2017 Tencent Inc. All Rights Reserved.

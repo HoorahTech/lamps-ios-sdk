@@ -57,4 +57,20 @@ enum LampsConfigCache {
             .appendingPathComponent(directoryName, isDirectory: true)
             .appendingPathComponent("config_\(safeAppId)_\(envName).json", isDirectory: false)
     }
+
+    @discardableResult
+    static func clear(appId: String, environment: LampsSDKEnvironment) -> Bool {
+        let trimmed = appId.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return false }
+        let url = fileURL(appId: trimmed, environment: environment)
+        guard FileManager.default.fileExists(atPath: url.path) else { return true }
+        do {
+            try FileManager.default.removeItem(at: url)
+            LampsSDKLog.debug("config cache cleared path=\(url.lastPathComponent)")
+            return true
+        } catch {
+            LampsSDKLog.debug("config cache clear failed: \(error.localizedDescription)")
+            return false
+        }
+    }
 }

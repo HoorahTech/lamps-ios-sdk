@@ -126,4 +126,14 @@ Pod::Spec.new do |s|
     ss.dependency 'LampsSDK/GDT'
     ss.dependency 'LampsSDK/Noah'
   end
+
+  # DevTools：Lamps 状态页 + 穿山甲 / 优量汇调试依赖；汇川工具已在 NoahSDK 内。
+  # 不进入 default_subspecs；是否只在宿主 Debug 配置引用由宿主 Podfile 自行控制。
+  s.subspec 'DevTools' do |ss|
+    ss.dependency 'LampsSDK/Core'
+    ss.source_files = 'LampsSDK/Classes/Debug/**/*.{swift,m,h}'
+    ss.public_header_files = 'LampsSDK/Classes/Debug/**/*.h'
+    ss.dependency 'GDTDevToolSDK'
+    ss.dependency 'Ads-CN/BUAdTestMeasurement'
+  end
 end

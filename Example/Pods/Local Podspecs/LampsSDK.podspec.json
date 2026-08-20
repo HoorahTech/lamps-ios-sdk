@@ -150,6 +150,16 @@
         "LampsSDK/GDT": [],
         "LampsSDK/Noah": []
       }
+    },
+    {
+      "name": "DevTools",
+      "dependencies": {
+        "LampsSDK/Core": [],
+        "GDTDevToolSDK": [],
+        "Ads-CN/BUAdTestMeasurement": []
+      },
+      "source_files": "LampsSDK/Classes/Debug/**/*.{swift,m,h}",
+      "public_header_files": "LampsSDK/Classes/Debug/**/*.h"
     }
   ],
   "swift_version": "5.0"

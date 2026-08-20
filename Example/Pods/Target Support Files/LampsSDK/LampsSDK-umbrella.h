@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "LampsGDTDevToolBridge.h"
 
 FOUNDATION_EXPORT double LampsSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char LampsSDKVersionString[];

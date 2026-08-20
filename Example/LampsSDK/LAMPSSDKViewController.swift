@@ -8,7 +8,8 @@ final class LAMPSSDKViewController: UIViewController {
             makeButton(title: "打开 WebView", action: #selector(openWebView)),
             makeButton(title: "打开 Bridge Demo", action: #selector(openBridgeDemo)),
             makeButton(title: "激励视频（并行竞价）", action: #selector(showReward)),
-            makeButton(title: "上报 RM/WM/CM/PM/REM", action: #selector(reportStub))
+            makeButton(title: "上报 RM/WM/CM/PM/REM", action: #selector(reportStub)),
+            makeButton(title: "调试工具", action: #selector(openDevTools))
         ])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -27,7 +28,7 @@ final class LAMPSSDKViewController: UIViewController {
             stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 320),
             stackView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -24),
-            stackView.heightAnchor.constraint(equalToConstant: 260)
+            stackView.heightAnchor.constraint(equalToConstant: 320)
         ])
     }
 
@@ -91,6 +92,10 @@ final class LAMPSSDKViewController: UIViewController {
             extra: nil
         )
         showAlert(title: "上报", message: "已触发 RM/WM/CM/PM/REM，详见控制台日志。")
+    }
+
+    @objc private func openDevTools() {
+        LampsDevTools.present(from: self)
     }
 
     private func presentWeb(_ webVC: LampsWebViewController) {

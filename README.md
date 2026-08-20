@@ -41,6 +41,10 @@ pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch 
 # pod 'LampsSDK/CSJAdapter'
 # pod 'LampsSDK/GDTAdapter'
 # pod 'LampsSDK/NoahAdapter'   # 已有 NoahSDK 时用这个，勿与 Noah 同时开
+
+# DevTools（建议仅在宿主 Debug 配置引用；汇川工具已在 NoahSDK）：
+# pod 'LampsSDK/DevTools', :configurations => ['Debug']
+# LampsDevTools.present(from: self)
 ```
 
 ### 源码 / 二进制切换
