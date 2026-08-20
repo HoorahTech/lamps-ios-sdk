@@ -152,7 +152,7 @@ LampsReporter.reportWM(urls: [...], adInfo: adInfo, extra: nil)
 LampsReporter.reportREM(urls: [...], adInfo: nil, extra: nil)
 ```
 
-REM 签名：配置 `config.rewardSignKey` 后，对含 `__REM_SIGN__` 的 URL，按 query 中 `adpid/app_version/cid/forward_source/price/puid/request_id`（缺失跳过）字母序拼接，尾部直接拼 key，MD5 小写 hex 替换。
+REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL，按 query 中 `adpid/app_version/cid/forward_source/price/puid/request_id`（缺失跳过）字母序拼接，尾部直接拼 token，MD5 小写 hex 替换。
 
 `extra` 里也可直接传 `__XXX__` 键覆盖宏值。
 

@@ -242,7 +242,7 @@
 				ORGANIZATIONNAME = yujianchao;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = AK56KJ3A8K;
+						DevelopmentTeam = 2DJ994BZUB;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -518,12 +518,12 @@
 			baseConfigurationReference = C6BC21A48FC032426EAD1F36 /* Pods-LampsSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = AK56KJ3A8K;
+				DEVELOPMENT_TEAM = 2DJ994BZUB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LampsSDK/LampsSDK-Prefix.pch";
 				INFOPLIST_FILE = "LampsSDK/LampsSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.games.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -536,12 +536,12 @@
 			baseConfigurationReference = 771F8966A9645B6AA44A3A87 /* Pods-LampsSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = AK56KJ3A8K;
+				DEVELOPMENT_TEAM = 2DJ994BZUB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LampsSDK/LampsSDK-Prefix.pch";
 				INFOPLIST_FILE = "LampsSDK/LampsSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.games.pro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
