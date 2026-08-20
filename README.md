@@ -31,6 +31,12 @@ pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch 
 # pod 'LampsSDK/Noah'   # 自带汇川二进制（Vendor/Noah），无需私有 NoahAdSdks
 # pod 'LampsSDK/Ads'    # CSJ + GDT + Noah
 
+# 使用 Noah / Ads（默认 subspec 含 Noah）且未开 use_frameworks 时，需为 OC 依赖开 modular headers：
+# pod 'AFNetworking', :modular_headers => true
+# pod 'SDWebImage', :modular_headers => true
+# pod 'YYModel', :modular_headers => true
+# 或在 Podfile 全局：use_modular_headers!
+
 # 宿主已自带对应广告 SDK 时，只编适配代码：
 # pod 'LampsSDK/CSJAdapter'
 # pod 'LampsSDK/GDTAdapter'
