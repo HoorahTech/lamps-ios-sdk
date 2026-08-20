@@ -9,7 +9,9 @@ import GDTMobSDK
 enum LampsGDTSDKInitializer: LampsSDKInitializing {
     static func initialize(config: LampsSDKConfig, completion: @escaping (Bool, Error?) -> Void) {
         let appId = config.gdtAppId.trimmingCharacters(in: .whitespacesAndNewlines)
+        // 宿主（如 HCAD）已初始化时传空 AppId，跳过二次 init。
         guard !appId.isEmpty else {
+            LampsSDKLog.debug("gdt init skipped: empty appId")
             completion(true, nil)
             return
         }

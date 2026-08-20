@@ -12,7 +12,9 @@ import BUAdTestMeasurement
 enum LampsCSJSDKInitializer: LampsSDKInitializing {
     static func initialize(config: LampsSDKConfig, completion: @escaping (Bool, Error?) -> Void) {
         let appId = config.csjAppId.trimmingCharacters(in: .whitespacesAndNewlines)
+        // 宿主（如 HCAD）已初始化时传空 AppId，跳过二次 init。
         guard !appId.isEmpty else {
+            LampsSDKLog.debug("csj init skipped: empty appId")
             completion(true, nil)
             return
         }

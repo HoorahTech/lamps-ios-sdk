@@ -133,6 +133,7 @@ Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `Lamps.remoteCo
 config.csjAppId = "..."
 config.gdtAppId = "..."
 config.noahAppKey = "..."
+// 主工程若已由 HCAD 等初始化三方 SDK：上述三个字段留空即可，Lamps 跳过二次 init，Adapter 仍可请求广告。
 
 LampsRewardAd.show(from: self) { rewarded, error in }
 
