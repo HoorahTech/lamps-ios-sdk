@@ -86,9 +86,13 @@ enum LampsMacroReplacer {
         
         switch type {
         case .rm:
+            break
         case .wm:
+            break
         case .cm:
+            break
         case .pm:
+            break
         case .rem:
             put(&info, "__ACTION__", "30")
             break
