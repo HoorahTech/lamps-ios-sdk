@@ -89,8 +89,6 @@ private extension LampsCSJRewardAdapter {
         LampsRewardMonitorReporter.reportRM(
             model: model,
             isSuccess: false,
-            filterReason: "18",
-            delayTimeMs: loadTimeMs
         )
         finishLoad(success: false, error: LampsSDKError.api("穿山甲激励请求超时").nsError)
     }
@@ -133,7 +131,7 @@ extension LampsCSJRewardAdapter: BUNativeExpressRewardedVideoAdDelegate {
         guard !timedOut else { return }
         loadTimeMs = elapsedMs()
         updatePrice(from: rewardedVideoAd)
-        LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true, delayTimeMs: loadTimeMs)
+        LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true)
         finishLoad(success: true, error: nil)
     }
 
@@ -146,7 +144,6 @@ extension LampsCSJRewardAdapter: BUNativeExpressRewardedVideoAdDelegate {
         LampsRewardMonitorReporter.reportRM(
             model: model,
             isSuccess: false,
-            delayTimeMs: loadTimeMs,
             error: error
         )
         finishLoad(success: false, error: error)

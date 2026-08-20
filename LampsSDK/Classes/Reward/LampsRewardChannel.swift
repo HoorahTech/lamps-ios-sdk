@@ -43,6 +43,8 @@ enum LampsRewardRequestState {
 public final class LampsRewardAdModel: NSObject {
     public let slot: LampsRewardAdSlot
     public let channel: LampsRewardChannel
+    /// 同一次激励会话内各渠道、各上报类型共用的 requestId。
+    public let requestId: String
     public var price: CGFloat = 0
     public var bidfloor: CGFloat = 0
     public var timeoutMs: Int
@@ -51,11 +53,18 @@ public final class LampsRewardAdModel: NSObject {
 
     public var slotId: String { slot.slotId }
 
-    public init(slot: LampsRewardAdSlot, channel: LampsRewardChannel, timeoutMs: Int, userId: String) {
+    public init(
+        slot: LampsRewardAdSlot,
+        channel: LampsRewardChannel,
+        timeoutMs: Int,
+        userId: String,
+        requestId: String
+    ) {
         self.slot = slot
         self.channel = channel
         self.timeoutMs = timeoutMs
         self.userId = userId
+        self.requestId = requestId
         super.init()
     }
 
@@ -67,7 +76,8 @@ public final class LampsRewardAdModel: NSObject {
             "channel_name": slot.channelName,
             "type": slot.type,
             "price": price,
-            "increasePrice": price
+            "increasePrice": price,
+            "request_id": requestId
         ]
     }
 }

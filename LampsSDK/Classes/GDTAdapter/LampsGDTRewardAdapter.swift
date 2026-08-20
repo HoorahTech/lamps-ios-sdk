@@ -88,8 +88,6 @@ private extension LampsGDTRewardAdapter {
         LampsRewardMonitorReporter.reportRM(
             model: model,
             isSuccess: false,
-            filterReason: "18",
-            delayTimeMs: loadTimeMs
         )
         finishLoad(success: false, error: LampsSDKError.api("优量汇激励请求超时").nsError)
     }
@@ -123,7 +121,7 @@ extension LampsGDTRewardAdapter: GDTRewardedVideoAdDelegate {
         if ecpm >= 0 {
             model.price = CGFloat(ecpm)
         }
-        LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true, delayTimeMs: loadTimeMs)
+        LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true)
         finishLoad(success: true, error: nil)
     }
 
@@ -133,7 +131,6 @@ extension LampsGDTRewardAdapter: GDTRewardedVideoAdDelegate {
         LampsRewardMonitorReporter.reportRM(
             model: model,
             isSuccess: false,
-            delayTimeMs: loadTimeMs,
             error: error
         )
         finishLoad(success: false, error: error)

@@ -173,6 +173,7 @@ REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL
 - `__SDK_VERSION__`：SDK 版本号（与 podspec `s.version` / `Lamps.sdkVersion` 一致）
 - `__NETWORK__`：网络环境（`wifi` / `2g` / `3g` / `4g` / `5g` / `unknown`）
 - `__IP__`：客户端 IP（配置接口返回的 `clientIp`；未拉取成功时为空）
+- `__REQUEST_ID__`：激励会话 requestId（同一次激励内 RM/WM/CM/PM/REM 共用；来自 `adInfo["request_id"]`）
 - 也可通过 `extra` 的 `sw` / `sh` 或 `__SW__` / `__SH__` 覆盖
 
 ## Bridge

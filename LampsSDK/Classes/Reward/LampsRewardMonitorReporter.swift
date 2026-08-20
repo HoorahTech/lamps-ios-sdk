@@ -4,14 +4,10 @@ public enum LampsRewardMonitorReporter {
     public static func reportRM(
         model: LampsRewardAdModel,
         isSuccess: Bool,
-        filterReason: String? = nil,
-        delayTimeMs: Int? = nil,
         error: Error? = nil
     ) {
         guard let urls = Lamps.remoteConfig?.monitorLinks.rm, !urls.isEmpty else { return }
         var extra: [AnyHashable: Any] = ["is_success": isSuccess ? "1" : "0"]
-        if let filterReason { extra["filter_reason"] = filterReason }
-        if let delayTimeMs { extra["delay_time"] = "\(delayTimeMs)" }
         if let error { extra["error_code"] = "\((error as NSError).code)" }
         LampsReporter.reportRM(urls: urls, adInfo: model.adInfo, extra: extra)
     }

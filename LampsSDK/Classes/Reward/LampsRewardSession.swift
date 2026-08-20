@@ -32,6 +32,8 @@ final class LampsRewardSession: NSObject {
         }
 
         let timeout = 5000
+        let requestId = UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
+        LampsSDKLog.debug("reward session start requestId=\(requestId)")
         var built: [LampsRewardAdModel] = []
         for slot in slots {
             guard let channel = LampsRewardChannel.from(channelId: slot.channelId) else {
@@ -47,7 +49,8 @@ final class LampsRewardSession: NSObject {
                     slot: slot,
                     channel: channel,
                     timeoutMs: timeout,
-                    userId: ""
+                    userId: "",
+                    requestId: requestId
                 )
             )
         }

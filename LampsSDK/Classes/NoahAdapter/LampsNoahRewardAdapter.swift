@@ -84,8 +84,6 @@ private extension LampsNoahRewardAdapter {
         LampsRewardMonitorReporter.reportRM(
             model: model,
             isSuccess: false,
-            filterReason: "18",
-            delayTimeMs: loadTimeMs,
             error: error
         )
         finishLoad(success: false, error: error)
@@ -129,15 +127,13 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
             LampsRewardMonitorReporter.reportRM(
                 model: model,
                 isSuccess: false,
-                filterReason: "19",
-                delayTimeMs: loadTimeMs,
                 error: error
             )
             finishLoad(success: false, error: error)
             return
         }
 
-        LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true, delayTimeMs: loadTimeMs)
+        LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true)
         finishLoad(success: true, error: nil)
         markReady()
     }
@@ -155,7 +151,6 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
         LampsRewardMonitorReporter.reportRM(
             model: model,
             isSuccess: false,
-            delayTimeMs: loadTimeMs,
             error: requestError
         )
         finishLoad(success: false, error: requestError)

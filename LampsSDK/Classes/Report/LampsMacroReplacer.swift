@@ -86,7 +86,8 @@ enum LampsMacroReplacer {
         
         switch type {
         case .rm:
-            break
+            put(&info, "__IS_SUCCESS__", firstString(ex, key: "is_success"))
+            put(&info, "__CODE__", firstString(ex, key: "error_code"))
         case .wm:
             break
         case .cm:

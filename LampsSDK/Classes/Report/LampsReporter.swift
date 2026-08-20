@@ -28,7 +28,7 @@ public final class LampsReporter: NSObject {
             urls: validURLs,
             type: type,
             adInfo: adInfo,
-            extra: filledExtra(extra)
+            extra: extra
         )
         LampsSDKLog.debug("report \(type.name) count=\(replaced.count)")
         LampsReportRequest.start(urls: replaced)
@@ -57,17 +57,5 @@ public final class LampsReporter: NSObject {
     @objc(reportREMWithURLs:adInfo:extra:)
     public static func reportREM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
         report(type: .rem, urls: urls, adInfo: adInfo, extra: extra)
-    }
-
-    private static func filledExtra(_ extra: [AnyHashable: Any]?) -> [AnyHashable: Any] {
-        var result = extra ?? [:]
-        let now = Date().timeIntervalSince1970
-        if result["et"] == nil && result["__EVENT_TIME_S__"] == nil {
-            result["et"] = "\(Int(now))"
-        }
-        if result["et_ms"] == nil && result["__EVENT_TIME_MS__"] == nil {
-            result["et_ms"] = "\(Int(now * 1000))"
-        }
-        return result
     }
 }
