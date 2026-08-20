@@ -52,10 +52,16 @@ enum LampsConfigService {
                     completion(.failure(LampsSDKError.api("配置失败 code=\(code) message=\(message)").nsError))
                     return
                 }
-                guard let remote = LampsRemoteConfig.parse(from: root["data"] as? [String: Any]) else {
+                guard let dataObject = root["data"] as? [String: Any],
+                      let remote = LampsRemoteConfig.parse(from: dataObject) else {
                     completion(.failure(LampsSDKError.api("配置 data 解析失败").nsError))
                     return
                 }
+                LampsConfigCache.save(
+                    dataDictionary: dataObject,
+                    appId: config.appId,
+                    environment: config.environment
+                )
                 LampsSDKLog.debug(
                     "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) ip=\(remote.clientIp)"
                 )

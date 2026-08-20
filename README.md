@@ -111,6 +111,8 @@ webView.load(urlString: "https://www.hupu.com")
 
 Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `Lamps.remoteConfig` 读取代码位、`token`、`monitorLinks`。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
 
+启动时会先读本地磁盘缓存（按 `appId` + 环境隔离），再请求网络；请求成功覆盖内存并写回缓存，失败则保留已有缓存。
+
 ### 激励视频 / Adapter
 
 默认包含 `Core` + 三家 `*Adapter`。未链入广告 SDK 时 `canImport` 跳过注册；链入后生效。

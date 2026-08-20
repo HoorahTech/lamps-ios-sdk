@@ -14,8 +14,8 @@ public final class Lamps: NSObject {
     private static var started = false
 
     /// 启动 SDK。
-    /// 流程：本地校验 → 初始化已注册广告 SDK → 请求 `/v1/lamps/config` → 回调。
-    /// 配置接口失败时仍视为启动成功（`success=true`），可从 `remoteConfig` 判断是否拉到配置。
+    /// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 `/v1/lamps/config` → 回调。
+    /// 配置接口失败时仍视为启动成功（`success=true`）；有缓存时可从 `remoteConfig` 继续使用。
     @objc(startWithConfig:completion:)
     public static func start(config: LampsSDKConfig, completion: LampsStartCompletion? = nil) {
         guard !config.appId.isEmpty else {
@@ -25,9 +25,14 @@ public final class Lamps: NSObject {
             return
         }
         storedConfig = config.copy() as? LampsSDKConfig
-        storedRemoteConfig = nil
+        storedRemoteConfig = LampsConfigCache.load(
+            appId: config.appId,
+            environment: config.environment
+        )
         started = true
-        LampsSDKLog.debug("started local, appId=\(config.appId) env=\(config.environment.rawValue)")
+        LampsSDKLog.debug(
+            "started local, appId=\(config.appId) env=\(config.environment.rawValue) cache=\(storedRemoteConfig != nil)"
+        )
         LampsDeviceInfo.prepareUserAgentIfNeeded()
 
         guard let effective = storedConfig else {
@@ -43,7 +48,9 @@ public final class Lamps: NSObject {
                         storedRemoteConfig = remote
                         LampsSDKLog.debug("start finished with remote config")
                     case .failure(let error):
-                        LampsSDKLog.debug("start finished, config failed: \(error.localizedDescription)")
+                        LampsSDKLog.debug(
+                            "start finished, config failed: \(error.localizedDescription), keepCache=\(storedRemoteConfig != nil)"
+                        )
                     }
                     completion?(true, nil)
                 }
