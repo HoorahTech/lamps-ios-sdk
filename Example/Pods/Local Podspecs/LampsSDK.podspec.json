@@ -2,7 +2,7 @@
   "name": "LampsSDK",
   "version": "0.1.0",
   "summary": "WebView、Bridge、激励视频与监测上报 SDK",
-  "description": "LampsSDK 面向三方 App，提供 WebView 展示与 Bridge 通信、激励视频、CM/PM/XM 监测上报。\n默认包含 Core 与各渠道 Adapter 源码；广告 SDK 二进制通过 CSJ / GDT / Noah Subspec 按需拉取。",
+  "description": "LampsSDK 面向三方 App，提供 WebView 展示与 Bridge 通信、激励视频、CM/PM/XM 监测上报。\n支持源码 / 二进制两种分发；广告 SDK 通过 CSJ / GDT / Noah Subspec 按需拉取。",
   "homepage": "http://gitlab.hupu.com/HPBase/lamps-ios-sdk",
   "license": {
     "type": "MIT",
@@ -23,7 +23,7 @@
     "Core",
     "CSJ",
     "GDT",
-    "NoahAdapter"
+    "Noah"
   ],
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES",
@@ -45,7 +45,9 @@
         "Foundation",
         "UIKit",
         "WebKit",
-        "AdSupport"
+        "AdSupport",
+        "SystemConfiguration",
+        "CoreTelephony"
       ],
       "weak_frameworks": "AppTrackingTransparency"
     },

@@ -6,7 +6,7 @@ import WebKit
 /// - Native → H5：`send(method:data:success:error:)` 主动调用
 @objcMembers
 public final class LampsBridge: NSObject, WKScriptMessageHandler {
-    public static let messageName = "lamps"
+    public static let messageName = "chatMessage"
 
     public weak var webView: LampsWebView?
     public private(set) var handlers: [LampsBridgeHandler] = []
@@ -15,27 +15,18 @@ public final class LampsBridge: NSObject, WKScriptMessageHandler {
     private var pendingErrorCallbacks: [String: LampsBridgeToH5Callback] = [:]
     private let lock = NSLock()
 
-    private var installed = false
-    private var scriptMessageHandler: LampsWeakScriptMessageHandler?
-
     public init(webView: LampsWebView) {
         self.webView = webView
         super.init()
     }
 
     func install() {
-        guard !installed, let webView = webView else { return }
-        installed = true
-        let proxy = LampsWeakScriptMessageHandler(target: self)
-        scriptMessageHandler = proxy
-        webView.configuration.userContentController.add(proxy, name: Self.messageName)
+        guard let webView = webView else { return }
+        webView.configuration.userContentController.add(self, name: Self.messageName)
     }
 
     func uninstall() {
-        guard installed else { return }
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: Self.messageName)
-        scriptMessageHandler = nil
-        installed = false
         handlers.removeAll()
         lock.lock()
         pendingSuccessCallbacks.removeAll()
@@ -76,7 +67,7 @@ public final class LampsBridge: NSObject, WKScriptMessageHandler {
         let successJSON = LampsBridgeJSON.stringify(successId)
         let errorJSON = LampsBridgeJSON.stringify(errorId)
         LampsSDKLog.debug("bridge send method=\(method) successcb=\(successId) errorcb=\(errorId)")
-        evaluate("window.LampsBridge && window.LampsBridge._handle_(\(methodJSON), \(dataJSON), \(successJSON), \(errorJSON));")
+        evaluate("window.HoorahBridge && window.HoorahBridge._handle_(\(methodJSON), \(dataJSON), \(successJSON), \(errorJSON));")
     }
 
     /// 解析 JSON 字符串并分发。
@@ -109,9 +100,7 @@ private extension LampsBridge {
     enum MessageKey {
         static let method = "method"
         static let data = "data"
-        static let successCallback = "successcb"
-        static let errorCallback = "errorcb"
-        static let errorCallbackId = "errorcallbackId"
+        static let callbackId = "id"
     }
 
     func dispatch(_ dictionary: [String: Any]) {
@@ -128,17 +117,13 @@ private extension LampsBridge {
             return
         }
 
-        var successId = stringValue(dictionary[MessageKey.successCallback])
-        var errorId = stringValue(dictionary[MessageKey.errorCallbackId])
-        if errorId.isEmpty {
-            errorId = stringValue(dictionary[MessageKey.errorCallback])
-        }
+        var callbackId = stringValue(dictionary[MessageKey.callbackId])
 
-        let successCallback: LampsBridgeToH5Callback? = successId.isEmpty ? nil : { [weak self] data in
-            self?.invokeH5Callback(callbackId: successId, data: data)
+        let successCallback: LampsBridgeToH5Callback? = callbackId.isEmpty ? nil : { [weak self] data in
+            self?.invokeH5Callback(callbackId: callbackId, data: data)
         }
-        let errorCallback: LampsBridgeToH5Callback? = errorId.isEmpty ? nil : { [weak self] data in
-            self?.invokeH5Callback(callbackId: errorId, data: data)
+        let errorCallback: LampsBridgeToH5Callback? = callbackId.isEmpty ? nil : { [weak self] data in
+            self?.invokeH5Callback(callbackId: callbackId, data: data)
         }
 
         guard let handler = handlers.first(where: { $0.supportedMethods.contains(method) }) else {
@@ -182,9 +167,16 @@ private extension LampsBridge {
     }
 
     func invokeH5Callback(callbackId: String, data: [AnyHashable: Any]) {
-        let idJSON = LampsBridgeJSON.stringify(callbackId)
-        let dataJSON = LampsBridgeJSON.stringify(data) ?? "{}"
-        evaluate("window.LampsBridge && window.LampsBridge._handle_(\(idJSON), \(dataJSON));")
+        let finalParams: [AnyHashable: Any] = [
+            "type": "response",
+            "data": data,
+            "id": callbackId,
+        ]
+        guard let data = try? JSONSerialization.data(withJSONObject: finalParams, options: []),
+              let responseStr = String(data: data, encoding: .utf8) else {
+            return
+        }
+        evaluate("window.receiveNativeMessage && window.receiveNativeMessage(\(responseStr))")
     }
 
     func evaluate(_ script: String) {
