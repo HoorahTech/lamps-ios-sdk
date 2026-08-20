@@ -17,7 +17,7 @@ enum LampsNoahSDKInitializer: LampsSDKInitializing {
         }
         let sdkConfig = NoahSdkConfig()
         sdkConfig.setAppKeyValue(appKey)
-        sdkConfig.forbidHcGetLocationInfo = true
+        sdkConfig.forbidHcGetLocationInfo = !config.allowLocation
         NoahSdk.initWith(sdkConfig, globalConfig: nil)
         completion(true, nil)
     }

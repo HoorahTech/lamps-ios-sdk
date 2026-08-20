@@ -24,8 +24,12 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
         BUAdTestMeasurementConfiguration().debugMode = true
         #endif
 
+        let shakeValue = config.shakeAdsEnabled ? 1 : 0
+        let userExtData = "[{\"name\":\"is_shake_ads\", \"value\":\"\(shakeValue)\"}]"
+
         let configuration = BUAdSDKConfiguration.configuration()
         configuration.appID = appId
+        configuration.userExtData = userExtData
         if config.debugLogEnabled {
             configuration.debugLog = NSNumber(value: 1)
         }
@@ -33,6 +37,7 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
         // 与 HCAD 对齐：测试工具场景打开 SDKDEBUG
         configuration.sdkdebug = true
         #endif
+        BUAdSDKManager.setUserExtData(userExtData)
         BUAdSDKManager.start(asyncCompletionHandler: { success, error in
             DispatchQueue.main.async { completion(success, error) }
         })

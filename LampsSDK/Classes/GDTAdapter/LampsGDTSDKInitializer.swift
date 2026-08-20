@@ -20,7 +20,16 @@ enum LampsGDTSDKInitializer: LampsSDKInitializing {
             completion(false, LampsSDKError.api("优量汇 initWithAppId 失败").nsError)
             return
         }
+
+        // 1 = 关闭个性化；其他 / 未设置 = 打开
+        GDTSDKConfig.setPersonalizedState(config.personalizedRecommendEnabled ? 0 : 1)
+        GDTSDKConfig.setExtraUserData([
+            "shakable": config.shakeAdsEnabled ? "1" : "0"
+        ])
+        // iOS App Store 渠道；音频由宿主自行管理
+        GDTSDKConfig.setChannel(14)
         GDTSDKConfig.enableDefaultAudioSessionSetting(false)
+
         GDTSDKConfig.start { success, error in
             DispatchQueue.main.async { completion(success, error) }
         }

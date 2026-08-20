@@ -135,6 +135,11 @@ config.gdtAppId = "..."
 config.noahAppKey = "..."
 // 主工程若已由 HCAD 等初始化三方 SDK：上述三个字段留空即可，Lamps 跳过二次 init，Adapter 仍可请求广告。
 
+// 由 Lamps 负责 init 时可用的通用开关（有默认值，可不设）：
+// config.personalizedRecommendEnabled = true  // 个性化推荐（优量汇）
+// config.shakeAdsEnabled = true               // 摇一摇（穿山甲 / 优量汇）
+// config.allowLocation = false                // 定位（汇川；默认禁止）
+
 LampsRewardAd.show(from: self) { rewarded, error in }
 
 LampsRewardAd.show(from: self, handler: { event in
