@@ -32,8 +32,7 @@ public enum LampsRewardMonitorReporter {
     }
 
     public static func reportREM(model: LampsRewardAdModel) {
-        // REM 复用 wm 位或单独宏链接：若业务另有 rem 列表可再扩展；当前用 reward 场景 WM 之外走 REM 签名能力时由调用方传 URL。
-        // 无专用 rem 列表时跳过。
-        _ = model
+        guard let urls = Lamps.remoteConfig?.monitorLinks.dm, !urls.isEmpty else { return }
+        LampsReporter.reportREM(urls: urls, adInfo: model.adInfo, extra: nil)
     }
 }

@@ -51,7 +51,7 @@ Pod::Spec.new do |s|
         'LampsSDK/Classes/Adapter/*.swift'
       ]
     end
-    ss.frameworks = 'Foundation', 'UIKit', 'WebKit', 'AdSupport'
+    ss.frameworks = 'Foundation', 'UIKit', 'WebKit', 'AdSupport', 'SystemConfiguration', 'CoreTelephony'
     ss.weak_frameworks = 'AppTrackingTransparency'
   end
 

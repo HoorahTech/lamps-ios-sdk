@@ -22,6 +22,10 @@ enum LampsReportRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.timeoutInterval = 15
+        let ua = LampsDeviceInfo.userAgent
+        if !ua.isEmpty {
+            request.setValue(ua, forHTTPHeaderField: "User-Agent")
+        }
         URLSession.shared.dataTask(with: request) { _, response, error in
             if let error = error {
                 LampsSDKLog.debug("report fail: \(error.localizedDescription) url=\(trimmed)")

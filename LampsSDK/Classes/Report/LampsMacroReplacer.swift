@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import CommonCrypto
 
 /// 监测 URL 宏替换。不区分 SDK / API，按上报类型组装替换字典后做字符串替换。
@@ -26,66 +27,70 @@ enum LampsMacroReplacer {
         let ad = adInfo ?? [:]
         let ex = extra ?? [:]
 
-        // 通用时间 / 位置
+        // 通用时间、OS
         let now = Date().timeIntervalSince1970
-        put(&info, "__EVENT_TIME_S__", firstString(ex, keys: ["et", "__EVENT_TIME_S__"]) ?? "\(Int(now))")
-        put(&info, "__EVENT_TIME_MS__", firstString(ex, keys: ["et_ms", "__EVENT_TIME_MS__"]) ?? "\(Int(now * 1000))")
-        if let value = firstString(ex, keys: ["ts", "__DEVICE_ET__"]) {
-            put(&info, "__DEVICE_ET__", value)
+        put(&info, "__TS__", "\(Int(now*1000))")
+        put(&info, "__OS__", "iOS")
+
+        // 屏幕物理像素
+        let screenPixels = UIScreen.main.nativeBounds.size
+        put(&info, "__SW__", firstString(ex, key: "sw") ?? "\(Int(screenPixels.width))")
+        put(&info, "__SH__", firstString(ex, key: "sh") ?? "\(Int(screenPixels.height))")
+
+        // User-Agent（start 时预取；未就绪用降级串）
+        put(&info, "__UA__", LampsDeviceInfo.userAgent)
+
+        // MAC（iOS 上多为占位 02:00:00:00:00:00）
+        put(&info, "__MAC__", LampsDeviceInfo.macAddress)
+
+        // IDFA（未授权或不可用时为空；不主动弹 ATT）
+        put(&info, "__IDFA__", LampsDeviceInfo.idfa)
+
+        // SDK 分配的 appId / SDK 版本
+        put(&info, "__APPID__", Lamps.config?.appId ?? "")
+        put(&info, "__SDK_VERSION__", Lamps.sdkVersion)
+
+        // 网络环境：wifi / 2g / 3g / 4g / 5g / unknown
+        put(&info, "__NETWORK__", LampsDeviceInfo.network)
+
+        // 客户端 IP（配置接口返回的 clientIp）
+        put(&info, "__IP__", Lamps.remoteConfig?.clientIp ?? "")
+
+        // 价格
+        if let price = firstString(ex, ad, key: "price") {
+            put(&info, "__PRICE__", price)
         }
-        if let value = firstString(ex, keys: ["position", "__HPOS__"]) {
-            put(&info, "__HPOS__", value)
+
+        // requestId
+        if let requestId = firstString(ex, ad, key: "request_id") {
+            put(&info, "__REQUEST_ID__", requestId)
         }
 
-        // 点击坐标（CM 等）
-        put(&info, "__DOWN_X__", firstString(ex, keys: ["down_x", "__DOWN_X__"]))
-        put(&info, "__DOWN_Y__", firstString(ex, keys: ["down_y", "__DOWN_Y__"]))
-        put(&info, "__UP_X__", firstString(ex, keys: ["up_x", "__UP_X__"]))
-        put(&info, "__UP_Y__", firstString(ex, keys: ["up_y", "__UP_Y__"]))
-        put(&info, "__WIDTH__", firstString(ex, keys: ["width", "__WIDTH__"]))
-        put(&info, "__HEIGHT__", firstString(ex, keys: ["height", "__HEIGHT__"]))
+        // channel_name
+        if let channelName = firstString(ex, ad, key: "channel_name") {
+            put(&info, "__UNION_NAME__", channelName)
+        }
 
-        // 素材 / 落地
-        put(&info, "__MATERIALURL__", firstString(ex, ad, keys: ["material_url", "img", "video_url", "__MATERIALURL__"]))
-        put(&info, "__CLICKURL__", firstString(ex, ad, keys: ["click_url", "lp", "deep_link", "__CLICKURL__"]))
+        // slot_id
+        if let slotId = firstString(ex, ad, key: "slot_id") {
+            put(&info, "__SLOTID__", slotId)
+        }
 
+        // forward_source
+        if let forward_source = firstString(ex, ad, key: "forward_source") {
+            put(&info, "__FORWARD_SOURCE__", forward_source)
+        }
+
+        // phone_brand
+        put(&info, "__PHONE_BRAND__", "APPLE")
+        
         switch type {
         case .rm:
-            put(&info, "__IS_SUCCESS__", firstString(ex, keys: ["is_success", "__IS_SUCCESS__"]) ?? "1")
-            put(&info, "__FILTER_REASON__", firstString(ex, keys: ["sdk_disable_type", "filter_reason", "__FILTER_REASON__"]) ?? "1")
-            put(&info, "__DELAY_TIME__", firstString(ex, keys: ["delay_time", "__DELAY_TIME__"]))
-            put(&info, "__CODE__", firstString(ex, keys: ["error_code", "code", "__CODE__"]))
         case .wm:
-            put(&info, "__BRAND_NAME__", firstString(ex, ad, keys: ["brand_name", "__BRAND_NAME__"]))
-            put(&info, "__TITLE__", firstString(ex, ad, keys: ["title", "__TITLE__"]))
-            put(&info, "__SHOW_TYPE__", firstString(ex, ad, keys: ["show_type", "__SHOW_TYPE__"]))
-            put(&info, "__ADDPROFIT__", firstString(ex, ad, keys: ["increasePrice", "add_profit", "__ADDPROFIT__"]))
-            put(&info, "__STAGE_COST__", firstString(ex, ad, keys: ["wm_report_timestamp", "stage_cost", "__STAGE_COST__"]))
-            if intValue(ad, key: "reachTimeLimit") != 0 {
-                put(&info, "__AD_TIMEOUT__", "达到整体时限")
-            }
         case .cm:
-            put(&info, "__LINK_TYPE__", firstString(ex, keys: ["linkType", "link_type", "__LINK_TYPE__"]))
-            put(&info, "__SCHEMA__", firstString(ex, keys: ["schema", "__SCHEMA__"]))
-            put(&info, "__CLICK_TYPE__", firstString(ex, keys: ["click_type", "__CLICK_TYPE__"]))
-            put(&info, "__INTERACTIVE_MODE__", firstString(ex, keys: ["interactive_mode", "__INTERACTIVE_MODE__"]) ?? "点击热区")
-            put(&info, "__JUMP_LINK__", firstString(ex, keys: ["jump_link", "__JUMP_LINK__"]))
-            put(&info, "__SLD__", firstString(ex, keys: ["sld_type", "sld", "__SLD__"]))
-            put(&info, "__DELIVERY_TYPE__", firstString(ex, keys: ["delivery_type", "__DELIVERY_TYPE__"]))
-            put(&info, "__PLAY_DURATION__", firstString(ex, keys: ["play_duration", "__PLAY_DURATION__"]))
-            put(&info, "__ADDPROFIT__", firstString(ex, ad, keys: ["increasePrice", "add_profit", "__ADDPROFIT__"]))
-            put(&info, "__MATERIAL_TYPE__", firstString(ex, ad, keys: ["materialType", "material_type", "__MATERIAL_TYPE__"]))
         case .pm:
-            put(&info, "__EXPOSURE_TYPE__", firstString(ex, keys: ["exposure_type", "__EXPOSURE_TYPE__"]))
-            put(&info, "__ADDPROFIT__", firstString(ex, ad, keys: ["increasePrice", "add_profit", "__ADDPROFIT__"]))
-            put(&info, "__MATERIAL_TYPE__", firstString(ex, ad, keys: ["materialType", "material_type", "__MATERIAL_TYPE__"]))
-            put(&info, "__WELFARETYPE__", firstString(ex, ad, keys: ["welfareType", "welfare_type", "__WELFARETYPE__"]))
-            put(&info, "__EXPOSURE_LOAD__", firstString(ex, ad, keys: ["exposureLoad", "exposure_load", "__EXPOSURE_LOAD__"]))
-            put(&info, "__BOOT_NOTIFICATION__", firstString(ex, keys: ["boot_notification", "__BOOT_NOTIFICATION__"]))
-            if intValue(ad, key: "reachTimeLimit") != 0 {
-                put(&info, "__AD_TIMEOUT__", "达到整体时限")
-            }
         case .rem:
+            put(&info, "__ACTION__", "30")
             break
         }
 
@@ -100,12 +105,7 @@ enum LampsMacroReplacer {
     private static func replaceMacros(in url: String, with replaceInfo: [String: String]) -> String {
         var result = url
         for (macro, value) in replaceInfo {
-            let encoded: String
-            if macro == "__MATERIALURL__" {
-                encoded = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? value
-            } else {
-                encoded = value.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed.subtracting(CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;="))) ?? value
-            }
+            let encoded = value.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed.subtracting(CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;="))) ?? value
             result = result.replacingOccurrences(of: macro, with: encoded)
         }
         return result
@@ -156,12 +156,10 @@ enum LampsMacroReplacer {
         info[key] = value
     }
 
-    private static func firstString(_ dicts: [AnyHashable: Any]..., keys: [String]) -> String? {
-        for key in keys {
-            for dict in dicts {
-                if let value = stringValue(dict[key]), !value.isEmpty {
-                    return value
-                }
+    private static func firstString(_ dicts: [AnyHashable: Any]..., key: String) -> String? {
+        for dict in dicts {
+            if let value = stringValue(dict[key]), !value.isEmpty {
+                return value
             }
         }
         return nil

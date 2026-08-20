@@ -150,6 +150,19 @@ REM 签名：配置 `config.rewardSignKey` 后，对含 `__REM_SIGN__` 的 URL�
 
 `extra` 里也可直接传 `__XXX__` 键覆盖宏值。
 
+公共宏（各上报类型均替换）：
+
+- `__SW__`：屏幕物理宽度（像素，`UIScreen.main.nativeBounds`）
+- `__SH__`：屏幕物理高度（像素）
+- `__UA__`：WebKit User-Agent（`Lamps.start` 时预取并缓存；可用 `extra["ua"]` 或 `__UA__` 覆盖）
+- `__MAC__`：Wi‑Fi MAC（`en0`；iOS 对第三方多为占位 `02:00:00:00:00:00`；可用 `extra["mac"]` 覆盖）
+- `__IDFA__`：广告标识符（未授权或不可用时为空）
+- `__APPID__`：SDK 分配的 appId（`Lamps.start` 传入的 `config.appId`）
+- `__SDK_VERSION__`：SDK 版本号（与 podspec `s.version` / `Lamps.sdkVersion` 一致）
+- `__NETWORK__`：网络环境（`wifi` / `2g` / `3g` / `4g` / `5g` / `unknown`）
+- `__IP__`：客户端 IP（配置接口返回的 `clientIp`；未拉取成功时为空）
+- 也可通过 `extra` 的 `sw` / `sh` 或 `__SW__` / `__SH__` 覆盖
+
 ## Bridge
 
 Native 只监听 `window.webkit.messageHandlers.lamps`，不注入 JS。H5 自行实现封装。

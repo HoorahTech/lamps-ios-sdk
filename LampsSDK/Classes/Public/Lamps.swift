@@ -6,6 +6,9 @@ public typealias LampsStartCompletion = (Bool, Error?) -> Void
 /// 类名刻意不用 `LampsSDK`，避免与模块名同名导致 `.swiftinterface` 解析冲突。
 @objcMembers
 public final class Lamps: NSObject {
+    /// 与 `LampsSDK.podspec` 的 `s.version` 保持一致。
+    public static let sdkVersion = "0.1.0"
+
     private static var storedConfig: LampsSDKConfig?
     private static var storedRemoteConfig: LampsRemoteConfig?
     private static var started = false
@@ -25,6 +28,7 @@ public final class Lamps: NSObject {
         storedRemoteConfig = nil
         started = true
         LampsSDKLog.debug("started local, appId=\(config.appId) env=\(config.environment.rawValue)")
+        LampsDeviceInfo.prepareUserAgentIfNeeded()
 
         guard let effective = storedConfig else {
             completion?(true, nil)
