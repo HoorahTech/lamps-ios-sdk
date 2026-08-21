@@ -2,7 +2,6 @@
 import LampsSDK
 #endif
 
-#if canImport(NoahSDK)
 import Foundation
 import NoahSDK
 
@@ -23,8 +22,6 @@ enum LampsNoahSDKInitializer: LampsSDKInitializing {
     }
 }
 
-#endif
-
 @objc(LampsNoahSDKInitializerRegistrar)
 public final class LampsNoahSDKInitializerRegistrar: NSObject {
     private static var didRegister = false
@@ -32,8 +29,6 @@ public final class LampsNoahSDKInitializerRegistrar: NSObject {
     @objc public static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
-        #if canImport(NoahSDK)
         LampsSDKAdapterCenter.registerInitializer(channel: .noah, initializer: LampsNoahSDKInitializer.self)
-        #endif
     }
 }

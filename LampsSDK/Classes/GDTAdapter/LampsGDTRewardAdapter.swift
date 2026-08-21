@@ -2,7 +2,6 @@
 import LampsSDK
 #endif
 
-#if canImport(GDTMobSDK)
 import Foundation
 import UIKit
 import GDTMobSDK
@@ -182,8 +181,6 @@ extension LampsGDTRewardAdapter: GDTRewardedVideoAdDelegate {
     }
 }
 
-#endif
-
 @objc(LampsGDTRewardAdapterRegistrar)
 public final class LampsGDTRewardAdapterRegistrar: NSObject {
     private static var didRegister = false
@@ -191,8 +188,6 @@ public final class LampsGDTRewardAdapterRegistrar: NSObject {
     @objc public static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
-        #if canImport(GDTMobSDK)
         LampsSDKAdapterCenter.register(channel: .gdt) { LampsGDTRewardAdapter(model: $0) }
-        #endif
     }
 }

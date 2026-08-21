@@ -2,7 +2,6 @@
 import LampsSDK
 #endif
 
-#if canImport(BUAdSDK)
 import Foundation
 import BUAdSDK
 #if canImport(BUAdTestMeasurement)
@@ -44,8 +43,6 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
     }
 }
 
-#endif
-
 @objc(LampsCSJSDKInitializerRegistrar)
 public final class LampsCSJSDKInitializerRegistrar: NSObject {
     private static var didRegister = false
@@ -53,8 +50,6 @@ public final class LampsCSJSDKInitializerRegistrar: NSObject {
     @objc public static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
-        #if canImport(BUAdSDK)
         LampsSDKAdapterCenter.registerInitializer(channel: .csj, initializer: LampsCSJSDKInitializer.self)
-        #endif
     }
 }

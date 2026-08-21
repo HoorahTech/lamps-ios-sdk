@@ -2,7 +2,6 @@
 import LampsSDK
 #endif
 
-#if canImport(BUAdSDK)
 import Foundation
 import UIKit
 import BUAdSDK
@@ -184,8 +183,6 @@ extension LampsCSJRewardAdapter: BUNativeExpressRewardedVideoAdDelegate {
     }
 }
 
-#endif
-
 @objc(LampsCSJRewardAdapterRegistrar)
 public final class LampsCSJRewardAdapterRegistrar: NSObject {
     private static var didRegister = false
@@ -193,8 +190,6 @@ public final class LampsCSJRewardAdapterRegistrar: NSObject {
     @objc public static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
-        #if canImport(BUAdSDK)
         LampsSDKAdapterCenter.register(channel: .csj) { LampsCSJRewardAdapter(model: $0) }
-        #endif
     }
 }

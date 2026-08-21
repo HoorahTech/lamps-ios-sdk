@@ -58,8 +58,8 @@ Pod::Spec.new do |s|
   s.subspec 'CSJAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
     # 不声明 Ads-CN：供「宿主已本地/其它 Pod 集成穿山甲」场景。
-    # 此时需宿主 post_install 把 BUAdSDK 的 FRAMEWORK_SEARCH_PATHS 挂到 LampsSDK，
-    # 否则 #if canImport(BUAdSDK) 在编译 LampsSDK 时为 false。
+    # 源码模式无条件 import BUAdSDK：宿主须 post_install 挂 FRAMEWORK_SEARCH_PATHS，
+    # 或缺配置立刻编译失败；也可改用 CSJ Subspec 由 Lamps 自行拉依赖。
     if use_binary
       ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsCSJAdapter.xcframework'
       ss.pod_target_xcconfig = binary_adapter_xcconfig
@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'GDTAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    # 同 CSJAdapter：不声明 GDTMobSDK，避免与宿主已有集成重复。
+    # 同 CSJAdapter：不声明 GDTMobSDK；源码无条件 import，须宿主挂路径或改用 GDT。
     if use_binary
       ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsGDTAdapter.xcframework'
       ss.pod_target_xcconfig = binary_adapter_xcconfig
@@ -81,7 +81,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'NoahAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
-    # 同 CSJAdapter：不声明 Noah；独立 Demo 用 Noah，主工程用 Adapter + 宿主 NoahAdSdks。
+    # 同 CSJAdapter：不声明 Noah；源码无条件 import，须宿主挂路径或改用 Noah。
     if use_binary
       ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsNoahAdapter.xcframework'
       ss.pod_target_xcconfig = binary_adapter_xcconfig

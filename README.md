@@ -42,9 +42,9 @@ pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch 
 # pod 'LampsSDK/GDTAdapter'
 # pod 'LampsSDK/NoahAdapter'   # 已有 NoahSDK 时用这个，勿与 Noah 同时开
 #
-# 注意：*Adapter 不声明三方 dependency。源码编译时 canImport 依赖「编译 LampsSDK 时能否看到 module」。
-# 宿主需在 post_install 里把已有 SDK 的 FRAMEWORK_SEARCH_PATHS 挂到 LampsSDK（并建议 add_dependency 保证顺序），
-# 参考主工程 ios/Podfile 中的 lamps_wire_host_ad_sdks_for_adapters。
+# 注意：*Adapter 不声明三方 dependency，但源码无条件 import 对应 module。
+# 宿主须在 post_install 把已有 SDK 的 FRAMEWORK_SEARCH_PATHS 挂到 LampsSDK（并建议 add_dependency），
+# 缺配置会编译失败；参考主工程 ios/Podfile 的 lamps_wire_host_ad_sdks_for_adapters。
 # 若希望 Lamps 自己拉公有源 SDK，改用 CSJ / GDT / Noah，不要用 *Adapter。
 
 # DevTools（建议仅在宿主 Debug 配置引用；汇川工具已在 NoahSDK）：
@@ -129,9 +129,9 @@ Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `Lamps.remoteCo
 | 宿主三方 SDK 集成方式 | 应选 subspec | 说明 |
 | --- | --- | --- |
 | 走 CocoaPods 公有源，交给 Lamps 拉 | `CSJ` / `GDT` / `Noah` | Adapter + dependency |
-| 本地/其它 Pod 已集成（如 HPByteThirdParty） | `CSJAdapter` / `GDTAdapter` / `NoahAdapter` | 无 dependency；需 post_install 挂 module 路径 |
+| 本地/其它 Pod 已集成（如 HPByteThirdParty） | `CSJAdapter` / `GDTAdapter` / `NoahAdapter` | 无 dependency；源码模式须 post_install 挂 module 路径，否则编译失败 |
 
-未链入、也未挂搜索路径时，`canImport` 跳过注册；挂好后编译期可见、注册生效。
+未挂搜索路径且未改用 `CSJ`/`GDT`/`Noah` 时，源码编译会立刻报错（不再静默跳过注册）。
 
 流程对齐 `HCADCommonRewardVideoManager`（无 getOther、无 adm）：
 

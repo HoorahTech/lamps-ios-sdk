@@ -2,7 +2,6 @@
 import LampsSDK
 #endif
 
-#if canImport(NoahSDK)
 import Foundation
 import UIKit
 import NoahSDK
@@ -174,8 +173,6 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
     }
 }
 
-#endif
-
 @objc(LampsNoahRewardAdapterRegistrar)
 public final class LampsNoahRewardAdapterRegistrar: NSObject {
     private static var didRegister = false
@@ -183,8 +180,6 @@ public final class LampsNoahRewardAdapterRegistrar: NSObject {
     @objc public static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
-        #if canImport(NoahSDK)
         LampsSDKAdapterCenter.register(channel: .noah) { LampsNoahRewardAdapter(model: $0) }
-        #endif
     }
 }

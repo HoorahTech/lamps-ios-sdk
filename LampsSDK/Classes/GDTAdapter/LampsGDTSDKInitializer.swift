@@ -2,7 +2,6 @@
 import LampsSDK
 #endif
 
-#if canImport(GDTMobSDK)
 import Foundation
 import GDTMobSDK
 
@@ -36,8 +35,6 @@ enum LampsGDTSDKInitializer: LampsSDKInitializing {
     }
 }
 
-#endif
-
 @objc(LampsGDTSDKInitializerRegistrar)
 public final class LampsGDTSDKInitializerRegistrar: NSObject {
     private static var didRegister = false
@@ -45,8 +42,6 @@ public final class LampsGDTSDKInitializerRegistrar: NSObject {
     @objc public static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
-        #if canImport(GDTMobSDK)
         LampsSDKAdapterCenter.registerInitializer(channel: .gdt, initializer: LampsGDTSDKInitializer.self)
-        #endif
     }
 }

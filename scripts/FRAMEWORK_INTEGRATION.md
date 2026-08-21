@@ -67,7 +67,8 @@ LampsSDK-iOS-x.y.z/
 
 ## 注意
 
-- `#if canImport` 只在**源码编译**时有效；预编译 Adapter 包在出包机上已编入广告调用，宿主必须提供对应广告 SDK（自有或 ThirdParty）。
+- Adapter 源码无条件 `import` 三方 SDK；`*Adapter` 场景须保证编译期能看到对应 module（post_install 挂路径，或改用 `CSJ`/`GDT`/`Noah`）。
+- 预编译 Adapter 包在出包机上已编入广告调用，宿主运行时仍须提供对应广告 SDK（自有或 ThirdParty）。
 - 宿主已有广告 SDK 时，主版本尽量与 `VERSIONS.txt` 中出包版本一致。
 - 汇川：`Noah` 与 `NoahAdapter` 不要同时再拖两份 Noah 二进制。
 
