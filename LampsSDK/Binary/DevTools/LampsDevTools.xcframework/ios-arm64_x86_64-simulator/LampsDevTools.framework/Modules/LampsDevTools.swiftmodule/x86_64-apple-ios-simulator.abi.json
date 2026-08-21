@@ -92,12 +92,13 @@
         "usr": "c:@M@LampsDevTools@objc(cs)LampsDevTools",
         "mangledName": "$s13LampsDevToolsAAC",
         "moduleName": "LampsDevTools",
+        "objc_name": "LampsDevTools",
         "declAttributes": [
           "Final",
           "AccessControl",
           "ObjCMembers",
-          "RawDocComment",
-          "ObjC"
+          "ObjC",
+          "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
         "inheritsConvenienceInitializers": true,

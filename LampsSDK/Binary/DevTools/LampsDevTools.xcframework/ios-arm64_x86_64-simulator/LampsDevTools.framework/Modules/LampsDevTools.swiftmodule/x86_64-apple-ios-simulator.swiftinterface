@@ -10,7 +10,7 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsDevTools : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @objc(LampsDevTools) @objcMembers final public class LampsDevTools : ObjectiveC.NSObject {
   @objc(presentFromViewController:) public static func present(from viewController: UIKit.UIViewController)
   @objc override dynamic public init()
   @objc deinit

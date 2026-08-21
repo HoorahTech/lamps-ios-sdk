@@ -306,7 +306,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class UIViewController;
 /// Lamps SDK 调试工具入口（需集成 <code>LampsSDK/DevTools</code> Subspec）。
-SWIFT_CLASS("_TtC13LampsDevTools13LampsDevTools")
+SWIFT_CLASS_NAMED("LampsDevTools")
 @interface LampsDevTools : NSObject
 /// 弹出调试工具首页（导航栈）。
 + (void)presentFromViewController:(UIViewController * _Nonnull)viewController;
