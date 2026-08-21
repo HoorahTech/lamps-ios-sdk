@@ -15,7 +15,7 @@ public final class Lamps: NSObject {
 
     /// 启动 SDK。
     /// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 `/v1/lamps/config` → 回调。
-    /// 配置接口失败时仍视为启动成功（`success=true`）；有缓存时可从 `remoteConfig` 继续使用。
+    /// 配置接口失败时：有缓存则仍成功（继续用缓存）；无缓存则回调失败。
     @objc(startWithConfig:completion:)
     public static func start(config: LampsSDKConfig, completion: LampsStartCompletion? = nil) {
         guard !config.appId.isEmpty else {
@@ -47,12 +47,20 @@ public final class Lamps: NSObject {
                     case .success(let remote):
                         storedRemoteConfig = remote
                         LampsSDKLog.debug("start finished with remote config")
+                        completion?(true, nil)
                     case .failure(let error):
-                        LampsSDKLog.debug(
-                            "start finished, config failed: \(error.localizedDescription), keepCache=\(storedRemoteConfig != nil)"
-                        )
+                        if storedRemoteConfig != nil {
+                            LampsSDKLog.debug(
+                                "start finished, config failed keep cache: \(error.localizedDescription)"
+                            )
+                            completion?(true, nil)
+                        } else {
+                            LampsSDKLog.debug(
+                                "start failed, config failed and no cache: \(error.localizedDescription)"
+                            )
+                            completion?(false, error)
+                        }
                     }
-                    completion?(true, nil)
                 }
             }
         }
