@@ -30,8 +30,8 @@ enum LampsRewardBidding {
             if let winner, model === winner {
                 adapter.notifyAuctionWin(secondPrice: secondPrice)
             } else {
-                let lossPrice = winner?.price ?? model.bidfloor
-                adapter.notifyAuctionLoss(winnerPrice: lossPrice)
+                let lossPrice = winner?.price ?? 0
+                adapter.notifyAuctionLoss(winnerPrice: lossPrice, winner: winner)
             }
         }
     }

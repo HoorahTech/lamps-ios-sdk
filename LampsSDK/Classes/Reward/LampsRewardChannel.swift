@@ -46,7 +46,6 @@ public final class LampsRewardAdModel: NSObject {
     /// 同一次激励会话内各渠道、各上报类型共用的 requestId。
     public let requestId: String
     public var price: CGFloat = 0
-    public var bidfloor: CGFloat = 0
     public var timeoutMs: Int
     public var userId: String
     var requestState: LampsRewardRequestState = .unknown

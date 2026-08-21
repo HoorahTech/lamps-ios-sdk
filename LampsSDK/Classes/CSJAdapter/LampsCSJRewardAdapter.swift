@@ -61,7 +61,8 @@ final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
         expressAd?.win(secondPrice > 0 ? NSNumber(value: Double(secondPrice)) : nil)
     }
 
-    func notifyAuctionLoss(winnerPrice: CGFloat) {
+    func notifyAuctionLoss(winnerPrice: CGFloat, winner: LampsRewardAdModel?) {
+        _ = winner
         expressAd?.loss(
             winnerPrice > 0 ? NSNumber(value: Double(winnerPrice)) : nil,
             lossReason: "2",

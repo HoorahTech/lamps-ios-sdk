@@ -60,12 +60,33 @@ final class LampsGDTRewardAdapter: NSObject, LampsRewardAdapting {
     }
 
     func notifyAuctionWin(secondPrice: CGFloat) {
-        // 优量汇客户端竞价回告视版本而定；无统一接口时忽略。
-        _ = secondPrice
+        guard let rewardedAd else { return }
+        // 单位：分。expectCostPrice=本广告胜出价；highestLossPrice=最高失败价（二价）。
+        var winInfo: [AnyHashable: Any] = [
+            "expectCostPrice": NSNumber(value: Int(max(model.price, 0)))
+        ]
+        if secondPrice > 0 {
+            winInfo["highestLossPrice"] = NSNumber(value: Int(secondPrice))
+        }
+        rewardedAd.sendWinNotification(withInfo: winInfo)
     }
 
-    func notifyAuctionLoss(winnerPrice: CGFloat) {
-        _ = winnerPrice
+    func notifyAuctionLoss(winnerPrice: CGFloat, winner: LampsRewardAdModel?) {
+        guard let rewardedAd else { return }
+        var lossInfo: [AnyHashable: Any] = [
+            "lossReason": NSNumber(value: GDTAdBiddingLossReason.lowPrice.rawValue),
+            "adnId": gdtLossAdnId(winner: winner)
+        ]
+        if winnerPrice > 0 {
+            lossInfo["winPrice"] = NSNumber(value: Int(winnerPrice))
+        }
+        rewardedAd.sendLossNotification(withInfo: lossInfo)
+    }
+
+    /// GDT_M_ADNID：1=优量汇非 bidding；2=第三方 ADN；4=优量汇其他 bidding。
+    private func gdtLossAdnId(winner: LampsRewardAdModel?) -> String {
+        guard let winner, winner.channel == .gdt else { return "2" }
+        return winner.slot.isPD ? "1" : "4"
     }
 }
 

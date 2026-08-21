@@ -11,7 +11,10 @@ public protocol LampsRewardAdapting: AnyObject {
     func load(from viewController: UIViewController?)
     func show()
     func notifyAuctionWin(secondPrice: CGFloat)
-    func notifyAuctionLoss(winnerPrice: CGFloat)
+    /// - Parameters:
+    ///   - winnerPrice: 胜出价（分）；无胜出方时为 0。
+    ///   - winner: 本次竞价胜出候选；`nil` 表示全员失败 / 未参竞。
+    func notifyAuctionLoss(winnerPrice: CGFloat, winner: LampsRewardAdModel?)
 }
 
 public protocol LampsRewardAdapterDelegate: AnyObject {

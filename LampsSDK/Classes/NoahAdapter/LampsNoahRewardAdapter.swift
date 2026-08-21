@@ -58,9 +58,9 @@ final class LampsNoahRewardAdapter: NSObject, LampsRewardAdapting {
         _ = secondPrice
     }
 
-    func notifyAuctionLoss(winnerPrice: CGFloat) {
-        let price = winnerPrice > 0 ? winnerPrice : model.bidfloor
-        rewardedAd?.sendLossNotification(Double(price), reason: .lowPrice)
+    func notifyAuctionLoss(winnerPrice: CGFloat, winner: LampsRewardAdModel?) {
+        _ = winner
+        rewardedAd?.sendLossNotification(Double(max(winnerPrice, 0)), reason: .lowPrice)
     }
 }
 
@@ -122,17 +122,6 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
         rewardedAd = ad
         if ad.price > 0 {
             model.price = CGFloat(ad.price)
-        }
-
-        if model.bidfloor > 0, model.price < model.bidfloor {
-            let error = LampsSDKError.api("汇川出价低于底价").nsError
-            LampsRewardMonitorReporter.reportRM(
-                model: model,
-                isSuccess: false,
-                error: error
-            )
-            finishLoad(success: false, error: error)
-            return
         }
 
         LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true)
