@@ -44,15 +44,16 @@ final class LampsRewardSession: NSObject {
                 LampsSDKLog.debug("reward skip unavailable adapter=\(channel.name)")
                 continue
             }
-            built.append(
-                LampsRewardAdModel(
-                    slot: slot,
-                    channel: channel,
-                    timeoutMs: timeout,
-                    userId: "",
-                    requestId: requestId
-                )
+            let model = LampsRewardAdModel(
+                slot: slot,
+                channel: channel,
+                timeoutMs: timeout,
+                userId: "",
+                requestId: requestId
             )
+            // 先用接口下发价；SDK 回传有效价后再覆盖。
+            model.price = slot.price
+            built.append(model)
         }
 
         guard !built.isEmpty else {

@@ -120,7 +120,9 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
         guard !timedOut else { return }
         loadTimeMs = elapsedMs()
         rewardedAd = ad
-        model.price = CGFloat(ad.price)
+        if ad.price > 0 {
+            model.price = CGFloat(ad.price)
+        }
 
         if model.bidfloor > 0, model.price < model.bidfloor {
             let error = LampsSDKError.api("汇川出价低于底价").nsError

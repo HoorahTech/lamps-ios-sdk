@@ -116,13 +116,18 @@ private extension LampsCSJRewardAdapter {
     func updatePrice(from ad: BUNativeExpressRewardedVideoAd) {
         if let mediaExt = ad.mediaExt as? [AnyHashable: Any] {
             if let number = mediaExt["price"] as? NSNumber {
-                model.price = CGFloat(truncating: number)
+                applySDKPriceIfValid(CGFloat(truncating: number))
             } else if let text = mediaExt["price"] as? String, let value = Double(text) {
-                model.price = CGFloat(value)
+                applySDKPriceIfValid(CGFloat(value))
             } else if let number = mediaExt["ecpm"] as? NSNumber {
-                model.price = CGFloat(truncating: number)
+                applySDKPriceIfValid(CGFloat(truncating: number))
             }
         }
+    }
+
+    private func applySDKPriceIfValid(_ sdkPrice: CGFloat) {
+        guard sdkPrice > 0 else { return }
+        model.price = sdkPrice
     }
 }
 

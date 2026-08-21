@@ -1,4 +1,5 @@
 import Foundation
+import CoreGraphics
 
 /// `/v1/lamps/config` 返回的 data。
 @objcMembers
@@ -37,6 +38,13 @@ public final class LampsRewardAdSlot: NSObject {
     public var type: String = ""
     public var channelName: String = ""
     public var channelId: String = ""
+    /// 接口下发价格；创建 model 时先写入，SDK 回传价 > 0 时覆盖。
+    public var price: CGFloat = 0
+
+    /// 是否定价位。
+    public var isPD: Bool {
+        type.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == "PD"
+    }
 
     static func parse(from dict: [String: Any]) -> LampsRewardAdSlot? {
         let slot = LampsRewardAdSlot()
@@ -44,6 +52,7 @@ public final class LampsRewardAdSlot: NSObject {
         slot.type = stringValue(dict["type"]) ?? ""
         slot.channelName = stringValue(dict["channelName"]) ?? ""
         slot.channelId = stringValue(dict["channelId"]) ?? ""
+        slot.price = cgFloatValue(dict["price"])
         guard !slot.slotId.isEmpty else { return nil }
         return slot
     }
@@ -52,6 +61,12 @@ public final class LampsRewardAdSlot: NSObject {
         if let text = value as? String { return text }
         if let number = value as? NSNumber { return number.stringValue }
         return nil
+    }
+
+    private static func cgFloatValue(_ value: Any?) -> CGFloat {
+        if let number = value as? NSNumber { return CGFloat(truncating: number) }
+        if let text = value as? String, let double = Double(text) { return CGFloat(double) }
+        return 0
     }
 }
 

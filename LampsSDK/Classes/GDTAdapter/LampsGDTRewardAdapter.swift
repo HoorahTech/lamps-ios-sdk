@@ -118,7 +118,7 @@ extension LampsGDTRewardAdapter: GDTRewardedVideoAdDelegate {
         guard !timedOut else { return }
         loadTimeMs = elapsedMs()
         let ecpm = rewardedVideoAd.eCPM()
-        if ecpm >= 0 {
+        if ecpm > 0 {
             model.price = CGFloat(ecpm)
         }
         LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true)
