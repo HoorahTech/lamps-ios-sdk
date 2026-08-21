@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# 产出 LampsSDK / LampsCSJAdapter / LampsGDTAdapter / LampsNoahAdapter 共 4 个 xcframework，
-# 以及可选 ThirdParty（汇川 Vendor；穿山甲/优量汇来自 Pods 时可一并拷贝）。
+# 产出 LampsSDK / LampsCSJAdapter / LampsGDTAdapter / LampsNoahAdapter / LampsDevTools
+# 共 5 个 xcframework，以及可选 ThirdParty（汇川 Vendor；穿山甲/优量汇来自 Pods 时可一并拷贝）。
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -14,6 +14,7 @@ export LC_ALL="${LC_ALL:-en_US.UTF-8}"
 
 echo "==> Root: $ROOT"
 echo "==> Output: $OUT"
+echo "==> 提示: 出包前请确保 LampsSDK.podspec 中 use_binary = false（从源码编 Core）"
 
 rm -rf "$OUT" "$ARCHIVES"
 mkdir -p "$OUT" "$ARCHIVES"
@@ -86,31 +87,34 @@ build_xcframework() {
 
 xcodebuild -workspace "$WORKSPACE" -list
 
-for scheme in LampsSDK LampsCSJAdapter LampsGDTAdapter LampsNoahAdapter; do
+for scheme in LampsSDK LampsCSJAdapter LampsGDTAdapter LampsNoahAdapter LampsDevTools; do
   build_xcframework "$scheme"
 done
 
 RELEASE="$OUT/LampsSDK-iOS-${VERSION}"
 rm -rf "$RELEASE"
-mkdir -p "$RELEASE/Adapters" "$RELEASE/ThirdParty"
+mkdir -p "$RELEASE/Adapters" "$RELEASE/DevTools" "$RELEASE/ThirdParty"
 
 cp -R "$OUT/LampsSDK.xcframework" "$RELEASE/"
 cp -R "$OUT/LampsCSJAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsGDTAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsNoahAdapter.xcframework" "$RELEASE/Adapters/"
+cp -R "$OUT/LampsDevTools.xcframework" "$RELEASE/DevTools/"
 
 # 同步到仓库 Binary 目录，供 LampsSDK.podspec use_binary = true 引用
 BINARY_DIR="$ROOT/LampsSDK/Binary"
 echo "==> Sync to $BINARY_DIR"
-mkdir -p "$BINARY_DIR/Adapters"
+mkdir -p "$BINARY_DIR/Adapters" "$BINARY_DIR/DevTools"
 rm -rf "$BINARY_DIR/LampsSDK.xcframework"
 rm -rf "$BINARY_DIR/Adapters/LampsCSJAdapter.xcframework"
 rm -rf "$BINARY_DIR/Adapters/LampsGDTAdapter.xcframework"
 rm -rf "$BINARY_DIR/Adapters/LampsNoahAdapter.xcframework"
+rm -rf "$BINARY_DIR/DevTools/LampsDevTools.xcframework"
 cp -R "$OUT/LampsSDK.xcframework" "$BINARY_DIR/"
 cp -R "$OUT/LampsCSJAdapter.xcframework" "$BINARY_DIR/Adapters/"
 cp -R "$OUT/LampsGDTAdapter.xcframework" "$BINARY_DIR/Adapters/"
 cp -R "$OUT/LampsNoahAdapter.xcframework" "$BINARY_DIR/Adapters/"
+cp -R "$OUT/LampsDevTools.xcframework" "$BINARY_DIR/DevTools/"
 
 if [[ -d "$ROOT/LampsSDK/Vendor/Noah" ]]; then
   mkdir -p "$RELEASE/ThirdParty/Noah"
@@ -137,7 +141,7 @@ if [[ -f "$DIST/Podfile.lock" ]]; then
   {
     echo ""
     echo "--- Podfile.lock (Distribution) ---"
-    grep -E '^\s+- (Ads-CN|BUAdSDK|GDTMobSDK|LampsSDK|LampsCSJ|LampsGDT|LampsNoah)' "$DIST/Podfile.lock" || true
+    grep -E '^\s+- (Ads-CN|BUAdSDK|GDTMobSDK|GDTDevTool|LampsSDK|LampsCSJ|LampsGDT|LampsNoah|LampsDevTools)' "$DIST/Podfile.lock" || true
   } >> "$RELEASE/VERSIONS.txt"
 fi
 

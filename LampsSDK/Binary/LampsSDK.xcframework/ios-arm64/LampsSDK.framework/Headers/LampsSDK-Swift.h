@@ -308,15 +308,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 
+@class NSString;
 @class LampsSDKConfig;
 @class LampsRemoteConfig;
 /// 对外总入口。宿主 <code>import LampsSDK</code> 后调用 <code>Lamps.start(config:completion:)</code>。
 /// 类名刻意不用 <code>LampsSDK</code>，避免与模块名同名导致 <code>.swiftinterface</code> 解析冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 @interface Lamps : NSObject
+/// 与 <code>LampsSDK.podspec</code> 的 <code>s.version</code> 保持一致。
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull sdkVersion;)
++ (NSString * _Nonnull)sdkVersion SWIFT_WARN_UNUSED_RESULT;
 /// 启动 SDK。
-/// 流程：本地校验 → 初始化已注册广告 SDK → 请求 <code>/v1/lamps/config</code> → 回调。
-/// 配置接口失败时仍视为启动成功（<code>success=true</code>），可从 <code>remoteConfig</code> 判断是否拉到配置。
+/// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 <code>/v1/lamps/config</code> → 回调。
+/// 配置接口失败时：有缓存则仍成功（继续用缓存）；无缓存则回调失败。
 + (void)startWithConfig:(LampsSDKConfig * _Nonnull)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 + (BOOL)isStarted SWIFT_WARN_UNUSED_RESULT;
@@ -330,7 +334,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsRemoteC
 @end
 
 @class LampsBridge;
-@class NSString;
 /// 一组业务 Bridge。导航、激励视频等各自实现，由 <code>LampsBridge</code> 按 method 分发。
 SWIFT_PROTOCOL("_TtP8LampsSDK18LampsBridgeHandler_")
 @protocol LampsBridgeHandler
@@ -460,6 +463,10 @@ SWIFT_CLASS("_TtC8LampsSDK17LampsRewardAdSlot")
 @property (nonatomic, copy) NSString * _Nonnull type;
 @property (nonatomic, copy) NSString * _Nonnull channelName;
 @property (nonatomic, copy) NSString * _Nonnull channelId;
+/// 接口下发价格；创建 model 时先写入，SDK 回传价 > 0 时覆盖。
+@property (nonatomic) CGFloat price;
+/// 是否定价位。
+@property (nonatomic, readonly) BOOL isPD;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -517,20 +524,26 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @property (nonatomic, copy) NSString * _Nonnull appId;
 /// 是否打印 SDK 调试日志，默认 false。
 @property (nonatomic) BOOL debugLogEnabled;
-/// REM 签名密钥。为空时回退使用配置接口返回的 <code>token</code>。
-@property (nonatomic, copy) NSString * _Nonnull rewardSignKey;
 /// 配置接口环境，默认正式环境。
 @property (nonatomic) enum LampsSDKEnvironment environment;
 /// 穿山甲 AppId；非空且集成 CSJ Subspec 时会在 start 中初始化。
+/// 宿主已自行初始化（如 HCAD）时请留空，避免二次 init。
 @property (nonatomic, copy) NSString * _Nonnull csjAppId;
 /// 优量汇 AppId；非空且集成 GDT Subspec 时会在 start 中初始化。
+/// 宿主已自行初始化时请留空。
 @property (nonatomic, copy) NSString * _Nonnull gdtAppId;
 /// 汇川 AppKey；非空且集成 Noah Subspec 时会在 start 中初始化。
+/// 宿主已自行初始化时请留空。
 @property (nonatomic, copy) NSString * _Nonnull noahAppKey;
-/// 激励默认超时（毫秒）。
-@property (nonatomic) NSInteger rewardTimeoutMs;
-/// 激励服务端校验 userId。
-@property (nonatomic, copy) NSString * _Nonnull rewardUserId;
+/// 是否开启个性化推荐，默认 true。
+/// 优量汇：<code>setPersonalizedState</code>（false → 关闭个性化）。
+@property (nonatomic) BOOL personalizedRecommendEnabled;
+/// 是否开启摇一摇类互动广告，默认 true。
+/// 穿山甲：<code>userExtData.is_shake_ads</code>；优量汇：<code>shakable</code>。
+@property (nonatomic) BOOL shakeAdsEnabled;
+/// 是否允许广告 SDK 使用定位，默认 false（更稳妥的隐私默认）。
+/// 汇川：<code>forbidHcGetLocationInfo = !allowLocation</code>。
+@property (nonatomic) BOOL allowLocation;
 - (id _Nonnull)copyWithZone:(struct _NSZone * _Nullable)zone SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -576,6 +589,7 @@ SWIFT_CLASS("_TtC8LampsSDK12LampsWebView")
 
 @class NSBundle;
 /// 全屏 Web 页面容器。真正的加载与 Bridge 都在 <code>LampsWebView</code> 上。
+/// 隐藏系统导航栏，整页交给 webView 渲染；关闭走 Bridge <code>close</code> 或 <code>closePage</code>。
 SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 @interface LampsWebViewController : UIViewController
 @property (nonatomic, readonly, copy) NSString * _Nonnull urlString;
@@ -586,6 +600,8 @@ SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 - (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 

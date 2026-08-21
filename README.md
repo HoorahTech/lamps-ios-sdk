@@ -41,6 +41,11 @@ pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch 
 # pod 'LampsSDK/CSJAdapter'
 # pod 'LampsSDK/GDTAdapter'
 # pod 'LampsSDK/NoahAdapter'   # 已有 NoahSDK 时用这个，勿与 Noah 同时开
+#
+# 注意：*Adapter 不声明三方 dependency。源码编译时 canImport 依赖「编译 LampsSDK 时能否看到 module」。
+# 宿主需在 post_install 里把已有 SDK 的 FRAMEWORK_SEARCH_PATHS 挂到 LampsSDK（并建议 add_dependency 保证顺序），
+# 参考主工程 ios/Podfile 中的 lamps_wire_host_ad_sdks_for_adapters。
+# 若希望 Lamps 自己拉公有源 SDK，改用 CSJ / GDT / Noah，不要用 *Adapter。
 
 # DevTools（建议仅在宿主 Debug 配置引用；汇川工具已在 NoahSDK）：
 # pod 'LampsSDK/DevTools', :configurations => ['Debug']
@@ -57,7 +62,7 @@ use_binary = true   # true=Binary 下 xcframework；false=Classes 源码
 
 | `use_binary` | Pods 里看到什么 |
 | --- | --- |
-| `true` | `LampsSDK/Binary/*.xcframework`（业务源码不可见） |
+| `true` | `LampsSDK/Binary/*.xcframework`（含 Adapters、DevTools；业务源码不可见） |
 | `false` | `LampsSDK/Classes/**` 源码编译 |
 
 出包并同步到 Binary：
@@ -119,7 +124,14 @@ Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `Lamps.remoteCo
 
 ### 激励视频 / Adapter
 
-默认包含 `Core` + 三家 `*Adapter`。未链入广告 SDK 时 `canImport` 跳过注册；链入后生效。
+默认包含 `Core` + 三家 `*Adapter`（或 `CSJ`/`GDT`/`Noah`）。
+
+| 宿主三方 SDK 集成方式 | 应选 subspec | 说明 |
+| --- | --- | --- |
+| 走 CocoaPods 公有源，交给 Lamps 拉 | `CSJ` / `GDT` / `Noah` | Adapter + dependency |
+| 本地/其它 Pod 已集成（如 HPByteThirdParty） | `CSJAdapter` / `GDTAdapter` / `NoahAdapter` | 无 dependency；需 post_install 挂 module 路径 |
+
+未链入、也未挂搜索路径时，`canImport` 跳过注册；挂好后编译期可见、注册生效。
 
 流程对齐 `HCADCommonRewardVideoManager`（无 getOther、无 adm）：
 
@@ -263,7 +275,7 @@ webView.closeHandler = { /* 关闭页面 */ }
 # 产物：build/xcframeworks/LampsSDK-iOS-0.1.0/
 ```
 
-产出 4 个包：`LampsSDK`（Core）+ `LampsCSJAdapter` / `LampsGDTAdapter` / `LampsNoahAdapter`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。
+产出 5 个包：`LampsSDK`（Core）+ 三家 Adapter + `LampsDevTools`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。
 
 详细接入（无 / 全有 / 只有部分广告 SDK）见 [scripts/FRAMEWORK_INTEGRATION.md](scripts/FRAMEWORK_INTEGRATION.md)。
 

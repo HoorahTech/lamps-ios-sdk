@@ -1,9 +1,13 @@
 import UIKit
+#if LampsADAPTER_SEPARATE_MODULE
+import LampsSDK
+#endif
 #if canImport(BUAdTestMeasurement)
 import BUAdTestMeasurement
 #endif
 
 /// Lamps SDK 调试工具入口（需集成 `LampsSDK/DevTools` Subspec）。
+@objc(LampsDevTools)
 @objcMembers
 public final class LampsDevTools: NSObject {
     /// 弹出调试工具首页（导航栈）。

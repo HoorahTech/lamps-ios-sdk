@@ -1,0 +1,11 @@
+framework module LampsDevTools {
+  umbrella header "LampsDevTools-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module LampsDevTools.Swift {
+  header "LampsDevTools-Swift.h"
+  requires objc
+}

@@ -190,6 +190,13 @@
         "moduleName": "LampsCSJAdapter"
       },
       {
+        "kind": "Import",
+        "name": "BUAdTestMeasurement",
+        "printedName": "BUAdTestMeasurement",
+        "declKind": "Import",
+        "moduleName": "LampsCSJAdapter"
+      },
+      {
         "kind": "TypeDecl",
         "name": "LampsCSJSDKInitializerRegistrar",
         "printedName": "LampsCSJSDKInitializerRegistrar",
@@ -367,14 +374,14 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 6403,
+      "offset": 6237,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJSDKInitializer.swift",
       "kind": "BooleanLiteral",
-      "offset": 959,
+      "offset": 1829,
       "length": 5,
       "value": "false"
     }

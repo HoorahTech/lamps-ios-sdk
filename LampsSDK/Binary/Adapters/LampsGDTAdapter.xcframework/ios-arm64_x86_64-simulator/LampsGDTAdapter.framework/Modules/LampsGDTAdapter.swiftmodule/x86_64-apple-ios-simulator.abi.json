@@ -367,14 +367,14 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 5421,
+      "offset": 6328,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/GDTAdapter\/LampsGDTSDKInitializer.swift",
       "kind": "BooleanLiteral",
-      "offset": 997,
+      "offset": 1500,
       "length": 5,
       "value": "false"
     }

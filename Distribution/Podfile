@@ -13,8 +13,9 @@ target 'XCBuildHost' do
   # Core（模块名 LampsSDK）
   pod 'LampsSDK/Core', :path => '../'
 
-  # 独立 Adapter 模块（出包产物；编译期依赖对应广告 SDK）
+  # 独立 Adapter / DevTools 模块（出包产物）
   pod 'LampsCSJAdapter', :path => '../'
   pod 'LampsGDTAdapter', :path => '../'
   pod 'LampsNoahAdapter', :path => '../'
+  pod 'LampsDevTools', :path => '../'
 end

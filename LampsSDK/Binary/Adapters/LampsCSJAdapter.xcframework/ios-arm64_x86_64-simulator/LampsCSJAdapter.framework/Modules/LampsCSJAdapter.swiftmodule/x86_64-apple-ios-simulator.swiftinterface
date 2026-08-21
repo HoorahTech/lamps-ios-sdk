@@ -3,6 +3,7 @@
 // swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name LampsCSJAdapter
 // swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
 import BUAdSDK
+import BUAdTestMeasurement
 import Foundation
 @_exported import LampsCSJAdapter
 import LampsSDK

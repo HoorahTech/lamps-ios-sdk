@@ -1,4 +1,7 @@
 import UIKit
+#if LampsADAPTER_SEPARATE_MODULE
+import LampsSDK
+#endif
 #if canImport(BUAdTestMeasurement)
 import BUAdTestMeasurement
 #endif

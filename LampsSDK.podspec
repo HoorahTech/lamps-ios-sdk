@@ -57,6 +57,9 @@ Pod::Spec.new do |s|
 
   s.subspec 'CSJAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
+    # 不声明 Ads-CN：供「宿主已本地/其它 Pod 集成穿山甲」场景。
+    # 此时需宿主 post_install 把 BUAdSDK 的 FRAMEWORK_SEARCH_PATHS 挂到 LampsSDK，
+    # 否则 #if canImport(BUAdSDK) 在编译 LampsSDK 时为 false。
     if use_binary
       ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsCSJAdapter.xcframework'
       ss.pod_target_xcconfig = binary_adapter_xcconfig
@@ -67,6 +70,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'GDTAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
+    # 同 CSJAdapter：不声明 GDTMobSDK，避免与宿主已有集成重复。
     if use_binary
       ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsGDTAdapter.xcframework'
       ss.pod_target_xcconfig = binary_adapter_xcconfig
@@ -77,6 +81,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'NoahAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
+    # 同 CSJAdapter：不声明 Noah；独立 Demo 用 Noah，主工程用 Adapter + 宿主 NoahAdSdks。
     if use_binary
       ss.vendored_frameworks = 'LampsSDK/Binary/Adapters/LampsNoahAdapter.xcframework'
       ss.pod_target_xcconfig = binary_adapter_xcconfig
@@ -128,12 +133,19 @@ Pod::Spec.new do |s|
   end
 
   # DevTools：Lamps 状态页 + 穿山甲 / 优量汇调试依赖；汇川工具已在 NoahSDK 内。
-  # 不进入 default_subspecs；是否只在宿主 Debug 配置引用由宿主 Podfile 自行控制。
+  # 不进入 default_subspecs。
   s.subspec 'DevTools' do |ss|
     ss.dependency 'LampsSDK/Core'
-    ss.source_files = 'LampsSDK/Classes/Debug/**/*.{swift,m,h}'
-    ss.public_header_files = 'LampsSDK/Classes/Debug/**/*.h'
     ss.dependency 'GDTDevToolSDK'
     ss.dependency 'Ads-CN/BUAdTestMeasurement'
+    if use_binary
+      ss.vendored_frameworks = 'LampsSDK/Binary/DevTools/LampsDevTools.xcframework'
+      ss.pod_target_xcconfig = {
+        'OTHER_LDFLAGS' => '$(inherited) -ObjC'
+      }
+    else
+      ss.source_files = 'LampsSDK/Classes/Debug/**/*.{swift,m,h}'
+      ss.public_header_files = 'LampsSDK/Classes/Debug/**/*.h'
+    end
   end
 end

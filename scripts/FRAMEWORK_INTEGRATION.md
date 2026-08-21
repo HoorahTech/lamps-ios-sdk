@@ -9,6 +9,8 @@ LampsSDK-iOS-x.y.z/
     LampsCSJAdapter.xcframework
     LampsGDTAdapter.xcframework
     LampsNoahAdapter.xcframework
+  DevTools/
+    LampsDevTools.xcframework       # 可选调试页
   ThirdParty/                       # 仅补「宿主没有」的渠道
     Ads-CN/ ...
     GDTMobSDK/ ...
@@ -22,6 +24,7 @@ LampsSDK-iOS-x.y.z/
 2. `Other Linker Flags` 增加 `-ObjC`（保证 Adapter 内 OC `+load` 注册生效）
 3. Swift：`import LampsSDK`，入口 `Lamps.start(config:completion:)`
 4. 需要激励时，再按渠道链接对应 Adapter 模块（`import LampsCSJAdapter` 等通常不必，注册靠 `+load`）
+5. 需要调试页时，链 `DevTools/LampsDevTools.xcframework`，并保证宿主已有 `GDTDevToolSDK` / `BUAdTestMeasurement`（或 Debug 依赖）；入口 `LampsDevTools.present(from:)`
 
 ## 按渠道组合（无 / 全有 / 只有部分）
 
@@ -60,6 +63,7 @@ LampsSDK-iOS-x.y.z/
 | `LampsSDK/GDT` | Adapter + ThirdParty/GDTMobSDK |
 | `LampsSDK/NoahAdapter` | `LampsNoahAdapter.xcframework`（宿主自备 Noah） |
 | `LampsSDK/Noah` | Adapter + ThirdParty/Noah |
+| `LampsSDK/DevTools` | `DevTools/LampsDevTools.xcframework`（另需调试依赖） |
 
 ## 注意
 

@@ -17,6 +17,60 @@
         "printedName": "Lamps",
         "children": [
           {
+            "kind": "Var",
+            "name": "sdkVersion",
+            "printedName": "sdkVersion",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)Lamps(cpy)sdkVersion",
+            "mangledName": "$s8LampsSDK0A0C10sdkVersionSSvpZ",
+            "moduleName": "LampsSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)sdkVersion",
+                "mangledName": "$s8LampsSDK0A0C10sdkVersionSSvgZ",
+                "moduleName": "LampsSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
             "kind": "Function",
             "name": "start",
             "printedName": "start(config:completion:)",
@@ -1806,6 +1860,72 @@
         "moduleName": "LampsSDK"
       },
       {
+        "kind": "TypeDecl",
+        "name": "LampsConfigCache",
+        "printedName": "LampsConfigCache",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "clear",
+            "printedName": "clear(appId:environment:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "LampsSDKEnvironment",
+                "printedName": "LampsSDK.LampsSDKEnvironment",
+                "usr": "c:@M@LampsSDK@E@LampsSDKEnvironment"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8LampsSDK0A11ConfigCacheO5clear5appId11environmentSbSS_AA0A14SDKEnvironmentOtFZ",
+            "mangledName": "$s8LampsSDK0A11ConfigCacheO5clear5appId11environmentSbSS_AA0A14SDKEnvironmentOtFZ",
+            "moduleName": "LampsSDK",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "DiscardableResult"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:8LampsSDK0A11ConfigCacheO",
+        "mangledName": "$s8LampsSDK0A11ConfigCacheO",
+        "moduleName": "LampsSDK",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
@@ -1814,8 +1934,50 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
         "name": "AdSupport",
         "printedName": "AdSupport",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Darwin",
+        "printedName": "Darwin",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "SystemConfiguration",
+        "printedName": "SystemConfiguration",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreTelephony",
+        "printedName": "CoreTelephony",
         "declKind": "Import",
         "moduleName": "LampsSDK"
       },
@@ -1830,6 +1992,13 @@
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "LampsSDK"
       },
@@ -2437,6 +2606,13 @@
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreGraphics",
+        "printedName": "CoreGraphics",
         "declKind": "Import",
         "moduleName": "LampsSDK"
       },
@@ -3374,6 +3550,153 @@
                   "Final"
                 ],
                 "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "price",
+            "printedName": "price",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CGFloat",
+                "printedName": "CoreGraphics.CGFloat",
+                "usr": "s:14CoreFoundation7CGFloatV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsRewardAdSlot(py)price",
+            "mangledName": "$s8LampsSDK0A12RewardAdSlotC5price12CoreGraphics7CGFloatVvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CGFloat",
+                    "printedName": "CoreGraphics.CGFloat",
+                    "usr": "s:14CoreFoundation7CGFloatV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsRewardAdSlot(im)price",
+                "mangledName": "$s8LampsSDK0A12RewardAdSlotC5price12CoreGraphics7CGFloatVvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CGFloat",
+                    "printedName": "CoreGraphics.CGFloat",
+                    "usr": "s:14CoreFoundation7CGFloatV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsRewardAdSlot(im)setPrice:",
+                "mangledName": "$s8LampsSDK0A12RewardAdSlotC5price12CoreGraphics7CGFloatVvs",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8LampsSDK0A12RewardAdSlotC5price14CoreFoundation7CGFloatVvM",
+                "mangledName": "$s8LampsSDK0A12RewardAdSlotC5price12CoreGraphics7CGFloatVvM",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "isPD",
+            "printedName": "isPD",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsRewardAdSlot(py)isPD",
+            "mangledName": "$s8LampsSDK0A12RewardAdSlotC4isPDSbvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsRewardAdSlot(im)isPD",
+                "mangledName": "$s8LampsSDK0A12RewardAdSlotC4isPDSbvg",
+                "moduleName": "LampsSDK",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
               }
             ]
           },
@@ -7729,7 +8052,7 @@
           {
             "kind": "Function",
             "name": "notifyAuctionLoss",
-            "printedName": "notifyAuctionLoss(winnerPrice:)",
+            "printedName": "notifyAuctionLoss(winnerPrice:winner:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -7741,15 +8064,32 @@
                 "name": "CGFloat",
                 "printedName": "CoreGraphics.CGFloat",
                 "usr": "s:14CoreFoundation7CGFloatV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "LampsSDK.LampsRewardAdModel?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LampsRewardAdModel",
+                    "printedName": "LampsSDK.LampsRewardAdModel",
+                    "usr": "c:@M@LampsSDK@objc(cs)LampsRewardAdModel"
+                  }
+                ],
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Func",
-            "usr": "s:8LampsSDK0A14RewardAdaptingP17notifyAuctionLoss11winnerPricey14CoreFoundation7CGFloatV_tF",
-            "mangledName": "$s8LampsSDK0A14RewardAdaptingP17notifyAuctionLoss11winnerPricey12CoreGraphics7CGFloatV_tF",
+            "usr": "s:8LampsSDK0A14RewardAdaptingP17notifyAuctionLoss11winnerPrice0H0y14CoreFoundation7CGFloatV_AA0aC7AdModelCSgtF",
+            "mangledName": "$s8LampsSDK0A14RewardAdaptingP17notifyAuctionLoss11winnerPrice0H0y12CoreGraphics7CGFloatV_AA0aC7AdModelCSgtF",
             "moduleName": "LampsSDK",
             "genericSig": "<τ_0_0 where τ_0_0 : LampsSDK.LampsRewardAdapting>",
             "sugared_genericSig": "<Self where Self : LampsSDK.LampsRewardAdapting>",
             "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "reqNewWitnessTableEntry": true,
             "funcSelfKind": "NonMutating"
           }
@@ -8521,6 +8861,55 @@
           },
           {
             "kind": "Var",
+            "name": "requestId",
+            "printedName": "requestId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8LampsSDK0A13RewardAdModelC9requestIdSSvp",
+            "mangledName": "$s8LampsSDK0A13RewardAdModelC9requestIdSSvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8LampsSDK0A13RewardAdModelC9requestIdSSvg",
+                "mangledName": "$s8LampsSDK0A13RewardAdModelC9requestIdSSvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "price",
             "printedName": "price",
             "children": [
@@ -8606,102 +8995,6 @@
                 "declKind": "Accessor",
                 "usr": "s:8LampsSDK0A13RewardAdModelC5price14CoreFoundation7CGFloatVvM",
                 "mangledName": "$s8LampsSDK0A13RewardAdModelC5price12CoreGraphics7CGFloatVvM",
-                "moduleName": "LampsSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "_modify"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "bidfloor",
-            "printedName": "bidfloor",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "CGFloat",
-                "printedName": "CoreGraphics.CGFloat",
-                "usr": "s:14CoreFoundation7CGFloatV"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:8LampsSDK0A13RewardAdModelC8bidfloor14CoreFoundation7CGFloatVvp",
-            "mangledName": "$s8LampsSDK0A13RewardAdModelC8bidfloor12CoreGraphics7CGFloatVvp",
-            "moduleName": "LampsSDK",
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage",
-              "AccessControl"
-            ],
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "CGFloat",
-                    "printedName": "CoreGraphics.CGFloat",
-                    "usr": "s:14CoreFoundation7CGFloatV"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:8LampsSDK0A13RewardAdModelC8bidfloor14CoreFoundation7CGFloatVvg",
-                "mangledName": "$s8LampsSDK0A13RewardAdModelC8bidfloor12CoreGraphics7CGFloatVvg",
-                "moduleName": "LampsSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "get"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Set",
-                "printedName": "Set()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "CGFloat",
-                    "printedName": "CoreGraphics.CGFloat",
-                    "usr": "s:14CoreFoundation7CGFloatV"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:8LampsSDK0A13RewardAdModelC8bidfloor14CoreFoundation7CGFloatVvs",
-                "mangledName": "$s8LampsSDK0A13RewardAdModelC8bidfloor12CoreGraphics7CGFloatVvs",
-                "moduleName": "LampsSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "set"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Modify",
-                "printedName": "Modify()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:8LampsSDK0A13RewardAdModelC8bidfloor14CoreFoundation7CGFloatVvM",
-                "mangledName": "$s8LampsSDK0A13RewardAdModelC8bidfloor12CoreGraphics7CGFloatVvM",
                 "moduleName": "LampsSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -8948,7 +9241,7 @@
           {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(slot:channel:timeoutMs:userId:)",
+            "printedName": "init(slot:channel:timeoutMs:userId:requestId:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -8979,11 +9272,17 @@
                 "name": "String",
                 "printedName": "Swift.String",
                 "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:8LampsSDK0A13RewardAdModelC4slot7channel9timeoutMs6userIdAcA0acD4SlotC_AA0aC7ChannelOSiSStcfc",
-            "mangledName": "$s8LampsSDK0A13RewardAdModelC4slot7channel9timeoutMs6userIdAcA0acD4SlotC_AA0aC7ChannelOSiSStcfc",
+            "usr": "s:8LampsSDK0A13RewardAdModelC4slot7channel9timeoutMs6userId07requestK0AcA0acD4SlotC_AA0aC7ChannelOSiS2Stcfc",
+            "mangledName": "$s8LampsSDK0A13RewardAdModelC4slot7channel9timeoutMs6userId07requestK0AcA0acD4SlotC_AA0aC7ChannelOSiS2Stcfc",
             "moduleName": "LampsSDK",
             "declAttributes": [
               "AccessControl"
@@ -9189,7 +9488,7 @@
           {
             "kind": "Function",
             "name": "reportRM",
-            "printedName": "reportRM(model:isSuccess:filterReason:delayTimeMs:error:)",
+            "printedName": "reportRM(model:isSuccess:error:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -9211,36 +9510,6 @@
               {
                 "kind": "TypeNominal",
                 "name": "Optional",
-                "printedName": "Swift.String?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "hasDefaultArg": true,
-                "usr": "s:Sq"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "Swift.Int?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
-                  }
-                ],
-                "hasDefaultArg": true,
-                "usr": "s:Sq"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
                 "printedName": "(any Swift.Error)?",
                 "children": [
                   {
@@ -9255,8 +9524,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:8LampsSDK0A21RewardMonitorReporterO8reportRM5model9isSuccess12filterReason11delayTimeMs5erroryAA0aC7AdModelC_SbSSSgSiSgs5Error_pSgtFZ",
-            "mangledName": "$s8LampsSDK0A21RewardMonitorReporterO8reportRM5model9isSuccess12filterReason11delayTimeMs5erroryAA0aC7AdModelC_SbSSSgSiSgs5Error_pSgtFZ",
+            "usr": "s:8LampsSDK0A21RewardMonitorReporterO8reportRM5model9isSuccess5erroryAA0aC7AdModelC_Sbs5Error_pSgtFZ",
+            "mangledName": "$s8LampsSDK0A21RewardMonitorReporterO8reportRM5model9isSuccess5erroryAA0aC7AdModelC_Sbs5Error_pSgtFZ",
             "moduleName": "LampsSDK",
             "static": true,
             "declAttributes": [
@@ -9791,106 +10060,6 @@
           },
           {
             "kind": "Var",
-            "name": "rewardSignKey",
-            "printedName": "rewardSignKey",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)rewardSignKey",
-            "mangledName": "$s8LampsSDK0A9SDKConfigC13rewardSignKeySSvp",
-            "moduleName": "LampsSDK",
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage",
-              "AccessControl",
-              "RawDocComment",
-              "ObjC"
-            ],
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)rewardSignKey",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC13rewardSignKeySSvg",
-                "moduleName": "LampsSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final",
-                  "ObjC"
-                ],
-                "accessorKind": "get"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Set",
-                "printedName": "Set()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setRewardSignKey:",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC13rewardSignKeySSvs",
-                "moduleName": "LampsSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final",
-                  "ObjC"
-                ],
-                "accessorKind": "set"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Modify",
-                "printedName": "Modify()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:8LampsSDK0A9SDKConfigC13rewardSignKeySSvM",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC13rewardSignKeySSvM",
-                "moduleName": "LampsSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "_modify"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
             "name": "environment",
             "printedName": "environment",
             "children": [
@@ -10291,19 +10460,19 @@
           },
           {
             "kind": "Var",
-            "name": "rewardTimeoutMs",
-            "printedName": "rewardTimeoutMs",
+            "name": "personalizedRecommendEnabled",
+            "printedName": "personalizedRecommendEnabled",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Int",
-                "printedName": "Swift.Int",
-                "usr": "s:Si"
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
               }
             ],
             "declKind": "Var",
-            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)rewardTimeoutMs",
-            "mangledName": "$s8LampsSDK0A9SDKConfigC15rewardTimeoutMsSivp",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)personalizedRecommendEnabled",
+            "mangledName": "$s8LampsSDK0A9SDKConfigC28personalizedRecommendEnabledSbvp",
             "moduleName": "LampsSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -10322,14 +10491,14 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)rewardTimeoutMs",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC15rewardTimeoutMsSivg",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)personalizedRecommendEnabled",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC28personalizedRecommendEnabledSbvg",
                 "moduleName": "LampsSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10350,14 +10519,14 @@
                   },
                   {
                     "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setRewardTimeoutMs:",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC15rewardTimeoutMsSivs",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setPersonalizedRecommendEnabled:",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC28personalizedRecommendEnabledSbvs",
                 "moduleName": "LampsSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10378,8 +10547,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:8LampsSDK0A9SDKConfigC15rewardTimeoutMsSivM",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC15rewardTimeoutMsSivM",
+                "usr": "s:8LampsSDK0A9SDKConfigC28personalizedRecommendEnabledSbvM",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC28personalizedRecommendEnabledSbvM",
                 "moduleName": "LampsSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10391,19 +10560,19 @@
           },
           {
             "kind": "Var",
-            "name": "rewardUserId",
-            "printedName": "rewardUserId",
+            "name": "shakeAdsEnabled",
+            "printedName": "shakeAdsEnabled",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
               }
             ],
             "declKind": "Var",
-            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)rewardUserId",
-            "mangledName": "$s8LampsSDK0A9SDKConfigC12rewardUserIdSSvp",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)shakeAdsEnabled",
+            "mangledName": "$s8LampsSDK0A9SDKConfigC15shakeAdsEnabledSbvp",
             "moduleName": "LampsSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -10422,14 +10591,14 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)rewardUserId",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC12rewardUserIdSSvg",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)shakeAdsEnabled",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC15shakeAdsEnabledSbvg",
                 "moduleName": "LampsSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10450,14 +10619,14 @@
                   },
                   {
                     "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setRewardUserId:",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC12rewardUserIdSSvs",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setShakeAdsEnabled:",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC15shakeAdsEnabledSbvs",
                 "moduleName": "LampsSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10478,8 +10647,108 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:8LampsSDK0A9SDKConfigC12rewardUserIdSSvM",
-                "mangledName": "$s8LampsSDK0A9SDKConfigC12rewardUserIdSSvM",
+                "usr": "s:8LampsSDK0A9SDKConfigC15shakeAdsEnabledSbvM",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC15shakeAdsEnabledSbvM",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "allowLocation",
+            "printedName": "allowLocation",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)allowLocation",
+            "mangledName": "$s8LampsSDK0A9SDKConfigC13allowLocationSbvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)allowLocation",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC13allowLocationSbvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setAllowLocation:",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC13allowLocationSbvs",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8LampsSDK0A9SDKConfigC13allowLocationSbvM",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC13allowLocationSbvM",
                 "moduleName": "LampsSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -11827,11 +12096,62 @@
         "moduleName": "LampsSDK"
       },
       {
-        "kind": "Import",
-        "name": "WebKit",
-        "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "LampsSDK"
+        "kind": "TypeDecl",
+        "name": "LampsSDKLog",
+        "printedName": "LampsSDKLog",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "debug",
+            "printedName": "debug(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8LampsSDK0A6SDKLogO5debugyySSFZ",
+            "mangledName": "$s8LampsSDK0A6SDKLogO5debugyySSFZ",
+            "moduleName": "LampsSDK",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:8LampsSDK0A6SDKLogO",
+        "mangledName": "$s8LampsSDK0A6SDKLogO",
+        "moduleName": "LampsSDK",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
       },
       {
         "kind": "Import",
@@ -12760,6 +13080,72 @@
             "funcSelfKind": "NonMutating"
           },
           {
+            "kind": "Function",
+            "name": "viewWillAppear",
+            "printedName": "viewWillAppear(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsWebViewController(im)viewWillAppear:",
+            "mangledName": "$s8LampsSDK0A17WebViewControllerC14viewWillAppearyySbF",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "objc_name": "viewWillAppear:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewWillDisappear",
+            "printedName": "viewWillDisappear(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsWebViewController(im)viewWillDisappear:",
+            "mangledName": "$s8LampsSDK0A17WebViewControllerC17viewWillDisappearyySbF",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "objc_name": "viewWillDisappear:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(nibName:bundle:)",
@@ -12929,15 +13315,22 @@
   "ConstValues": [
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
+      "kind": "StringLiteral",
+      "offset": 426,
+      "length": 7,
+      "value": "\"0.1.0\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 476,
+      "offset": 583,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 2924,
+      "offset": 3419,
       "length": 2,
       "value": "\"\""
     },
@@ -12952,78 +13345,64 @@
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "StringLiteral",
       "offset": 313,
-      "length": 7,
-      "value": "\"lamps\""
+      "length": 13,
+      "value": "\"chatMessage\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "Array",
-      "offset": 426,
+      "offset": 432,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "Dictionary",
-      "offset": 507,
+      "offset": 513,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "Dictionary",
-      "offset": 586,
+      "offset": 592,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
-      "kind": "BooleanLiteral",
-      "offset": 651,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "Dictionary",
-      "offset": 1935,
+      "offset": 1597,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "StringLiteral",
-      "offset": 4037,
+      "offset": 3701,
       "length": 8,
       "value": "\"method\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "StringLiteral",
-      "offset": 4072,
+      "offset": 3736,
       "length": 6,
       "value": "\"data\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "StringLiteral",
-      "offset": 4116,
-      "length": 11,
-      "value": "\"successcb\""
+      "offset": 3775,
+      "length": 4,
+      "value": "\"id\""
     },
     {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsConfigCache.swift",
       "kind": "StringLiteral",
-      "offset": 4163,
-      "length": 9,
-      "value": "\"errorcb\""
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
-      "kind": "StringLiteral",
-      "offset": 4210,
-      "length": 17,
-      "value": "\"errorcallbackId\""
+      "offset": 166,
+      "length": 27,
+      "value": "\"com.hupu.lamps.sdk.config\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsConfigService.swift",
@@ -13040,6 +13419,20 @@
       "value": "0"
     },
     {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsDeviceInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 268,
+      "length": 30,
+      "value": "\"com.hupu.lamps.sdk.userAgent\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsDeviceInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 346,
+      "length": 19,
+      "value": "\"02:00:00:00:00:00\""
+    },
+    {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsNavigationBridgeHandler.swift",
       "kind": "Array",
       "offset": 277,
@@ -13049,84 +13442,98 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 174,
+      "offset": 194,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 208,
+      "offset": 228,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 245,
+      "offset": 265,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 1276,
+      "offset": 1296,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 1334,
+      "offset": 1354,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 1374,
+      "offset": 1394,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 1412,
+      "offset": 1432,
       "length": 2,
       "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1555,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
+      "kind": "StringLiteral",
+      "offset": 1690,
+      "length": 4,
+      "value": "\"PD\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 2157,
+      "offset": 2756,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 2190,
+      "offset": 2789,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 2223,
+      "offset": 2822,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 2256,
+      "offset": 2855,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 2289,
+      "offset": 2888,
       "length": 2,
       "value": "[]"
     },
@@ -13308,14 +13715,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Reward\/LampsRewardChannel.swift",
       "kind": "IntegerLiteral",
-      "offset": 1296,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Reward\/LampsRewardChannel.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1333,
+      "offset": 1411,
       "length": 1,
       "value": "0"
     },
@@ -13385,44 +13785,44 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
       "kind": "StringLiteral",
-      "offset": 431,
+      "offset": 620,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
       "kind": "StringLiteral",
-      "offset": 661,
+      "offset": 791,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
       "kind": "StringLiteral",
-      "offset": 784,
+      "offset": 963,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 908,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
-      "kind": "IntegerLiteral",
-      "offset": 991,
+      "kind": "BooleanLiteral",
+      "offset": 1235,
       "length": 4,
-      "value": "5000"
+      "value": "true"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 1074,
-      "length": 2,
-      "value": "\"\""
+      "kind": "BooleanLiteral",
+      "offset": 1416,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1613,
+      "length": 5,
+      "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsSDKEnvironment.swift",
@@ -13490,7 +13890,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 399,
+      "offset": 553,
       "length": 5,
       "value": "false"
     }
