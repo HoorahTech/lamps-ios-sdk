@@ -11,6 +11,25 @@ import CoreGraphics
     case showError
     case rewardArrived
     case close
+
+    /// H5 `hoorah.ad.rewardedVideoStatus` 的 callbackName。
+    public var h5CallbackName: String {
+        switch self {
+        case .busy: return "onBusy"
+        case .reqError: return "onReqError"
+        case .loadSuccess: return "onLoadSuccess"
+        case .loadError: return "onLoadError"
+        case .showSuccess: return "onShowSuccess"
+        case .showError: return "onShowError"
+        case .rewardArrived: return "onRewardArrived"
+        case .close: return "onClose"
+        }
+    }
+}
+
+enum LampsRewardH5Error {
+    static let allSDKLoadFailedCode = 2009
+    static let allSDKLoadFailedMessage = "all reward ad SDKs failed to load"
 }
 
 @objcMembers
@@ -61,6 +80,16 @@ public final class LampsRewardVideoManager: NSObject {
         handler: LampsRewardEventHandler?,
         completion: LampsRewardCompletion?
     ) {
+        start(from: viewController, forwardSource: nil, handler: handler, completion: completion)
+    }
+
+    @objc(startFromViewController:forwardSource:handler:completion:)
+    public func start(
+        from viewController: UIViewController,
+        forwardSource: String?,
+        handler: LampsRewardEventHandler?,
+        completion: LampsRewardCompletion?
+    ) {
         guard !state.isActive else {
             let busy = makeCallback(name: .busy, status: false, message: "激励视频进行中")
             handler?(busy)
@@ -76,7 +105,10 @@ public final class LampsRewardVideoManager: NSObject {
 
         state = .requesting
         closeCompletion = completion
-        let session = LampsRewardSession(viewController: viewController)
+        let session = LampsRewardSession(
+            viewController: viewController,
+            forwardSource: forwardSource ?? ""
+        )
         rewardSession = session
         session.start(
             loadListener: makeLoadListener(session: session, handler: handler),
@@ -111,12 +143,17 @@ public final class LampsRewardVideoManager: NSObject {
             },
             onLoadError: { [weak self] in
                 self?.deliver(
-                    self?.makeCallback(name: .loadError, status: false, message: "激励视频加载失败"),
+                    self?.makeCallback(
+                        name: .loadError,
+                        status: false,
+                        code: LampsRewardH5Error.allSDKLoadFailedCode,
+                        message: LampsRewardH5Error.allSDKLoadFailedMessage
+                    ),
                     from: session,
                     handler: handler,
                     nextState: .idle,
                     finishSuccess: false,
-                    finishError: LampsSDKError.api("激励视频加载失败").nsError
+                    finishError: LampsSDKError.api(LampsRewardH5Error.allSDKLoadFailedMessage).nsError
                 )
             }
         )
@@ -238,7 +275,22 @@ public final class LampsRewardAd: NSObject {
         handler: LampsRewardEventHandler?,
         completion: LampsRewardCompletion?
     ) {
-        LampsRewardVideoManager.shared.start(from: viewController, handler: handler, completion: completion)
+        show(from: viewController, forwardSource: nil, handler: handler, completion: completion)
+    }
+
+    @objc(showFromViewController:forwardSource:handler:completion:)
+    public static func show(
+        from viewController: UIViewController,
+        forwardSource: String?,
+        handler: LampsRewardEventHandler?,
+        completion: LampsRewardCompletion?
+    ) {
+        LampsRewardVideoManager.shared.start(
+            from: viewController,
+            forwardSource: forwardSource,
+            handler: handler,
+            completion: completion
+        )
     }
 
     public static func isAdapterAvailable(_ channel: LampsRewardChannel) -> Bool {

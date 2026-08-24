@@ -74,6 +74,7 @@ private extension LampsWebView {
         bridge.addHandler(LampsBaseBridgeHandler())
         navigationHandler.closeHandler = closeHandler
         bridge.addHandler(navigationHandler)
+        bridge.addHandler(LampsRewardBridgeHandler())
     }
 }
 

@@ -48,6 +48,8 @@ public final class LampsRewardAdModel: NSObject {
     public var price: CGFloat = 0
     public var timeoutMs: Int
     public var userId: String
+    /// 场景来源，写入监测 `__FORWARD_SOURCE__`。
+    public var forwardSource: String = ""
     var requestState: LampsRewardRequestState = .unknown
 
     public var slotId: String { slot.slotId }
@@ -68,7 +70,7 @@ public final class LampsRewardAdModel: NSObject {
     }
 
     public var adInfo: [AnyHashable: Any] {
-        [
+        var info: [AnyHashable: Any] = [
             "slot_id": slotId,
             "channel": channel.name,
             "channel_id": slot.channelId,
@@ -78,5 +80,9 @@ public final class LampsRewardAdModel: NSObject {
             "increasePrice": price,
             "request_id": requestId
         ]
+        if !forwardSource.isEmpty {
+            info["forward_source"] = forwardSource
+        }
+        return info
     }
 }

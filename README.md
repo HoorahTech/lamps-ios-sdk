@@ -246,18 +246,17 @@ webView.bridge.send(
 按业务分组添加 Handler，`LampsBridge` 按 `method` 分发；本次调用的 success / error 回调直接传给 Handler，无需单独注册方法：
 
 ```swift
-final class RewardBridgeHandler: NSObject, LampsBridgeHandler {
+final class CustomBridgeHandler: NSObject, LampsBridgeHandler {
     weak var bridge: LampsBridge?
 
-    var supportedMethods: [String] { ["showReward"] }
+    var supportedMethods: [String] { ["custom.method"] }
 
     func handle(method: String, data: [AnyHashable: Any], success: LampsBridgeToH5Callback?, error: LampsBridgeToH5Callback?) {
-        // 激励视频逻辑
-        success?(["rewarded": true])
+        success?(["ok": true])
     }
 }
 
-webView.bridge.addHandler(RewardBridgeHandler())
+webView.bridge.addHandler(CustomBridgeHandler())
 webView.closeHandler = { /* 关闭页面 */ }
 ```
 
@@ -265,6 +264,39 @@ webView.closeHandler = { /* 关闭页面 */ }
 
 - `LampsBaseBridgeHandler`：`ping`
 - `LampsNavigationBridgeHandler`：`close`
+- `LampsRewardBridgeHandler`：`hra.ad.showRewardedVideo`
+
+### 激励视频 Bridge
+
+H5 调用 `hra.ad.showRewardedVideo` 一次，客户端完成 load → 竞价 → show。同一 WebView 同时只允许一条激励流程。
+
+入参 `data`：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `forward_source` | string | 否 | 场景来源，写入监测 `__FORWARD_SOURCE__` |
+
+```json
+{ "forward_source": "h5_game" }
+```
+
+生命周期全部通过 Native → H5 `hoorah.ad.rewardedVideoStatus` 回调，用 `callbackName` 区分（对应 `LampsRewardCallbackName`，如 `loadSuccess` → `onLoadSuccess`）：
+
+```json
+{ "callbackName": "onLoadSuccess" }
+```
+
+失败时带 `data.errCode` / `data.errMsg`，例如全部 SDK 加载失败：
+
+```json
+{
+  "callbackName": "onLoadError",
+  "data": {
+    "errCode": 2009,
+    "errMsg": "all reward ad SDKs failed to load"
+  }
+}
+```
 
 ## 手动 Framework（xcframework）集成
 

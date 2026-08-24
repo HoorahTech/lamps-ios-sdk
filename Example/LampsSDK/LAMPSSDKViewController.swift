@@ -43,7 +43,7 @@ final class LAMPSSDKViewController: UIViewController {
     }
 
     @objc private func openWebView() {
-        let webVC = LampsWebViewController(urlString: "https://www.hupu.com")
+        let webVC = LampsWebViewController(urlString: "https://activity-static.hupu.com/colorbox-activities/activity-project-ai-1787297060404/index.html?t=1787297083963")
         presentWeb(webVC)
     }
 

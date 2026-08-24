@@ -4,13 +4,15 @@ import UIKit
 /// 单次激励会话：config.rewardAdSlots → 并行 SDK → 竞价 → 展示赢家。
 final class LampsRewardSession: NSObject {
     private let viewController: UIViewController
+    private let forwardSource: String
     private var sdkLoader: LampsRewardSDKLoader?
     private var models: [LampsRewardAdModel] = []
     private var loadListener: LampsRewardLoadListener?
     private var interactionListener: LampsRewardInteractionListener?
 
-    init(viewController: UIViewController) {
+    init(viewController: UIViewController, forwardSource: String = "") {
         self.viewController = viewController
+        self.forwardSource = forwardSource
         super.init()
     }
 
@@ -53,6 +55,7 @@ final class LampsRewardSession: NSObject {
             )
             // 先用接口下发价；SDK 回传有效价后再覆盖。
             model.price = slot.price
+            model.forwardSource = forwardSource
             built.append(model)
         }
 
