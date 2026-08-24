@@ -71,6 +71,7 @@ private extension LampsWebView {
         bridge.install()
         bridge.addHandler(LampsRewardBridgeHandler())
         bridge.addHandler(LampsRequestBridgeHandler())
+        bridge.addHandler(LampsTrackBridgeHandler())
     }
 }
 

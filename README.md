@@ -198,6 +198,7 @@ window.webkit.messageHandlers.chatMessage.postMessage({
 - `close`
 - `lamps.ad.showRewardedVideo`
 - `lamps.common.request`
+- `lamps.common.track`
 
 Native 主动调 H5 会执行（H5 需实现 `window.HoorahBridge._handle_`）：
 
@@ -282,6 +283,26 @@ H5 调用 `lamps.common.request`，由客户端 `URLSession` 发 GET / POST，�
 ```
 
 `data.data` 已按 `encodeURIComponent` 规则编码，H5 用 `decodeURIComponent` 还原。参数非法或网络失败走 error 回调，`msg` 为原因。
+
+### 性能/事件上报 Bridge
+
+H5 调用 `lamps.common.track`，Native 对入参 `url` 直接发 GET，不改写地址。
+
+入参 `data`：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `url` | string | 是 | 完整上报 `http(s)` URL |
+| `type` | string | 否 | 预留，暂无业务含义，Native 不使用 |
+
+```json
+{
+  "type": "page_load",
+  "url": "https://example.com/page"
+}
+```
+
+收到合法 `url` 后发起 GET，完成后通过本次 invoke 回调：成功 `{ "msg": "" }`，失败 `{ "msg": "原因" }`（含非法 url、网络错误、非 2xx）。
 
 ## 手动 Framework（xcframework）集成
 
