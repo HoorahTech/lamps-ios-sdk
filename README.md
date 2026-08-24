@@ -196,7 +196,8 @@ window.webkit.messageHandlers.chatMessage.postMessage({
 
 - `ping`
 - `close`
-- `hra.ad.showRewardedVideo`
+- `lamps.ad.showRewardedVideo`
+- `lamps.common.request`
 
 Native 主动调 H5 会执行（H5 需实现 `window.HoorahBridge._handle_`）：
 
@@ -241,6 +242,46 @@ H5 调用 `hra.ad.showRewardedVideo` 一次，客户端完成 load → 竞价 �
   }
 }
 ```
+
+### 通用 HTTP Bridge
+
+H5 调用 `lamps.common.request`，由客户端 `URLSession` 发 GET / POST，不走 WebView JS 网络。
+
+入参 `data`：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `url` | string | 是 | 完整 `http(s)` URL |
+| `method` | string | 是 | `get` 或 `post`（大小写不敏感） |
+| `data` | object | 否 | GET 拼到 query；POST 按 `Content-Type` 编成 JSON 或 form body |
+| `header` | object | 否 | 请求头。`Content-Type` 忽略大小写；`Referer` 不发送 |
+
+```json
+{
+  "url": "https://api.example.com/v1/data",
+  "method": "get",
+  "data": { "page": "1", "size": "20" },
+  "header": {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer xxx"
+  }
+}
+```
+
+成功时通过本次 invoke 回调返回：
+
+```json
+{
+  "msg": "",
+  "data": {
+    "status": 200,
+    "statusText": "ok",
+    "data": "<URL-encoded response body>"
+  }
+}
+```
+
+`data.data` 已按 `encodeURIComponent` 规则编码，H5 用 `decodeURIComponent` 还原。参数非法或网络失败走 error 回调，`msg` 为原因。
 
 ## 手动 Framework（xcframework）集成
 

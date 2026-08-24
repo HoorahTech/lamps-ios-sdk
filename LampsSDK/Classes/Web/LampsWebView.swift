@@ -9,9 +9,7 @@ public class LampsWebView: WKWebView {
     var bridge: LampsBridge!
 
     /// H5 调用 `close` 时触发。
-    public var closeHandler: (() -> Void)? {
-        didSet { navigationHandler.closeHandler = closeHandler }
-    }
+    public var closeHandler: (() -> Void)?
 
     public convenience init() {
         self.init(frame: .zero, configuration: LampsWebView.makeConfiguration())
@@ -72,6 +70,7 @@ private extension LampsWebView {
         self.bridge = bridge
         bridge.install()
         bridge.addHandler(LampsRewardBridgeHandler())
+        bridge.addHandler(LampsRequestBridgeHandler())
     }
 }
 
