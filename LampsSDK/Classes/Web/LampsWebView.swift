@@ -8,8 +8,6 @@ public class LampsWebView: WKWebView {
     @nonobjc
     var bridge: LampsBridge!
 
-    private let navigationHandler = LampsNavigationBridgeHandler()
-
     /// H5 调用 `close` 时触发。
     public var closeHandler: (() -> Void)? {
         didSet { navigationHandler.closeHandler = closeHandler }
@@ -73,9 +71,6 @@ private extension LampsWebView {
         let bridge = LampsBridge(webView: self)
         self.bridge = bridge
         bridge.install()
-        bridge.addHandler(LampsBaseBridgeHandler())
-        navigationHandler.closeHandler = closeHandler
-        bridge.addHandler(navigationHandler)
         bridge.addHandler(LampsRewardBridgeHandler())
     }
 }

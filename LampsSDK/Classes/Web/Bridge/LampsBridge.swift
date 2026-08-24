@@ -117,7 +117,7 @@ private extension LampsBridge {
             return
         }
 
-        var callbackId = stringValue(dictionary[MessageKey.callbackId])
+        let callbackId = stringValue(dictionary[MessageKey.callbackId])
 
         let successCallback: LampsBridgeToH5Callback? = callbackId.isEmpty ? nil : { [weak self] data in
             self?.invokeH5Callback(callbackId: callbackId, data: data)
