@@ -4,5 +4,5 @@ import Foundation
 /// 仅 Adapter 跨模块 SPI，宿主普通 import 不可见。
 @_spi(LampsAdapter)
 public protocol LampsSDKInitializing {
-    static func initialize(config: LampsSDKConfig, completion: @escaping (Bool, Error?) -> Void)
+    static func initialize(config: LampsSDKConfig, channelAppId: String, completion: @escaping (Bool, Error?) -> Void)
 }

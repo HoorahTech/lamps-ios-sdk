@@ -1,7 +1,7 @@
 import Foundation
 
 enum LampsConfigService {
-    private static let path = "/v1/lamps/config"
+    private static let path = "/api/v1/advertisement/config"
     private static let successCode = 0
 
     static func fetch(

@@ -8,16 +8,6 @@ public final class LampsSDKConfig: NSObject, NSCopying {
     /// 是否打印 SDK 调试日志，默认 false。
     public var debugLogEnabled: Bool = false
 
-    /// 穿山甲 AppId；非空且集成 CSJ Subspec 时会在 start 中初始化。
-    /// 宿主已自行初始化（如 HCAD）时请留空，避免二次 init。
-    public var csjAppId: String = ""
-    /// 优量汇 AppId；非空且集成 GDT Subspec 时会在 start 中初始化。
-    /// 宿主已自行初始化时请留空。
-    public var gdtAppId: String = ""
-    /// 汇川 AppKey；非空且集成 Noah Subspec 时会在 start 中初始化。
-    /// 宿主已自行初始化时请留空。
-    public var noahAppKey: String = ""
-
     // MARK: - 三方 SDK 初始化通用开关（仅 Lamps 负责 init 时生效）
 
     /// 是否开启个性化推荐，默认 true。
@@ -34,9 +24,6 @@ public final class LampsSDKConfig: NSObject, NSCopying {
         let config = LampsSDKConfig()
         config.appId = appId
         config.debugLogEnabled = debugLogEnabled
-        config.csjAppId = csjAppId
-        config.gdtAppId = gdtAppId
-        config.noahAppKey = noahAppKey
         config.personalizedRecommendEnabled = personalizedRecommendEnabled
         config.shakeAdsEnabled = shakeAdsEnabled
         config.allowLocation = allowLocation

@@ -13,9 +13,6 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
         let config = LampsSDKConfig()
         config.appId = "10002"
         config.debugLogEnabled = true
-        config.csjAppId = "5015515"
-        config.gdtAppId = "1206233429"
-        config.noahAppKey = "11780"
         Lamps.start(config: config) { success, error in
             if !success {
                 NSLog("[LampsSDK Demo] start failed: %@", error?.localizedDescription ?? "")

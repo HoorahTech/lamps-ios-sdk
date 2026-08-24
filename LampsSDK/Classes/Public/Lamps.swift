@@ -12,10 +12,11 @@ public final class Lamps: NSObject {
     private static var storedConfig: LampsSDKConfig?
     private static var storedRemoteConfig: LampsRemoteConfig?
     private static var started = false
+    private static var didInitializeAdSDKs = false
 
     /// 启动 SDK。
-    /// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 `/v1/lamps/config` → 回调。
-    /// 配置接口失败时：有缓存则仍成功（继续用缓存）；无缓存则回调失败。
+    /// 流程：本地校验 → 读 config 磁盘缓存 → 请求 `/v1/lamps/config` → 用 `channelList` 初始化已注册广告 SDK → 回调。
+    /// 配置接口失败时：有缓存则仍成功（继续用缓存并据此 init）；无缓存则回调失败。
     /// 配置环境默认正式；测试环境请在 `LampsDevTools` 中切换。
     @objc(startWithConfig:completion:)
     public static func start(config: LampsSDKConfig, completion: LampsStartCompletion? = nil) {
@@ -41,10 +42,7 @@ public final class Lamps: NSObject {
             completion?(true, nil)
             return
         }
-
-        LampsSDKAdapterCenter.initializeSDKs(config: effective) {
-            applyRemoteConfigFetch(config: effective, completion: completion)
-        }
+        applyRemoteConfigFetch(config: effective, completion: completion)
     }
 
     public static var isStarted: Bool {
@@ -106,6 +104,7 @@ public final class Lamps: NSObject {
         let config = storedConfig
         let remote = storedRemoteConfig
         let slots = remote?.rewardAdSlots.map { "\($0.channelName)/\($0.slotId)" }.joined(separator: ", ") ?? "-"
+        let channels = remote?.channelList.map { "\($0.channelId)/\($0.channelAppId)" }.joined(separator: ", ") ?? "-"
         return """
         sdkVersion: \(sdkVersion)
         started: \(started)
@@ -115,6 +114,7 @@ public final class Lamps: NSObject {
         remoteConfig: \(remote == nil ? "nil" : "ok")
         tokenLen: \(remote?.token.count ?? 0)
         clientIp: \(remote?.clientIp ?? "-")
+        channels(\(remote?.channelList.count ?? 0)): \(channels)
         slots(\(remote?.rewardAdSlots.count ?? 0)): \(slots)
         """
     }
@@ -129,13 +129,17 @@ public final class Lamps: NSObject {
                 case .success(let remote):
                     storedRemoteConfig = remote
                     LampsSDKLog.debug("config fetch ok env=\(LampsEnvironmentStore.current.logName)")
-                    completion?(true, nil)
+                    initializeAdSDKsIfNeeded(config: config) {
+                        completion?(true, nil)
+                    }
                 case .failure(let error):
                     if storedRemoteConfig != nil {
                         LampsSDKLog.debug(
                             "config fetch failed keep cache: \(error.localizedDescription)"
                         )
-                        completion?(true, nil)
+                        initializeAdSDKsIfNeeded(config: config) {
+                            completion?(true, nil)
+                        }
                     } else {
                         LampsSDKLog.debug(
                             "config fetch failed and no cache: \(error.localizedDescription)"
@@ -145,5 +149,14 @@ public final class Lamps: NSObject {
                 }
             }
         }
+    }
+
+    private static func initializeAdSDKsIfNeeded(config: LampsSDKConfig, completion: @escaping () -> Void) {
+        if didInitializeAdSDKs {
+            completion()
+            return
+        }
+        didInitializeAdSDKs = true
+        LampsSDKAdapterCenter.initializeSDKs(config: config, completion: completion)
     }
 }

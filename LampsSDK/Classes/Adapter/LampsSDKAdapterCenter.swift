@@ -49,7 +49,8 @@ public enum LampsSDKAdapterCenter {
         let group = DispatchGroup()
         for (channel, initializer) in pairs {
             group.enter()
-            initializer.initialize(config: config) { success, error in
+            let channelAppId = Lamps.remoteConfig?.channelAppId(for: channel) ?? ""
+            initializer.initialize(config: config, channelAppId: channelAppId) { success, error in
                 if success {
                     LampsSDKLog.debug("sdk init ok: \(channel.name)")
                 } else {

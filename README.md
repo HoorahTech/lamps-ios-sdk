@@ -92,9 +92,6 @@ import LampsSDK
 let config = LampsSDKConfig()
 config.appId = "your-app-id"
 config.debugLogEnabled = true
-config.csjAppId = ""
-config.gdtAppId = ""
-config.noahAppKey = ""
 Lamps.start(config: config) { success, error in
     if !success {
         print(error?.localizedDescription ?? "")
@@ -121,7 +118,7 @@ webView.load(urlString: "https://www.hupu.com")
 
 测试环境请在 `LampsDevTools` 中切换；选择会写到本机，下次启动仍生效。宿主不要、也无法在 `LampsSDKConfig` 上设置环境。
 
-Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用代码位、`token`、`monitorLinks`，不向宿主开放。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
+Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用 `channelList`（广告 SDK AppId）、代码位、`token`、`monitorLinks`，不向宿主开放。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
 
 启动时会先读本地磁盘缓存（按 `appId` + 环境隔离），再请求网络；请求成功覆盖内存并写回缓存，失败则保留已有缓存。
 
@@ -147,10 +144,8 @@ Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用代码�
 5. 监测由 SDK 内部上报（RM/PM/CM/WM/REM）
 
 ```swift
-config.csjAppId = "..."
-config.gdtAppId = "..."
-config.noahAppKey = "..."
-// 主工程若已由 HCAD 等初始化三方 SDK：上述三个字段留空即可，Lamps 跳过二次 init，Adapter 仍可请求广告。
+// 三方广告 SDK 的 AppId / AppKey 来自配置接口 `channelList.channelAppId`，宿主不必再传。
+// channelAppId 为空或未下发该渠道时，Lamps 跳过对应 SDK init。
 
 // 由 Lamps 负责 init 时可用的通用开关（有默认值，可不设）：
 // config.personalizedRecommendEnabled = true  // 个性化推荐（优量汇）

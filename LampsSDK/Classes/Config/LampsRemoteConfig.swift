@@ -5,6 +5,7 @@ import CoreGraphics
 @objcMembers
 final class LampsRemoteConfig: NSObject {
     var rewardAdSlots: [LampsRewardAdSlot] = []
+    var channelList: [LampsAdChannel] = []
     var token: String = ""
     var clientIp: String = ""
     var monitorLinks: LampsMonitorLinks = LampsMonitorLinks()
@@ -14,6 +15,9 @@ final class LampsRemoteConfig: NSObject {
         let config = LampsRemoteConfig()
         if let slots = data["rewardAdSlots"] as? [[String: Any]] {
             config.rewardAdSlots = slots.compactMap { LampsRewardAdSlot.parse(from: $0) }
+        }
+        if let channels = data["channelList"] as? [[String: Any]] {
+            config.channelList = channels.compactMap { LampsAdChannel.parse(from: $0) }
         }
         config.token = stringValue(data["token"]) ?? ""
         config.clientIp = stringValue(data["clientIp"]) ?? ""
@@ -27,6 +31,13 @@ final class LampsRemoteConfig: NSObject {
         if let text = value as? String { return text }
         if let number = value as? NSNumber { return number.stringValue }
         return nil
+    }
+
+    func channelAppId(for channel: LampsRewardChannel) -> String {
+        let appId = channelList.first {
+            LampsRewardChannel.from(channelId: $0.channelId) == channel
+        }?.channelAppId ?? ""
+        return appId.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 
@@ -68,6 +79,30 @@ final class LampsRewardAdSlot: NSObject {
         if let number = value as? NSNumber { return CGFloat(truncating: number) }
         if let text = value as? String, let double = Double(text) { return CGFloat(double) }
         return 0
+    }
+}
+
+@objcMembers
+final class LampsAdChannel: NSObject {
+    var channelName: String = ""
+    /// 厂商英文名：`CSJ` / `GDT` / `NOAH`。
+    var channelId: String = ""
+    /// 对应广告 SDK 的 AppId / AppKey，用于初始化。
+    var channelAppId: String = ""
+
+    static func parse(from dict: [String: Any]) -> LampsAdChannel? {
+        let channel = LampsAdChannel()
+        channel.channelName = stringValue(dict["channelName"]) ?? ""
+        channel.channelId = stringValue(dict["channelId"]) ?? ""
+        channel.channelAppId = stringValue(dict["channelAppId"]) ?? ""
+        guard !channel.channelId.isEmpty else { return nil }
+        return channel
+    }
+
+    private static func stringValue(_ value: Any?) -> String? {
+        if let text = value as? String { return text }
+        if let number = value as? NSNumber { return number.stringValue }
+        return nil
     }
 }
 

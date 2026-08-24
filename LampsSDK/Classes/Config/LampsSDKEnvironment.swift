@@ -9,9 +9,9 @@ public enum LampsSDKEnvironment: Int {
     var baseURL: String {
         switch self {
         case .prd:
-            return "https://api.hoorahgo.com"
+            return "https://lamps-api.hoorahgo.com"
         case .dev:
-            return "https://api-dev.hoorahgo.com"
+            return "https://lamps-api-sit.hoorahgo.com"
         }
     }
 
