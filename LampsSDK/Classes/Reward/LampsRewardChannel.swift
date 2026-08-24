@@ -1,7 +1,7 @@
 import Foundation
 import CoreGraphics
 
-/// 激励渠道。用 config `channelId` 判断（兼容 HCAD dsp：2/327=CSJ，348/349=GDT，417=Noah）。
+/// 激励渠道。用 config `channelId` 判断（接口下发厂商英文名：CSJ / GDT / NOAH）。
 /// 仅 Adapter 跨模块 SPI，宿主普通 import 不可见。
 @_spi(LampsAdapter)
 public enum LampsRewardChannel: Int {
@@ -22,12 +22,12 @@ public enum LampsRewardChannel: Int {
               !raw.isEmpty else {
             return nil
         }
-        switch raw.lowercased() {
-        case "2", "327", "csj", "bu", "pangle", "bytedance", "byte":
+        switch raw.uppercased() {
+        case "CSJ":
             return .csj
-        case "348", "349", "gdt", "ylh", "tencent":
+        case "GDT":
             return .gdt
-        case "417", "noah", "hc", "huichuan":
+        case "NOAH":
             return .noah
         default:
             return nil

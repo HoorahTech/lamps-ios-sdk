@@ -141,7 +141,7 @@ Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用代码�
 流程对齐 `HCADCommonRewardVideoManager`（无 getOther、无 adm）：
 
 1. 读内部 `remoteConfig.rewardAdSlots`
-2. `channelId` 映射渠道：`2/327`→CSJ，`348/349`→GDT，`417`→Noah
+2. `channelId` 映射渠道：`CSJ`→穿山甲，`GDT`→优量汇，`NOAH`→汇川
 3. 已注册 Adapter **并行 load**
 4. 全部返回后按真实价格竞价，只展示赢家（汇川/穿山甲 win-loss 回告）
 5. 监测由 SDK 内部上报（RM/PM/CM/WM/REM）

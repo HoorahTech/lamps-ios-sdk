@@ -37,6 +37,7 @@ final class LampsRewardAdSlot: NSObject {
     /// 类型：BD、PD
     var type: String = ""
     var channelName: String = ""
+    /// 厂商英文名：`CSJ` / `GDT` / `NOAH`。
     var channelId: String = ""
     /// 接口下发价格；创建 model 时先写入，SDK 回传价 > 0 时覆盖。
     var price: CGFloat = 0
