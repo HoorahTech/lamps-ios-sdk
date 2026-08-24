@@ -20,6 +20,16 @@ public final class LampsDevTools: NSObject {
         viewController.present(nav, animated: true)
     }
 
+    /// 在当前导航栈 push 调试工具首页。
+    @objc(pushFromViewController:)
+    public static func push(from viewController: UIViewController) {
+        enableThirdPartyDebugModesIfNeeded()
+        viewController.navigationController?.pushViewController(
+            LampsDevToolsViewController(),
+            animated: true
+        )
+    }
+
     private static func enableThirdPartyDebugModesIfNeeded() {
         #if canImport(BUAdTestMeasurement)
         BUAdTestMeasurementConfiguration().debugMode = true

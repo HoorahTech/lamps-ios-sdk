@@ -19,6 +19,7 @@ final class LAMPSSDKViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Lamps Demo"
         view.backgroundColor = .white
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
@@ -43,22 +44,16 @@ final class LAMPSSDKViewController: UIViewController {
 
     @objc private func openWebView() {
         let webVC = LampsWebViewController(urlString: "https://activity-static.hupu.com/colorbox-activities/activity-project-ai-1787297060404/index.html?t=1787297083963")
-        presentWeb(webVC)
+        navigationController?.pushViewController(webVC, animated: true)
     }
 
     @objc private func openBridgeDemo() {
         let webVC = LampsWebViewController(htmlString: BridgeDemoHTML.content)
-        presentWeb(webVC)
+        navigationController?.pushViewController(webVC, animated: true)
     }
 
     @objc private func openDevTools() {
-        LampsDevTools.present(from: self)
-    }
-
-    private func presentWeb(_ webVC: LampsWebViewController) {
-        let nav = UINavigationController(rootViewController: webVC)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
+        LampsDevTools.push(from: self)
     }
 }
 

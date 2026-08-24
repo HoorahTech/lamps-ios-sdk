@@ -20,6 +20,32 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
             }
             NSLog("[LampsSDK Demo] start success")
         }
+
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        let root = LAMPSSDKViewController()
+        window.rootViewController = LAMPSSDKNavigationController(rootViewController: root)
+        window.makeKeyAndVisible()
+        self.window = window
         return true
+    }
+}
+
+/// Demo 导航容器：隐藏导航栏或自定义返回按钮时，仍启用系统侧滑返回。
+private final class LAMPSSDKNavigationController: UINavigationController, UIGestureRecognizerDelegate {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.isEnabled = true
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        viewControllers.count > 1
+    }
+
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        gestureRecognizer == interactivePopGestureRecognizer
     }
 }
