@@ -2,15 +2,15 @@ import Foundation
 
 /// 导航相关：close。
 @objcMembers
-public final class LampsNavigationBridgeHandler: NSObject, LampsBridgeHandler {
-    public weak var bridge: LampsBridge?
-    public var closeHandler: (() -> Void)?
+final class LampsNavigationBridgeHandler: NSObject, LampsBridgeHandler {
+    weak var bridge: LampsBridge?
+    var closeHandler: (() -> Void)?
 
-    public var supportedMethods: [String] {
+    var supportedMethods: [String] {
         ["close"]
     }
 
-    public func handle(
+    func handle(
         method: String,
         data: [AnyHashable: Any],
         success: LampsBridgeToH5Callback?,

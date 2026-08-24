@@ -22,15 +22,7 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
                 NSLog("[LampsSDK Demo] start failed: %@", error?.localizedDescription ?? "")
                 return
             }
-            if let remote = Lamps.remoteConfig {
-                NSLog(
-                    "[LampsSDK Demo] remote config slots=%lu tokenLen=%lu",
-                    UInt(remote.rewardAdSlots.count),
-                    UInt(remote.token.count)
-                )
-            } else {
-                NSLog("[LampsSDK Demo] remote config unavailable")
-            }
+            NSLog("[LampsSDK Demo] start success")
         }
         return true
     }

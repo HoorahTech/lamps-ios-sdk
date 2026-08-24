@@ -1,5 +1,5 @@
 #if LampsADAPTER_SEPARATE_MODULE
-import LampsSDK
+@_spi(LampsAdapter) import LampsSDK
 #endif
 
 import Foundation

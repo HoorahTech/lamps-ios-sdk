@@ -7,8 +7,6 @@ final class LAMPSSDKViewController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [
             makeButton(title: "打开 WebView", action: #selector(openWebView)),
             makeButton(title: "打开 Bridge Demo", action: #selector(openBridgeDemo)),
-            makeButton(title: "激励视频（并行竞价）", action: #selector(showReward)),
-            makeButton(title: "上报 RM/WM/CM/PM/REM", action: #selector(reportStub)),
             makeButton(title: "调试工具", action: #selector(openDevTools))
         ])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -49,49 +47,7 @@ final class LAMPSSDKViewController: UIViewController {
 
     @objc private func openBridgeDemo() {
         let webVC = LampsWebViewController(htmlString: BridgeDemoHTML.content)
-        webVC.webView.bridge.addHandler(BridgeDemoSendHandler())
         presentWeb(webVC)
-    }
-
-    @objc private func showReward() {
-        LampsRewardAd.show(from: self) { [weak self] rewarded, error in
-            let message = error?.localizedDescription ?? (rewarded ? "发奖成功" : "未发奖")
-            self?.showAlert(title: "激励视频", message: message)
-        }
-    }
-
-    @objc private func reportStub() {
-        let adInfo: [AnyHashable: Any] = [
-            "brand_name": "demo-brand",
-            "title": "demo-title",
-            "increasePrice": "10"
-        ]
-        LampsReporter.reportRM(
-            urls: ["https://example.com/rm?ok=__IS_SUCCESS__&reason=__FILTER_REASON__&t=__EVENT_TIME_MS__"],
-            adInfo: adInfo,
-            extra: ["is_success": "1", "filter_reason": "1"]
-        )
-        LampsReporter.reportWM(
-            urls: ["https://example.com/wm?brand=__BRAND_NAME__&title=__TITLE__&t=__EVENT_TIME_MS__"],
-            adInfo: adInfo,
-            extra: nil
-        )
-        LampsReporter.reportCM(
-            urls: ["https://example.com/cm?x=__DOWN_X__&y=__DOWN_Y__&t=__EVENT_TIME_MS__"],
-            adInfo: adInfo,
-            extra: ["down_x": "100", "down_y": "200", "linkType": "lp"]
-        )
-        LampsReporter.reportPM(
-            urls: ["https://example.com/pm?type=__EXPOSURE_TYPE__&t=__EVENT_TIME_MS__"],
-            adInfo: adInfo,
-            extra: ["exposure_type": "1"]
-        )
-        LampsReporter.reportREM(
-            urls: ["https://example.com/rem?puid=1&cid=2&adpid=3&request_id=req&app_version=1.0&price=100&forward_source=demo&sign=__REM_SIGN__"],
-            adInfo: adInfo,
-            extra: nil
-        )
-        showAlert(title: "上报", message: "已触发 RM/WM/CM/PM/REM，详见控制台日志。")
     }
 
     @objc private func openDevTools() {
@@ -102,37 +58,6 @@ final class LAMPSSDKViewController: UIViewController {
         let nav = UINavigationController(rootViewController: webVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
-    }
-
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "好", style: .default))
-        present(alert, animated: true)
-    }
-}
-
-/// Demo：H5 调 askNativeSend 后，Native 再主动 send 到 H5。
-private final class BridgeDemoSendHandler: NSObject, LampsBridgeHandler {
-    weak var bridge: LampsBridge?
-
-    var supportedMethods: [String] { ["askNativeSend"] }
-
-    func handle(
-        method: String,
-        data: [AnyHashable: Any],
-        success: LampsBridgeToH5Callback?,
-        error: LampsBridgeToH5Callback?
-    ) {
-        bridge?.send(
-            method: "onNativeEvent",
-            data: ["from": "native", "message": "hello from native"],
-            success: { result in
-                success?(["sent": true, "h5Result": result])
-            },
-            error: { result in
-                error?(["sent": false, "h5Result": result])
-            }
-        )
     }
 }
 
@@ -153,7 +78,6 @@ private enum BridgeDemoHTML {
     <body>
       <h3>Lamps Bridge Demo</h3>
       <button onclick="ping()">调用 Native ping</button>
-      <button onclick="askNativeSend()">请求 Native 主动调 H5</button>
       <button onclick="closePage()">调用 Native close</button>
       <pre id="log">等待操作...</pre>
       <script>
@@ -180,14 +104,8 @@ private enum BridgeDemoHTML {
             },
             _handle_: function(methodOrCb, data, successcb, errorcb) {
               if (typeof successcb === 'string' || typeof errorcb === 'string') {
-                if (methodOrCb === 'onNativeEvent') {
-                  log('收到 Native 主动调用: ' + JSON.stringify(data));
-                  if (successcb) {
-                    window.webkit.messageHandlers.lamps.postMessage({
-                      method: successcb,
-                      data: { ok: true, echo: data }
-                    });
-                  }
+                if (methodOrCb === 'hoorah.ad.rewardedVideoStatus') {
+                  log('激励状态: ' + JSON.stringify(data));
                 }
                 return;
               }
@@ -207,13 +125,6 @@ private enum BridgeDemoHTML {
             log('ping 成功: ' + JSON.stringify(result));
           }, function(error) {
             log('ping 失败: ' + JSON.stringify(error));
-          });
-        }
-        function askNativeSend() {
-          LampsBridge.call('askNativeSend', {}, function(result) {
-            log('askNativeSend 完成: ' + JSON.stringify(result));
-          }, function(error) {
-            log('askNativeSend 失败: ' + JSON.stringify(error));
           });
         }
         function closePage() {

@@ -75,12 +75,12 @@ public final class Lamps: NSObject {
         storedConfig
     }
 
-    /// 远端配置；未拉取成功时为 nil。
-    public static var remoteConfig: LampsRemoteConfig? {
+    /// 远端配置；未拉取成功时为 nil。仅 SDK 内部使用。
+    static var remoteConfig: LampsRemoteConfig? {
         storedRemoteConfig
     }
 
-    /// REM 签名用 key：配置接口返回的 `token`。
+    /// REM 签名用 key：配置接口返回的 `token`。仅 SDK 内部使用。
     static var effectiveRewardSignKey: String {
         storedRemoteConfig?.token ?? ""
     }

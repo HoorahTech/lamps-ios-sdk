@@ -4,14 +4,14 @@ import UIKit
 /// 激励视频：H5 一次调用，客户端完成 load → 竞价 → show。
 /// 忙态由 `LampsRewardVideoManager` 处理；状态全部走 `hoorah.ad.rewardedVideoStatus`。
 @objcMembers
-public final class LampsRewardBridgeHandler: NSObject, LampsBridgeHandler {
-    public weak var bridge: LampsBridge?
+final class LampsRewardBridgeHandler: NSObject, LampsBridgeHandler {
+    weak var bridge: LampsBridge?
 
-    public var supportedMethods: [String] {
+    var supportedMethods: [String] {
         [Method.showRewardedVideo]
     }
 
-    public func handle(
+    func handle(
         method: String,
         data: [AnyHashable: Any],
         success: LampsBridgeToH5Callback?,

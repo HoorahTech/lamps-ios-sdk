@@ -1,9 +1,9 @@
 import Foundation
 
-public typealias LampsBridgeToH5Callback = ([AnyHashable: Any]) -> Void
+typealias LampsBridgeToH5Callback = ([AnyHashable: Any]) -> Void
 
-/// 一组业务 Bridge。导航、激励视频等各自实现，由 `LampsBridge` 按 method 分发。
-@objc public protocol LampsBridgeHandler: AnyObject {
+/// 一组业务 Bridge。导航、激励视频等各自实现，由 `LampsBridge` 按 method 分发。不对外暴露。
+@objc protocol LampsBridgeHandler: AnyObject {
     var bridge: LampsBridge? { get set }
 
     /// 该 Handler 负责的方法名。

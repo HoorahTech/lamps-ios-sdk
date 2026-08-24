@@ -1,13 +1,13 @@
 import Foundation
 
-@objc public enum LampsReportType: Int {
+@objc enum LampsReportType: Int {
     case rm = 0
     case wm
     case cm
     case pm
     case rem
 
-    public var name: String {
+    var name: String {
         switch self {
         case .rm: return "RM"
         case .wm: return "WM"

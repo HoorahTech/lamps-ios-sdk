@@ -1,21 +1,21 @@
 import Foundation
 import WebKit
 
-/// 挂在 `LampsWebView` 上的 Bridge。
+/// 挂在 `LampsWebView` 上的 Bridge（模块内部，不对外开放）。
 /// - H5 → Native：按 method 分发给 Handler
 /// - Native → H5：`send(method:data:success:error:)` 主动调用
 @objcMembers
-public final class LampsBridge: NSObject, WKScriptMessageHandler {
-    public static let messageName = "chatMessage"
+final class LampsBridge: NSObject, WKScriptMessageHandler {
+    static let messageName = "chatMessage"
 
-    public weak var webView: LampsWebView?
-    public private(set) var handlers: [LampsBridgeHandler] = []
+    weak var webView: LampsWebView?
+    private(set) var handlers: [LampsBridgeHandler] = []
 
     private var pendingSuccessCallbacks: [String: LampsBridgeToH5Callback] = [:]
     private var pendingErrorCallbacks: [String: LampsBridgeToH5Callback] = [:]
     private let lock = NSLock()
 
-    public init(webView: LampsWebView) {
+    init(webView: LampsWebView) {
         self.webView = webView
         super.init()
     }
@@ -36,14 +36,14 @@ public final class LampsBridge: NSObject, WKScriptMessageHandler {
 
     /// 添加一组业务 Handler。
     @objc(addHandler:)
-    public func addHandler(_ handler: LampsBridgeHandler) {
+    func addHandler(_ handler: LampsBridgeHandler) {
         handler.bridge = self
         handlers.append(handler)
     }
 
     /// Native 主动调用 H5。H5 需实现 `_handle_(method, data, successcb, errorcb)`。
     @objc(sendMethod:data:success:error:)
-    public func send(
+    func send(
         method: String,
         data: [AnyHashable: Any] = [:],
         success: LampsBridgeToH5Callback? = nil,
@@ -72,7 +72,7 @@ public final class LampsBridge: NSObject, WKScriptMessageHandler {
 
     /// 解析 JSON 字符串并分发。
     @objc(flushMessageQueue:)
-    public func flushMessageQueue(_ jsStr: String) {
+    func flushMessageQueue(_ jsStr: String) {
         guard let data = jsStr.data(using: .utf8),
               let object = try? JSONSerialization.jsonObject(with: data, options: [.allowFragments]),
               let dictionary = object as? [String: Any] else {
@@ -82,7 +82,7 @@ public final class LampsBridge: NSObject, WKScriptMessageHandler {
         dispatch(dictionary)
     }
 
-    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard message.name == Self.messageName else { return }
         if let text = message.body as? String {
             flushMessageQueue(text)

@@ -3,6 +3,8 @@ import UIKit
 import CoreGraphics
 
 /// 单家 SDK 激励适配器：只 load / show，不负责竞价与自动播放。
+/// 仅 Adapter 跨模块 SPI，宿主普通 import 不可见。
+@_spi(LampsAdapter)
 public protocol LampsRewardAdapting: AnyObject {
     var model: LampsRewardAdModel { get }
     var isReadyToShow: Bool { get }
@@ -17,6 +19,7 @@ public protocol LampsRewardAdapting: AnyObject {
     func notifyAuctionLoss(winnerPrice: CGFloat, winner: LampsRewardAdModel?)
 }
 
+@_spi(LampsAdapter)
 public protocol LampsRewardAdapterDelegate: AnyObject {
     func rewardAdapter(_ adapter: LampsRewardAdapting, didFinishLoad success: Bool, error: Error?)
     func rewardAdapterDidBecomeReadyToShow(_ adapter: LampsRewardAdapting)

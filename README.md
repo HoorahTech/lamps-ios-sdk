@@ -98,8 +98,7 @@ Lamps.start(config: config) { success, error in
         print(error?.localizedDescription ?? "")
         return
     }
-    // 启动时会请求 GET /v1/lamps/config；失败不阻断 start
-    _ = Lamps.remoteConfig // rewardAdSlots / token / monitorLinks
+    // 启动时会请求 GET /v1/lamps/config；代码位与监测链接由 SDK 内部使用
 }
 
 let webVC = LampsWebViewController(urlString: "https://www.hupu.com")
@@ -118,7 +117,7 @@ webView.load(urlString: "https://www.hupu.com")
 - prd: `https://api.hoorahgo.com/v1/lamps/config`
 - dev: `https://api-dev.hoorahgo.com/v1/lamps/config`
 
-Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `Lamps.remoteConfig` 读取代码位、`token`、`monitorLinks`。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
+Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用代码位、`token`、`monitorLinks`，不向宿主开放。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
 
 启动时会先读本地磁盘缓存（按 `appId` + 环境隔离），再请求网络；请求成功覆盖内存并写回缓存，失败则保留已有缓存。
 
@@ -133,13 +132,15 @@ Query：`appid` / `version` / `idfa` / `os`。成功后可通过 `Lamps.remoteCo
 
 未挂搜索路径且未改用 `CSJ`/`GDT`/`Noah` 时，源码编译会立刻报错（不再静默跳过注册）。
 
+激励视频 **不向宿主开放 Native API**。宿主打开 Web 页后，由 H5 调用 `hra.ad.showRewardedVideo`，客户端完成 load → 竞价 → show。
+
 流程对齐 `HCADCommonRewardVideoManager`（无 getOther、无 adm）：
 
-1. 读 `remoteConfig.rewardAdSlots`
+1. 读内部 `remoteConfig.rewardAdSlots`
 2. `channelId` 映射渠道：`2/327`→CSJ，`348/349`→GDT，`417`→Noah
 3. 已注册 Adapter **并行 load**
 4. 全部返回后按真实价格竞价，只展示赢家（汇川/穿山甲 win-loss 回告）
-5. 监测用本 SDK `LampsReporter`（RM/PM/CM/WM）
+5. 监测由 SDK 内部上报（RM/PM/CM/WM/REM）
 
 ```swift
 config.csjAppId = "..."
@@ -151,30 +152,11 @@ config.noahAppKey = "..."
 // config.personalizedRecommendEnabled = true  // 个性化推荐（优量汇）
 // config.shakeAdsEnabled = true               // 摇一摇（穿山甲 / 优量汇）
 // config.allowLocation = false                // 定位（汇川；默认禁止）
-
-LampsRewardAd.show(from: self) { rewarded, error in }
-
-LampsRewardAd.show(from: self, handler: { event in
-    // loadSuccess / showSuccess / rewardArrived / close ...
-}, completion: { rewarded, error in })
 ```
 
 ## 上报（RM / WM / CM / PM / REM）
 
-不区分 SDK / API。流程：组装宏 → 替换 URL 占位符 → GET。
-
-```swift
-LampsReporter.reportCM(
-    urls: ["https://xx.com/cm?t=__EVENT_TIME_MS__&x=__DOWN_X__"],
-    adInfo: ["increasePrice": "10"],
-    extra: ["down_x": "100", "down_y": "200", "linkType": "lp"]
-)
-
-LampsReporter.reportPM(urls: [...], adInfo: adInfo, extra: ["exposure_type": "1"])
-LampsReporter.reportRM(urls: [...], adInfo: nil, extra: ["is_success": "1"])
-LampsReporter.reportWM(urls: [...], adInfo: adInfo, extra: nil)
-LampsReporter.reportREM(urls: [...], adInfo: nil, extra: nil)
-```
+监测上报由 SDK 在激励流程中自动完成，**不向宿主开放 Native API**。不区分 SDK / API。流程：组装宏 → 替换 URL 占位符 → GET。URL 来自配置接口的 `monitorLinks`。
 
 REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL，按 query 中 `adpid/app_version/cid/forward_source/price/puid/request_id`（缺失跳过）字母序拼接，尾部直接拼 token，MD5 小写 hex 替换。
 
@@ -184,91 +166,53 @@ REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL
 
 - `__SW__`：屏幕物理宽度（像素，`UIScreen.main.nativeBounds`）
 - `__SH__`：屏幕物理高度（像素）
-- `__UA__`：WebKit User-Agent（`Lamps.start` 时预取并缓存；可用 `extra["ua"]` 或 `__UA__` 覆盖）
-- `__MAC__`：Wi‑Fi MAC（`en0`；iOS 对第三方多为占位 `02:00:00:00:00:00`；可用 `extra["mac"]` 覆盖）
+- `__UA__`：WebKit User-Agent（`Lamps.start` 时预取并缓存）
+- `__MAC__`：Wi‑Fi MAC（`en0`；iOS 对第三方多为占位 `02:00:00:00:00:00`）
 - `__IDFA__`：广告标识符（未授权或不可用时为空）
 - `__APPID__`：SDK 分配的 appId（`Lamps.start` 传入的 `config.appId`）
 - `__SDK_VERSION__`：SDK 版本号（与 podspec `s.version` / `Lamps.sdkVersion` 一致）
 - `__NETWORK__`：网络环境（`wifi` / `2g` / `3g` / `4g` / `5g` / `unknown`）
 - `__IP__`：客户端 IP（配置接口返回的 `clientIp`；未拉取成功时为空）
-- `__REQUEST_ID__`：激励会话 requestId（同一次激励内 RM/WM/CM/PM/REM 共用；来自 `adInfo["request_id"]`）
-- 也可通过 `extra` 的 `sw` / `sh` 或 `__SW__` / `__SH__` 覆盖
+- `__REQUEST_ID__`：激励会话 requestId（同一次激励内 RM/WM/CM/PM/REM 共用）
+- `__FORWARD_SOURCE__`：H5 传入的场景来源
 
 ## Bridge
 
-Native 只监听 `window.webkit.messageHandlers.lamps`，不注入 JS。H5 自行实现封装。
+Bridge 挂在 `LampsWebView` 内部，**不作为宿主 Native API 开放**（不能 `addHandler` / `send`）。打开 `LampsWebViewController` 或嵌入 `LampsWebView` 后，H5 即可调用内置方法。
+
+Native 只监听 `window.webkit.messageHandlers.chatMessage`，不注入 JS。H5 自行实现封装。
 
 消息格式：
 
 ```js
-window.webkit.messageHandlers.lamps.postMessage({
+window.webkit.messageHandlers.chatMessage.postMessage({
   method: 'ping',
   data: { from: 'h5' },
-  successcb: 'cb_ok_1',
-  errorcb: 'cb_err_1'
+  id: 'cb_1'
 })
 ```
 
-Native 回包 / 主动调 H5 会执行（H5 需实现）：
+内置方法：
+
+- `ping`
+- `close`
+- `hra.ad.showRewardedVideo`
+
+Native 主动调 H5 会执行（H5 需实现 `window.HoorahBridge._handle_`）：
 
 ```js
-// H5 → Native 的回调回包
-window.LampsBridge._handle_(callbackId, data)
-
-// Native → H5 主动调用
-window.LampsBridge._handle_(method, data, successcb, errorcb)
+window.HoorahBridge._handle_(method, data, successcb, errorcb)
 ```
 
-H5 处理完 Native 主动调用后，用 callbackId 作为 `method` 回包：
-
-```js
-window.webkit.messageHandlers.lamps.postMessage({
-  method: successcb,
-  data: { ok: true }
-})
-```
-
-Native 主动调 H5：
+宿主侧只需处理页面关闭：
 
 ```swift
-webView.bridge.send(
-    method: "onNativeEvent",
-    data: ["from": "native"],
-    success: { result in
-        // H5 成功回包
-    },
-    error: { result in
-        // H5 失败回包
-    }
-)
-```
-
-按业务分组添加 Handler，`LampsBridge` 按 `method` 分发；本次调用的 success / error 回调直接传给 Handler，无需单独注册方法：
-
-```swift
-final class CustomBridgeHandler: NSObject, LampsBridgeHandler {
-    weak var bridge: LampsBridge?
-
-    var supportedMethods: [String] { ["custom.method"] }
-
-    func handle(method: String, data: [AnyHashable: Any], success: LampsBridgeToH5Callback?, error: LampsBridgeToH5Callback?) {
-        success?(["ok": true])
-    }
-}
-
-webView.bridge.addHandler(CustomBridgeHandler())
 webView.closeHandler = { /* 关闭页面 */ }
 ```
 
-默认已挂载：
-
-- `LampsBaseBridgeHandler`：`ping`
-- `LampsNavigationBridgeHandler`：`close`
-- `LampsRewardBridgeHandler`：`hra.ad.showRewardedVideo`
-
 ### 激励视频 Bridge
 
-H5 调用 `hra.ad.showRewardedVideo` 一次，客户端完成 load → 竞价 → show。同一 WebView 同时只允许一条激励流程。
+H5 调用 `hra.ad.showRewardedVideo` 一次，客户端完成 load → 竞价 → show。忙态由 `LampsRewardVideoManager` 处理。
 
 入参 `data`：
 
@@ -280,7 +224,7 @@ H5 调用 `hra.ad.showRewardedVideo` 一次，客户端完成 load → 竞价 �
 { "forward_source": "h5_game" }
 ```
 
-生命周期全部通过 Native → H5 `hoorah.ad.rewardedVideoStatus` 回调，用 `callbackName` 区分（对应 `LampsRewardCallbackName`，如 `loadSuccess` → `onLoadSuccess`）：
+生命周期全部通过 Native → H5 `hoorah.ad.rewardedVideoStatus` 回调，用 `callbackName` 区分（如 `loadSuccess` → `onLoadSuccess`）：
 
 ```json
 { "callbackName": "onLoadSuccess" }

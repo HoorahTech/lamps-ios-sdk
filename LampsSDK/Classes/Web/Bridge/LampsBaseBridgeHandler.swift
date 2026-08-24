@@ -2,14 +2,14 @@ import Foundation
 
 /// 基础能力：ping。
 @objcMembers
-public final class LampsBaseBridgeHandler: NSObject, LampsBridgeHandler {
-    public weak var bridge: LampsBridge?
+final class LampsBaseBridgeHandler: NSObject, LampsBridgeHandler {
+    weak var bridge: LampsBridge?
 
-    public var supportedMethods: [String] {
+    var supportedMethods: [String] {
         ["ping"]
     }
 
-    public func handle(
+    func handle(
         method: String,
         data: [AnyHashable: Any],
         success: LampsBridgeToH5Callback?,

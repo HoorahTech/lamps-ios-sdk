@@ -1,9 +1,11 @@
 import Foundation
 
+@_spi(LampsAdapter)
 public typealias LampsRewardAdapterMaker = (LampsRewardAdModel) -> LampsRewardAdapting
 
 /// 广告 SDK Adapter / Initializer 注册中心（不放在 Reward 目录）。
-/// Adapter 独立 xcframework 出包时会跨模块调用，故需 `public`。
+/// 仅 Adapter 跨模块 SPI，宿主普通 import 不可见。
+@_spi(LampsAdapter)
 public enum LampsSDKAdapterCenter {
     private static var makers: [LampsRewardChannel: LampsRewardAdapterMaker] = [:]
     private static var initializers: [LampsRewardChannel: LampsSDKInitializing.Type] = [:]

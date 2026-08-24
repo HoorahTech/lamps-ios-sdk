@@ -1,13 +1,13 @@
 import Foundation
 import CoreGraphics
 
-/// `/v1/lamps/config` 返回的 data。
+/// `/v1/lamps/config` 返回的 data。仅 SDK 内部使用。
 @objcMembers
-public final class LampsRemoteConfig: NSObject {
-    public var rewardAdSlots: [LampsRewardAdSlot] = []
-    public var token: String = ""
-    public var clientIp: String = ""
-    public var monitorLinks: LampsMonitorLinks = LampsMonitorLinks()
+final class LampsRemoteConfig: NSObject {
+    var rewardAdSlots: [LampsRewardAdSlot] = []
+    var token: String = ""
+    var clientIp: String = ""
+    var monitorLinks: LampsMonitorLinks = LampsMonitorLinks()
 
     static func parse(from data: [String: Any]?) -> LampsRemoteConfig? {
         guard let data = data else { return nil }
@@ -31,18 +31,18 @@ public final class LampsRemoteConfig: NSObject {
 }
 
 @objcMembers
-public final class LampsRewardAdSlot: NSObject {
+final class LampsRewardAdSlot: NSObject {
     /// 代码位 ID
-    public var slotId: String = ""
+    var slotId: String = ""
     /// 类型：BD、PD
-    public var type: String = ""
-    public var channelName: String = ""
-    public var channelId: String = ""
+    var type: String = ""
+    var channelName: String = ""
+    var channelId: String = ""
     /// 接口下发价格；创建 model 时先写入，SDK 回传价 > 0 时覆盖。
-    public var price: CGFloat = 0
+    var price: CGFloat = 0
 
     /// 是否定价位。
-    public var isPD: Bool {
+    var isPD: Bool {
         type.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == "PD"
     }
 
@@ -71,12 +71,12 @@ public final class LampsRewardAdSlot: NSObject {
 }
 
 @objcMembers
-public final class LampsMonitorLinks: NSObject {
-    public var rm: [String] = []
-    public var pm: [String] = []
-    public var cm: [String] = []
-    public var dm: [String] = []
-    public var wm: [String] = []
+final class LampsMonitorLinks: NSObject {
+    var rm: [String] = []
+    var pm: [String] = []
+    var cm: [String] = []
+    var dm: [String] = []
+    var wm: [String] = []
 
     static func parse(from dict: [String: Any]) -> LampsMonitorLinks {
         let links = LampsMonitorLinks()

@@ -4,7 +4,9 @@ import WebKit
 /// 可独立使用的 WKWebView 子类。页面加载与 Bridge 都挂在这个 View 上。
 @objcMembers
 public class LampsWebView: WKWebView {
-    public private(set) var bridge: LampsBridge!
+    /// 仅 SDK 内部使用，不向宿主开放。
+    @nonobjc
+    var bridge: LampsBridge!
 
     private let navigationHandler = LampsNavigationBridgeHandler()
 

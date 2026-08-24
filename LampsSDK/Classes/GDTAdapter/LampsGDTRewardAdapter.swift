@@ -1,5 +1,5 @@
 #if LampsADAPTER_SEPARATE_MODULE
-import LampsSDK
+@_spi(LampsAdapter) import LampsSDK
 #endif
 
 import Foundation
@@ -85,7 +85,7 @@ final class LampsGDTRewardAdapter: NSObject, LampsRewardAdapting {
     /// GDT_M_ADNID：1=优量汇非 bidding；2=第三方 ADN；4=优量汇其他 bidding。
     private func gdtLossAdnId(winner: LampsRewardAdModel?) -> String {
         guard let winner, winner.channel == .gdt else { return "2" }
-        return winner.slot.isPD ? "1" : "4"
+        return winner.isPD ? "1" : "4"
     }
 }
 

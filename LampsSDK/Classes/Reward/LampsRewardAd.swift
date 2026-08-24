@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import CoreGraphics
 
-@objc public enum LampsRewardCallbackName: Int {
+@objc enum LampsRewardCallbackName: Int {
     case busy = 0
     case reqError
     case loadSuccess
@@ -13,7 +13,7 @@ import CoreGraphics
     case close
 
     /// H5 `hoorah.ad.rewardedVideoStatus` 的 callbackName。
-    public var h5CallbackName: String {
+    var h5CallbackName: String {
         switch self {
         case .busy: return "onBusy"
         case .reqError: return "onReqError"
@@ -33,19 +33,19 @@ enum LampsRewardH5Error {
 }
 
 @objcMembers
-public final class LampsRewardCallback: NSObject {
-    public var name: LampsRewardCallbackName = .busy
-    public var status: Bool = true
-    public var rewardStatus: Bool = false
-    public var errCode: Int = 0
-    public var errMessage: String?
-    public var channelName: String = ""
-    public var slotId: String = ""
-    public var price: CGFloat = 0
+final class LampsRewardCallback: NSObject {
+    var name: LampsRewardCallbackName = .busy
+    var status: Bool = true
+    var rewardStatus: Bool = false
+    var errCode: Int = 0
+    var errMessage: String?
+    var channelName: String = ""
+    var slotId: String = ""
+    var price: CGFloat = 0
 }
 
-public typealias LampsRewardEventHandler = (LampsRewardCallback) -> Void
-public typealias LampsRewardCompletion = (Bool, Error?) -> Void
+typealias LampsRewardEventHandler = (LampsRewardCallback) -> Void
+typealias LampsRewardCompletion = (Bool, Error?) -> Void
 
 enum LampsRewardState {
     case idle
@@ -55,27 +55,27 @@ enum LampsRewardState {
     var isActive: Bool { self != .idle }
 }
 
-/// 激励视频编排器（对齐 HCADCommonRewardVideoManager）。
+/// 激励视频编排器（对齐 HCADCommonRewardVideoManager）。模块内部使用，不向宿主开放。
 /// 入参使用 config.rewardAdSlots；并行请求已注册 Adapter，竞价后展示赢家。
 @objcMembers
-public final class LampsRewardVideoManager: NSObject {
-    public static let shared = LampsRewardVideoManager()
+final class LampsRewardVideoManager: NSObject {
+    static let shared = LampsRewardVideoManager()
 
     private var state: LampsRewardState = .idle
     private var rewardSession: LampsRewardSession?
     private var closeCompletion: LampsRewardCompletion?
 
-    public var isActive: Bool { state.isActive }
+    var isActive: Bool { state.isActive }
 
     /// 开始激励流程；生命周期事件通过 handler 回调。
     @objc(startFromViewController:handler:)
-    public func start(from viewController: UIViewController, handler: LampsRewardEventHandler?) {
+    func start(from viewController: UIViewController, handler: LampsRewardEventHandler?) {
         start(from: viewController, handler: handler, completion: nil)
     }
 
     /// 开始激励；`completion` 在 close / 失败结束时回调是否发奖。
     @objc(startFromViewController:handler:completion:)
-    public func start(
+    func start(
         from viewController: UIViewController,
         handler: LampsRewardEventHandler?,
         completion: LampsRewardCompletion?
@@ -84,7 +84,7 @@ public final class LampsRewardVideoManager: NSObject {
     }
 
     @objc(startFromViewController:forwardSource:handler:completion:)
-    public func start(
+    func start(
         from viewController: UIViewController,
         forwardSource: String?,
         handler: LampsRewardEventHandler?,
@@ -261,16 +261,16 @@ public final class LampsRewardVideoManager: NSObject {
     }
 }
 
-/// 对外便捷入口。
+/// 激励便捷入口。仅 SDK 内部 / H5 Bridge 使用，不向宿主开放。
 @objcMembers
-public final class LampsRewardAd: NSObject {
+final class LampsRewardAd: NSObject {
     @objc(showFromViewController:completion:)
-    public static func show(from viewController: UIViewController, completion: LampsRewardCompletion?) {
+    static func show(from viewController: UIViewController, completion: LampsRewardCompletion?) {
         LampsRewardVideoManager.shared.start(from: viewController, handler: nil, completion: completion)
     }
 
     @objc(showFromViewController:handler:completion:)
-    public static func show(
+    static func show(
         from viewController: UIViewController,
         handler: LampsRewardEventHandler?,
         completion: LampsRewardCompletion?
@@ -279,7 +279,7 @@ public final class LampsRewardAd: NSObject {
     }
 
     @objc(showFromViewController:forwardSource:handler:completion:)
-    public static func show(
+    static func show(
         from viewController: UIViewController,
         forwardSource: String?,
         handler: LampsRewardEventHandler?,
@@ -293,7 +293,7 @@ public final class LampsRewardAd: NSObject {
         )
     }
 
-    public static func isAdapterAvailable(_ channel: LampsRewardChannel) -> Bool {
+    static func isAdapterAvailable(_ channel: LampsRewardChannel) -> Bool {
         LampsSDKAdapterCenter.isAvailable(channel)
     }
 }

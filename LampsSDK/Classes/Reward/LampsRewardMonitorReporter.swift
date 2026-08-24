@@ -1,5 +1,6 @@
 import Foundation
 
+@_spi(LampsAdapter)
 public enum LampsRewardMonitorReporter {
     public static func reportRM(
         model: LampsRewardAdModel,

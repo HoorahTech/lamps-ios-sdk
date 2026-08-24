@@ -1,12 +1,11 @@
 import Foundation
 
-/// 监测上报入口：宏替换后 GET。
-/// 支持 RM / WM / CM / PM / REM，不区分 SDK 与 API。
+/// 监测上报入口：宏替换后 GET。仅 SDK 内部使用，不向宿主开放。
 @objcMembers
-public final class LampsReporter: NSObject {
+final class LampsReporter: NSObject {
     /// 统一上报。
     @objc(reportWithType:urls:adInfo:extra:)
-    public static func report(
+    static func report(
         type: LampsReportType,
         urls: [String],
         adInfo: [AnyHashable: Any]? = nil,
@@ -35,27 +34,27 @@ public final class LampsReporter: NSObject {
     }
 
     @objc(reportRMWithURLs:adInfo:extra:)
-    public static func reportRM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
+    static func reportRM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
         report(type: .rm, urls: urls, adInfo: adInfo, extra: extra)
     }
 
     @objc(reportWMWithURLs:adInfo:extra:)
-    public static func reportWM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
+    static func reportWM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
         report(type: .wm, urls: urls, adInfo: adInfo, extra: extra)
     }
 
     @objc(reportCMWithURLs:adInfo:extra:)
-    public static func reportCM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
+    static func reportCM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
         report(type: .cm, urls: urls, adInfo: adInfo, extra: extra)
     }
 
     @objc(reportPMWithURLs:adInfo:extra:)
-    public static func reportPM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
+    static func reportPM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
         report(type: .pm, urls: urls, adInfo: adInfo, extra: extra)
     }
 
     @objc(reportREMWithURLs:adInfo:extra:)
-    public static func reportREM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
+    static func reportREM(urls: [String], adInfo: [AnyHashable: Any]? = nil, extra: [AnyHashable: Any]? = nil) {
         report(type: .rem, urls: urls, adInfo: adInfo, extra: extra)
     }
 }
