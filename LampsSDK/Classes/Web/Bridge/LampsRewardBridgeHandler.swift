@@ -49,8 +49,8 @@ final class LampsRewardBridgeHandler: NSObject, LampsBridgeHandler {
 
 private extension LampsRewardBridgeHandler {
     enum Method {
-        static let showRewardedVideo = "hra.ad.showRewardedVideo"
-        static let rewardedVideoStatus = "hoorah.ad.rewardedVideoStatus"
+        static let showRewardedVideo = "lamps.ad.showRewardedVideo"
+        static let rewardedVideoStatus = "lamps.ad.rewardedVideoStatus"
     }
 
     func notifyStatus(_ callback: LampsRewardCallback) {

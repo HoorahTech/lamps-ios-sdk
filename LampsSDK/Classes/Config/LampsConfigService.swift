@@ -46,12 +46,6 @@ enum LampsConfigService {
                     completion(.failure(LampsSDKError.api("配置响应格式错误").nsError))
                     return
                 }
-                let code = intValue(root["code"])
-                let message = stringValue(root["message"]) ?? ""
-                guard code == successCode else {
-                    completion(.failure(LampsSDKError.api("配置失败 code=\(code) message=\(message)").nsError))
-                    return
-                }
                 guard let dataObject = root["data"] as? [String: Any],
                       let remote = LampsRemoteConfig.parse(from: dataObject) else {
                     completion(.failure(LampsSDKError.api("配置 data 解析失败").nsError))
