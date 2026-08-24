@@ -47,9 +47,12 @@ pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch 
 # 缺配置会编译失败；参考主工程 ios/Podfile 的 lamps_wire_host_ad_sdks_for_adapters。
 # 若希望 Lamps 自己拉公有源 SDK，改用 CSJ / GDT / Noah，不要用 *Adapter。
 
-# DevTools（建议仅在宿主 Debug 配置引用；汇川工具已在 NoahSDK）：
-# pod 'LampsSDK/DevTools', :configurations => ['Debug']
-# LampsDevTools.present(from: self)
+# DevTools（独立模块，源码/二进制都 `import LampsDevTools`；建议仅 Debug 引用）：
+# pod 'LampsDevTools', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch => 'main', :configurations => ['Debug']
+# 本地：pod 'LampsDevTools', :path => '../lamps-ios-sdk', :configurations => ['Debug']
+# import LampsDevTools
+# LampsDevTools.present(from: self)  // 可切换配置环境 prd / dev
+# use_binary=true 时也可用 pod 'LampsSDK/DevTools'（引入 xcframework，同样 import LampsDevTools）
 ```
 
 ### 源码 / 二进制切换
@@ -89,7 +92,6 @@ import LampsSDK
 let config = LampsSDKConfig()
 config.appId = "your-app-id"
 config.debugLogEnabled = true
-config.environment = .prd // .dev -> https://api-dev.hoorahgo.com
 config.csjAppId = ""
 config.gdtAppId = ""
 config.noahAppKey = ""
@@ -112,10 +114,12 @@ webView.load(urlString: "https://www.hupu.com")
 
 ### 配置接口
 
-`start` 本地校验通过后请求：
+`start` 本地校验通过后请求（默认正式环境）：
 
 - prd: `https://api.hoorahgo.com/v1/lamps/config`
 - dev: `https://api-dev.hoorahgo.com/v1/lamps/config`
+
+测试环境请在 `LampsDevTools` 中切换；选择会写到本机，下次启动仍生效。宿主不要、也无法在 `LampsSDKConfig` 上设置环境。
 
 Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用代码位、`token`、`monitorLinks`，不向宿主开放。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
 

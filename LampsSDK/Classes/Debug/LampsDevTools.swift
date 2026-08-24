@@ -1,12 +1,12 @@
 import UIKit
 #if LampsADAPTER_SEPARATE_MODULE
-import LampsSDK
+@_spi(LampsDevTools) import LampsSDK
 #endif
 #if canImport(BUAdTestMeasurement)
 import BUAdTestMeasurement
 #endif
 
-/// Lamps SDK 调试工具入口（需集成 `LampsSDK/DevTools` Subspec）。
+/// Lamps SDK 调试工具入口（需集成 `LampsDevTools`，或二进制下的 `LampsSDK/DevTools`）。
 @objc(LampsDevTools)
 @objcMembers
 public final class LampsDevTools: NSObject {

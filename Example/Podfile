@@ -6,8 +6,9 @@ platform :ios, '12.0'
 target 'LampsSDK_Example' do
   # 静态链接，避免 Ads-CN 等静态 xcframework 与动态 Framework 冲突
   pod 'LampsSDK', :path => '../'
-  # DevTools（含穿山甲 / 优量汇调试依赖；汇川工具随 NoahSDK）
-  pod 'LampsSDK/DevTools', :path => '../'
+  # 独立模块 LampsDevTools，源码 / 二进制都 `import LampsDevTools`
+  # （不要用 LampsSDK/DevTools 的源码 subspec：那会把调试页编进 LampsSDK 模块）
+  pod 'LampsDevTools', :path => '../'
 
   target 'LampsSDK_Tests' do
     inherit! :search_paths

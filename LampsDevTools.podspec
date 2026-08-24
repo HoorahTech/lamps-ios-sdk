@@ -15,6 +15,8 @@ Pod::Spec.new do |s|
   s.dependency 'GDTDevToolSDK'
   s.dependency 'Ads-CN/BUAdTestMeasurement'
 
+  # 汇川调试页不在此声明 NoahSDK：运行时 NSClassFromString，宿主链了 Noah 即可用。
+
   s.source_files = 'LampsSDK/Classes/Debug/**/*.{swift,m,h}'
   s.public_header_files = 'LampsSDK/Classes/Debug/**/*.h'
 

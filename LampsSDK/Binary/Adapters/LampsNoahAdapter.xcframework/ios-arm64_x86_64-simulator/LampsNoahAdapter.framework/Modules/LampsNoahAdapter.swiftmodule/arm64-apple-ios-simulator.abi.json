@@ -9,7 +9,10 @@
         "name": "LampsSDK",
         "printedName": "LampsSDK",
         "declKind": "Import",
-        "moduleName": "LampsNoahAdapter"
+        "moduleName": "LampsNoahAdapter",
+        "declAttributes": [
+          "SPIAccessControl"
+        ]
       },
       {
         "kind": "Import",
@@ -173,7 +176,10 @@
         "name": "LampsSDK",
         "printedName": "LampsSDK",
         "declKind": "Import",
-        "moduleName": "LampsNoahAdapter"
+        "moduleName": "LampsNoahAdapter",
+        "declAttributes": [
+          "SPIAccessControl"
+        ]
       },
       {
         "kind": "Import",
@@ -332,49 +338,49 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/NoahAdapter\/LampsNoahRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 322,
+      "offset": 342,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/NoahAdapter\/LampsNoahRewardAdapter.swift",
       "kind": "IntegerLiteral",
-      "offset": 599,
+      "offset": 619,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/NoahAdapter\/LampsNoahRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 628,
+      "offset": 648,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/NoahAdapter\/LampsNoahRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 664,
+      "offset": 684,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/NoahAdapter\/LampsNoahRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 696,
+      "offset": 716,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/NoahAdapter\/LampsNoahRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 5487,
+      "offset": 5507,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/NoahAdapter\/LampsNoahSDKInitializer.swift",
       "kind": "BooleanLiteral",
-      "offset": 960,
+      "offset": 980,
       "length": 5,
       "value": "false"
     }

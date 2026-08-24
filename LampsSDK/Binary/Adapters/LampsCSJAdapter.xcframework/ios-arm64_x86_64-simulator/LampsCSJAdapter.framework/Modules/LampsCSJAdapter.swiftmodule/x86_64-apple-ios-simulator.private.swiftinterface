@@ -6,7 +6,7 @@ import BUAdSDK
 import BUAdTestMeasurement
 import Foundation
 @_exported import LampsCSJAdapter
-import LampsSDK
+@_spi(LampsAdapter) import LampsSDK
 import Swift
 import UIKit
 import _Concurrency

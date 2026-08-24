@@ -305,7 +305,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__OBJC__)
 
 @class UIViewController;
-/// Lamps SDK 调试工具入口（需集成 <code>LampsSDK/DevTools</code> Subspec）。
+/// Lamps SDK 调试工具入口（需集成 <code>LampsDevTools</code>，或二进制下的 <code>LampsSDK/DevTools</code>）。
 SWIFT_CLASS_NAMED("LampsDevTools")
 @interface LampsDevTools : NSObject
 /// 弹出调试工具首页（导航栈）。
@@ -628,7 +628,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__OBJC__)
 
 @class UIViewController;
-/// Lamps SDK 调试工具入口（需集成 <code>LampsSDK/DevTools</code> Subspec）。
+/// Lamps SDK 调试工具入口（需集成 <code>LampsDevTools</code>，或二进制下的 <code>LampsSDK/DevTools</code>）。
 SWIFT_CLASS_NAMED("LampsDevTools")
 @interface LampsDevTools : NSObject
 /// 弹出调试工具首页（导航栈）。

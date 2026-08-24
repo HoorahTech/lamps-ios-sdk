@@ -8,7 +8,7 @@ enum LampsConfigService {
         config: LampsSDKConfig,
         completion: @escaping (Result<LampsRemoteConfig, Error>) -> Void
     ) {
-        guard var components = URLComponents(string: config.environment.baseURL + path) else {
+        guard var components = URLComponents(string: LampsEnvironmentStore.current.baseURL + path) else {
             completion(.failure(LampsSDKError.invalidURL("配置接口地址无效").nsError))
             return
         }
@@ -60,7 +60,7 @@ enum LampsConfigService {
                 LampsConfigCache.save(
                     dataDictionary: dataObject,
                     appId: config.appId,
-                    environment: config.environment
+                    environment: LampsEnvironmentStore.current
                 )
                 LampsSDKLog.debug(
                     "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) ip=\(remote.clientIp)"

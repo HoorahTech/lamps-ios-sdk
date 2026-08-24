@@ -4,7 +4,7 @@
 // swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
 import BUAdTestMeasurement
 @_exported import LampsDevTools
-import LampsSDK
+@_spi(LampsDevTools) import LampsSDK
 import Swift
 import UIKit
 import _Concurrency

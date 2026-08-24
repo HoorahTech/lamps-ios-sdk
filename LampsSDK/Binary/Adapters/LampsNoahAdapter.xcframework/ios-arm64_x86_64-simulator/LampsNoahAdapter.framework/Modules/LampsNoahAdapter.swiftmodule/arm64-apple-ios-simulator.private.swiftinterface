@@ -4,7 +4,7 @@
 // swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
 import Foundation
 @_exported import LampsNoahAdapter
-import LampsSDK
+@_spi(LampsAdapter) import LampsSDK
 import NoahSDK
 import Swift
 import UIKit

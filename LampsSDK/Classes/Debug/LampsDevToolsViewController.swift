@@ -1,12 +1,9 @@
 import UIKit
 #if LampsADAPTER_SEPARATE_MODULE
-import LampsSDK
+@_spi(LampsDevTools) import LampsSDK
 #endif
 #if canImport(BUAdTestMeasurement)
 import BUAdTestMeasurement
-#endif
-#if canImport(NoahSDK)
-import NoahSDK
 #endif
 
 /// 聚合 Lamps 自身调试信息与穿山甲 / 优量汇 / 汇川调试入口。
@@ -31,6 +28,34 @@ final class LampsDevToolsViewController: UIViewController {
         label.textColor = .darkText
         return label
     }()
+
+    private lazy var prdEnvironmentButton: UIButton = makeEnvironmentButton(
+        title: "正式 prd",
+        action: #selector(switchToPrd)
+    )
+    private lazy var devEnvironmentButton: UIButton = makeEnvironmentButton(
+        title: "测试 dev",
+        action: #selector(switchToDev)
+    )
+    private lazy var environmentButtonStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [prdEnvironmentButton, devEnvironmentButton])
+        stack.axis = .horizontal
+        stack.spacing = 12
+        stack.distribution = .fillEqually
+        return stack
+    }()
+
+    private lazy var environmentHintLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .gray
+        label.text = "默认正式环境。切换后重新拉取配置，并在本机记住（下次启动仍生效）。"
+        return label
+    }()
+
+    private static let environmentSelectedColor = UIColor(red: 0.10, green: 0.46, blue: 0.82, alpha: 1)
+    private static let environmentNormalColor = UIColor(red: 0.95, green: 0.95, blue: 0.96, alpha: 1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +90,9 @@ final class LampsDevToolsViewController: UIViewController {
 
         stackView.addArrangedSubview(sectionTitle("Lamps SDK"))
         stackView.addArrangedSubview(infoLabel)
+        stackView.addArrangedSubview(sectionTitle("配置环境"))
+        stackView.addArrangedSubview(environmentButtonStack)
+        stackView.addArrangedSubview(environmentHintLabel)
         stackView.addArrangedSubview(makeButton(title: "刷新状态", action: #selector(reloadInfo)))
         stackView.addArrangedSubview(makeButton(title: "清除 Config 磁盘缓存", action: #selector(clearConfigCache)))
 
@@ -80,6 +108,28 @@ final class LampsDevToolsViewController: UIViewController {
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .black
         return label
+    }
+
+    private func makeEnvironmentButton(title: String, action: Selector) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        button.layer.cornerRadius = 8
+        button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        return button
+    }
+
+    private func applyEnvironmentButtonStyles() {
+        let isDev = Lamps.debugEnvironment == .dev
+        styleEnvironmentButton(prdEnvironmentButton, selected: !isDev)
+        styleEnvironmentButton(devEnvironmentButton, selected: isDev)
+    }
+
+    private func styleEnvironmentButton(_ button: UIButton, selected: Bool) {
+        button.backgroundColor = selected ? Self.environmentSelectedColor : Self.environmentNormalColor
+        button.setTitleColor(selected ? .white : .darkText, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: selected ? .semibold : .regular)
     }
 
     private func makeButton(title: String, action: Selector) -> UIButton {
@@ -98,37 +148,53 @@ final class LampsDevToolsViewController: UIViewController {
     }
 
     @objc private func reloadInfo() {
-        let config = Lamps.config
-        let remote = Lamps.remoteConfig
-        let env: String
-        switch config?.environment {
-        case .dev: env = "dev"
-        case .prd: env = "prd"
-        case .none: env = "-"
-        }
-        let slots = remote?.rewardAdSlots.map { "\($0.channelName)/\($0.slotId)" }.joined(separator: ", ") ?? "-"
         infoLabel.text = """
-        sdkVersion: \(Lamps.sdkVersion)
-        started: \(Lamps.isStarted)
-        appId: \(config?.appId ?? "-")
-        env: \(env)
-        debugLog: \(config?.debugLogEnabled ?? false)
-        remoteConfig: \(remote == nil ? "nil" : "ok")
-        tokenLen: \(remote?.token.count ?? 0)
-        clientIp: \(remote?.clientIp ?? "-")
-        slots(\(remote?.rewardAdSlots.count ?? 0)): \(slots)
+        \(Lamps.debugStatusText)
         csj: \(csjToolAvailable ? "可用" : "未集成")
         gdt: \(gdtToolAvailable ? "可用" : "未集成")
         noah: \(noahToolAvailable ? "可用" : "未集成")
         """
+        applyEnvironmentButtonStyles()
+    }
+
+    @objc private func switchToPrd() {
+        switchEnvironment(.prd)
+    }
+
+    @objc private func switchToDev() {
+        switchEnvironment(.dev)
+    }
+
+    private func switchEnvironment(_ environment: LampsSDKEnvironment) {
+        guard Lamps.debugEnvironment != environment else { return }
+        setEnvironmentButtonsEnabled(false)
+        Lamps.debugSwitchEnvironment(environment) { [weak self] success, error in
+            guard let self = self else { return }
+            self.setEnvironmentButtonsEnabled(true)
+            self.reloadInfo()
+            let name = environment == .dev ? "测试(dev)" : "正式(prd)"
+            if success {
+                self.showAlert("已切换到 \(name)")
+            } else {
+                let reason = error?.localizedDescription ?? "未知错误"
+                self.showAlert("已切到 \(name)，配置拉取失败：\(reason)")
+            }
+        }
+    }
+
+    private func setEnvironmentButtonsEnabled(_ enabled: Bool) {
+        prdEnvironmentButton.isEnabled = enabled
+        devEnvironmentButton.isEnabled = enabled
+        prdEnvironmentButton.alpha = enabled ? 1 : 0.6
+        devEnvironmentButton.alpha = enabled ? 1 : 0.6
     }
 
     @objc private func clearConfigCache() {
-        guard let config = Lamps.config else {
+        guard Lamps.isStarted else {
             showAlert("请先 Lamps.start")
             return
         }
-        let ok = LampsConfigCache.clear(appId: config.appId, environment: config.environment)
+        let ok = Lamps.debugClearConfigCache()
         showAlert(ok ? "已清除 Config 缓存" : "清除失败")
         reloadInfo()
     }
@@ -155,13 +221,16 @@ final class LampsDevToolsViewController: UIViewController {
     }
 
     @objc private func openNoahTool() {
-        #if canImport(NoahSDK)
-        let mockVC = NAAdExternalMockViewController()
+        guard LampsNoahDevToolBridge.isAvailable() else {
+            showAlert("未集成 NoahSDK")
+            return
+        }
+        guard let mockVC = LampsNoahDevToolBridge.makeToolViewController() else {
+            showAlert("汇川调试页创建失败")
+            return
+        }
         mockVC.modalPresentationStyle = .fullScreen
         present(mockVC, animated: true)
-        #else
-        showAlert("未集成 NoahSDK")
-        #endif
     }
 
     private var csjToolAvailable: Bool {
@@ -177,11 +246,7 @@ final class LampsDevToolsViewController: UIViewController {
     }
 
     private var noahToolAvailable: Bool {
-        #if canImport(NoahSDK)
-        return true
-        #else
-        return false
-        #endif
+        LampsNoahDevToolBridge.isAvailable()
     }
 
     private func showAlert(_ message: String) {

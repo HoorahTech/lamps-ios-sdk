@@ -9,7 +9,10 @@
         "name": "LampsSDK",
         "printedName": "LampsSDK",
         "declKind": "Import",
-        "moduleName": "LampsCSJAdapter"
+        "moduleName": "LampsCSJAdapter",
+        "declAttributes": [
+          "SPIAccessControl"
+        ]
       },
       {
         "kind": "Import",
@@ -173,7 +176,10 @@
         "name": "LampsSDK",
         "printedName": "LampsSDK",
         "declKind": "Import",
-        "moduleName": "LampsCSJAdapter"
+        "moduleName": "LampsCSJAdapter",
+        "declAttributes": [
+          "SPIAccessControl"
+        ]
       },
       {
         "kind": "Import",
@@ -339,49 +345,49 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 319,
+      "offset": 339,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJRewardAdapter.swift",
       "kind": "IntegerLiteral",
-      "offset": 610,
+      "offset": 630,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 639,
+      "offset": 659,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 675,
+      "offset": 695,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 707,
+      "offset": 727,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJRewardAdapter.swift",
       "kind": "BooleanLiteral",
-      "offset": 6206,
+      "offset": 6226,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/CSJAdapter\/LampsCSJSDKInitializer.swift",
       "kind": "BooleanLiteral",
-      "offset": 1798,
+      "offset": 1818,
       "length": 5,
       "value": "false"
     }

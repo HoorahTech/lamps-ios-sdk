@@ -1,7 +1,7 @@
 import Foundation
 
 /// `/v1/lamps/config` 的 `data` 磁盘缓存。按 appId + 环境隔离。
-public enum LampsConfigCache {
+enum LampsConfigCache {
     private static let directoryName = "com.hupu.lamps.sdk.config"
 
     static func load(appId: String, environment: LampsSDKEnvironment) -> LampsRemoteConfig? {
@@ -59,7 +59,7 @@ public enum LampsConfigCache {
     }
 
     @discardableResult
-    public static func clear(appId: String, environment: LampsSDKEnvironment) -> Bool {
+    static func clear(appId: String, environment: LampsSDKEnvironment) -> Bool {
         let trimmed = appId.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return false }
         let url = fileURL(appId: trimmed, environment: environment)

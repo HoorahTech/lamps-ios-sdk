@@ -1,5 +1,6 @@
 import UIKit
 import LampsSDK
+import LampsDevTools
 
 @objc(LAMPSSDKViewController)
 final class LAMPSSDKViewController: UIViewController {

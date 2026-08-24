@@ -310,7 +310,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSString;
 @class LampsSDKConfig;
-@class LampsRemoteConfig;
 /// 对外总入口。宿主 <code>import LampsSDK</code> 后调用 <code>Lamps.start(config:completion:)</code>。
 /// 类名刻意不用 <code>LampsSDK</code>，避免与模块名同名导致 <code>.swiftinterface</code> 解析冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
@@ -321,202 +320,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 /// 启动 SDK。
 /// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 <code>/v1/lamps/config</code> → 回调。
 /// 配置接口失败时：有缓存则仍成功（继续用缓存）；无缓存则回调失败。
+/// 配置环境默认正式；测试环境请在 <code>LampsDevTools</code> 中切换。
 + (void)startWithConfig:(LampsSDKConfig * _Nonnull)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 + (BOOL)isStarted SWIFT_WARN_UNUSED_RESULT;
 /// 当前生效配置；未启动时为 nil。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConfig * _Nullable config;)
 + (LampsSDKConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
-/// 远端配置；未拉取成功时为 nil。
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsRemoteConfig * _Nullable remoteConfig;)
-+ (LampsRemoteConfig * _Nullable)remoteConfig SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class LampsBridge;
-/// 一组业务 Bridge。导航、激励视频等各自实现，由 <code>LampsBridge</code> 按 method 分发。
-SWIFT_PROTOCOL("_TtP8LampsSDK18LampsBridgeHandler_")
-@protocol LampsBridgeHandler
-@property (nonatomic, strong) LampsBridge * _Nullable bridge;
-/// 该 Handler 负责的方法名。
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull supportedMethods;
-/// 处理 H5 调用。success / error 是本次调用的回调，不需要注册。
-- (void)handleWithMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-@end
-
-/// 基础能力：ping。
-SWIFT_CLASS("_TtC8LampsSDK22LampsBaseBridgeHandler")
-@interface LampsBaseBridgeHandler : NSObject <LampsBridgeHandler>
-@property (nonatomic, weak) LampsBridge * _Nullable bridge;
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull supportedMethods;
-- (void)handleWithMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class LampsWebView;
-@class WKUserContentController;
-@class WKScriptMessage;
-/// 挂在 <code>LampsWebView</code> 上的 Bridge。
-/// <ul>
-///   <li>
-///     H5 → Native：按 method 分发给 Handler
-///   </li>
-///   <li>
-///     Native → H5：<code>send(method:data:success:error:)</code> 主动调用
-///   </li>
-/// </ul>
-SWIFT_CLASS("_TtC8LampsSDK11LampsBridge")
-@interface LampsBridge : NSObject <WKScriptMessageHandler>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull messageName;)
-+ (NSString * _Nonnull)messageName SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, weak) LampsWebView * _Nullable webView;
-@property (nonatomic, readonly, copy) NSArray<id <LampsBridgeHandler>> * _Nonnull handlers;
-- (nonnull instancetype)initWithWebView:(LampsWebView * _Nonnull)webView OBJC_DESIGNATED_INITIALIZER;
-/// 添加一组业务 Handler。
-- (void)addHandler:(id <LampsBridgeHandler> _Nonnull)handler;
-/// Native 主动调用 H5。H5 需实现 <code>_handle_(method, data, successcb, errorcb)</code>。
-- (void)sendMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-/// 解析 JSON 字符串并分发。
-- (void)flushMessageQueue:(NSString * _Nonnull)jsStr;
-- (void)userContentController:(WKUserContentController * _Nonnull)userContentController didReceiveScriptMessage:(WKScriptMessage * _Nonnull)message;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-SWIFT_CLASS("_TtC8LampsSDK17LampsMonitorLinks")
-@interface LampsMonitorLinks : NSObject
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull rm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull pm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull cm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull dm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull wm;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-/// 导航相关：close。
-SWIFT_CLASS("_TtC8LampsSDK28LampsNavigationBridgeHandler")
-@interface LampsNavigationBridgeHandler : NSObject <LampsBridgeHandler>
-@property (nonatomic, weak) LampsBridge * _Nullable bridge;
-@property (nonatomic, copy) void (^ _Nullable closeHandler)(void);
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull supportedMethods;
-- (void)handleWithMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class LampsRewardAdSlot;
-/// <code>/v1/lamps/config</code> 返回的 data。
-SWIFT_CLASS("_TtC8LampsSDK17LampsRemoteConfig")
-@interface LampsRemoteConfig : NSObject
-@property (nonatomic, copy) NSArray<LampsRewardAdSlot *> * _Nonnull rewardAdSlots;
-@property (nonatomic, copy) NSString * _Nonnull token;
-@property (nonatomic, copy) NSString * _Nonnull clientIp;
-@property (nonatomic, strong) LampsMonitorLinks * _Nonnull monitorLinks;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-typedef SWIFT_ENUM(NSInteger, LampsReportType, open) {
-  LampsReportTypeRm = 0,
-  LampsReportTypeWm = 1,
-  LampsReportTypeCm = 2,
-  LampsReportTypePm = 3,
-  LampsReportTypeRem = 4,
-};
-
-/// 监测上报入口：宏替换后 GET。
-/// 支持 RM / WM / CM / PM / REM，不区分 SDK 与 API。
-SWIFT_CLASS("_TtC8LampsSDK13LampsReporter")
-@interface LampsReporter : NSObject
-/// 统一上报。
-+ (void)reportWithType:(enum LampsReportType)type urls:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportRMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportWMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportCMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportPMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportREMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class UIViewController;
-@class LampsRewardCallback;
-enum LampsRewardChannel : NSInteger;
-/// 对外便捷入口。
-SWIFT_CLASS("_TtC8LampsSDK13LampsRewardAd")
-@interface LampsRewardAd : NSObject
-+ (void)showFromViewController:(UIViewController * _Nonnull)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-+ (void)showFromViewController:(UIViewController * _Nonnull)viewController handler:(void (^ _Nullable)(LampsRewardCallback * _Nonnull))handler completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-+ (BOOL)isAdapterAvailable:(enum LampsRewardChannel)channel SWIFT_WARN_UNUSED_RESULT;
+/// 清除当前环境的 Config 磁盘缓存。宿主普通 import 不可见。
++ (BOOL)debugClearConfigCache SWIFT_WARN_UNUSED_RESULT;
+/// 调试页展示用，宿主普通 import 不可见。
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull debugStatusText;)
++ (NSString * _Nonnull)debugStatusText SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 /// 单次激励候选素材（由 rewardAdSlots 映射，无 getOther）。
+/// 仅 Adapter 跨模块 SPI，宿主普通 import 不可见。
 SWIFT_CLASS("_TtC8LampsSDK18LampsRewardAdModel")
 @interface LampsRewardAdModel : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-SWIFT_CLASS("_TtC8LampsSDK17LampsRewardAdSlot")
-@interface LampsRewardAdSlot : NSObject
-/// 代码位 ID
-@property (nonatomic, copy) NSString * _Nonnull slotId;
-/// 类型：BD、PD
-@property (nonatomic, copy) NSString * _Nonnull type;
-@property (nonatomic, copy) NSString * _Nonnull channelName;
-@property (nonatomic, copy) NSString * _Nonnull channelId;
-/// 接口下发价格；创建 model 时先写入，SDK 回传价 > 0 时覆盖。
-@property (nonatomic) CGFloat price;
-/// 是否定价位。
-@property (nonatomic, readonly) BOOL isPD;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-enum LampsRewardCallbackName : NSInteger;
-SWIFT_CLASS("_TtC8LampsSDK19LampsRewardCallback")
-@interface LampsRewardCallback : NSObject
-@property (nonatomic) enum LampsRewardCallbackName name;
-@property (nonatomic) BOOL status;
-@property (nonatomic) BOOL rewardStatus;
-@property (nonatomic) NSInteger errCode;
-@property (nonatomic, copy) NSString * _Nullable errMessage;
-@property (nonatomic, copy) NSString * _Nonnull channelName;
-@property (nonatomic, copy) NSString * _Nonnull slotId;
-@property (nonatomic) CGFloat price;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-typedef SWIFT_ENUM(NSInteger, LampsRewardCallbackName, open) {
-  LampsRewardCallbackNameBusy = 0,
-  LampsRewardCallbackNameReqError = 1,
-  LampsRewardCallbackNameLoadSuccess = 2,
-  LampsRewardCallbackNameLoadError = 3,
-  LampsRewardCallbackNameShowSuccess = 4,
-  LampsRewardCallbackNameShowError = 5,
-  LampsRewardCallbackNameRewardArrived = 6,
-  LampsRewardCallbackNameClose = 7,
-};
-
-/// 激励渠道。用 config <code>channelId</code> 判断（兼容 HCAD dsp：2/327=CSJ，348/349=GDT，417=Noah）。
-typedef SWIFT_ENUM(NSInteger, LampsRewardChannel, open) {
-  LampsRewardChannelCsj = 1,
-  LampsRewardChannelGdt = 2,
-  LampsRewardChannelNoah = 3,
-};
-
-/// 激励视频编排器（对齐 HCADCommonRewardVideoManager）。
-/// 入参使用 config.rewardAdSlots；并行请求已注册 Adapter，竞价后展示赢家。
-SWIFT_CLASS("_TtC8LampsSDK23LampsRewardVideoManager")
-@interface LampsRewardVideoManager : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsRewardVideoManager * _Nonnull shared;)
-+ (LampsRewardVideoManager * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly) BOOL isActive;
-/// 开始激励流程；生命周期事件通过 handler 回调。
-- (void)startFromViewController:(UIViewController * _Nonnull)viewController handler:(void (^ _Nullable)(LampsRewardCallback * _Nonnull))handler;
-/// 开始激励；<code>completion</code> 在 close / 失败结束时回调是否发奖。
-- (void)startFromViewController:(UIViewController * _Nonnull)viewController handler:(void (^ _Nullable)(LampsRewardCallback * _Nonnull))handler completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-enum LampsSDKEnvironment : NSInteger;
 /// SDK 初始化配置。
 SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @interface LampsSDKConfig : NSObject <NSCopying>
@@ -524,8 +350,6 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @property (nonatomic, copy) NSString * _Nonnull appId;
 /// 是否打印 SDK 调试日志，默认 false。
 @property (nonatomic) BOOL debugLogEnabled;
-/// 配置接口环境，默认正式环境。
-@property (nonatomic) enum LampsSDKEnvironment environment;
 /// 穿山甲 AppId；非空且集成 CSJ Subspec 时会在 start 中初始化。
 /// 宿主已自行初始化（如 HCAD）时请留空，避免二次 init。
 @property (nonatomic, copy) NSString * _Nonnull csjAppId;
@@ -548,12 +372,6 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-/// 配置接口环境。
-typedef SWIFT_ENUM(NSInteger, LampsSDKEnvironment, open) {
-  LampsSDKEnvironmentPrd = 0,
-  LampsSDKEnvironmentDev = 1,
-};
-
 typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
   LampsSDKErrorCodeNotImplemented = -1001,
   LampsSDKErrorCodeNotStarted = -1002,
@@ -569,7 +387,6 @@ typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
 /// 可独立使用的 WKWebView 子类。页面加载与 Bridge 都挂在这个 View 上。
 SWIFT_CLASS("_TtC8LampsSDK12LampsWebView")
 @interface LampsWebView : WKWebView
-@property (nonatomic, readonly, strong) LampsBridge * _Null_unspecified bridge;
 /// H5 调用 <code>close</code> 时触发。
 @property (nonatomic, copy) void (^ _Nullable closeHandler)(void);
 - (nonnull instancetype)init;
@@ -925,7 +742,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSString;
 @class LampsSDKConfig;
-@class LampsRemoteConfig;
 /// 对外总入口。宿主 <code>import LampsSDK</code> 后调用 <code>Lamps.start(config:completion:)</code>。
 /// 类名刻意不用 <code>LampsSDK</code>，避免与模块名同名导致 <code>.swiftinterface</code> 解析冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
@@ -936,202 +752,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 /// 启动 SDK。
 /// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 <code>/v1/lamps/config</code> → 回调。
 /// 配置接口失败时：有缓存则仍成功（继续用缓存）；无缓存则回调失败。
+/// 配置环境默认正式；测试环境请在 <code>LampsDevTools</code> 中切换。
 + (void)startWithConfig:(LampsSDKConfig * _Nonnull)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 + (BOOL)isStarted SWIFT_WARN_UNUSED_RESULT;
 /// 当前生效配置；未启动时为 nil。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConfig * _Nullable config;)
 + (LampsSDKConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
-/// 远端配置；未拉取成功时为 nil。
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsRemoteConfig * _Nullable remoteConfig;)
-+ (LampsRemoteConfig * _Nullable)remoteConfig SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class LampsBridge;
-/// 一组业务 Bridge。导航、激励视频等各自实现，由 <code>LampsBridge</code> 按 method 分发。
-SWIFT_PROTOCOL("_TtP8LampsSDK18LampsBridgeHandler_")
-@protocol LampsBridgeHandler
-@property (nonatomic, strong) LampsBridge * _Nullable bridge;
-/// 该 Handler 负责的方法名。
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull supportedMethods;
-/// 处理 H5 调用。success / error 是本次调用的回调，不需要注册。
-- (void)handleWithMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-@end
-
-/// 基础能力：ping。
-SWIFT_CLASS("_TtC8LampsSDK22LampsBaseBridgeHandler")
-@interface LampsBaseBridgeHandler : NSObject <LampsBridgeHandler>
-@property (nonatomic, weak) LampsBridge * _Nullable bridge;
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull supportedMethods;
-- (void)handleWithMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class LampsWebView;
-@class WKUserContentController;
-@class WKScriptMessage;
-/// 挂在 <code>LampsWebView</code> 上的 Bridge。
-/// <ul>
-///   <li>
-///     H5 → Native：按 method 分发给 Handler
-///   </li>
-///   <li>
-///     Native → H5：<code>send(method:data:success:error:)</code> 主动调用
-///   </li>
-/// </ul>
-SWIFT_CLASS("_TtC8LampsSDK11LampsBridge")
-@interface LampsBridge : NSObject <WKScriptMessageHandler>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull messageName;)
-+ (NSString * _Nonnull)messageName SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, weak) LampsWebView * _Nullable webView;
-@property (nonatomic, readonly, copy) NSArray<id <LampsBridgeHandler>> * _Nonnull handlers;
-- (nonnull instancetype)initWithWebView:(LampsWebView * _Nonnull)webView OBJC_DESIGNATED_INITIALIZER;
-/// 添加一组业务 Handler。
-- (void)addHandler:(id <LampsBridgeHandler> _Nonnull)handler;
-/// Native 主动调用 H5。H5 需实现 <code>_handle_(method, data, successcb, errorcb)</code>。
-- (void)sendMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-/// 解析 JSON 字符串并分发。
-- (void)flushMessageQueue:(NSString * _Nonnull)jsStr;
-- (void)userContentController:(WKUserContentController * _Nonnull)userContentController didReceiveScriptMessage:(WKScriptMessage * _Nonnull)message;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-SWIFT_CLASS("_TtC8LampsSDK17LampsMonitorLinks")
-@interface LampsMonitorLinks : NSObject
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull rm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull pm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull cm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull dm;
-@property (nonatomic, copy) NSArray<NSString *> * _Nonnull wm;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-/// 导航相关：close。
-SWIFT_CLASS("_TtC8LampsSDK28LampsNavigationBridgeHandler")
-@interface LampsNavigationBridgeHandler : NSObject <LampsBridgeHandler>
-@property (nonatomic, weak) LampsBridge * _Nullable bridge;
-@property (nonatomic, copy) void (^ _Nullable closeHandler)(void);
-@property (nonatomic, readonly, copy) NSArray<NSString *> * _Nonnull supportedMethods;
-- (void)handleWithMethod:(NSString * _Nonnull)method data:(NSDictionary * _Nonnull)data success:(void (^ _Nullable)(NSDictionary * _Nonnull))success error:(void (^ _Nullable)(NSDictionary * _Nonnull))error;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class LampsRewardAdSlot;
-/// <code>/v1/lamps/config</code> 返回的 data。
-SWIFT_CLASS("_TtC8LampsSDK17LampsRemoteConfig")
-@interface LampsRemoteConfig : NSObject
-@property (nonatomic, copy) NSArray<LampsRewardAdSlot *> * _Nonnull rewardAdSlots;
-@property (nonatomic, copy) NSString * _Nonnull token;
-@property (nonatomic, copy) NSString * _Nonnull clientIp;
-@property (nonatomic, strong) LampsMonitorLinks * _Nonnull monitorLinks;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-typedef SWIFT_ENUM(NSInteger, LampsReportType, open) {
-  LampsReportTypeRm = 0,
-  LampsReportTypeWm = 1,
-  LampsReportTypeCm = 2,
-  LampsReportTypePm = 3,
-  LampsReportTypeRem = 4,
-};
-
-/// 监测上报入口：宏替换后 GET。
-/// 支持 RM / WM / CM / PM / REM，不区分 SDK 与 API。
-SWIFT_CLASS("_TtC8LampsSDK13LampsReporter")
-@interface LampsReporter : NSObject
-/// 统一上报。
-+ (void)reportWithType:(enum LampsReportType)type urls:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportRMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportWMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportCMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportPMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-+ (void)reportREMWithURLs:(NSArray<NSString *> * _Nonnull)urls adInfo:(NSDictionary * _Nullable)adInfo extra:(NSDictionary * _Nullable)extra;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class UIViewController;
-@class LampsRewardCallback;
-enum LampsRewardChannel : NSInteger;
-/// 对外便捷入口。
-SWIFT_CLASS("_TtC8LampsSDK13LampsRewardAd")
-@interface LampsRewardAd : NSObject
-+ (void)showFromViewController:(UIViewController * _Nonnull)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-+ (void)showFromViewController:(UIViewController * _Nonnull)viewController handler:(void (^ _Nullable)(LampsRewardCallback * _Nonnull))handler completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-+ (BOOL)isAdapterAvailable:(enum LampsRewardChannel)channel SWIFT_WARN_UNUSED_RESULT;
+/// 清除当前环境的 Config 磁盘缓存。宿主普通 import 不可见。
++ (BOOL)debugClearConfigCache SWIFT_WARN_UNUSED_RESULT;
+/// 调试页展示用，宿主普通 import 不可见。
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull debugStatusText;)
++ (NSString * _Nonnull)debugStatusText SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 /// 单次激励候选素材（由 rewardAdSlots 映射，无 getOther）。
+/// 仅 Adapter 跨模块 SPI，宿主普通 import 不可见。
 SWIFT_CLASS("_TtC8LampsSDK18LampsRewardAdModel")
 @interface LampsRewardAdModel : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-SWIFT_CLASS("_TtC8LampsSDK17LampsRewardAdSlot")
-@interface LampsRewardAdSlot : NSObject
-/// 代码位 ID
-@property (nonatomic, copy) NSString * _Nonnull slotId;
-/// 类型：BD、PD
-@property (nonatomic, copy) NSString * _Nonnull type;
-@property (nonatomic, copy) NSString * _Nonnull channelName;
-@property (nonatomic, copy) NSString * _Nonnull channelId;
-/// 接口下发价格；创建 model 时先写入，SDK 回传价 > 0 时覆盖。
-@property (nonatomic) CGFloat price;
-/// 是否定价位。
-@property (nonatomic, readonly) BOOL isPD;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-enum LampsRewardCallbackName : NSInteger;
-SWIFT_CLASS("_TtC8LampsSDK19LampsRewardCallback")
-@interface LampsRewardCallback : NSObject
-@property (nonatomic) enum LampsRewardCallbackName name;
-@property (nonatomic) BOOL status;
-@property (nonatomic) BOOL rewardStatus;
-@property (nonatomic) NSInteger errCode;
-@property (nonatomic, copy) NSString * _Nullable errMessage;
-@property (nonatomic, copy) NSString * _Nonnull channelName;
-@property (nonatomic, copy) NSString * _Nonnull slotId;
-@property (nonatomic) CGFloat price;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-typedef SWIFT_ENUM(NSInteger, LampsRewardCallbackName, open) {
-  LampsRewardCallbackNameBusy = 0,
-  LampsRewardCallbackNameReqError = 1,
-  LampsRewardCallbackNameLoadSuccess = 2,
-  LampsRewardCallbackNameLoadError = 3,
-  LampsRewardCallbackNameShowSuccess = 4,
-  LampsRewardCallbackNameShowError = 5,
-  LampsRewardCallbackNameRewardArrived = 6,
-  LampsRewardCallbackNameClose = 7,
-};
-
-/// 激励渠道。用 config <code>channelId</code> 判断（兼容 HCAD dsp：2/327=CSJ，348/349=GDT，417=Noah）。
-typedef SWIFT_ENUM(NSInteger, LampsRewardChannel, open) {
-  LampsRewardChannelCsj = 1,
-  LampsRewardChannelGdt = 2,
-  LampsRewardChannelNoah = 3,
-};
-
-/// 激励视频编排器（对齐 HCADCommonRewardVideoManager）。
-/// 入参使用 config.rewardAdSlots；并行请求已注册 Adapter，竞价后展示赢家。
-SWIFT_CLASS("_TtC8LampsSDK23LampsRewardVideoManager")
-@interface LampsRewardVideoManager : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsRewardVideoManager * _Nonnull shared;)
-+ (LampsRewardVideoManager * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly) BOOL isActive;
-/// 开始激励流程；生命周期事件通过 handler 回调。
-- (void)startFromViewController:(UIViewController * _Nonnull)viewController handler:(void (^ _Nullable)(LampsRewardCallback * _Nonnull))handler;
-/// 开始激励；<code>completion</code> 在 close / 失败结束时回调是否发奖。
-- (void)startFromViewController:(UIViewController * _Nonnull)viewController handler:(void (^ _Nullable)(LampsRewardCallback * _Nonnull))handler completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-enum LampsSDKEnvironment : NSInteger;
 /// SDK 初始化配置。
 SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @interface LampsSDKConfig : NSObject <NSCopying>
@@ -1139,8 +782,6 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @property (nonatomic, copy) NSString * _Nonnull appId;
 /// 是否打印 SDK 调试日志，默认 false。
 @property (nonatomic) BOOL debugLogEnabled;
-/// 配置接口环境，默认正式环境。
-@property (nonatomic) enum LampsSDKEnvironment environment;
 /// 穿山甲 AppId；非空且集成 CSJ Subspec 时会在 start 中初始化。
 /// 宿主已自行初始化（如 HCAD）时请留空，避免二次 init。
 @property (nonatomic, copy) NSString * _Nonnull csjAppId;
@@ -1163,12 +804,6 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-/// 配置接口环境。
-typedef SWIFT_ENUM(NSInteger, LampsSDKEnvironment, open) {
-  LampsSDKEnvironmentPrd = 0,
-  LampsSDKEnvironmentDev = 1,
-};
-
 typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
   LampsSDKErrorCodeNotImplemented = -1001,
   LampsSDKErrorCodeNotStarted = -1002,
@@ -1184,7 +819,6 @@ typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
 /// 可独立使用的 WKWebView 子类。页面加载与 Bridge 都挂在这个 View 上。
 SWIFT_CLASS("_TtC8LampsSDK12LampsWebView")
 @interface LampsWebView : WKWebView
-@property (nonatomic, readonly, strong) LampsBridge * _Null_unspecified bridge;
 /// H5 调用 <code>close</code> 时触发。
 @property (nonatomic, copy) void (^ _Nullable closeHandler)(void);
 - (nonnull instancetype)init;

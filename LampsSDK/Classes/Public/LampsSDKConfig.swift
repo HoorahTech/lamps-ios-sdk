@@ -7,8 +7,6 @@ public final class LampsSDKConfig: NSObject, NSCopying {
     public var appId: String = ""
     /// 是否打印 SDK 调试日志，默认 false。
     public var debugLogEnabled: Bool = false
-    /// 配置接口环境，默认正式环境。
-    public var environment: LampsSDKEnvironment = .prd
 
     /// 穿山甲 AppId；非空且集成 CSJ Subspec 时会在 start 中初始化。
     /// 宿主已自行初始化（如 HCAD）时请留空，避免二次 init。
@@ -36,7 +34,6 @@ public final class LampsSDKConfig: NSObject, NSCopying {
         let config = LampsSDKConfig()
         config.appId = appId
         config.debugLogEnabled = debugLogEnabled
-        config.environment = environment
         config.csjAppId = csjAppId
         config.gdtAppId = gdtAppId
         config.noahAppKey = noahAppKey

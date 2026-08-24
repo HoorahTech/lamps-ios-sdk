@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   # true = LampsSDK/Binary xcframework；false = Classes 源码。切换后宿主需 pod install。
   # 二进制请先执行 ./scripts/build_xcframeworks.sh（会同步到 Binary/）。
-  use_binary = false
+  use_binary = true
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
@@ -134,6 +134,8 @@ Pod::Spec.new do |s|
 
   # DevTools：Lamps 状态页 + 穿山甲 / 优量汇调试依赖；汇川工具已在 NoahSDK 内。
   # 不进入 default_subspecs。
+  # 源码请用独立 pod `LampsDevTools`（模块名 LampsDevTools，与二进制 import 一致）。
+  # 本 subspec 仅二进制快捷方式：引入 LampsDevTools.xcframework。
   s.subspec 'DevTools' do |ss|
     ss.dependency 'LampsSDK/Core'
     ss.dependency 'GDTDevToolSDK'

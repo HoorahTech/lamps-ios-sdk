@@ -13,7 +13,6 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
         let config = LampsSDKConfig()
         config.appId = "lamps-sdk-demo"
         config.debugLogEnabled = true
-        config.environment = .dev
         config.csjAppId = "5015515"
         config.gdtAppId = "1206233429"
         config.noahAppKey = "11780"
