@@ -51,6 +51,11 @@ enum LampsDeviceInfo {
         return idfa
     }
 
+    /// 读取系统 IDFV（`identifierForVendor`）；不可用时返回空字符串。
+    static var idfv: String {
+        UIDevice.current.identifierForVendor?.uuidString ?? ""
+    }
+
     /// Wi‑Fi 接口（en0）MAC。
     /// 说明：iOS 7+ 系统对第三方 App 限制真实 MAC，多数机型会返回占位值 `02:00:00:00:00:00`。
     static var macAddress: String {

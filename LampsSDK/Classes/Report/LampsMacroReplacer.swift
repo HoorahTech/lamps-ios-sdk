@@ -46,6 +46,9 @@ enum LampsMacroReplacer {
         // IDFA（未授权或不可用时为空；不主动弹 ATT）
         put(&info, "__IDFA__", LampsDeviceInfo.idfa)
 
+        // IDFV（identifierForVendor；不可用时为空）
+        put(&info, "__IDFV__", LampsDeviceInfo.idfv)
+
         // SDK 分配的 appId / SDK 版本
         put(&info, "__APPID__", Lamps.config?.appId ?? "")
         put(&info, "__SDK_VERSION__", Lamps.sdkVersion)

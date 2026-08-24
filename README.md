@@ -168,6 +168,7 @@ REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL
 - `__UA__`：WebKit User-Agent（`Lamps.start` 时预取并缓存）
 - `__MAC__`：Wi‑Fi MAC（`en0`；iOS 对第三方多为占位 `02:00:00:00:00:00`）
 - `__IDFA__`：广告标识符（未授权或不可用时为空）
+- `__IDFV__`：Vendor 标识符（`UIDevice.identifierForVendor`；不可用时为空）
 - `__APPID__`：SDK 分配的 appId（`Lamps.start` 传入的 `config.appId`）
 - `__SDK_VERSION__`：SDK 版本号（与 podspec `s.version` / `Lamps.sdkVersion` 一致）
 - `__NETWORK__`：网络环境（`wifi` / `2g` / `3g` / `4g` / `5g` / `unknown`）
