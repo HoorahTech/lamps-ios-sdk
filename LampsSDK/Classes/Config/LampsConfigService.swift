@@ -14,7 +14,7 @@ enum LampsConfigService {
         }
         components.queryItems = [
             URLQueryItem(name: "appid", value: config.appId),
-            URLQueryItem(name: "version", value: LampsDeviceInfo.appVersion),
+            URLQueryItem(name: "version", value: Lamps.sdkVersion),
             URLQueryItem(name: "idfa", value: LampsDeviceInfo.idfa),
             URLQueryItem(name: "os", value: LampsDeviceInfo.os)
         ]

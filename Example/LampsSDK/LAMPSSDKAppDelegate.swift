@@ -11,7 +11,7 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         let config = LampsSDKConfig()
-        config.appId = "lamps-sdk-demo"
+        config.appId = "10002"
         config.debugLogEnabled = true
         config.csjAppId = "5015515"
         config.gdtAppId = "1206233429"

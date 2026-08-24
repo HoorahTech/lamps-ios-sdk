@@ -15,15 +15,8 @@ enum LampsDeviceInfo {
     private static var cachedUserAgent: String?
     private static var userAgentWebView: WKWebView?
 
-    static var appVersion: String {
-        let info = Bundle.main.infoDictionary
-        let version = info?["CFBundleShortVersionString"] as? String
-        let trimmed = version?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        return trimmed.isEmpty ? "0" : trimmed
-    }
-
     static var os: String {
-        "ios"
+        "iOS"
     }
 
     /// 当前网络环境：`wifi` / `2g` / `3g` / `4g` / `5g` / `unknown`。

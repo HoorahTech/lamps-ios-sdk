@@ -32,7 +32,15 @@
   "subspecs": [
     {
       "name": "Core",
-      "vendored_frameworks": "LampsSDK/Binary/LampsSDK.xcframework",
+      "source_files": [
+        "LampsSDK/Classes/Public/**/*.swift",
+        "LampsSDK/Classes/Core/**/*.swift",
+        "LampsSDK/Classes/Config/**/*.swift",
+        "LampsSDK/Classes/Web/**/*.swift",
+        "LampsSDK/Classes/Report/**/*.swift",
+        "LampsSDK/Classes/Reward/*.swift",
+        "LampsSDK/Classes/Adapter/*.swift"
+      ],
       "frameworks": [
         "Foundation",
         "UIKit",
@@ -48,30 +56,21 @@
       "dependencies": {
         "LampsSDK/Core": []
       },
-      "vendored_frameworks": "LampsSDK/Binary/Adapters/LampsCSJAdapter.xcframework",
-      "pod_target_xcconfig": {
-        "OTHER_LDFLAGS": "$(inherited) -ObjC"
-      }
+      "source_files": "LampsSDK/Classes/CSJAdapter/**/*.{swift,m,h}"
     },
     {
       "name": "GDTAdapter",
       "dependencies": {
         "LampsSDK/Core": []
       },
-      "vendored_frameworks": "LampsSDK/Binary/Adapters/LampsGDTAdapter.xcframework",
-      "pod_target_xcconfig": {
-        "OTHER_LDFLAGS": "$(inherited) -ObjC"
-      }
+      "source_files": "LampsSDK/Classes/GDTAdapter/**/*.{swift,m,h}"
     },
     {
       "name": "NoahAdapter",
       "dependencies": {
         "LampsSDK/Core": []
       },
-      "vendored_frameworks": "LampsSDK/Binary/Adapters/LampsNoahAdapter.xcframework",
-      "pod_target_xcconfig": {
-        "OTHER_LDFLAGS": "$(inherited) -ObjC"
-      }
+      "source_files": "LampsSDK/Classes/NoahAdapter/**/*.{swift,m,h}"
     },
     {
       "name": "CSJ",
@@ -159,10 +158,8 @@
         "GDTDevToolSDK": [],
         "Ads-CN/BUAdTestMeasurement": []
       },
-      "vendored_frameworks": "LampsSDK/Binary/DevTools/LampsDevTools.xcframework",
-      "pod_target_xcconfig": {
-        "OTHER_LDFLAGS": "$(inherited) -ObjC"
-      }
+      "source_files": "LampsSDK/Classes/Debug/**/*.{swift,m,h}",
+      "public_header_files": "LampsSDK/Classes/Debug/**/*.h"
     }
   ],
   "swift_version": "5.0"

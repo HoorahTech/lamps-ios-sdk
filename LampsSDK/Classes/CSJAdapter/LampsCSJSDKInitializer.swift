@@ -4,9 +4,6 @@
 
 import Foundation
 import BUAdSDK
-#if canImport(BUAdTestMeasurement)
-import BUAdTestMeasurement
-#endif
 
 enum LampsCSJSDKInitializer: LampsSDKInitializing {
     static func initialize(config: LampsSDKConfig, completion: @escaping (Bool, Error?) -> Void) {
@@ -18,10 +15,9 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
             return
         }
 
-        // 穿山甲测试工具要求：必须在 BUAdSDKManager.start 之前打开 debugMode，否则「基本信息」无数据。
-        #if canImport(BUAdTestMeasurement)
-        BUAdTestMeasurementConfiguration().debugMode = true
-        #endif
+        // 穿山甲测试工具要求：必须在 BUAdSDKManager.start 之前打开 debugMode。
+        // 用运行时检测，避免正式包未链 BUAdTestMeasurement 时链接失败。
+        LampsCSJTestMeasurementBridge.enableDebugModeIfAvailable()
 
         let shakeValue = config.shakeAdsEnabled ? 1 : 0
         let userExtData = "[{\"name\":\"is_shake_ads\", \"value\":\"\(shakeValue)\"}]"
@@ -32,10 +28,10 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
         if config.debugLogEnabled {
             configuration.debugLog = NSNumber(value: 1)
         }
-        #if canImport(BUAdTestMeasurement)
-        // 与 HCAD 对齐：测试工具场景打开 SDKDEBUG
-        configuration.sdkdebug = true
-        #endif
+        if LampsCSJTestMeasurementBridge.isAvailable() {
+            // 与 HCAD 对齐：测试工具场景打开 SDKDEBUG
+            configuration.sdkdebug = true
+        }
         BUAdSDKManager.setUserExtData(userExtData)
         BUAdSDKManager.start(asyncCompletionHandler: { success, error in
             DispatchQueue.main.async { completion(success, error) }
