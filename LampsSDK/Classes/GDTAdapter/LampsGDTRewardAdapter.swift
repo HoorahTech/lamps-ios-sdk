@@ -50,7 +50,7 @@ final class LampsGDTRewardAdapter: NSObject, LampsRewardAdapting {
     func show() {
         guard !didShow else { return }
         guard let rewardedAd, let viewController else {
-            delegate?.rewardAdapter(self, didFailToShow: LampsSDKError.api("优量汇激励视频或展示控制器为空").nsError)
+            delegate?.rewardAdapter(self, didFailToShow: LampsSDKError.rewardShowError("优量汇激励视频或展示控制器为空").nsError)
             return
         }
         didShow = true
@@ -109,7 +109,7 @@ private extension LampsGDTRewardAdapter {
             model: model,
             isSuccess: false,
         )
-        finishLoad(success: false, error: LampsSDKError.api("优量汇激励请求超时").nsError)
+        finishLoad(success: false, error: LampsSDKError.rewardLoadError("优量汇激励请求超时").nsError)
     }
 
     func clearTimer() {

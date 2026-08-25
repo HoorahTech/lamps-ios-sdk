@@ -93,7 +93,7 @@ final class LampsRewardVideoManager: NSObject {
         guard !state.isActive else {
             let busy = makeCallback(name: .busy, status: false, message: "激励视频进行中")
             handler?(busy)
-            completion?(false, LampsSDKError.api("激励视频进行中").nsError)
+            completion?(false, LampsSDKError.rewardBusy("激励视频进行中").nsError)
             return
         }
         guard Lamps.isStarted else {
@@ -128,7 +128,7 @@ final class LampsRewardVideoManager: NSObject {
                     handler: handler,
                     nextState: .idle,
                     finishSuccess: false,
-                    finishError: LampsSDKError.api(message ?? "请求失败").nsError
+                    finishError: LampsSDKError.rewardLoadError(message ?? "请求失败").nsError
                 )
             },
             onLoadSuccess: { [weak self] model in
@@ -153,7 +153,7 @@ final class LampsRewardVideoManager: NSObject {
                     handler: handler,
                     nextState: .idle,
                     finishSuccess: false,
-                    finishError: LampsSDKError.api(LampsRewardH5Error.allSDKLoadFailedMessage).nsError
+                    finishError: LampsSDKError.rewardLoadError(LampsRewardH5Error.allSDKLoadFailedMessage).nsError
                 )
             }
         )
@@ -187,7 +187,7 @@ final class LampsRewardVideoManager: NSObject {
                     handler: handler,
                     nextState: .idle,
                     finishSuccess: false,
-                    finishError: LampsSDKError.api(message ?? "展示失败").nsError
+                    finishError: LampsSDKError.rewardShowError(message ?? "展示失败").nsError
                 )
             },
             onAdRewardArrived: { [weak self] model in

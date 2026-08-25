@@ -33,7 +33,7 @@ final class LampsRewardSession: NSObject {
             return
         }
 
-        let timeout = 5000
+        let timeout = 1500
         let requestId = UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
         LampsSDKLog.debug("reward session start requestId=\(requestId)")
         var built: [LampsRewardAdModel] = []

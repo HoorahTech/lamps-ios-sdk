@@ -45,7 +45,7 @@ final class LampsNoahRewardAdapter: NSObject, LampsRewardAdapting {
     func show() {
         guard !didShow else { return }
         guard let rewardedAd, let viewController else {
-            delegate?.rewardAdapter(self, didFailToShow: LampsSDKError.api("汇川激励视频或展示控制器为空").nsError)
+            delegate?.rewardAdapter(self, didFailToShow: LampsSDKError.rewardShowError("汇川激励视频或展示控制器为空").nsError)
             return
         }
         didShow = true
@@ -79,7 +79,7 @@ private extension LampsNoahRewardAdapter {
         timedOut = true
         clearTimer()
         loadTimeMs = elapsedMs()
-        let error = LampsSDKError.api("汇川激励请求超时").nsError
+        let error = LampsSDKError.rewardLoadError("汇川激励请求超时").nsError
         LampsRewardMonitorReporter.reportRM(
             model: model,
             isSuccess: false,

@@ -16,7 +16,7 @@ enum LampsGDTSDKInitializer: LampsSDKInitializing {
         }
         let inited = GDTSDKConfig.initWithAppId(appId)
         guard inited else {
-            completion(false, LampsSDKError.api("优量汇 initWithAppId 失败").nsError)
+            completion(false, LampsSDKError.adSDKInitializeError("优量汇 initWithAppId 失败").nsError)
             return
         }
 

@@ -48,7 +48,7 @@ final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
     func show() {
         guard !didShow else { return }
         guard let expressAd, let viewController else {
-            delegate?.rewardAdapter(self, didFailToShow: LampsSDKError.api("穿山甲激励视频或展示控制器为空").nsError)
+            delegate?.rewardAdapter(self, didFailToShow: LampsSDKError.rewardShowError("穿山甲激励视频或展示控制器为空").nsError)
             return
         }
         didShow = true
@@ -84,7 +84,7 @@ private extension LampsCSJRewardAdapter {
             model: model,
             isSuccess: false,
         )
-        finishLoad(success: false, error: LampsSDKError.api("穿山甲激励请求超时").nsError)
+        finishLoad(success: false, error: LampsSDKError.rewardLoadError("穿山甲激励请求超时").nsError)
     }
 
     func clearTimer() {

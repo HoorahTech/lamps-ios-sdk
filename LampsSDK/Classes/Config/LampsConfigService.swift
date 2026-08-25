@@ -9,7 +9,7 @@ enum LampsConfigService {
         completion: @escaping (Result<LampsRemoteConfig, Error>) -> Void
     ) {
         guard var components = URLComponents(string: LampsEnvironmentStore.current.baseURL + path) else {
-            completion(.failure(LampsSDKError.invalidURL("配置接口地址无效").nsError))
+            completion(.failure(LampsSDKError.configURLError("配置接口地址无效").nsError))
             return
         }
         components.queryItems = [
@@ -19,7 +19,7 @@ enum LampsConfigService {
             URLQueryItem(name: "os", value: LampsDeviceInfo.os)
         ]
         guard let url = components.url else {
-            completion(.failure(LampsSDKError.invalidURL("配置接口 URL 组装失败").nsError))
+            completion(.failure(LampsSDKError.configURLError("配置接口 URL 组装失败").nsError))
             return
         }
 
@@ -32,23 +32,23 @@ enum LampsConfigService {
         LampsSDKLog.debug("config request: \(url.absoluteString)")
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                completion(.failure(LampsSDKError.network("配置请求失败: \(error.localizedDescription)").nsError))
+                completion(.failure(LampsSDKError.configFetchError("配置请求失败: \(error.localizedDescription)").nsError))
                 return
             }
             let status = (response as? HTTPURLResponse)?.statusCode ?? -1
             guard let data = data, !data.isEmpty else {
-                completion(.failure(LampsSDKError.api("配置响应为空, http=\(status)").nsError))
+                completion(.failure(LampsSDKError.configFetchError("配置响应为空, http=\(status)").nsError))
                 return
             }
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 guard let root = json as? [String: Any] else {
-                    completion(.failure(LampsSDKError.api("配置响应格式错误").nsError))
+                    completion(.failure(LampsSDKError.configFetchError("配置响应格式错误").nsError))
                     return
                 }
                 guard let dataObject = root["data"] as? [String: Any],
                       let remote = LampsRemoteConfig.parse(from: dataObject) else {
-                    completion(.failure(LampsSDKError.api("配置 data 解析失败").nsError))
+                    completion(.failure(LampsSDKError.configFetchError("配置 data 解析失败").nsError))
                     return
                 }
                 LampsConfigCache.save(
@@ -61,7 +61,7 @@ enum LampsConfigService {
                 )
                 completion(.success(remote))
             } catch {
-                completion(.failure(LampsSDKError.api("配置 JSON 解析失败: \(error.localizedDescription)").nsError))
+                completion(.failure(LampsSDKError.configFetchError("配置 JSON 解析失败: \(error.localizedDescription)").nsError))
             }
         }.resume()
     }
