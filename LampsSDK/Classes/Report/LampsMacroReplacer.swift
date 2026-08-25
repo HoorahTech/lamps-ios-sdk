@@ -12,7 +12,7 @@ enum LampsMacroReplacer {
     ) -> [String] {
         let replaceInfo = buildReplaceInfo(type: type, adInfo: adInfo, extra: extra)
         var result = urls.map { replaceMacros(in: $0, with: replaceInfo) }
-        if type == .rem {
+        if type == .rem || type == .pm {
             result = result.map { replaceRemSignIfNeeded(in: $0) }
         }
         return result
@@ -29,7 +29,7 @@ enum LampsMacroReplacer {
 
         // 通用时间、OS
         let now = Date().timeIntervalSince1970
-        put(&info, "__TS__", "\(Int(now*1000))")
+        put(&info, "__TS__", "\(Int(now))")
         put(&info, "__OS__", "iOS")
 
         // 屏幕物理像素
@@ -119,7 +119,7 @@ enum LampsMacroReplacer {
         return result
     }
 
-    /// REM：query 7 参字母升序拼接 + 远端 token，MD5 小写 hex 替换 `__REM_SIGN__`
+    /// REM：query 6 参字母升序拼接 + 远端 token，MD5 小写 hex 替换 `__REM_SIGN__`
     private static func replaceRemSignIfNeeded(in url: String) -> String {
         guard url.contains("__REM_SIGN__") else { return url }
         let key = Lamps.effectiveRewardSignKey
@@ -129,7 +129,7 @@ enum LampsMacroReplacer {
     }
 
     private static func remSign(for urlString: String, rewardSignKey: String) -> String? {
-        let signKeys = ["adpid", "app_version", "cid", "forward_source", "price", "puid", "request_id"]
+        let signKeys = ["appid", "forwardSource", "price", "requestId", "sdkVersion", "slotId"]
         let query = queryParameters(from: urlString)
         var parts: [String] = []
         for key in signKeys {
