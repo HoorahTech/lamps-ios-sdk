@@ -53,6 +53,7 @@ Pod::Spec.new do |s|
     end
     ss.frameworks = 'Foundation', 'UIKit', 'WebKit', 'AdSupport', 'SystemConfiguration', 'CoreTelephony'
     ss.weak_frameworks = 'AppTrackingTransparency'
+    ss.libraries = 'z'
   end
 
   s.subspec 'CSJAdapter' do |ss|

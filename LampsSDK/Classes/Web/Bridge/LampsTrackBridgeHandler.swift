@@ -1,7 +1,9 @@
 import Foundation
 
-/// 性能/事件上报：H5 `lamps.common.track`，Native 对入参 `url` 直接 GET。
-/// `type` 为预留字段，暂不参与业务判断。
+/// 性能/事件上报：H5 `lamps.common.track`。
+/// Native 请求当前环境 `baseURL` + `/api/v1/event/report`。
+/// 外层为客户端参数 + `type`，H5 `data` 其余字段放在 `pdata`。
+/// 请求 body：JSON UTF-8 → GZIP → Base64（无换行）。
 @objcMembers
 final class LampsTrackBridgeHandler: NSObject, LampsBridgeHandler {
     weak var bridge: LampsBridge?
@@ -21,13 +23,23 @@ final class LampsTrackBridgeHandler: NSObject, LampsBridgeHandler {
             return
         }
 
-        let urlString = stringValue(data["url"])
-        guard let url = makeHTTPURL(from: urlString) else {
-            error?(["msg": "url 无效，须为完整 http(s) URL"])
+        guard let url = makeReportURL() else {
+            error?(["msg": "上报地址无效"])
             return
         }
 
-        sendTrack(url: url, success: success, error: error)
+        let params = makeReportBody(from: data)
+        guard JSONSerialization.isValidJSONObject(params),
+              let jsonUTF8 = try? JSONSerialization.data(withJSONObject: params) else {
+            error?(["msg": "data 无法序列化为 JSON"])
+            return
+        }
+        guard let gzipData = LampsGzip.compress(jsonUTF8) else {
+            error?(["msg": "gzip 压缩失败"])
+            return
+        }
+        let body = gzipData.base64EncodedData(options: [])
+        sendTrack(url: url, body: body, success: success, error: error)
     }
 }
 
@@ -36,25 +48,41 @@ private extension LampsTrackBridgeHandler {
         static let track = "lamps.common.track"
     }
 
-    func makeHTTPURL(from string: String) -> URL? {
-        guard let url = URL(string: string), let scheme = url.scheme?.lowercased() else {
-            return nil
+    static let path = "/api/v1/event/report"
+
+    func makeReportURL() -> URL? {
+        URL(string: LampsEnvironmentStore.current.baseURL + Self.path)
+    }
+
+    func makeReportBody(from data: [AnyHashable: Any]) -> [String: Any] {
+        var body = LampsBridgeClientInfo.dictionary()
+        body["type"] = ""
+        var pdata: [String: Any] = [:]
+        for (key, value) in data {
+            let name = String(describing: key)
+            if name == "type" {
+                body["type"] = value as? String ?? ""
+            } else {
+                pdata[name] = value as? String ?? ""
+            }
         }
-        guard scheme == "http" || scheme == "https", url.host != nil else {
-            return nil
-        }
-        return url
+        body["pdata"] = pdata
+        return body
     }
 
     func sendTrack(
         url: URL,
+        body: Data,
         success: LampsBridgeToH5Callback?,
         error: LampsBridgeToH5Callback?
     ) {
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = "POST"
         request.timeoutInterval = 15
-        LampsSDKLog.debug("bridge track GET \(url.absoluteString)")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = body
+        LampsSDKLog.debug("bridge track POST \(url.absoluteString)")
         URLSession.shared.dataTask(with: request) { _, response, requestError in
             DispatchQueue.main.async {
                 if let requestError = requestError {
@@ -71,15 +99,5 @@ private extension LampsTrackBridgeHandler {
                 }
             }
         }.resume()
-    }
-
-    func stringValue(_ value: Any?) -> String {
-        if let text = value as? String {
-            return text.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        if let number = value as? NSNumber {
-            return number.stringValue
-        }
-        return ""
     }
 }

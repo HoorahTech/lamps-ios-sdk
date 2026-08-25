@@ -75,6 +75,7 @@ private enum BridgeDemoHTML {
     <body>
       <h3>Lamps Bridge Demo</h3>
       <button onclick="ping()">调用 Native ping</button>
+      <button onclick="bridgeReady()">调用 Native bridgeReady</button>
       <button onclick="closePage()">调用 Native close</button>
       <pre id="log">等待操作...</pre>
       <script>
@@ -122,6 +123,13 @@ private enum BridgeDemoHTML {
             log('ping 成功: ' + JSON.stringify(result));
           }, function(error) {
             log('ping 失败: ' + JSON.stringify(error));
+          });
+        }
+        function bridgeReady() {
+          LampsBridge.call('lamps.common.bridgeReady', {}, function(result) {
+            log('bridgeReady 成功: ' + JSON.stringify(result));
+          }, function(error) {
+            log('bridgeReady 失败: ' + JSON.stringify(error));
           });
         }
         function closePage() {
