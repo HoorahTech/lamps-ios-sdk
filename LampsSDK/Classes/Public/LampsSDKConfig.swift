@@ -11,9 +11,9 @@ public final class LampsSDKConfig: NSObject, NSCopying {
     // MARK: - 三方广告 SDK 初始化开关（由 Lamps 在 start 时写入各家 SDK）
 
     /// 是否开启个性化推荐广告，默认开启。
-    public var personalizedRecommendEnabled: Bool = true
+    public var personalizedRecommendEnabled: Bool = false
     /// 是否开启摇一摇类互动广告，默认开启。
-    public var shakeAdsEnabled: Bool = true
+    public var shakeAdsEnabled: Bool = false
     /// 是否允许广告 SDK 使用定位，默认关闭。
     public var allowLocation: Bool = false
 

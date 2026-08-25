@@ -15,7 +15,7 @@ public final class LampsDevTools: NSObject {
     public static func present(from viewController: UIViewController) {
         enableThirdPartyDebugModesIfNeeded()
         let root = LampsDevToolsViewController()
-        let nav = UINavigationController(rootViewController: root)
+        let nav = LampsDevToolsNavigationController(rootViewController: root)
         nav.modalPresentationStyle = .fullScreen
         viewController.present(nav, animated: true)
     }
@@ -34,5 +34,11 @@ public final class LampsDevTools: NSObject {
         #if canImport(BUAdTestMeasurement)
         BUAdTestMeasurementConfiguration().debugMode = true
         #endif
+    }
+}
+
+private final class LampsDevToolsNavigationController: UINavigationController {
+    override var childForStatusBarStyle: UIViewController? {
+        topViewController
     }
 }

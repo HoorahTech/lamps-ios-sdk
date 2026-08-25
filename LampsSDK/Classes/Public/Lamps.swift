@@ -148,23 +148,42 @@ public final class Lamps: NSObject {
     @_spi(LampsDevTools)
     @nonobjc
     public static var debugStatusText: String {
+        [debugBasicStatusText, debugConfigStatusText].joined(separator: "\n")
+    }
+
+    /// 调试页「基本信息」分区。仅调试工具使用。
+    @_spi(LampsDevTools)
+    @nonobjc
+    public static var debugBasicStatusText: String {
         let config = storedConfig
-        let remote = storedRemoteConfig
-        let slots = remote?.rewardAdSlots.map { "\($0.channelName)/\($0.slotId)" }.joined(separator: ", ") ?? "-"
-        let channels = remote?.channelList.map { "\($0.channelId)/\($0.channelAppId)" }.joined(separator: ", ") ?? "-"
-        let gameCenter = remote?.gameCenterPage ?? ""
         return """
         sdkVersion: \(sdkVersion)
         started: \(started)
         appId: \(config?.appId ?? "-")
         env: \(LampsEnvironmentStore.current.logName)
         debugLog: \(config?.debugLogEnabled ?? false)
+        """
+    }
+
+    /// 调试页「全局配置」分区。仅调试工具使用。
+    @_spi(LampsDevTools)
+    @nonobjc
+    public static var debugConfigStatusText: String {
+        let config = storedConfig
+        let remote = storedRemoteConfig
+        let slots = remote?.rewardAdSlots.map { "\($0.channelName)/\($0.slotId)" }.joined(separator: ", ") ?? "-"
+        let channels = remote?.channelList.map { "\($0.channelId)/\($0.channelAppId)" }.joined(separator: ", ") ?? "-"
+        let gameCenter = remote?.gameCenterPage ?? ""
+        return """
         remoteConfig: \(remote == nil ? "nil" : "ok")
         tokenLen: \(remote?.token.count ?? 0)
         clientIp: \(remote?.clientIp ?? "-")
         channels(\(remote?.channelList.count ?? 0)): \(channels)
         slots(\(remote?.rewardAdSlots.count ?? 0)): \(slots)
         gameCenterPage: \(gameCenter.isEmpty ? "-" : gameCenter)
+        personalizedRecommend: \(config?.personalizedRecommendEnabled ?? true)
+        shakeAds: \(config?.shakeAdsEnabled ?? true)
+        allowLocation: \(config?.allowLocation ?? false)
         """
     }
 
