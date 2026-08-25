@@ -17,7 +17,7 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
 
         // 穿山甲测试工具要求：必须在 BUAdSDKManager.start 之前打开 debugMode。
         // 用运行时检测，避免正式包未链 BUAdTestMeasurement 时链接失败。
-        LampsCSJTestMeasurementBridge.enableDebugModeIfAvailable()
+        LampsCSJTestMeasurement.enableDebugModeIfAvailable()
 
         let shakeValue = config.shakeAdsEnabled ? 1 : 0
         let userExtData = "[{\"name\":\"is_shake_ads\", \"value\":\"\(shakeValue)\"}]"
@@ -28,7 +28,7 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
         if config.debugLogEnabled {
             configuration.debugLog = NSNumber(value: 1)
         }
-        if LampsCSJTestMeasurementBridge.isAvailable() {
+        if LampsCSJTestMeasurement.isAvailable {
             // 与 HCAD 对齐：测试工具场景打开 SDKDEBUG
             configuration.sdkdebug = true
         }

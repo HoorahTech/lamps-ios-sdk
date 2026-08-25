@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 /// SDK 启动完成回调，在主线程调用。
 /// - Parameters:
@@ -6,7 +7,7 @@ import Foundation
 ///   - error: 失败原因，`domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
 public typealias LampsStartCompletion = (Bool, Error?) -> Void
 
-/// Lamps SDK 入口。接入方 `import LampsSDK` 后调用 `start`，再用 `LampsWebViewController` 打开活动页。
+/// Lamps SDK 入口。接入方 `import LampsSDK` 后先 `start`，再 `showGameCenter(from:)` 打开游戏中心，或 `makeGameCenterView()` 嵌入页面。
 /// 类名不用 `LampsSDK`，避免与模块名冲突。
 @objcMembers
 public final class Lamps: NSObject {
@@ -64,6 +65,38 @@ public final class Lamps: NSObject {
         storedConfig
     }
 
+    /// 打开配置下发的游戏中心页。请先 `start` 成功。
+    ///
+    /// 参数可以是 `UINavigationController`，也可以是栈内任意页面：有导航栈则 `push`，否则全屏 `present`。
+    /// - Returns: 已发起跳转为 `true`；未 start、地址为空或 URL 不合法为 `false`。
+    @discardableResult
+    @objc(showGameCenterFromViewController:)
+    public static func showGameCenter(from viewController: UIViewController) -> Bool {
+        guard let urlString = resolvedGameCenterPageURL() else { return false }
+        let page = LampsWebViewController(urlString: urlString)
+        if let nav = viewController as? UINavigationController {
+            nav.pushViewController(page, animated: true)
+        } else if let nav = viewController.navigationController {
+            nav.pushViewController(page, animated: true)
+        } else {
+            page.modalPresentationStyle = .fullScreen
+            viewController.present(page, animated: true)
+        }
+        return true
+    }
+
+    /// 使用配置下发的 `gameCenterPage` 创建可内嵌视图。请先 `start` 成功。
+    /// 返回的是内部 WebView，类型对外为 `UIView`。地址不可用时返回 `nil`。
+    /// 请由宿主加入自己的视图层级并设置约束。
+    @objc(makeGameCenterView)
+    public static func makeGameCenterView() -> UIView? {
+        guard let urlString = resolvedGameCenterPageURL() else { return nil }
+        let webView = LampsWebView()
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
+        guard webView.load(urlString: urlString) else { return nil }
+        return webView
+    }
+
     /// 远端配置；未拉取成功时为 nil。仅 SDK 内部使用。
     static var remoteConfig: LampsRemoteConfig? {
         storedRemoteConfig
@@ -119,6 +152,7 @@ public final class Lamps: NSObject {
         let remote = storedRemoteConfig
         let slots = remote?.rewardAdSlots.map { "\($0.channelName)/\($0.slotId)" }.joined(separator: ", ") ?? "-"
         let channels = remote?.channelList.map { "\($0.channelId)/\($0.channelAppId)" }.joined(separator: ", ") ?? "-"
+        let gameCenter = remote?.gameCenterPage ?? ""
         return """
         sdkVersion: \(sdkVersion)
         started: \(started)
@@ -130,6 +164,7 @@ public final class Lamps: NSObject {
         clientIp: \(remote?.clientIp ?? "-")
         channels(\(remote?.channelList.count ?? 0)): \(channels)
         slots(\(remote?.rewardAdSlots.count ?? 0)): \(slots)
+        gameCenterPage: \(gameCenter.isEmpty ? "-" : gameCenter)
         """
     }
 
@@ -172,5 +207,18 @@ public final class Lamps: NSObject {
         }
         didInitializeAdSDKs = true
         LampsSDKAdapterCenter.initializeSDKs(config: config, completion: completion)
+    }
+
+    private static func resolvedGameCenterPageURL() -> String? {
+        let url = storedRemoteConfig?.gameCenterPage.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        guard started else {
+            LampsSDKLog.debug("gameCenterPage skipped: not started")
+            return nil
+        }
+        guard !url.isEmpty, LampsWebView.makeURL(from: url) != nil else {
+            LampsSDKLog.debug("gameCenterPage unavailable url=\(url)")
+            return nil
+        }
+        return url
     }
 }

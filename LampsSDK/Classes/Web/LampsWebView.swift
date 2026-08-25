@@ -1,28 +1,21 @@
 import UIKit
 import WebKit
 
-/// 带 Lamps JSBridge 的 WKWebView。可单独嵌入业务页面；全屏活动请优先用 `LampsWebViewController`。
-@objcMembers
-public class LampsWebView: WKWebView {
-    /// 仅 SDK 内部使用。
-    @nonobjc
+/// 带 Lamps JSBridge 的 WKWebView。仅 SDK 内部使用，宿主请走 `Lamps.showGameCenter(from:)`。
+final class LampsWebView: WKWebView {
     var bridge: LampsBridge!
+    var closeHandler: (() -> Void)?
 
-    /// H5 通过 Bridge 调用 `close` 时触发。
-    /// 使用 `LampsWebViewController` 时无需设置；自行承载时请在此关闭当前页面。
-    public var closeHandler: (() -> Void)?
-
-    /// 使用 SDK 默认配置创建 WebView。
-    public convenience init() {
+    convenience init() {
         self.init(frame: .zero, configuration: LampsWebView.makeConfiguration())
     }
 
-    public override init(frame: CGRect, configuration: WKWebViewConfiguration) {
+    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
         commonSetup()
     }
 
-    required public init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonSetup()
     }
@@ -31,10 +24,8 @@ public class LampsWebView: WKWebView {
         bridge?.uninstall()
     }
 
-    /// 加载活动页。`urlString` 必须包含 scheme 和 host，不合法时返回 `false` 且不发起请求。
     @discardableResult
-    @objc(loadURLString:)
-    public func load(urlString: String) -> Bool {
+    func load(urlString: String) -> Bool {
         guard let url = Self.makeURL(from: urlString) else {
             LampsSDKLog.debug("load skipped: invalid url=\(urlString)")
             return false
@@ -78,7 +69,7 @@ private extension LampsWebView {
 }
 
 extension LampsWebView: WKUIDelegate {
-    public func webView(
+    func webView(
         _ webView: WKWebView,
         createWebViewWith configuration: WKWebViewConfiguration,
         for navigationAction: WKNavigationAction,

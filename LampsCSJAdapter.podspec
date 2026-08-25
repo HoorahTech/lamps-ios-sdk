@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
   s.dependency 'Ads-CN/BUAdSDK'
 
   s.source_files = 'LampsSDK/Classes/CSJAdapter/**/*.{swift,m,h}'
-  s.private_header_files = 'LampsSDK/Classes/CSJAdapter/**/*.h'
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',

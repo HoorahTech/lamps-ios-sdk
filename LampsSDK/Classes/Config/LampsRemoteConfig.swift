@@ -9,6 +9,8 @@ final class LampsRemoteConfig: NSObject {
     var token: String = ""
     var clientIp: String = ""
     var monitorLinks: LampsMonitorLinks = LampsMonitorLinks()
+    /// 接口下发的游戏中心 H5 地址。
+    var gameCenterPage: String = ""
 
     static func parse(from data: [String: Any]?) -> LampsRemoteConfig? {
         guard let data = data else { return nil }
@@ -21,6 +23,7 @@ final class LampsRemoteConfig: NSObject {
         }
         config.token = stringValue(data["token"]) ?? ""
         config.clientIp = stringValue(data["clientIp"]) ?? ""
+        config.gameCenterPage = stringValue(data["gameCenterPage"]) ?? ""
         if let links = data["monitorLinks"] as? [String: Any] {
             config.monitorLinks = LampsMonitorLinks.parse(from: links)
         }

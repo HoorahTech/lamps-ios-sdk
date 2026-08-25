@@ -217,11 +217,11 @@ final class LampsDevToolsViewController: UIViewController {
     }
 
     @objc private func openGDTTool() {
-        guard LampsGDTDevToolBridge.isAvailable() else {
+        guard LampsGDTDevTool.isAvailable else {
             showAlert("未集成优量汇测试工具（GDTDevToolSDK）")
             return
         }
-        guard let toolVC = LampsGDTDevToolBridge.makeToolViewController() else {
+        guard let toolVC = LampsGDTDevTool.makeToolViewController() else {
             showAlert("优量汇调试页创建失败")
             return
         }
@@ -229,11 +229,11 @@ final class LampsDevToolsViewController: UIViewController {
     }
 
     @objc private func openNoahTool() {
-        guard LampsNoahDevToolBridge.isAvailable() else {
+        guard LampsNoahDevTool.isAvailable else {
             showAlert("未集成汇川调试页（NAAdExternalMockViewController）")
             return
         }
-        guard let mockVC = LampsNoahDevToolBridge.makeToolViewController() else {
+        guard let mockVC = LampsNoahDevTool.makeToolViewController() else {
             showAlert("汇川调试页创建失败")
             return
         }

@@ -1,6 +1,6 @@
 PODS:
-  - Ads-CN/BUAdSDK (7.7.0.6)
-  - Ads-CN/BUAdTestMeasurement (7.7.0.6)
+  - Ads-CN/BUAdSDK (7.7.0.7)
+  - Ads-CN/BUAdTestMeasurement (7.7.0.7)
   - AFNetworking (4.0.1):
     - AFNetworking/NSURLSession (= 4.0.1)
     - AFNetworking/Reachability (= 4.0.1)
@@ -70,12 +70,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Ads-CN: 13a913e6c7b1874bb1676322046e864ac312dbaa
+  Ads-CN: 371e2b74beeb100c70daae4e7a7823858cb81e7c
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   GDTDevToolSDK: 18424c3599f830bd7f37975fc267d998f904f632
   GDTMobSDK: 29605d509a4c2ff68afce3736ffc32d6e7290e71
-  LampsDevTools: a68ef4a1b3122ee125f244961f05912fa5177e41
-  LampsSDK: 9f1e9e6aa74f3a89ab3eb09484fece1ef055b75e
+  LampsDevTools: 2624eb016c631e77a6268e7664abd01bf263b354
+  LampsSDK: 9d7cda85943a90b744e31dc8254673622a80a3c7
   SDWebImage: e9fc87c1aab89a8ab1bbd74eba378c6f53be8abf
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 

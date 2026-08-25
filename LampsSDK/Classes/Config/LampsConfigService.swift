@@ -57,7 +57,7 @@ enum LampsConfigService {
                     environment: LampsEnvironmentStore.current
                 )
                 LampsSDKLog.debug(
-                    "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) ip=\(remote.clientIp)"
+                    "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) ip=\(remote.clientIp) gameCenter=\(!remote.gameCenterPage.isEmpty)"
                 )
                 completion(.success(remote))
             } catch {

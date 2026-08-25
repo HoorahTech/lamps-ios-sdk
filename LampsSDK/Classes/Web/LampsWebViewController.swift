@@ -12,8 +12,8 @@ public final class LampsWebViewController: UIViewController {
 
     private var previousNavigationBarHidden: Bool?
 
-    /// 页面内 WebView，一般无需直接操作。
-    public private(set) lazy var webView: LampsWebView = {
+    /// 页面内 WebView，仅 SDK 内部使用。
+    private lazy var webView: LampsWebView = {
         let webView = LampsWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.contentInsetAdjustmentBehavior = .never

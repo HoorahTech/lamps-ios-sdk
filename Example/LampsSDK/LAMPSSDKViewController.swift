@@ -6,7 +6,7 @@ import LampsDevTools
 final class LAMPSSDKViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
-            makeButton(title: "打开 WebView", action: #selector(openWebView)),
+            makeButton(title: "打开游戏中心", action: #selector(openWebView)),
             makeButton(title: "打开 Bridge Demo", action: #selector(openBridgeDemo)),
             makeButton(title: "调试工具", action: #selector(openDevTools))
         ])
@@ -43,8 +43,9 @@ final class LAMPSSDKViewController: UIViewController {
     }
 
     @objc private func openWebView() {
-        let webVC = LampsWebViewController(urlString: "https://activity-static.hupu.com/colorbox-activities/activity-project-ai-1787297060404/index.html?t=1787297083963")
-        navigationController?.pushViewController(webVC, animated: true)
+        if !Lamps.showGameCenter(from: self) {
+            NSLog("[LampsSDK Demo] gameCenterPage unavailable")
+        }
     }
 
     @objc private func openBridgeDemo() {
