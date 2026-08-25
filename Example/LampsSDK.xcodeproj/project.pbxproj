@@ -20,6 +20,7 @@
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		A01111111111111111111102 /* LAMPSSDKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111101 /* LAMPSSDKAppDelegate.swift */; };
 		A01111111111111111111104 /* LAMPSSDKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111103 /* LAMPSSDKViewController.swift */; };
+		A01111111111111111111108 /* LAMPSSDKGameCenterEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111107 /* LAMPSSDKGameCenterEmbedViewController.swift */; };
 		A01111111111111111111106 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111105 /* Tests.swift */; };
 		D094AF57D651AF4DF2A842C1 /* libPods-LampsSDK_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0859E0DDAFC2DF327DF691 /* libPods-LampsSDK_Example.a */; };
 		E561276284549A1924AD0C24 /* libPods-LampsSDK_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF82C9325203947600B11A78 /* libPods-LampsSDK_Tests.a */; };
@@ -58,6 +59,7 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A01111111111111111111101 /* LAMPSSDKAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKAppDelegate.swift; sourceTree = "<group>"; };
 		A01111111111111111111103 /* LAMPSSDKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKViewController.swift; sourceTree = "<group>"; };
+		A01111111111111111111107 /* LAMPSSDKGameCenterEmbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKGameCenterEmbedViewController.swift; sourceTree = "<group>"; };
 		A01111111111111111111105 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		B749028FDBCAF72F86D318F3 /* Pods-LampsSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampsSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C6BC21A48FC032426EAD1F36 /* Pods-LampsSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampsSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				A01111111111111111111101 /* LAMPSSDKAppDelegate.swift */,
 				A01111111111111111111103 /* LAMPSSDKViewController.swift */,
+				A01111111111111111111107 /* LAMPSSDKGameCenterEmbedViewController.swift */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -393,6 +396,7 @@
 			files = (
 				A01111111111111111111102 /* LAMPSSDKAppDelegate.swift in Sources */,
 				A01111111111111111111104 /* LAMPSSDKViewController.swift in Sources */,
+				A01111111111111111111108 /* LAMPSSDKGameCenterEmbedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

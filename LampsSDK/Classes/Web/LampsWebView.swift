@@ -57,7 +57,6 @@ final class LampsWebView: WKWebView {
 
 private extension LampsWebView {
     func commonSetup() {
-        allowsBackForwardNavigationGestures = true
         uiDelegate = self
         let bridge = LampsBridge(webView: self)
         self.bridge = bridge

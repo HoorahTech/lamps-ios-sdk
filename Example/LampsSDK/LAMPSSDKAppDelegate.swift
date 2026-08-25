@@ -38,6 +38,10 @@ private final class LAMPSSDKNavigationController: UINavigationController, UIGest
         interactivePopGestureRecognizer?.delegate = self
     }
 
+    override var childForStatusBarStyle: UIViewController? {
+        topViewController
+    }
+
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         viewControllers.count > 1
     }
