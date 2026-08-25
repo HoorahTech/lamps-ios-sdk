@@ -65,6 +65,37 @@
             "funcSelfKind": "NonMutating"
           },
           {
+            "kind": "Function",
+            "name": "push",
+            "printedName": "push(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsDevTools@objc(cs)LampsDevTools(cm)pushFromViewController:",
+            "mangledName": "$s13LampsDevToolsAAC4push4fromySo16UIViewControllerC_tFZ",
+            "moduleName": "LampsDevTools",
+            "static": true,
+            "objc_name": "pushFromViewController:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init()",
@@ -197,6 +228,13 @@
         "printedName": "BUAdTestMeasurement",
         "declKind": "Import",
         "moduleName": "LampsDevTools"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsDevTools"
       }
     ],
     "json_format_version": 8
@@ -204,129 +242,262 @@
   "ConstValues": [
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 480,
-      "length": 2,
-      "value": "12"
+      "kind": "StringLiteral",
+      "offset": 615,
+      "length": 10,
+      "value": "\"LampsSDK\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 627,
+      "length": 12,
+      "value": "\"三方 SDK\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 649,
+      "offset": 681,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 830,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 743,
+      "offset": 922,
       "length": 2,
-      "value": "13"
+      "value": "14"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 827,
+      "offset": 1103,
       "length": 2,
-      "value": "13"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 999,
-      "length": 12,
-      "value": "\"正式 prd\""
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 1150,
-      "length": 12,
-      "value": "\"测试 dev\""
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1423,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1613,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1656,
-      "length": 2,
-      "value": "12"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "StringLiteral",
-      "offset": 1713,
-      "length": 101,
-      "value": "\"默认正式环境。切换后重新拉取配置，并在本机记住（下次启动仍生效）。\""
+      "value": "14"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1908,
-      "length": 4,
-      "value": "0.10"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "FloatLiteral",
-      "offset": 1921,
-      "length": 4,
-      "value": "0.46"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "FloatLiteral",
-      "offset": 1933,
-      "length": 4,
-      "value": "0.82"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1946,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
-      "kind": "FloatLiteral",
-      "offset": 2010,
+      "offset": 1340,
       "length": 4,
       "value": "0.95"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 2023,
+      "offset": 1353,
       "length": 4,
       "value": "0.95"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 2035,
+      "offset": 1365,
       "length": 4,
       "value": "0.96"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 2048,
+      "offset": 1378,
       "length": 1,
       "value": "1"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1556,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1687,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 1739,
+      "length": 3,
+      "value": "0.9"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1751,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2022,
+      "length": 2,
+      "value": "20"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2115,
+      "length": 3,
+      "value": "-20"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2182,
+      "length": 2,
+      "value": "32"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 2245,
+      "length": 3,
+      "value": "1.0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6619,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 6934,
+      "length": 12,
+      "value": "\"正式 prd\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 7123,
+      "length": 12,
+      "value": "\"测试 dev\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7418,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7608,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7651,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 7708,
+      "length": 101,
+      "value": "\"默认正式环境。切换后重新拉取配置，并在本机记住（下次启动仍生效）。\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 12284,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 16557,
+      "length": 4,
+      "value": "0.10"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 16570,
+      "length": 4,
+      "value": "0.46"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 16582,
+      "length": 4,
+      "value": "0.82"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 16595,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 16651,
+      "length": 4,
+      "value": "0.95"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 16664,
+      "length": 4,
+      "value": "0.95"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "FloatLiteral",
+      "offset": 16676,
+      "length": 4,
+      "value": "0.96"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsDevToolsViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 16689,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsThirdPartyDevTools.swift",
+      "kind": "StringLiteral",
+      "offset": 325,
+      "length": 15,
+      "value": "\"GDTDevToolSDK\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsThirdPartyDevTools.swift",
+      "kind": "StringLiteral",
+      "offset": 437,
+      "length": 28,
+      "value": "\"ensureEnableToolVcInDebug:\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Debug\/LampsThirdPartyDevTools.swift",
+      "kind": "BooleanLiteral",
+      "offset": 693,
+      "length": 4,
+      "value": "true"
     }
   ]
 }

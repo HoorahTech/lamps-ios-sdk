@@ -11,13 +11,3 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-@_inheritsConvenienceInitializers @objc(LampsNoahRewardAdapterRegistrar) final public class LampsNoahRewardAdapterRegistrar : ObjectiveC.NSObject {
-  @objc public static func registerIfNeeded()
-  @objc override dynamic public init()
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @objc(LampsNoahSDKInitializerRegistrar) final public class LampsNoahSDKInitializerRegistrar : ObjectiveC.NSObject {
-  @objc public static func registerIfNeeded()
-  @objc override dynamic public init()
-  @objc deinit
-}

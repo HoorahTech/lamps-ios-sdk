@@ -17,6 +17,7 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+import zlib
 public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swift.Void
 @objc @_inheritsConvenienceInitializers @objcMembers final public class Lamps : ObjectiveC.NSObject {
   @objc public static let sdkVersion: Swift.String
@@ -31,15 +32,17 @@ public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swif
     @objc get
   }
   #endif
+  @discardableResult
+  @objc(showGameCenterFromViewController:) public static func showGameCenter(from viewController: UIKit.UIViewController) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(makeGameCenterView) public static func makeGameCenterView() -> UIKit.UIView?
+  #endif
   @objc override dynamic public init()
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @objcMembers final public class LampsSDKConfig : ObjectiveC.NSObject, Foundation.NSCopying {
   @objc final public var appId: Swift.String
   @objc final public var debugLogEnabled: Swift.Bool
-  @objc final public var csjAppId: Swift.String
-  @objc final public var gdtAppId: Swift.String
-  @objc final public var noahAppKey: Swift.String
   @objc final public var personalizedRecommendEnabled: Swift.Bool
   @objc final public var shakeAdsEnabled: Swift.Bool
   @objc final public var allowLocation: Swift.Bool
@@ -51,12 +54,14 @@ public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swif
 }
 public let LampsSDKErrorDomain: Swift.String
 @objc public enum LampsSDKErrorCode : Swift.Int {
-  case notImplemented = -1001
-  case notStarted = -1002
-  case invalidConfig = -1003
-  case invalidURL = -1004
-  case network = -1005
-  case api = -1006
+  case notStarted = -1001
+  case invalidConfig = -1002
+  case configURLError = -1003
+  case configFetchError = -1004
+  case adSDKInitializeError = -1005
+  case rewardBusy = -1006
+  case rewardLoadError = -1007
+  case rewardShowError = -1008
   #if compiler(>=5.3) && $NonescapableTypes
   public init?(rawValue: Swift.Int)
   #endif
@@ -65,49 +70,9 @@ public let LampsSDKErrorDomain: Swift.String
     get
   }
 }
-public enum LampsSDKError {
-  case notImplemented(Swift.String)
-  case notStarted(Swift.String)
-  case invalidConfig(Swift.String)
-  case invalidURL(Swift.String)
-  case network(Swift.String)
-  case api(Swift.String)
-  public var nsError: Foundation.NSError {
-    get
-  }
-}
-public enum LampsSDKLog {
-  public static func debug(_ message: Swift.String)
-}
-@objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency public class LampsWebView : WebKit.WKWebView {
-  @objc @_Concurrency.MainActor @preconcurrency public var closeHandler: (() -> Swift.Void)? {
-    @objc get
-    @objc set
-  }
-  @_Concurrency.MainActor @preconcurrency @objc convenience dynamic public init()
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect, configuration: WebKit.WKWebViewConfiguration)
-  #if compiler(>=5.3) && $NonescapableTypes
-  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
-  #endif
-  @objc deinit
-  @discardableResult
-  @objc(loadURLString:) @_Concurrency.MainActor @preconcurrency public func load(urlString: Swift.String) -> Swift.Bool
-  #if compiler(>=5.3) && $NonescapableTypes
-  @objc @_Concurrency.MainActor @preconcurrency public static func makeURL(from string: Swift.String) -> Foundation.URL?
-  #endif
-  @objc @_Concurrency.MainActor @preconcurrency public static func makeConfiguration() -> WebKit.WKWebViewConfiguration
-}
-extension LampsSDK.LampsWebView : WebKit.WKUIDelegate {
-  #if compiler(>=5.3) && $NonescapableTypes
-  @_Concurrency.MainActor @preconcurrency @objc dynamic public func webView(_ webView: WebKit.WKWebView, createWebViewWith configuration: WebKit.WKWebViewConfiguration, for navigationAction: WebKit.WKNavigationAction, windowFeatures: WebKit.WKWindowFeatures) -> WebKit.WKWebView?
-  #endif
-}
 @objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsWebViewController : UIKit.UIViewController {
   @objc @_Concurrency.MainActor @preconcurrency final public let urlString: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency final public let htmlString: Swift.String?
-  @objc @_Concurrency.MainActor @preconcurrency final public var webView: LampsSDK.LampsWebView {
-    @objc get
-  }
   @objc(initWithURLString:) @_Concurrency.MainActor @preconcurrency convenience public init(urlString: Swift.String)
   @objc(initWithHTMLString:) @_Concurrency.MainActor @preconcurrency convenience public init(htmlString: Swift.String)
   #if compiler(>=5.3) && $NonescapableTypes
@@ -116,6 +81,7 @@ extension LampsSDK.LampsWebView : WebKit.WKUIDelegate {
   @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
   @_Concurrency.MainActor @preconcurrency @objc override final public func viewWillAppear(_ animated: Swift.Bool)
   @_Concurrency.MainActor @preconcurrency @objc override final public func viewWillDisappear(_ animated: Swift.Bool)
+  @objc @_Concurrency.MainActor @preconcurrency final public func closePage()
   @objc deinit
 }
 extension LampsSDK.LampsSDKErrorCode : Swift.Equatable {}

@@ -3,7 +3,6 @@
 // swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name LampsCSJAdapter
 // swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
 import BUAdSDK
-import BUAdTestMeasurement
 import Foundation
 @_exported import LampsCSJAdapter
 @_spi(LampsAdapter) import LampsSDK
@@ -12,13 +11,3 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-@_inheritsConvenienceInitializers @objc(LampsCSJRewardAdapterRegistrar) final public class LampsCSJRewardAdapterRegistrar : ObjectiveC.NSObject {
-  @objc public static func registerIfNeeded()
-  @objc override dynamic public init()
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @objc(LampsCSJSDKInitializerRegistrar) final public class LampsCSJSDKInitializerRegistrar : ObjectiveC.NSObject {
-  @objc public static func registerIfNeeded()
-  @objc override dynamic public init()
-  @objc deinit
-}

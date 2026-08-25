@@ -281,11 +281,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import CoreFoundation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
-@import WebKit;
 #endif
 
 #endif
@@ -310,28 +308,40 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSString;
 @class LampsSDKConfig;
-/// 对外总入口。宿主 <code>import LampsSDK</code> 后调用 <code>Lamps.start(config:completion:)</code>。
-/// 类名刻意不用 <code>LampsSDK</code>，避免与模块名同名导致 <code>.swiftinterface</code> 解析冲突。
+@class UIViewController;
+@class UIView;
+/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，或 <code>makeGameCenterView()</code> 嵌入页面。
+/// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 @interface Lamps : NSObject
-/// 与 <code>LampsSDK.podspec</code> 的 <code>s.version</code> 保持一致。
+/// 当前 SDK 版本号。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull sdkVersion;)
 + (NSString * _Nonnull)sdkVersion SWIFT_WARN_UNUSED_RESULT;
-/// 启动 SDK。
-/// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 <code>/v1/lamps/config</code> → 回调。
-/// 配置接口失败时：有缓存则仍成功（继续用缓存）；无缓存则回调失败。
-/// 配置环境默认正式；测试环境请在 <code>LampsDevTools</code> 中切换。
+/// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
+/// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
+/// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
+/// 默认正式环境；测试环境请用 <code>LampsDevTools</code> 切换。
+/// \param config 初始化配置，<code>appId</code> 必填。SDK 会拷贝一份，之后修改原对象不会生效。
+///
+/// \param completion 启动完成回调，主线程。
+///
 + (void)startWithConfig:(LampsSDKConfig * _Nonnull)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 是否已调用过 <code>start</code>。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 + (BOOL)isStarted SWIFT_WARN_UNUSED_RESULT;
-/// 当前生效配置；未启动时为 nil。
+/// 最近一次 <code>start</code> 使用的配置；尚未启动时为 <code>nil</code>。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConfig * _Nullable config;)
 + (LampsSDKConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
-/// 清除当前环境的 Config 磁盘缓存。宿主普通 import 不可见。
-+ (BOOL)debugClearConfigCache SWIFT_WARN_UNUSED_RESULT;
-/// 调试页展示用，宿主普通 import 不可见。
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull debugStatusText;)
-+ (NSString * _Nonnull)debugStatusText SWIFT_WARN_UNUSED_RESULT;
+/// 打开配置下发的游戏中心页。请先 <code>start</code> 成功。
+/// 参数可以是 <code>UINavigationController</code>，也可以是栈内任意页面：有导航栈则 <code>push</code>，否则全屏 <code>present</code>。
+///
+/// returns:
+/// 已发起跳转为 <code>true</code>；未 start、地址为空或 URL 不合法为 <code>false</code>。
++ (BOOL)showGameCenterFromViewController:(UIViewController * _Nonnull)viewController;
+/// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
+/// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
+/// 请由宿主加入自己的视图层级并设置约束。
++ (UIView * _Nullable)makeGameCenterView SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -343,82 +353,64 @@ SWIFT_CLASS("_TtC8LampsSDK18LampsRewardAdModel")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-/// SDK 初始化配置。
+/// 初始化参数。在调用 <code>Lamps.start</code> 之前设置。
 SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @interface LampsSDKConfig : NSObject <NSCopying>
-/// 宿主分配的应用标识，初始化时必填。
+/// 分配给宿主 App 的应用 ID，必填。
 @property (nonatomic, copy) NSString * _Nonnull appId;
-/// 是否打印 SDK 调试日志，默认 false。
+/// 是否打印 <code>[LampsSDK]</code> 调试日志。正式包请保持关闭。
 @property (nonatomic) BOOL debugLogEnabled;
-/// 穿山甲 AppId；非空且集成 CSJ Subspec 时会在 start 中初始化。
-/// 宿主已自行初始化（如 HCAD）时请留空，避免二次 init。
-@property (nonatomic, copy) NSString * _Nonnull csjAppId;
-/// 优量汇 AppId；非空且集成 GDT Subspec 时会在 start 中初始化。
-/// 宿主已自行初始化时请留空。
-@property (nonatomic, copy) NSString * _Nonnull gdtAppId;
-/// 汇川 AppKey；非空且集成 Noah Subspec 时会在 start 中初始化。
-/// 宿主已自行初始化时请留空。
-@property (nonatomic, copy) NSString * _Nonnull noahAppKey;
-/// 是否开启个性化推荐，默认 true。
-/// 优量汇：<code>setPersonalizedState</code>（false → 关闭个性化）。
+/// 是否开启个性化推荐广告，默认开启。
 @property (nonatomic) BOOL personalizedRecommendEnabled;
-/// 是否开启摇一摇类互动广告，默认 true。
-/// 穿山甲：<code>userExtData.is_shake_ads</code>；优量汇：<code>shakable</code>。
+/// 是否开启摇一摇类互动广告，默认开启。
 @property (nonatomic) BOOL shakeAdsEnabled;
-/// 是否允许广告 SDK 使用定位，默认 false（更稳妥的隐私默认）。
-/// 汇川：<code>forbidHcGetLocationInfo = !allowLocation</code>。
+/// 是否允许广告 SDK 使用定位，默认关闭。
 @property (nonatomic) BOOL allowLocation;
 - (id _Nonnull)copyWithZone:(struct _NSZone * _Nullable)zone SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+/// <code>Lamps.start</code> 失败时 <code>NSError.code</code>。
 typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
-  LampsSDKErrorCodeNotImplemented = -1001,
-  LampsSDKErrorCodeNotStarted = -1002,
-  LampsSDKErrorCodeInvalidConfig = -1003,
-  LampsSDKErrorCodeInvalidURL = -1004,
-  LampsSDKErrorCodeNetwork = -1005,
-  LampsSDKErrorCodeApi = -1006,
+/// 尚未调用 <code>Lamps.start</code>。
+  LampsSDKErrorCodeNotStarted = -1001,
+/// 初始化参数不合法，例如 <code>appId</code> 为空。
+  LampsSDKErrorCodeInvalidConfig = -1002,
+/// 配置接口地址无效或 URL 组装失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeConfigURLError = -1003,
+/// 配置请求失败，或响应为空 / 格式错误 / 解析失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeConfigFetchError = -1004,
+/// 广告 SDK 初始化失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeAdSDKInitializeError = -1005,
+/// 激励视频进行中，无法开始新的一次。
+  LampsSDKErrorCodeRewardBusy = -1006,
+/// 激励视频请求 / 加载失败（含超时、全部渠道失败）。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeRewardLoadError = -1007,
+/// 激励视频展示失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeRewardShowError = -1008,
 };
 
-@class WKWebViewConfiguration;
 @class NSCoder;
-@class NSURL;
-/// 可独立使用的 WKWebView 子类。页面加载与 Bridge 都挂在这个 View 上。
-SWIFT_CLASS("_TtC8LampsSDK12LampsWebView")
-@interface LampsWebView : WKWebView
-/// H5 调用 <code>close</code> 时触发。
-@property (nonatomic, copy) void (^ _Nullable closeHandler)(void);
-- (nonnull instancetype)init;
-- (nonnull instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration * _Nonnull)configuration OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-/// 按字符串加载页面。URL 不合法时返回 false。
-- (BOOL)loadURLString:(NSString * _Nonnull)urlString;
-+ (NSURL * _Nullable)makeURLFrom:(NSString * _Nonnull)string SWIFT_WARN_UNUSED_RESULT;
-+ (WKWebViewConfiguration * _Nonnull)makeConfiguration SWIFT_WARN_UNUSED_RESULT;
-@end
-
-@class WKNavigationAction;
-@class WKWindowFeatures;
-@interface LampsWebView (SWIFT_EXTENSION(LampsSDK)) <WKUIDelegate>
-- (WKWebView * _Nullable)webView:(WKWebView * _Nonnull)webView createWebViewWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration forNavigationAction:(WKNavigationAction * _Nonnull)navigationAction windowFeatures:(WKWindowFeatures * _Nonnull)windowFeatures SWIFT_WARN_UNUSED_RESULT;
-@end
-
 @class NSBundle;
-/// 全屏 Web 页面容器。真正的加载与 Bridge 都在 <code>LampsWebView</code> 上。
-/// 隐藏系统导航栏，整页交给 webView 渲染；关闭走 Bridge <code>close</code> 或 <code>closePage</code>。
+/// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
+/// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
 SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 @interface LampsWebViewController : UIViewController
+/// 当前活动 URL；本地 HTML 模式下为空字符串。
 @property (nonatomic, readonly, copy) NSString * _Nonnull urlString;
+/// 本地 HTML；通过 URL 打开时为 <code>nil</code>。
 @property (nonatomic, readonly, copy) NSString * _Nullable htmlString;
-@property (nonatomic, readonly, strong) LampsWebView * _Nonnull webView;
+/// 打开远端活动页。
 - (nonnull instancetype)initWithURLString:(NSString * _Nonnull)urlString;
+/// 加载本地 HTML，建议仅用于调试。
 - (nonnull instancetype)initWithHTMLString:(NSString * _Nonnull)htmlString;
 - (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
+/// 关闭当前页：模态则 <code>dismiss</code>，否则 <code>pop</code>。
+- (void)closePage;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -713,11 +705,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import CoreFoundation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
-@import WebKit;
 #endif
 
 #endif
@@ -742,28 +732,40 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSString;
 @class LampsSDKConfig;
-/// 对外总入口。宿主 <code>import LampsSDK</code> 后调用 <code>Lamps.start(config:completion:)</code>。
-/// 类名刻意不用 <code>LampsSDK</code>，避免与模块名同名导致 <code>.swiftinterface</code> 解析冲突。
+@class UIViewController;
+@class UIView;
+/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，或 <code>makeGameCenterView()</code> 嵌入页面。
+/// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 @interface Lamps : NSObject
-/// 与 <code>LampsSDK.podspec</code> 的 <code>s.version</code> 保持一致。
+/// 当前 SDK 版本号。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull sdkVersion;)
 + (NSString * _Nonnull)sdkVersion SWIFT_WARN_UNUSED_RESULT;
-/// 启动 SDK。
-/// 流程：本地校验 → 读 config 磁盘缓存 → 初始化已注册广告 SDK → 请求 <code>/v1/lamps/config</code> → 回调。
-/// 配置接口失败时：有缓存则仍成功（继续用缓存）；无缓存则回调失败。
-/// 配置环境默认正式；测试环境请在 <code>LampsDevTools</code> 中切换。
+/// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
+/// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
+/// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
+/// 默认正式环境；测试环境请用 <code>LampsDevTools</code> 切换。
+/// \param config 初始化配置，<code>appId</code> 必填。SDK 会拷贝一份，之后修改原对象不会生效。
+///
+/// \param completion 启动完成回调，主线程。
+///
 + (void)startWithConfig:(LampsSDKConfig * _Nonnull)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 是否已调用过 <code>start</code>。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 + (BOOL)isStarted SWIFT_WARN_UNUSED_RESULT;
-/// 当前生效配置；未启动时为 nil。
+/// 最近一次 <code>start</code> 使用的配置；尚未启动时为 <code>nil</code>。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConfig * _Nullable config;)
 + (LampsSDKConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
-/// 清除当前环境的 Config 磁盘缓存。宿主普通 import 不可见。
-+ (BOOL)debugClearConfigCache SWIFT_WARN_UNUSED_RESULT;
-/// 调试页展示用，宿主普通 import 不可见。
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull debugStatusText;)
-+ (NSString * _Nonnull)debugStatusText SWIFT_WARN_UNUSED_RESULT;
+/// 打开配置下发的游戏中心页。请先 <code>start</code> 成功。
+/// 参数可以是 <code>UINavigationController</code>，也可以是栈内任意页面：有导航栈则 <code>push</code>，否则全屏 <code>present</code>。
+///
+/// returns:
+/// 已发起跳转为 <code>true</code>；未 start、地址为空或 URL 不合法为 <code>false</code>。
++ (BOOL)showGameCenterFromViewController:(UIViewController * _Nonnull)viewController;
+/// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
+/// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
+/// 请由宿主加入自己的视图层级并设置约束。
++ (UIView * _Nullable)makeGameCenterView SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -775,82 +777,64 @@ SWIFT_CLASS("_TtC8LampsSDK18LampsRewardAdModel")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-/// SDK 初始化配置。
+/// 初始化参数。在调用 <code>Lamps.start</code> 之前设置。
 SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @interface LampsSDKConfig : NSObject <NSCopying>
-/// 宿主分配的应用标识，初始化时必填。
+/// 分配给宿主 App 的应用 ID，必填。
 @property (nonatomic, copy) NSString * _Nonnull appId;
-/// 是否打印 SDK 调试日志，默认 false。
+/// 是否打印 <code>[LampsSDK]</code> 调试日志。正式包请保持关闭。
 @property (nonatomic) BOOL debugLogEnabled;
-/// 穿山甲 AppId；非空且集成 CSJ Subspec 时会在 start 中初始化。
-/// 宿主已自行初始化（如 HCAD）时请留空，避免二次 init。
-@property (nonatomic, copy) NSString * _Nonnull csjAppId;
-/// 优量汇 AppId；非空且集成 GDT Subspec 时会在 start 中初始化。
-/// 宿主已自行初始化时请留空。
-@property (nonatomic, copy) NSString * _Nonnull gdtAppId;
-/// 汇川 AppKey；非空且集成 Noah Subspec 时会在 start 中初始化。
-/// 宿主已自行初始化时请留空。
-@property (nonatomic, copy) NSString * _Nonnull noahAppKey;
-/// 是否开启个性化推荐，默认 true。
-/// 优量汇：<code>setPersonalizedState</code>（false → 关闭个性化）。
+/// 是否开启个性化推荐广告，默认开启。
 @property (nonatomic) BOOL personalizedRecommendEnabled;
-/// 是否开启摇一摇类互动广告，默认 true。
-/// 穿山甲：<code>userExtData.is_shake_ads</code>；优量汇：<code>shakable</code>。
+/// 是否开启摇一摇类互动广告，默认开启。
 @property (nonatomic) BOOL shakeAdsEnabled;
-/// 是否允许广告 SDK 使用定位，默认 false（更稳妥的隐私默认）。
-/// 汇川：<code>forbidHcGetLocationInfo = !allowLocation</code>。
+/// 是否允许广告 SDK 使用定位，默认关闭。
 @property (nonatomic) BOOL allowLocation;
 - (id _Nonnull)copyWithZone:(struct _NSZone * _Nullable)zone SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+/// <code>Lamps.start</code> 失败时 <code>NSError.code</code>。
 typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
-  LampsSDKErrorCodeNotImplemented = -1001,
-  LampsSDKErrorCodeNotStarted = -1002,
-  LampsSDKErrorCodeInvalidConfig = -1003,
-  LampsSDKErrorCodeInvalidURL = -1004,
-  LampsSDKErrorCodeNetwork = -1005,
-  LampsSDKErrorCodeApi = -1006,
+/// 尚未调用 <code>Lamps.start</code>。
+  LampsSDKErrorCodeNotStarted = -1001,
+/// 初始化参数不合法，例如 <code>appId</code> 为空。
+  LampsSDKErrorCodeInvalidConfig = -1002,
+/// 配置接口地址无效或 URL 组装失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeConfigURLError = -1003,
+/// 配置请求失败，或响应为空 / 格式错误 / 解析失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeConfigFetchError = -1004,
+/// 广告 SDK 初始化失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeAdSDKInitializeError = -1005,
+/// 激励视频进行中，无法开始新的一次。
+  LampsSDKErrorCodeRewardBusy = -1006,
+/// 激励视频请求 / 加载失败（含超时、全部渠道失败）。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeRewardLoadError = -1007,
+/// 激励视频展示失败。具体原因看 <code>localizedDescription</code>。
+  LampsSDKErrorCodeRewardShowError = -1008,
 };
 
-@class WKWebViewConfiguration;
 @class NSCoder;
-@class NSURL;
-/// 可独立使用的 WKWebView 子类。页面加载与 Bridge 都挂在这个 View 上。
-SWIFT_CLASS("_TtC8LampsSDK12LampsWebView")
-@interface LampsWebView : WKWebView
-/// H5 调用 <code>close</code> 时触发。
-@property (nonatomic, copy) void (^ _Nullable closeHandler)(void);
-- (nonnull instancetype)init;
-- (nonnull instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration * _Nonnull)configuration OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-/// 按字符串加载页面。URL 不合法时返回 false。
-- (BOOL)loadURLString:(NSString * _Nonnull)urlString;
-+ (NSURL * _Nullable)makeURLFrom:(NSString * _Nonnull)string SWIFT_WARN_UNUSED_RESULT;
-+ (WKWebViewConfiguration * _Nonnull)makeConfiguration SWIFT_WARN_UNUSED_RESULT;
-@end
-
-@class WKNavigationAction;
-@class WKWindowFeatures;
-@interface LampsWebView (SWIFT_EXTENSION(LampsSDK)) <WKUIDelegate>
-- (WKWebView * _Nullable)webView:(WKWebView * _Nonnull)webView createWebViewWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration forNavigationAction:(WKNavigationAction * _Nonnull)navigationAction windowFeatures:(WKWindowFeatures * _Nonnull)windowFeatures SWIFT_WARN_UNUSED_RESULT;
-@end
-
 @class NSBundle;
-/// 全屏 Web 页面容器。真正的加载与 Bridge 都在 <code>LampsWebView</code> 上。
-/// 隐藏系统导航栏，整页交给 webView 渲染；关闭走 Bridge <code>close</code> 或 <code>closePage</code>。
+/// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
+/// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
 SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 @interface LampsWebViewController : UIViewController
+/// 当前活动 URL；本地 HTML 模式下为空字符串。
 @property (nonatomic, readonly, copy) NSString * _Nonnull urlString;
+/// 本地 HTML；通过 URL 打开时为 <code>nil</code>。
 @property (nonatomic, readonly, copy) NSString * _Nullable htmlString;
-@property (nonatomic, readonly, strong) LampsWebView * _Nonnull webView;
+/// 打开远端活动页。
 - (nonnull instancetype)initWithURLString:(NSString * _Nonnull)urlString;
+/// 加载本地 HTML，建议仅用于调试。
 - (nonnull instancetype)initWithHTMLString:(NSString * _Nonnull)htmlString;
 - (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
+/// 关闭当前页：模态则 <code>dismiss</code>，否则 <code>pop</code>。
+- (void)closePage;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
