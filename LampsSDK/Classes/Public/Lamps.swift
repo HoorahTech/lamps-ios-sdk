@@ -12,7 +12,7 @@ public typealias LampsStartCompletion = (Bool, Error?) -> Void
 @objcMembers
 public final class Lamps: NSObject {
     /// 当前 SDK 版本号。
-    public static let sdkVersion = "0.1.0"
+    public static let sdkVersion = "0.0.1"
 
     private static var storedConfig: LampsSDKConfig?
     private static var storedRemoteConfig: LampsRemoteConfig?
