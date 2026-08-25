@@ -36,10 +36,10 @@ enum LampsGDTSDKInitializer: LampsSDKInitializing {
 }
 
 @objc(LampsGDTSDKInitializerRegistrar)
-public final class LampsGDTSDKInitializerRegistrar: NSObject {
+final class LampsGDTSDKInitializerRegistrar: NSObject {
     private static var didRegister = false
 
-    @objc public static func registerIfNeeded() {
+    @objc static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
         LampsSDKAdapterCenter.registerInitializer(channel: .gdt, initializer: LampsGDTSDKInitializer.self)

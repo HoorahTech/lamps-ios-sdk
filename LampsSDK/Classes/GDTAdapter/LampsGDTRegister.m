@@ -1,21 +1,23 @@
-#if __has_include("LampsGDTAdapter-Swift.h")
-#import "LampsGDTAdapter-Swift.h"
-#elif __has_include(<LampsGDTAdapter/LampsGDTAdapter-Swift.h>)
-#import <LampsGDTAdapter/LampsGDTAdapter-Swift.h>
-#elif __has_include("LampsSDK-Swift.h")
-#import "LampsSDK-Swift.h"
-#else
-#import <LampsSDK/LampsSDK-Swift.h>
-#endif
+#import <Foundation/Foundation.h>
+#import <objc/message.h>
 
 @interface LampsGDTRegister : NSObject
 @end
 
 @implementation LampsGDTRegister
 
+static void LampsInvokeRegisterIfNeeded(NSString *className) {
+    Class cls = NSClassFromString(className);
+    SEL sel = NSSelectorFromString(@"registerIfNeeded");
+    if (cls && [cls respondsToSelector:sel]) {
+        ((void (*)(Class, SEL))objc_msgSend)(cls, sel);
+    }
+}
+
 + (void)load {
-    [LampsGDTRewardAdapterRegistrar registerIfNeeded];
-    [LampsGDTSDKInitializerRegistrar registerIfNeeded];
+    // Registrar 为 internal，不会进入 *-Swift.h，这里按运行时类名调用。
+    LampsInvokeRegisterIfNeeded(@"LampsGDTRewardAdapterRegistrar");
+    LampsInvokeRegisterIfNeeded(@"LampsGDTSDKInitializerRegistrar");
 }
 
 @end

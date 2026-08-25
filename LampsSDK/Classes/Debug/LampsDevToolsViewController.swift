@@ -144,15 +144,19 @@ final class LampsDevToolsViewController: UIViewController {
     }
 
     @objc private func close() {
-        dismiss(animated: true)
+        if presentingViewController != nil {
+            dismiss(animated: true)
+            return
+        }
+        navigationController?.popViewController(animated: true)
     }
 
     @objc private func reloadInfo() {
         infoLabel.text = """
         \(Lamps.debugStatusText)
-        csj: \(csjToolAvailable ? "可用" : "未集成")
-        gdt: \(gdtToolAvailable ? "可用" : "未集成")
-        noah: \(noahToolAvailable ? "可用" : "未集成")
+        csj: \(isClassLinked("BUAdSDKManager") ? "已集成" : "未集成")
+        gdt: \(isClassLinked("GDTSDKConfig") ? "已集成" : "未集成")
+        noah: \(isClassLinked("NASDKManager") ? "已集成" : "未集成")
         """
         applyEnvironmentButtonStyles()
     }
@@ -200,17 +204,21 @@ final class LampsDevToolsViewController: UIViewController {
     }
 
     @objc private func openCSJTool() {
+        guard isClassLinked("BUAdTestMeasurementManager") else {
+            showAlert("未集成穿山甲测试工具（Ads-CN/BUAdTestMeasurement）")
+            return
+        }
         #if canImport(BUAdTestMeasurement)
         guard let nav = navigationController else { return }
         BUAdTestMeasurementManager.showTestMeasurement(with: nav)
         #else
-        showAlert("未集成 Ads-CN/BUAdTestMeasurement（Debug）")
+        showAlert("未集成穿山甲测试工具（Ads-CN/BUAdTestMeasurement）")
         #endif
     }
 
     @objc private func openGDTTool() {
         guard LampsGDTDevToolBridge.isAvailable() else {
-            showAlert("未集成 GDTDevToolSDK")
+            showAlert("未集成优量汇测试工具（GDTDevToolSDK）")
             return
         }
         guard let toolVC = LampsGDTDevToolBridge.makeToolViewController() else {
@@ -222,7 +230,7 @@ final class LampsDevToolsViewController: UIViewController {
 
     @objc private func openNoahTool() {
         guard LampsNoahDevToolBridge.isAvailable() else {
-            showAlert("未集成 NoahSDK")
+            showAlert("未集成汇川调试页（NAAdExternalMockViewController）")
             return
         }
         guard let mockVC = LampsNoahDevToolBridge.makeToolViewController() else {
@@ -233,20 +241,9 @@ final class LampsDevToolsViewController: UIViewController {
         present(mockVC, animated: true)
     }
 
-    private var csjToolAvailable: Bool {
-        #if canImport(BUAdTestMeasurement)
-        return true
-        #else
-        return false
-        #endif
-    }
-
-    private var gdtToolAvailable: Bool {
-        LampsGDTDevToolBridge.isAvailable()
-    }
-
-    private var noahToolAvailable: Bool {
-        LampsNoahDevToolBridge.isAvailable()
+    /// 运行时检测类是否已链入进程。
+    private func isClassLinked(_ className: String) -> Bool {
+        NSClassFromString(className) != nil
     }
 
     private func showAlert(_ message: String) {

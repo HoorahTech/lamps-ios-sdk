@@ -23,10 +23,10 @@ enum LampsNoahSDKInitializer: LampsSDKInitializing {
 }
 
 @objc(LampsNoahSDKInitializerRegistrar)
-public final class LampsNoahSDKInitializerRegistrar: NSObject {
+final class LampsNoahSDKInitializerRegistrar: NSObject {
     private static var didRegister = false
 
-    @objc public static func registerIfNeeded() {
+    @objc static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
         LampsSDKAdapterCenter.registerInitializer(channel: .noah, initializer: LampsNoahSDKInitializer.self)

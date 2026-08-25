@@ -174,10 +174,10 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
 }
 
 @objc(LampsNoahRewardAdapterRegistrar)
-public final class LampsNoahRewardAdapterRegistrar: NSObject {
+final class LampsNoahRewardAdapterRegistrar: NSObject {
     private static var didRegister = false
 
-    @objc public static func registerIfNeeded() {
+    @objc static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
         LampsSDKAdapterCenter.register(channel: .noah) { LampsNoahRewardAdapter(model: $0) }

@@ -40,10 +40,10 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
 }
 
 @objc(LampsCSJSDKInitializerRegistrar)
-public final class LampsCSJSDKInitializerRegistrar: NSObject {
+final class LampsCSJSDKInitializerRegistrar: NSObject {
     private static var didRegister = false
 
-    @objc public static func registerIfNeeded() {
+    @objc static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
         LampsSDKAdapterCenter.registerInitializer(channel: .csj, initializer: LampsCSJSDKInitializer.self)

@@ -1,12 +1,16 @@
 import Foundation
 
+/// SDK 启动完成回调，在主线程调用。
+/// - Parameters:
+///   - success: 是否已具备可用配置。远端失败但本地有缓存时仍为 `true`。
+///   - error: 失败原因，`domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
 public typealias LampsStartCompletion = (Bool, Error?) -> Void
 
-/// 对外总入口。宿主 `import LampsSDK` 后调用 `Lamps.start(config:completion:)`。
-/// 类名刻意不用 `LampsSDK`，避免与模块名同名导致 `.swiftinterface` 解析冲突。
+/// Lamps SDK 入口。接入方 `import LampsSDK` 后调用 `start`，再用 `LampsWebViewController` 打开活动页。
+/// 类名不用 `LampsSDK`，避免与模块名冲突。
 @objcMembers
 public final class Lamps: NSObject {
-    /// 与 `LampsSDK.podspec` 的 `s.version` 保持一致。
+    /// 当前 SDK 版本号。
     public static let sdkVersion = "0.1.0"
 
     private static var storedConfig: LampsSDKConfig?
@@ -14,10 +18,15 @@ public final class Lamps: NSObject {
     private static var started = false
     private static var didInitializeAdSDKs = false
 
-    /// 启动 SDK。
-    /// 流程：本地校验 → 读 config 磁盘缓存 → 请求 `/v1/lamps/config` → 用 `channelList` 初始化已注册广告 SDK → 回调。
-    /// 配置接口失败时：有缓存则仍成功（继续用缓存并据此 init）；无缓存则回调失败。
-    /// 配置环境默认正式；测试环境请在 `LampsDevTools` 中切换。
+    /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
+    ///
+    /// 会校验 `appId`、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
+    /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
+    /// 默认正式环境；测试环境请用 `LampsDevTools` 切换。
+    ///
+    /// - Parameters:
+    ///   - config: 初始化配置，`appId` 必填。SDK 会拷贝一份，之后修改原对象不会生效。
+    ///   - completion: 启动完成回调，主线程。
     @objc(startWithConfig:completion:)
     public static func start(config: LampsSDKConfig, completion: LampsStartCompletion? = nil) {
         guard !config.appId.isEmpty else {
@@ -45,11 +54,12 @@ public final class Lamps: NSObject {
         applyRemoteConfigFetch(config: effective, completion: completion)
     }
 
+    /// 是否已调用过 `start`。
     public static var isStarted: Bool {
         started
     }
 
-    /// 当前生效配置；未启动时为 nil。
+    /// 最近一次 `start` 使用的配置；尚未启动时为 `nil`。
     public static var config: LampsSDKConfig? {
         storedConfig
     }
@@ -64,14 +74,16 @@ public final class Lamps: NSObject {
         storedRemoteConfig?.token ?? ""
     }
 
-    /// 当前配置环境。宿主普通 import 不可见。
+    /// 当前配置环境。仅调试工具使用。
     @_spi(LampsDevTools)
+    @nonobjc
     public static var debugEnvironment: LampsSDKEnvironment {
         LampsEnvironmentStore.current
     }
 
-    /// 切换配置环境：写入本机记忆，并按新环境读缓存、重新请求配置。
+    /// 切换配置环境：写入本机记忆，并按新环境读缓存、重新请求配置。仅调试工具使用。
     @_spi(LampsDevTools)
+    @nonobjc
     public static func debugSwitchEnvironment(
         _ environment: LampsSDKEnvironment,
         completion: LampsStartCompletion? = nil
@@ -91,15 +103,17 @@ public final class Lamps: NSObject {
         applyRemoteConfigFetch(config: config, completion: completion)
     }
 
-    /// 清除当前环境的 Config 磁盘缓存。宿主普通 import 不可见。
+    /// 清除当前环境的 Config 磁盘缓存。仅调试工具使用。
     @_spi(LampsDevTools)
+    @nonobjc
     public static func debugClearConfigCache() -> Bool {
         guard let appId = storedConfig?.appId else { return false }
         return LampsConfigCache.clear(appId: appId, environment: LampsEnvironmentStore.current)
     }
 
-    /// 调试页展示用，宿主普通 import 不可见。
+    /// 调试页状态文案。仅调试工具使用。
     @_spi(LampsDevTools)
+    @nonobjc
     public static var debugStatusText: String {
         let config = storedConfig
         let remote = storedRemoteConfig

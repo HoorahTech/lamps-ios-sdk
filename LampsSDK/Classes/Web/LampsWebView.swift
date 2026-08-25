@@ -1,16 +1,18 @@
 import UIKit
 import WebKit
 
-/// 可独立使用的 WKWebView 子类。页面加载与 Bridge 都挂在这个 View 上。
+/// 带 Lamps JSBridge 的 WKWebView。可单独嵌入业务页面；全屏活动请优先用 `LampsWebViewController`。
 @objcMembers
 public class LampsWebView: WKWebView {
-    /// 仅 SDK 内部使用，不向宿主开放。
+    /// 仅 SDK 内部使用。
     @nonobjc
     var bridge: LampsBridge!
 
-    /// H5 调用 `close` 时触发。
+    /// H5 通过 Bridge 调用 `close` 时触发。
+    /// 使用 `LampsWebViewController` 时无需设置；自行承载时请在此关闭当前页面。
     public var closeHandler: (() -> Void)?
 
+    /// 使用 SDK 默认配置创建 WebView。
     public convenience init() {
         self.init(frame: .zero, configuration: LampsWebView.makeConfiguration())
     }
@@ -29,7 +31,7 @@ public class LampsWebView: WKWebView {
         bridge?.uninstall()
     }
 
-    /// 按字符串加载页面。URL 不合法时返回 false。
+    /// 加载活动页。`urlString` 必须包含 scheme 和 host，不合法时返回 `false` 且不发起请求。
     @discardableResult
     @objc(loadURLString:)
     public func load(urlString: String) -> Bool {
@@ -42,7 +44,7 @@ public class LampsWebView: WKWebView {
         return true
     }
 
-    public static func makeURL(from string: String) -> URL? {
+    static func makeURL(from string: String) -> URL? {
         let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty, let url = URL(string: trimmed), url.scheme != nil, url.host != nil else {
             return nil
@@ -50,7 +52,7 @@ public class LampsWebView: WKWebView {
         return url
     }
 
-    public static func makeConfiguration() -> WKWebViewConfiguration {
+    static func makeConfiguration() -> WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
         if #available(iOS 13.0, *) {

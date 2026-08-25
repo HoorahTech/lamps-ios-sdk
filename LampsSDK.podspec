@@ -65,6 +65,7 @@ Pod::Spec.new do |s|
       ss.pod_target_xcconfig = binary_adapter_xcconfig
     else
       ss.source_files = 'LampsSDK/Classes/CSJAdapter/**/*.{swift,m,h}'
+      ss.private_header_files = 'LampsSDK/Classes/CSJAdapter/**/*.h'
     end
   end
 
@@ -147,7 +148,7 @@ Pod::Spec.new do |s|
       }
     else
       ss.source_files = 'LampsSDK/Classes/Debug/**/*.{swift,m,h}'
-      ss.public_header_files = 'LampsSDK/Classes/Debug/**/*.h'
+      ss.private_header_files = 'LampsSDK/Classes/Debug/**/*.h'
     end
   end
 end

@@ -1,28 +1,35 @@
 import UIKit
 
-/// 全屏 Web 页面容器。真正的加载与 Bridge 都在 `LampsWebView` 上。
-/// 隐藏系统导航栏，整页交给 webView 渲染；关闭走 Bridge `close` 或 `closePage`。
+/// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
+///
+/// 请 `push` 或 `present` 本页。关闭由 H5 Bridge `close` 触发，也可调用 `closePage()`。
 @objcMembers
 public final class LampsWebViewController: UIViewController {
+    /// 当前活动 URL；本地 HTML 模式下为空字符串。
     public let urlString: String
+    /// 本地 HTML；通过 URL 打开时为 `nil`。
     public let htmlString: String?
 
     private var previousNavigationBarHidden: Bool?
 
+    /// 页面内 WebView，一般无需直接操作。
     public private(set) lazy var webView: LampsWebView = {
         let webView = LampsWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
         webView.closeHandler = { [weak self] in
             self?.closePage()
         }
         return webView
     }()
 
+    /// 打开远端活动页。
     @objc(initWithURLString:)
     public convenience init(urlString: String) {
         self.init(urlString: urlString, htmlString: nil)
     }
 
+    /// 加载本地 HTML，建议仅用于调试。
     @objc(initWithHTMLString:)
     public convenience init(htmlString: String) {
         self.init(urlString: "", htmlString: htmlString)
@@ -75,7 +82,9 @@ public final class LampsWebViewController: UIViewController {
         }
     }
 
-    @objc func closePage() {
+    /// 关闭当前页：模态则 `dismiss`，否则 `pop`。
+    @objc
+    public func closePage() {
         if presentingViewController != nil {
             dismiss(animated: true)
             return

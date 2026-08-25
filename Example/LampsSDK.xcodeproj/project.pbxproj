@@ -342,7 +342,6 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-resources.sh",
 				"${PODS_ROOT}/Ads-CN/SDK/CSJAdSDK.bundle",
-				"${PODS_ROOT}/Ads-CN/SDK/BUAdTestMeasurement.bundle",
 				"${PODS_ROOT}/GDTDevToolSDK/Products/GDTDevToolBundle.bundle",
 				"${PODS_ROOT}/../../LampsSDK/Vendor/Noah/NoahSDK.framework/HCAdSDK.bundle",
 				"${PODS_ROOT}/../../LampsSDK/Vendor/Noah/NoahSDK.framework/noahSDK.bundle",
@@ -351,7 +350,6 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSJAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdTestMeasurement.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GDTDevToolBundle.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HCAdSDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/noahSDK.bundle",

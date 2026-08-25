@@ -6,11 +6,11 @@ import UIKit
 import BUAdTestMeasurement
 #endif
 
-/// Lamps SDK 调试工具入口（需集成 `LampsDevTools`，或二进制下的 `LampsSDK/DevTools`）。
+/// Lamps 调试面板。仅调试包接入 `LampsDevTools` 后使用，不要打进正式包。
 @objc(LampsDevTools)
 @objcMembers
 public final class LampsDevTools: NSObject {
-    /// 弹出调试工具首页（导航栈）。
+    /// 以全屏模态弹出调试页。
     @objc(presentFromViewController:)
     public static func present(from viewController: UIViewController) {
         enableThirdPartyDebugModesIfNeeded()
@@ -20,7 +20,7 @@ public final class LampsDevTools: NSObject {
         viewController.present(nav, animated: true)
     }
 
-    /// 在当前导航栈 push 调试工具首页。
+    /// 在当前导航栈压入调试页。调用方需已处于 `UINavigationController` 中。
     @objc(pushFromViewController:)
     public static func push(from viewController: UIViewController) {
         enableThirdPartyDebugModesIfNeeded()

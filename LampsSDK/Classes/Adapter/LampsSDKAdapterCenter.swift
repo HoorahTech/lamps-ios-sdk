@@ -25,7 +25,7 @@ public enum LampsSDKAdapterCenter {
         LampsSDKLog.debug("sdk initializer registered: \(channel.name)")
     }
 
-    public static func isAvailable(_ channel: LampsRewardChannel) -> Bool {
+    static func isAvailable(_ channel: LampsRewardChannel) -> Bool {
         lock.lock()
         defer { lock.unlock() }
         return makers[channel] != nil

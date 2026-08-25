@@ -184,10 +184,10 @@ extension LampsCSJRewardAdapter: BUNativeExpressRewardedVideoAdDelegate {
 }
 
 @objc(LampsCSJRewardAdapterRegistrar)
-public final class LampsCSJRewardAdapterRegistrar: NSObject {
+final class LampsCSJRewardAdapterRegistrar: NSObject {
     private static var didRegister = false
 
-    @objc public static func registerIfNeeded() {
+    @objc static func registerIfNeeded() {
         guard !didRegister else { return }
         didRegister = true
         LampsSDKAdapterCenter.register(channel: .csj) { LampsCSJRewardAdapter(model: $0) }
