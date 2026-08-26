@@ -4,6 +4,8 @@
 
 当前仓库：`git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git`
 
+日常在 GitLab 开发，发版再同步 GitHub / CocoaPods。流程见 [`docs/开发与发版流程.md`](docs/开发与发版流程.md)。
+
 实现语言以 **Swift** 为主。公开 API 带 `@objc`，ObjC 宿主仍可调用。
 
 ## 分阶段
