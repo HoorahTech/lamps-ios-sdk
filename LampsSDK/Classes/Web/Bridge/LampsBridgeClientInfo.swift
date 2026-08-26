@@ -16,7 +16,7 @@ enum LampsBridgeClientInfo {
         info["network"] = LampsDeviceInfo.network
         info["idfa"] = LampsDeviceInfo.idfa
         info["idfv"] = LampsDeviceInfo.idfv
-        info["appName"] = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
+        info["bundleName"] = Bundle.main.bundleIdentifier ?? ""
         info["appVer"] = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
         info["platform"] = UIDevice.current.systemName
         info["osVer"] = UIDevice.current.systemVersion

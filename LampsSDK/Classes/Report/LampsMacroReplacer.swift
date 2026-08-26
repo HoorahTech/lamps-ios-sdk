@@ -49,9 +49,10 @@ enum LampsMacroReplacer {
         // IDFV（identifierForVendor；不可用时为空）
         put(&info, "__IDFV__", LampsDeviceInfo.idfv)
 
-        // SDK 分配的 appId / SDK 版本
+        // SDK 分配的 appId / SDK 版本 / 宿主 App 包名
         put(&info, "__APPID__", Lamps.config?.appId ?? "")
         put(&info, "__SDK_VERSION__", Lamps.sdkVersion)
+        put(&info, "__PACKAGE_NAME__", Bundle.main.bundleIdentifier ?? "")
 
         // 网络环境：wifi / 2g / 3g / 4g / 5g / unknown
         put(&info, "__NETWORK__", LampsDeviceInfo.network)
