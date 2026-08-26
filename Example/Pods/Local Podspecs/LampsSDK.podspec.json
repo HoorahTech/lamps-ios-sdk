@@ -1,6 +1,6 @@
 {
   "name": "LampsSDK",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "summary": "WebView、Bridge、激励视频与监测上报 SDK",
   "description": "LampsSDK 面向三方 App，提供 WebView 展示与 Bridge 通信、激励视频、CM/PM/XM 监测上报。\n支持源码 / 二进制两种分发；广告 SDK 通过 CSJ / GDT / Noah Subspec 按需拉取。",
   "homepage": "http://gitlab.hupu.com/HPBase/lamps-ios-sdk",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git",
-    "tag": "0.1.0"
+    "tag": "0.0.1"
   },
   "platforms": {
     "ios": "12.0"
