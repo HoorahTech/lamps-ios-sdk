@@ -1,6 +1,5 @@
 import UIKit
 import LampsSDK
-import LampsDevTools
 
 @objc(LAMPSSDKViewController)
 final class LAMPSSDKViewController: UIViewController {
@@ -20,6 +19,21 @@ final class LAMPSSDKViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Lamps Demo"
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .white
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+            navigationItem.standardAppearance = appearance
+            navigationItem.scrollEdgeAppearance = appearance
+            navigationItem.compactAppearance = appearance
+        } else {
+            navigationController?.navigationBar.isTranslucent = false
+            navigationController?.navigationBar.barTintColor = .white
+            navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.black
+            ]
+        }
         view.backgroundColor = .white
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
