@@ -22,11 +22,11 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.0'
-  s.default_subspecs = 'Core', 'CSJ', 'GDT', 'Noah'
+  s.default_subspecs = 'Core'
 
   # true = LampsSDK/Binary xcframework；false = Classes 源码。切换后宿主需 pod install。
   # 二进制请先执行 ./scripts/build_xcframeworks.sh（会同步到 Binary/）。
-  use_binary = false
+  use_binary = true
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
