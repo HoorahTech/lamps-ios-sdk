@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
   支持源码 / 二进制两种分发；广告 SDK 通过 CSJ / GDT / Noah Subspec 按需拉取。
                        DESC
 
-  s.homepage         = 'http://gitlab.hupu.com/HPBase/lamps-ios-sdk'
+  s.homepage         = 'https://github.com/HoorahTech/lamps-ios-sdk'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'yujianchao' => 'yujianchao@hupu.com' }
-  s.source           = { :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/HoorahTech/lamps-ios-sdk.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.0'
