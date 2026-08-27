@@ -48,8 +48,12 @@ Pod::Spec.new do |s|
         'LampsSDK/Classes/Web/**/*.swift',
         'LampsSDK/Classes/Report/**/*.swift',
         'LampsSDK/Classes/Reward/*.swift',
-        'LampsSDK/Classes/Adapter/*.swift'
+        'LampsSDK/Classes/Adapter/*.swift',
+        'LampsSDK/Classes/Utils/**/*.swift'
       ]
+      ss.resource_bundles = {
+        'LampsSDKResources' => ['LampsSDK/Assets/**/*']
+      }
     end
     ss.frameworks = 'Foundation', 'UIKit', 'WebKit', 'AdSupport', 'SystemConfiguration', 'CoreTelephony'
     ss.weak_frameworks = 'AppTrackingTransparency'

@@ -21,7 +21,7 @@ final class LampsGamePageBridgeHandler: NSObject, LampsBridgeHandler {
             return
         }
 
-        let urlString = stringValue(data["url"])
+        let urlString = LampsJSONValue.stringValue(data["url"], trim: true)
         guard let url = LampsWebView.makeURL(from: urlString),
               let scheme = url.scheme?.lowercased(),
               scheme == "http" || scheme == "https" else {
@@ -38,7 +38,7 @@ final class LampsGamePageBridgeHandler: NSObject, LampsBridgeHandler {
 
         LampsSDKLog.debug("bridge game.open url=\(urlString)")
         let page = LampsGameWebViewController(urlString: urlString)
-        Lamps.pushOrPresent(page, from: host)
+        LampsNavigator.pushOrPresent(page, from: host)
         success?(["msg": "success"])
     }
 }
@@ -57,15 +57,5 @@ private extension LampsGamePageBridgeHandler {
             responder = current.next
         }
         return nil
-    }
-
-    func stringValue(_ value: Any?) -> String {
-        if let text = value as? String {
-            return text.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        if let number = value as? NSNumber {
-            return number.stringValue
-        }
-        return ""
     }
 }

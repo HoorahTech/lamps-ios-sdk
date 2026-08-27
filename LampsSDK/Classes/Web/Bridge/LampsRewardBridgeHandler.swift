@@ -34,7 +34,7 @@ final class LampsRewardBridgeHandler: NSObject, LampsBridgeHandler {
             return
         }
 
-        let forwardSource = stringValue(data["forward_source"])
+        let forwardSource = LampsJSONValue.stringValue(data["forward_source"], trim: true)
         LampsSDKLog.debug("bridge reward start forward_source=\(forwardSource)")
         LampsRewardAd.show(
             from: viewController,
@@ -96,15 +96,5 @@ private extension LampsRewardBridgeHandler {
             responder = current.next
         }
         return nil
-    }
-
-    func stringValue(_ value: Any?) -> String {
-        if let text = value as? String {
-            return text.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        if let number = value as? NSNumber {
-            return number.stringValue
-        }
-        return ""
     }
 }

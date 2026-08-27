@@ -21,19 +21,13 @@ final class LampsRemoteConfig: NSObject {
         if let channels = data["channelList"] as? [[String: Any]] {
             config.channelList = channels.compactMap { LampsAdChannel.parse(from: $0) }
         }
-        config.token = stringValue(data["token"]) ?? ""
-        config.clientIp = stringValue(data["clientIp"]) ?? ""
-        config.gameCenterPage = stringValue(data["gameCenterPage"]) ?? ""
+        config.token = LampsJSONValue.stringValue(data["token"])
+        config.clientIp = LampsJSONValue.stringValue(data["clientIp"])
+        config.gameCenterPage = LampsJSONValue.stringValue(data["gameCenterPage"])
         if let links = data["monitorLinks"] as? [String: Any] {
             config.monitorLinks = LampsMonitorLinks.parse(from: links)
         }
         return config
-    }
-
-    private static func stringValue(_ value: Any?) -> String? {
-        if let text = value as? String { return text }
-        if let number = value as? NSNumber { return number.stringValue }
-        return nil
     }
 
     func channelAppId(for channel: LampsRewardChannel) -> String {
@@ -63,19 +57,13 @@ final class LampsRewardAdSlot: NSObject {
 
     static func parse(from dict: [String: Any]) -> LampsRewardAdSlot? {
         let slot = LampsRewardAdSlot()
-        slot.slotId = stringValue(dict["slotId"]) ?? ""
-        slot.type = stringValue(dict["type"]) ?? ""
-        slot.channelName = stringValue(dict["channelName"]) ?? ""
-        slot.channelId = stringValue(dict["channelId"]) ?? ""
+        slot.slotId = LampsJSONValue.stringValue(dict["slotId"])
+        slot.type = LampsJSONValue.stringValue(dict["type"])
+        slot.channelName = LampsJSONValue.stringValue(dict["channelName"])
+        slot.channelId = LampsJSONValue.stringValue(dict["channelId"])
         slot.price = cgFloatValue(dict["price"])
         guard !slot.slotId.isEmpty else { return nil }
         return slot
-    }
-
-    private static func stringValue(_ value: Any?) -> String? {
-        if let text = value as? String { return text }
-        if let number = value as? NSNumber { return number.stringValue }
-        return nil
     }
 
     private static func cgFloatValue(_ value: Any?) -> CGFloat {
@@ -95,17 +83,11 @@ final class LampsAdChannel: NSObject {
 
     static func parse(from dict: [String: Any]) -> LampsAdChannel? {
         let channel = LampsAdChannel()
-        channel.channelName = stringValue(dict["channelName"]) ?? ""
-        channel.channelId = stringValue(dict["channelId"]) ?? ""
-        channel.channelAppId = stringValue(dict["channelAppId"]) ?? ""
+        channel.channelName = LampsJSONValue.stringValue(dict["channelName"])
+        channel.channelId = LampsJSONValue.stringValue(dict["channelId"])
+        channel.channelAppId = LampsJSONValue.stringValue(dict["channelAppId"])
         guard !channel.channelId.isEmpty else { return nil }
         return channel
-    }
-
-    private static func stringValue(_ value: Any?) -> String? {
-        if let text = value as? String { return text }
-        if let number = value as? NSNumber { return number.stringValue }
-        return nil
     }
 }
 

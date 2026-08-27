@@ -123,7 +123,7 @@ private extension LampsBridge {
     }
 
     func dispatch(_ dictionary: [String: Any]) {
-        let method = stringValue(dictionary[MessageKey.method])
+        let method = LampsJSONValue.stringValue(dictionary[MessageKey.method])
         guard !method.isEmpty else {
             LampsSDKLog.debug("bridge ignore empty method")
             return
@@ -136,7 +136,7 @@ private extension LampsBridge {
             return
         }
 
-        let callbackId = stringValue(dictionary[MessageKey.callbackId])
+        let callbackId = LampsJSONValue.stringValue(dictionary[MessageKey.callbackId])
 
         let successCallback: LampsBridgeToH5Callback? = callbackId.isEmpty ? nil : { [weak self] data in
             self?.invokeH5Callback(callbackId: callbackId, data: data)
@@ -202,16 +202,6 @@ private extension LampsBridge {
         DispatchQueue.main.async { [weak self] in
             self?.webView?.evaluateJavaScript(script, completionHandler: nil)
         }
-    }
-
-    func stringValue(_ value: Any?) -> String {
-        if let text = value as? String {
-            return text
-        }
-        if let number = value as? NSNumber {
-            return number.stringValue
-        }
-        return ""
     }
 }
 

@@ -41,7 +41,7 @@ final class LampsTrackBridgeHandler: NSObject, LampsBridgeHandler {
             return
         }
 
-        if stringValue(data["type"]) == TrackType.pageLoad {
+        if LampsJSONValue.stringValue(data["type"]) == TrackType.pageLoad {
             pendingPageLoads.append(
                 PendingPageLoad(data: data, visitTime: Self.timestampSeconds())
             )
@@ -96,16 +96,6 @@ private extension LampsTrackBridgeHandler {
         bridge?.webView?.window != nil
     }
 
-    func stringValue(_ value: Any?) -> String {
-        if let text = value as? String {
-            return text
-        }
-        if let number = value as? NSNumber {
-            return number.stringValue
-        }
-        return ""
-    }
-
     func observeAppLifecycle() {
         let center = NotificationCenter.default
         appObservers.append(center.addObserver(
@@ -158,7 +148,7 @@ private extension LampsTrackBridgeHandler {
 
     func makeReportBody(from data: [AnyHashable: Any], extra: [String: String]) -> [String: Any] {
         var body = LampsBridgeClientInfo.dictionary()
-        body[OuterField.action] = stringValue(data[OuterField.action])
+        body[OuterField.action] = LampsJSONValue.stringValue(data[OuterField.action])
         var pdata: [String: Any] = [:]
         for (key, value) in data {
             let name = String(describing: key)
@@ -166,13 +156,13 @@ private extension LampsTrackBridgeHandler {
                 continue
             }
             if name == OuterField.visitTime || name == OuterField.leaveTime {
-                let text = stringValue(value)
+                let text = LampsJSONValue.stringValue(value)
                 if !text.isEmpty {
                     body[name] = text
                 }
                 continue
             }
-            pdata[name] = stringValue(value)
+            pdata[name] = LampsJSONValue.stringValue(value)
         }
         body["pdata"] = pdata
         extra.forEach { body[$0.key] = $0.value }

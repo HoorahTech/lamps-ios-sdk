@@ -106,7 +106,7 @@ enum LampsMacroReplacer {
         // extra 里直接带 `__XXX__` 的键优先生效
         for (key, value) in ex {
             guard let key = key as? String, key.hasPrefix("__"), key.hasSuffix("__") else { continue }
-            put(&info, key, stringValue(value))
+            put(&info, key, LampsJSONValue.stringValue(value))
         }
         return info
     }
@@ -167,22 +167,11 @@ enum LampsMacroReplacer {
 
     private static func firstString(_ dicts: [AnyHashable: Any]..., key: String) -> String? {
         for dict in dicts {
-            if let value = stringValue(dict[key]), !value.isEmpty {
+            let value = LampsJSONValue.stringValue(dict[key])
+            if !value.isEmpty {
                 return value
             }
         }
         return nil
-    }
-
-    private static func stringValue(_ value: Any?) -> String? {
-        if let text = value as? String { return text }
-        if let number = value as? NSNumber { return number.stringValue }
-        return nil
-    }
-
-    private static func intValue(_ dict: [AnyHashable: Any], key: String) -> Int {
-        if let number = dict[key] as? NSNumber { return number.intValue }
-        if let text = dict[key] as? String { return Int(text) ?? 0 }
-        return 0
     }
 }

@@ -65,16 +65,4 @@ enum LampsConfigService {
             }
         }.resume()
     }
-
-    private static func intValue(_ value: Any?) -> Int {
-        if let number = value as? NSNumber { return number.intValue }
-        if let text = value as? String { return Int(text) ?? -1 }
-        return -1
-    }
-
-    private static func stringValue(_ value: Any?) -> String? {
-        if let text = value as? String { return text }
-        if let number = value as? NSNumber { return number.stringValue }
-        return nil
-    }
 }

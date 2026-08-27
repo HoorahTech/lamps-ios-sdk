@@ -20,13 +20,13 @@ final class LampsRequestBridgeHandler: NSObject, LampsBridgeHandler {
             return
         }
 
-        let urlString = stringValue(data["url"])
+        let urlString = LampsJSONValue.stringValue(data["url"], trim: true)
         guard let url = makeHTTPURL(from: urlString) else {
             fail(error, message: "url 无效，须为完整 http(s) URL")
             return
         }
 
-        let methodName = stringValue(data["method"]).lowercased()
+        let methodName = LampsJSONValue.stringValue(data["method"], trim: true).lowercased()
         guard methodName == "get" || methodName == "post" else {
             fail(error, message: "method 仅支持 get 或 post")
             return
@@ -212,15 +212,5 @@ private extension LampsRequestBridgeHandler {
             return text
         }
         return String(describing: value)
-    }
-
-    func stringValue(_ value: Any?) -> String {
-        if let text = value as? String {
-            return text.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        if let number = value as? NSNumber {
-            return number.stringValue
-        }
-        return ""
     }
 }
