@@ -51,9 +51,15 @@ final class LampsWebView: WKWebView {
         return url
     }
 
+    /// 追加到系统默认 UA 的应用名，形如 `LampsSDK/0.0.1`。
+    static var userAgentApplicationName: String {
+        "LampsSDK/\(Lamps.sdkVersion)"
+    }
+
     static func makeConfiguration() -> WKWebViewConfiguration {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
+        config.applicationNameForUserAgent = userAgentApplicationName
         if #available(iOS 13.0, *) {
             let webpage = WKWebpagePreferences()
             webpage.preferredContentMode = .mobile
