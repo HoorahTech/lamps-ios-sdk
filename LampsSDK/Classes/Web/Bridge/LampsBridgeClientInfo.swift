@@ -5,7 +5,7 @@ import UIKit
 enum LampsBridgeClientInfo {
     static func dictionary() -> [String: Any] {
         var info: [String: Any] = [:]
-        info["ts"] = "\(Int(Date().timeIntervalSince1970))"
+        info["et"] = "\(Int(Date().timeIntervalSince1970))"
         info["ua"] = LampsDeviceInfo.userAgent
         info["ip"] = Lamps.remoteConfig?.clientIp ?? ""
         info["mac"] = LampsDeviceInfo.macAddress

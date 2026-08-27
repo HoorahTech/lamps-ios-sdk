@@ -66,6 +66,7 @@ public class LampsWebViewController: UIViewController {
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        webView.notifyContainerWillAppear()
         guard let navigationController else { return }
         if previousNavigationBarHidden == nil {
             previousNavigationBarHidden = navigationController.isNavigationBarHidden
@@ -75,6 +76,7 @@ public class LampsWebViewController: UIViewController {
 
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        webView.notifyContainerWillDisappear()
         guard let navigationController,
               let previousNavigationBarHidden else { return }
         // 仅在自身被移出导航栈时恢复，避免 push 下级页时误恢复

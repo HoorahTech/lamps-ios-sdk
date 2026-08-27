@@ -25,7 +25,26 @@ final class LampsBridge: NSObject, WKScriptMessageHandler {
         webView.configuration.userContentController.add(self, name: Self.messageName)
     }
 
+    func notifyContainerWillAppear() {
+        for handler in handlers {
+            handler.containerWillAppear?()
+        }
+    }
+
+    func notifyContainerWillDisappear() {
+        for handler in handlers {
+            handler.containerWillDisappear?()
+        }
+    }
+
+    func notifyContainerDidDestroy() {
+        for handler in handlers {
+            handler.containerDidDestroy?()
+        }
+    }
+
     func uninstall() {
+        notifyContainerDidDestroy()
         webView?.configuration.userContentController.removeScriptMessageHandler(forName: Self.messageName)
         handlers.removeAll()
         lock.lock()

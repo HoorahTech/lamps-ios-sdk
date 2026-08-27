@@ -105,6 +105,10 @@ Lamps.start(config: config) { success, error in
 let webVC = LampsWebViewController(urlString: "https://www.hupu.com")
 present(UINavigationController(rootViewController: webVC), animated: true)
 
+// 游戏 H5：与上面相同，额外在右上角提供关闭按钮
+let gameVC = LampsGameWebViewController(urlString: "https://example.com/game")
+navigationController?.pushViewController(gameVC, animated: true)
+
 // 也可以把 LampsWebView 当作独立视图嵌入
 let webView = LampsWebView()
 container.addSubview(webView)
@@ -181,7 +185,7 @@ REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL
 
 ## Bridge
 
-Bridge 挂在 `LampsWebView` 内部，**不作为宿主 Native API 开放**（不能 `addHandler` / `send`）。打开 `LampsWebViewController` 或嵌入 `LampsWebView` 后，H5 即可调用内置方法。
+Bridge 挂在 `LampsWebView` 内部，**不作为宿主 Native API 开放**（不能 `addHandler` / `send`）。打开 `LampsWebViewController` / `LampsGameWebViewController` 或嵌入 `LampsWebView` 后，H5 即可调用内置方法。
 
 Native 只监听 `window.webkit.messageHandlers.chatMessage`，不注入 JS。H5 自行实现封装。
 
@@ -202,6 +206,7 @@ window.webkit.messageHandlers.chatMessage.postMessage({
 - `lamps.ad.showRewardedVideo`
 - `lamps.common.request`
 - `lamps.common.track`
+- `lamps.game.open`
 
 Native 主动调 H5 会执行（H5 需实现 `window.HoorahBridge._handle_`）：
 
@@ -306,6 +311,22 @@ H5 调用 `lamps.common.track`，Native 对入参 `url` 直接发 GET，不改�
 ```
 
 收到合法 `url` 后发起 GET，完成后通过本次 invoke 回调：成功 `{ "msg": "" }`，失败 `{ "msg": "原因" }`（含非法 url、网络错误、非 2xx）。
+
+### 打开游戏页 Bridge
+
+游戏中心仍走 `LampsWebViewController` / `makeGameCenterView()`。从中心跳进具体游戏时，H5 调用 `lamps.game.open`，客户端打开带右上角关闭按钮的 `LampsGameWebViewController`。
+
+入参 `data`：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `url` | string | 是 | 完整游戏页 `http(s)` URL |
+
+```json
+{ "url": "https://example.com/game?appid=xxx" }
+```
+
+有导航栈则 `push`，否则全屏 `present`。成功 `{ "msg": "" }`；`url` 非法或找不到宿主页面走 error 回调。
 
 ## 手动 Framework（xcframework）集成
 

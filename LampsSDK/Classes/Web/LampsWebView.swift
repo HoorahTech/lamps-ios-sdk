@@ -24,6 +24,14 @@ final class LampsWebView: WKWebView {
         bridge?.uninstall()
     }
 
+    func notifyContainerWillAppear() {
+        bridge?.notifyContainerWillAppear()
+    }
+
+    func notifyContainerWillDisappear() {
+        bridge?.notifyContainerWillDisappear()
+    }
+
     @discardableResult
     func load(urlString: String) -> Bool {
         guard let url = Self.makeURL(from: urlString) else {

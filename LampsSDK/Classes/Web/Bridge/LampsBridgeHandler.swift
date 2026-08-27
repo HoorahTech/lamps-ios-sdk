@@ -16,4 +16,13 @@ typealias LampsBridgeToH5Callback = ([AnyHashable: Any]) -> Void
         success: LampsBridgeToH5Callback?,
         error: LampsBridgeToH5Callback?
     )
+
+    /// 容器再次可见（从下级页返回、进前台）。未实现则忽略。
+    @objc optional func containerWillAppear()
+
+    /// 容器即将不可见（被盖住、进后台、关闭）。未实现则忽略。
+    @objc optional func containerWillDisappear()
+
+    /// 容器销毁。未实现则忽略。
+    @objc optional func containerDidDestroy()
 }
