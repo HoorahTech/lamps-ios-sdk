@@ -3,8 +3,9 @@ import UIKit
 /// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
 ///
 /// 请 `push` 或 `present` 本页。关闭由 H5 Bridge `close` 触发，也可调用 `closePage()`。
+/// 游戏 H5 请使用 `LampsGameWebViewController`。
 @objcMembers
-public final class LampsWebViewController: UIViewController {
+public class LampsWebViewController: UIViewController {
     /// 当前活动 URL；本地 HTML 模式下为空字符串。
     public let urlString: String
     /// 本地 HTML；通过 URL 打开时为 `nil`。
