@@ -51,7 +51,7 @@ final class LampsWebView: WKWebView {
         return url
     }
 
-    /// 追加到系统默认 UA 的应用名，形如 `LampsSDK/0.0.1`。
+    /// 写入 UA 的 SDK 标记，形如 `LampsSDK/0.0.1`。
     static var userAgentApplicationName: String {
         "LampsSDK/\(Lamps.sdkVersion)"
     }
@@ -67,10 +67,23 @@ final class LampsWebView: WKWebView {
         }
         return config
     }
+
+    /// 默认 UA 后追加 `LampsSDK/x.x.x`，让 `navigator.userAgent` 一定能读到。
+    static func makeCustomUserAgent(base: String) -> String {
+        let token = userAgentApplicationName
+        if base.contains(token) {
+            return base
+        }
+        if base.isEmpty {
+            return token
+        }
+        return "\(base) \(token)"
+    }
 }
 
 private extension LampsWebView {
     func commonSetup() {
+        applyCustomUserAgent()
         uiDelegate = self
         let bridge = LampsBridge(webView: self)
         self.bridge = bridge
@@ -80,6 +93,21 @@ private extension LampsWebView {
         bridge.addHandler(LampsTrackBridgeHandler())
         bridge.addHandler(LampsReadyBridgeHandler())
         bridge.addHandler(LampsGamePageBridgeHandler())
+    }
+
+    func applyCustomUserAgent() {
+        let token = Self.userAgentApplicationName
+        if let current = customUserAgent, current.contains(token) {
+            return
+        }
+        let base: String
+        if let current = customUserAgent, !current.isEmpty {
+            base = current
+        } else {
+            base = LampsDeviceInfo.userAgent
+        }
+        customUserAgent = Self.makeCustomUserAgent(base: base)
+        LampsSDKLog.debug("customUserAgent=\(customUserAgent ?? "")")
     }
 }
 
