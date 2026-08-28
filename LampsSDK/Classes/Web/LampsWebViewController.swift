@@ -99,4 +99,14 @@ public class LampsWebViewController: UIViewController {
         }
         navigationController?.popViewController(animated: true)
     }
+
+    /// 重新加载当前页：本地 HTML 再注入一次，否则按原 URL 重新请求。
+    @objc
+    public func reloadPage() {
+        if let htmlString = htmlString {
+            webView.loadHTMLString(htmlString, baseURL: nil)
+            return
+        }
+        webView.load(urlString: urlString)
+    }
 }

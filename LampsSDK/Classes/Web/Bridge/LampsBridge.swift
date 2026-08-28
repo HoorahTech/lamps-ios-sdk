@@ -200,7 +200,13 @@ private extension LampsBridge {
 
     func evaluate(_ script: String) {
         DispatchQueue.main.async { [weak self] in
-            self?.webView?.evaluateJavaScript(script, completionHandler: nil)
+            self?.webView?.evaluateJavaScript(script, completionHandler: { result, error in
+                if let error {
+                    LampsSDKLog.debug("bridge evaluate failed: \(error.localizedDescription)")
+                    return
+                }
+                LampsSDKLog.debug("bridge evaluate ok result=\(String(describing: result))")
+            })
         }
     }
 }
