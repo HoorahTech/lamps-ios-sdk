@@ -34,8 +34,8 @@ enum LampsMacroReplacer {
 
         // 屏幕物理像素
         let screenPixels = UIScreen.main.nativeBounds.size
-        put(&info, "__SW__", firstString(ex, key: "sw") ?? "\(Int(screenPixels.width))")
-        put(&info, "__SH__", firstString(ex, key: "sh") ?? "\(Int(screenPixels.height))")
+        put(&info, "__SW__", "\(Int(screenPixels.width))")
+        put(&info, "__SH__", "\(Int(screenPixels.height))")
 
         // User-Agent（start 时预取；未就绪用降级串）
         put(&info, "__UA__", LampsDeviceInfo.userAgent)

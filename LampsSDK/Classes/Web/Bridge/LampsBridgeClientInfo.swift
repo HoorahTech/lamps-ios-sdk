@@ -16,10 +16,12 @@ enum LampsBridgeClientInfo {
         info["network"] = LampsDeviceInfo.network
         info["idfa"] = LampsDeviceInfo.idfa
         info["idfv"] = LampsDeviceInfo.idfv
-        info["bundleName"] = Bundle.main.bundleIdentifier ?? ""
+        info["packageName"] = Bundle.main.bundleIdentifier ?? ""
         info["appVer"] = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
-        info["platform"] = UIDevice.current.systemName
         info["osVer"] = UIDevice.current.systemVersion
+        let screenPixels = UIScreen.main.nativeBounds.size
+        info["client_width"] = "\(Int(screenPixels.width))"
+        info["client_height"] = "\(Int(screenPixels.height))"
         info["env"] = LampsEnvironmentStore.current.rawValue
         return info
     }

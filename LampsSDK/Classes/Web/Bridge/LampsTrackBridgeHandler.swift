@@ -72,7 +72,7 @@ private extension LampsTrackBridgeHandler {
     }
 
     enum TrackType {
-        static let pageLoad = "page_load"
+        static let pageLoad = "onload"
     }
 
     enum OuterField {
