@@ -20,8 +20,8 @@ enum LampsBridgeClientInfo {
         info["appVer"] = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
         info["osVer"] = UIDevice.current.systemVersion
         let screenPixels = UIScreen.main.nativeBounds.size
-        info["client_width"] = "\(Int(screenPixels.width))"
-        info["client_height"] = "\(Int(screenPixels.height))"
+        info["clientWidth"] = "\(Int(screenPixels.width))"
+        info["clientHeight"] = "\(Int(screenPixels.height))"
         info["env"] = LampsEnvironmentStore.current.rawValue
         return info
     }
