@@ -3,9 +3,9 @@ import UIKit
 
 /// 性能/事件上报：H5 `lamps.common.track`。
 /// Native 请求当前环境 `baseURL` + `/api/v1/event/report`。
-/// 外层为客户端参数 + `action`（access / click / exposure）+ `vt` / `lt`。
-/// `vt` / `lt` 无论是 Native 补的还是 H5 传入的，都放在外层，不进 `pdata`。
-/// H5 `data` 其余字段放在 `pdata`。
+/// 外层为客户端参数 + `action`（access / click / exposure）。
+/// `vt` / `lt` 无论是 Native 补的还是 H5 传入的，都放在 `pdata`。
+/// H5 `data` 其余字段也放在 `pdata`。
 /// H5 `type` 表示行为类型；`type == page_load` 时对齐 `HCWebViewHermesBridgeHandler` 的 onload：
 /// 先缓存，可见时段结束时上报并补 `vt` / `lt`（秒级时间戳）；缓存保留以便
 /// 进后台/盖住后再回来重新计时。仅容器销毁时清空缓存。
@@ -77,6 +77,9 @@ private extension LampsTrackBridgeHandler {
 
     enum OuterField {
         static let action = "action"
+    }
+
+    enum PdataField {
         static let visitTime = "vt"
         static let leaveTime = "lt"
     }
@@ -133,8 +136,8 @@ private extension LampsTrackBridgeHandler {
             sendTrack(
                 from: item.data,
                 extra: [
-                    OuterField.visitTime: "\(item.visitTime)",
-                    OuterField.leaveTime: "\(leaveTime)"
+                    PdataField.visitTime: "\(item.visitTime)",
+                    PdataField.leaveTime: "\(leaveTime)"
                 ],
                 success: nil,
                 error: nil
@@ -155,17 +158,10 @@ private extension LampsTrackBridgeHandler {
             if name == OuterField.action {
                 continue
             }
-            if name == OuterField.visitTime || name == OuterField.leaveTime {
-                let text = LampsJSONValue.stringValue(value)
-                if !text.isEmpty {
-                    body[name] = text
-                }
-                continue
-            }
             pdata[name] = LampsJSONValue.stringValue(value)
         }
+        extra.forEach { pdata[$0.key] = $0.value }
         body["pdata"] = pdata
-        extra.forEach { body[$0.key] = $0.value }
         return body
     }
 
