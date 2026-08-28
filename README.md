@@ -102,6 +102,19 @@ Lamps.start(config: config) { success, error in
     // 启动时会请求 GET /v1/lamps/config；代码位与监测链接由 SDK 内部使用
 }
 
+// 打开游戏中心。可不传页面，SDK 会取当前最上层 VC。
+// 有宿主导航则 push；要避开宿主导航栏时用 presentGameCenter。
+Lamps.showGameCenter { success, error in
+    if !success {
+        print(error?.localizedDescription ?? "")
+    }
+}
+Lamps.presentGameCenter { success, error in
+    if !success {
+        print(error?.localizedDescription ?? "")
+    }
+}
+
 let webVC = LampsWebViewController(urlString: "https://www.hupu.com")
 present(UINavigationController(rootViewController: webVC), animated: true)
 

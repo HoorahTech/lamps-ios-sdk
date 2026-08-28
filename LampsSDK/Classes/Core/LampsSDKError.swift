@@ -1,9 +1,9 @@
 import Foundation
 
-/// `Lamps.start` 失败时 `NSError.domain`。
+/// SDK 失败时 `NSError.domain`。
 public let LampsSDKErrorDomain = "com.hupu.lamps.sdk"
 
-/// `Lamps.start` 失败时 `NSError.code`。
+/// SDK 失败时 `NSError.code`。
 @objc public enum LampsSDKErrorCode: Int {
     /// 尚未调用 `Lamps.start`。
     case notStarted = -1001
@@ -21,6 +21,10 @@ public let LampsSDKErrorDomain = "com.hupu.lamps.sdk"
     case rewardLoadError = -1007
     /// 激励视频展示失败。具体原因看 `localizedDescription`。
     case rewardShowError = -1008
+    /// 游戏中心地址为空或 URL 不合法。
+    case gameCenterUnavailable = -1009
+    /// 找不到可用于展示的页面。
+    case noHostViewController = -1010
 }
 
 /// SDK 内部错误构造。跨模块 Adapter 使用；宿主请识别 `NSError`。
@@ -34,6 +38,8 @@ public enum LampsSDKError {
     case rewardBusy(String)
     case rewardLoadError(String)
     case rewardShowError(String)
+    case gameCenterUnavailable(String)
+    case noHostViewController(String)
 
     public var nsError: NSError {
         NSError(
@@ -53,6 +59,8 @@ public enum LampsSDKError {
         case .rewardBusy: return .rewardBusy
         case .rewardLoadError: return .rewardLoadError
         case .rewardShowError: return .rewardShowError
+        case .gameCenterUnavailable: return .gameCenterUnavailable
+        case .noHostViewController: return .noHostViewController
         }
     }
 
@@ -65,7 +73,9 @@ public enum LampsSDKError {
              .adSDKInitializeError(let message),
              .rewardBusy(let message),
              .rewardLoadError(let message),
-             .rewardShowError(let message):
+             .rewardShowError(let message),
+             .gameCenterUnavailable(let message),
+             .noHostViewController(let message):
             return message
         }
     }

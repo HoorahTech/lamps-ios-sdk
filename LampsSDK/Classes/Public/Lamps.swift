@@ -7,6 +7,12 @@ import UIKit
 ///   - error: 失败原因，`domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
 public typealias LampsStartCompletion = (Bool, Error?) -> Void
 
+/// 打开游戏中心结果回调。
+/// - Parameters:
+///   - success: 已发起跳转为 `true`。
+///   - error: 失败原因，`domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
+public typealias LampsShowGameCenterCompletion = (Bool, Error?) -> Void
+
 /// Lamps SDK 入口。接入方 `import LampsSDK` 后先 `start`，再 `showGameCent   er(from:)` 打开游戏中心，或 `makeGameCenterView()` 嵌入页面。
 /// 类名不用 `LampsSDK`，避免与模块名冲突。
 @objcMembers
@@ -65,17 +71,47 @@ public final class Lamps: NSObject {
         storedConfig
     }
 
-    /// 打开配置下发的游戏中心页。请先 `start` 成功。
+    /// 在宿主导航栈中打开游戏中心。请先 `start` 成功。
     ///
-    /// 参数可以是 `UINavigationController`，也可以是栈内任意页面：有导航栈则 `push`，否则全屏 `present`。
-    /// - Returns: 已发起跳转为 `true`；未 start、地址为空或 URL 不合法为 `false`。
-    @discardableResult
-    @objc(showGameCenterFromViewController:)
-    public static func showGameCenter(from viewController: UIViewController) -> Bool {
-        guard let urlString = resolvedGameCenterPageURL() else { return false }
-        let page = LampsWebViewController(urlString: urlString)
-        LampsNavigator.pushOrPresent(page, from: viewController)
-        return true
+    /// 当前页有导航栈则 `push`，否则全屏 `present`。关闭由 H5 触发，或调用页内关闭。
+    /// 若希望独立全屏打开、不进入宿主导航栈，请用 `presentGameCenter`。
+    ///
+    /// - Parameters:
+    ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
+    @objc(showGameCenterFromViewController:completion:)
+    public static func showGameCenter(
+        from viewController: UIViewController? = nil,
+        completion: LampsShowGameCenterCompletion? = nil
+    ) {
+        switch prepareGameCenter(from: viewController) {
+        case .ready(let host, let page):
+            LampsNavigator.pushOrPresent(page, from: host)
+            completion?(true, nil)
+        case .failure(let error):
+            completeGameCenter(error, completion: completion)
+        }
+    }
+
+    /// 全屏打开游戏中心，不进入宿主导航栈。请先 `start` 成功。
+    ///
+    /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
+    ///
+    /// - Parameters:
+    ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
+    @objc(presentGameCenterFromViewController:completion:)
+    public static func presentGameCenter(
+        from viewController: UIViewController? = nil,
+        completion: LampsShowGameCenterCompletion? = nil
+    ) {
+        switch prepareGameCenter(from: viewController) {
+        case .ready(let host, let page):
+            LampsNavigator.presentInNavigationController(page, from: host)
+            completion?(true, nil)
+        case .failure(let error):
+            completeGameCenter(error, completion: completion)
+        }
     }
 
     /// 使用配置下发的 `gameCenterPage` 创建可内嵌视图。请先 `start` 成功。
@@ -221,16 +257,59 @@ public final class Lamps: NSObject {
         LampsSDKAdapterCenter.initializeSDKs(config: config, completion: completion)
     }
 
+    /// 只负责解析地址和宿主，不跳转、不回调。
+    private static func prepareGameCenter(
+        from viewController: UIViewController?
+    ) -> GameCenterPrepareResult {
+        switch resolveGameCenterPageURL() {
+        case .success(let url):
+            guard let host = viewController ?? LampsNavigator.currentHostViewController() else {
+                return .failure(.noHostViewController("找不到可用于打开游戏中心的页面"))
+            }
+            return .ready(host: host, page: LampsWebViewController(urlString: url))
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    private static func completeGameCenter(
+        _ error: LampsSDKError,
+        completion: LampsShowGameCenterCompletion?
+    ) {
+        let nsError = error.nsError
+        LampsSDKLog.debug("showGameCenter failed: \(nsError.localizedDescription)")
+        completion?(false, nsError)
+    }
+
     private static func resolvedGameCenterPageURL() -> String? {
-        let url = storedRemoteConfig?.gameCenterPage.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        switch resolveGameCenterPageURL() {
+        case .success(let url):
+            return url
+        case .failure:
+            return nil
+        }
+    }
+
+    private static func resolveGameCenterPageURL() -> GameCenterPageResult {
         guard started else {
             LampsSDKLog.debug("gameCenterPage skipped: not started")
-            return nil
+            return .failure(.notStarted("尚未调用 Lamps.start"))
         }
+        let url = storedRemoteConfig?.gameCenterPage.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         guard !url.isEmpty, LampsWebView.makeURL(from: url) != nil else {
             LampsSDKLog.debug("gameCenterPage unavailable url=\(url)")
-            return nil
+            return .failure(.gameCenterUnavailable("游戏中心地址不可用"))
         }
-        return url
+        return .success(url)
     }
+}
+
+private enum GameCenterPageResult {
+    case success(String)
+    case failure(LampsSDKError)
+}
+
+private enum GameCenterPrepareResult {
+    case ready(host: UIViewController, page: LampsWebViewController)
+    case failure(LampsSDKError)
 }

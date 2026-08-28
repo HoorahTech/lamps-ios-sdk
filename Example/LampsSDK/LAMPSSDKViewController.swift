@@ -62,8 +62,10 @@ final class LAMPSSDKViewController: UIViewController {
     }
 
     @objc private func openWebView() {
-        if !Lamps.showGameCenter(from: self) {
-            NSLog("[LampsSDK Demo] gameCenterPage unavailable")
+        Lamps.showGameCenter(from: self) { success, error in
+            if !success {
+                NSLog("[LampsSDK Demo] %@", error?.localizedDescription ?? "gameCenter unavailable")
+            }
         }
     }
 
