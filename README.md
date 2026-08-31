@@ -342,7 +342,7 @@ H5 调用 `lamps.common.statusBar`，控制状态栏显隐、沉浸式布局、�
 | --- | --- | --- | --- |
 | `showStatusBar` | boolean | 否 | `true` 显示系统状态栏；`false` 隐藏。默认 `true` |
 | `statusBarImmersive` | boolean | 否 | `true` 沉浸式，WebView 从屏幕顶部布局；`false` 从状态栏下方开始。默认 `true` |
-| `backgroundColor` | string | 否 | 状态栏区域背景色（iOS 状态栏本身无颜色，设置的是容器背景），hex，如 `#FFFFFF` |
+| `backgroundColor` | string | 否 | 状态栏区域背景色（iOS 状态栏本身无颜色，设置的是容器背景），hex，如 `#FFFFFF` / `#AARRGGBB` |
 | `statusBarFontStyle` | number | 否 | `0` 浅色；`1` 深色。默认 `1` |
 
 ```json
