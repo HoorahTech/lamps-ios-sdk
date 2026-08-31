@@ -215,7 +215,8 @@ window.webkit.messageHandlers.chatMessage.postMessage({
 内置方法：
 
 - `ping`
-- `close`
+- `lamps.ui.pageclose`
+- `lamps.common.statusBar`
 - `lamps.ad.showRewardedVideo`
 - `lamps.common.request`
 - `lamps.common.track`
@@ -225,12 +226,6 @@ Native 主动调 H5 会执行（H5 需实现 `window.HoorahBridge._handle_`）�
 
 ```js
 window.HoorahBridge._handle_(method, data, successcb, errorcb)
-```
-
-宿主侧只需处理页面关闭：
-
-```swift
-webView.closeHandler = { /* 关闭页面 */ }
 ```
 
 ### 激励视频 Bridge
@@ -324,6 +319,42 @@ H5 调用 `lamps.common.track`，Native 对入参 `url` 直接发 GET，不改�
 ```
 
 收到合法 `url` 后发起 GET，完成后通过本次 invoke 回调：成功 `{ "msg": "" }`，失败 `{ "msg": "原因" }`（含非法 url、网络错误、非 2xx）。
+
+### 关闭 H5 页 Bridge
+
+H5 调用 `lamps.ui.pageclose`，客户端关闭当前容器：模态则 `dismiss`，否则 `pop`。无入参。
+
+`LampsWebViewController` / `LampsGameWebViewController` 已接好关闭。若宿主自己嵌入 `LampsWebView`，需设置 `closeHandler`：
+
+```swift
+webView.closeHandler = { /* 关闭页面 */ }
+```
+
+成功 `{ "msg": "success" }`；找不到可关闭容器走 error 回调。
+
+### 状态栏 Bridge
+
+H5 调用 `lamps.common.statusBar`，控制状态栏显隐、沉浸式布局、背景色和文字颜色。
+
+入参 `data`：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `showStatusBar` | boolean | 否 | `true` 显示系统状态栏；`false` 隐藏。默认 `true` |
+| `statusBarImmersive` | boolean | 否 | `true` 沉浸式，WebView 从屏幕顶部布局；`false` 从状态栏下方开始。默认 `true` |
+| `backgroundColor` | string | 否 | 状态栏区域背景色（iOS 状态栏本身无颜色，设置的是容器背景），hex，如 `#FFFFFF` |
+| `statusBarFontStyle` | number | 否 | `0` 浅色；`1` 深色。默认 `1` |
+
+```json
+{
+  "showStatusBar": true,
+  "statusBarImmersive": true,
+  "backgroundColor": "#FFFFFF",
+  "statusBarFontStyle": 1
+}
+```
+
+未传的布尔 / 字号字段按上表默认值生效；`backgroundColor` 未传或非法则不改容器背景。成功 `{ "msg": "success" }`；找不到 `LampsWebViewController` 容器走 error 回调。
 
 ### 打开游戏页 Bridge
 

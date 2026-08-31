@@ -12,6 +12,14 @@ public class LampsWebViewController: UIViewController {
     public let htmlString: String?
 
     private var previousNavigationBarHidden: Bool?
+    private var webViewTopConstraint: NSLayoutConstraint?
+    /// 显示系统状态栏。默认 `true`。
+    private var showsStatusBar = true
+    /// 沉浸式：`true` WebView 从屏幕顶部布局；`false` 从状态栏下方开始。默认 `true`。
+    private var statusBarImmersive = true
+    /// `0` 浅色状态栏文字，`1` 深色。默认 `1`。
+    private var statusBarFontStyle = 1
+    private var statusBarBackgroundColor: UIColor = .white
 
     /// 页面内 WebView，仅 SDK 内部使用。
     private lazy var webView: LampsWebView = {
@@ -40,6 +48,7 @@ public class LampsWebViewController: UIViewController {
         self.urlString = urlString
         self.htmlString = htmlString
         super.init(nibName: nil, bundle: nil)
+        modalPresentationCapturesStatusBarAppearance = true
     }
 
     @available(*, unavailable)
@@ -47,12 +56,28 @@ public class LampsWebViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override var prefersStatusBarHidden: Bool {
+        !showsStatusBar
+    }
+
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        if statusBarFontStyle == 0 {
+            return .lightContent
+        }
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        }
+        return .default
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = statusBarBackgroundColor
         view.addSubview(webView)
+        let top = makeWebViewTopConstraint()
+        webViewTopConstraint = top
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            top,
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -85,6 +110,40 @@ public class LampsWebViewController: UIViewController {
         }
     }
 
+    /// 由 `lamps.common.statusBar` 调用。`backgroundColor` 为 `nil` 时不改容器背景。
+    func applyStatusBar(
+        showStatusBar: Bool,
+        immersive: Bool,
+        backgroundColor: UIColor?,
+        fontStyle: Int
+    ) {
+        var statusBarNeedsUpdate = false
+        if showsStatusBar != showStatusBar {
+            showsStatusBar = showStatusBar
+            statusBarNeedsUpdate = true
+        }
+        let style = fontStyle == 0 ? 0 : 1
+        if statusBarFontStyle != style {
+            statusBarFontStyle = style
+            statusBarNeedsUpdate = true
+        }
+        if let backgroundColor {
+            statusBarBackgroundColor = backgroundColor
+            if isViewLoaded {
+                view.backgroundColor = backgroundColor
+            }
+        }
+        if statusBarImmersive != immersive {
+            statusBarImmersive = immersive
+            if isViewLoaded {
+                updateWebViewTopInset()
+            }
+        }
+        if statusBarNeedsUpdate {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+
     /// 关闭当前页：模态容器则 `dismiss`，否则 `pop`。
     @objc
     public func closePage() {
@@ -108,5 +167,20 @@ public class LampsWebViewController: UIViewController {
             return
         }
         webView.load(urlString: urlString)
+    }
+
+    private func makeWebViewTopConstraint() -> NSLayoutConstraint {
+        if statusBarImmersive {
+            return webView.topAnchor.constraint(equalTo: view.topAnchor)
+        }
+        return webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+    }
+
+    private func updateWebViewTopInset() {
+        webViewTopConstraint?.isActive = false
+        let top = makeWebViewTopConstraint()
+        top.isActive = true
+        webViewTopConstraint = top
+        view.setNeedsLayout()
     }
 }

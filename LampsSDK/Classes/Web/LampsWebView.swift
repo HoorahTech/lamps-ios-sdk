@@ -93,6 +93,7 @@ private extension LampsWebView {
         bridge.addHandler(LampsTrackBridgeHandler())
         bridge.addHandler(LampsReadyBridgeHandler())
         bridge.addHandler(LampsGamePageBridgeHandler())
+        bridge.addHandler(LampsUIBridgeHandler())
     }
 
     func applyCustomUserAgent() {

@@ -22,4 +22,24 @@ enum LampsJSONValue {
         }
         return defaultValue
     }
+
+    /// Bool / NSNumber / `"true"` `"false"` `"1"` `"0"` → Bool；缺失或无法解析返回 `defaultValue`。
+    static func boolValue(_ value: Any?, default defaultValue: Bool = false) -> Bool {
+        if value == nil || value is NSNull {
+            return defaultValue
+        }
+        if let number = value as? NSNumber {
+            return number.boolValue
+        }
+        if let text = value as? String {
+            let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            if trimmed == "true" || trimmed == "1" || trimmed == "yes" {
+                return true
+            }
+            if trimmed == "false" || trimmed == "0" || trimmed == "no" {
+                return false
+            }
+        }
+        return defaultValue
+    }
 }
