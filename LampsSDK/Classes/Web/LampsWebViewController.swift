@@ -144,11 +144,14 @@ public class LampsWebViewController: UIViewController {
         }
     }
 
-    /// 关闭当前页：模态容器则 `dismiss`，否则 `pop`。
+    /// 关闭当前页：栈内有上级则 `pop`，自身或所在导航容器为模态根页时才 `dismiss`。
     @objc
     public func closePage() {
-        if let navigationController = navigationController,
-           navigationController.presentingViewController != nil {
+        if let navigationController, navigationController.viewControllers.count > 1 {
+            navigationController.popViewController(animated: true)
+            return
+        }
+        if let navigationController, navigationController.presentingViewController != nil {
             navigationController.dismiss(animated: true)
             return
         }
