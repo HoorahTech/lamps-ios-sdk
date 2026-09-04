@@ -378,7 +378,7 @@ H5 调用 `lamps.common.statusBar`，控制状态栏显隐、沉浸式布局、�
 
 ```bash
 ./scripts/build_xcframeworks.sh
-# 产物：build/xcframeworks/LampsSDK-iOS-0.0.1/
+# 产物：build/xcframeworks/LampsSDK-iOS-0.0.2/
 ```
 
 产出 5 个包：`LampsSDK`（Core）+ 三家 Adapter + `LampsDevTools`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。

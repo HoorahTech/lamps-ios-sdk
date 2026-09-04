@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LampsCSJAdapter'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'LampsSDK 穿山甲激励 Adapter（独立模块，供 xcframework 出包）'
   s.homepage         = 'http://gitlab.hupu.com/HPBase/lamps-ios-sdk'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
