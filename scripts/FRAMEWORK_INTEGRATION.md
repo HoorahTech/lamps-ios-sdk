@@ -5,6 +5,7 @@
 ```text
 LampsSDK-iOS-x.y.z/
   LampsSDK.xcframework              # Core，必选
+  LampsSDKResources.bundle          # Core 图片资源，必选（静态库不会从 xcframework 里带出）
   Adapters/
     LampsCSJAdapter.xcframework
     LampsGDTAdapter.xcframework
@@ -21,10 +22,11 @@ LampsSDK-iOS-x.y.z/
 ## 公共配置
 
 1. 将需要的 `.xcframework` 拖入工程，勾选 **Embed & Sign**（静态库场景按团队惯例，至少保证 Link）
-2. `Other Linker Flags` 增加 `-ObjC`（保证 Adapter 内 OC `+load` 注册生效）
-3. Swift：`import LampsSDK`，入口 `Lamps.start(config:completion:)`
-4. 需要激励时，再按渠道链接对应 Adapter 模块（`import LampsCSJAdapter` 等通常不必，注册靠 `+load`）
-5. 需要调试页时，链 `DevTools/LampsDevTools.xcframework`，并保证宿主已有 `GDTDevToolSDK` / `BUAdTestMeasurement`（或 Debug 依赖）；入口 `LampsDevTools.present(from:)`
+2. 将 `LampsSDKResources.bundle` 拖入工程，并加入目标的 **Copy Bundle Resources**（游戏菜单图标依赖此 bundle）
+3. `Other Linker Flags` 增加 `-ObjC`（保证 Adapter 内 OC `+load` 注册生效）
+4. Swift：`import LampsSDK`，入口 `Lamps.start(config:completion:)`
+5. 需要激励时，再按渠道链接对应 Adapter 模块（`import LampsCSJAdapter` 等通常不必，注册靠 `+load`）
+6. 需要调试页时，链 `DevTools/LampsDevTools.xcframework`，并保证宿主已有 `GDTDevToolSDK` / `BUAdTestMeasurement`（或 Debug 依赖）；入口 `LampsDevTools.present(from:)`
 
 ## 按渠道组合（无 / 全有 / 只有部分）
 
@@ -56,7 +58,7 @@ LampsSDK-iOS-x.y.z/
 
 | Pod | Framework |
 | --- | --- |
-| `LampsSDK/Core` | `LampsSDK.xcframework` |
+| `LampsSDK/Core` | `LampsSDK.xcframework` + `LampsSDKResources.bundle` |
 | `LampsSDK/CSJAdapter` | `LampsCSJAdapter.xcframework`（宿主自备 BUAdSDK） |
 | `LampsSDK/CSJ` | Adapter + ThirdParty/Ads-CN |
 | `LampsSDK/GDTAdapter` | `LampsGDTAdapter.xcframework` |

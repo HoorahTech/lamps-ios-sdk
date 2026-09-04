@@ -40,6 +40,8 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |ss|
     if use_binary
       ss.vendored_frameworks = 'LampsSDK/Binary/LampsSDK.xcframework'
+      # 静态 xcframework 内的资源不会进宿主包，需单独拷 bundle。
+      ss.resources = ['LampsSDK/Binary/LampsSDKResources.bundle']
     else
       ss.source_files = [
         'LampsSDK/Classes/Public/**/*.swift',

@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # 产出 LampsSDK / LampsCSJAdapter / LampsGDTAdapter / LampsNoahAdapter / LampsDevTools
-# 共 5 个 xcframework，以及可选 ThirdParty（汇川 Vendor；穿山甲/优量汇来自 Pods 时可一并拷贝）。
+# 共 5 个 xcframework、LampsSDKResources.bundle，以及可选 ThirdParty
+# （汇川 Vendor；穿山甲/优量汇来自 Pods 时可一并拷贝）。
+#
+# 资源不能打进静态 xcframework：静态 linkage 下 .framework 不会进 App 包，
+# 宿主拿不到里面的图片。因此单独编 LampsSDKResources.bundle，与 xcframework 并列分发。
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -12,12 +16,77 @@ VERSION="${LAMPS_SDK_VERSION:-0.0.1}"
 export LANG="${LANG:-en_US.UTF-8}"
 export LC_ALL="${LC_ALL:-en_US.UTF-8}"
 
+# 将 xcassets 编成独立 bundle。静态二进制下必须与 xcframework 并列，由宿主拷进 App。
+compile_resource_bundle() {
+  local dest="$1"
+  local assets="$ROOT/LampsSDK/Assets/LampsSDK.xcassets"
+  local tmp partial
+  if [[ ! -d "$assets" ]]; then
+    echo "error: missing $assets" >&2
+    exit 1
+  fi
+
+  echo "==> Compile LampsSDKResources.bundle"
+  tmp="$(mktemp -d)"
+  partial="$tmp/partial.plist"
+  rm -rf "$dest"
+  mkdir -p "$dest"
+
+  xcrun actool \
+    --output-format human-readable-text \
+    --notices \
+    --warnings \
+    --compress-pngs \
+    --enable-on-demand-resources NO \
+    --output-partial-info-plist "$partial" \
+    --platform iphoneos \
+    --minimum-deployment-target 12.0 \
+    --target-device iphone \
+    --target-device ipad \
+    --compile "$dest" \
+    "$assets"
+
+  if [[ ! -f "$dest/Assets.car" ]]; then
+    echo "error: actool did not produce Assets.car in $dest" >&2
+    rm -rf "$tmp"
+    exit 1
+  fi
+
+  cat > "$dest/Info.plist" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.cocoapods.LampsSDKResources</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>LampsSDKResources</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${VERSION}</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>MinimumOSVersion</key>
+	<string>12.0</string>
+</dict>
+</plist>
+EOF
+  rm -rf "$tmp"
+}
+
 echo "==> Root: $ROOT"
 echo "==> Output: $OUT"
 echo "==> 提示: 出包前请确保 LampsSDK.podspec 中 use_binary = false（从源码编 Core）"
 
 rm -rf "$OUT" "$ARCHIVES"
 mkdir -p "$OUT" "$ARCHIVES"
+
+compile_resource_bundle "$OUT/LampsSDKResources.bundle"
 
 cd "$DIST"
 echo "==> pod install (Distribution)"
@@ -96,6 +165,7 @@ rm -rf "$RELEASE"
 mkdir -p "$RELEASE/Adapters" "$RELEASE/DevTools" "$RELEASE/ThirdParty"
 
 cp -R "$OUT/LampsSDK.xcframework" "$RELEASE/"
+cp -R "$OUT/LampsSDKResources.bundle" "$RELEASE/"
 cp -R "$OUT/LampsCSJAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsGDTAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsNoahAdapter.xcframework" "$RELEASE/Adapters/"
@@ -106,11 +176,13 @@ BINARY_DIR="$ROOT/LampsSDK/Binary"
 echo "==> Sync to $BINARY_DIR"
 mkdir -p "$BINARY_DIR/Adapters" "$BINARY_DIR/DevTools"
 rm -rf "$BINARY_DIR/LampsSDK.xcframework"
+rm -rf "$BINARY_DIR/LampsSDKResources.bundle"
 rm -rf "$BINARY_DIR/Adapters/LampsCSJAdapter.xcframework"
 rm -rf "$BINARY_DIR/Adapters/LampsGDTAdapter.xcframework"
 rm -rf "$BINARY_DIR/Adapters/LampsNoahAdapter.xcframework"
 rm -rf "$BINARY_DIR/DevTools/LampsDevTools.xcframework"
 cp -R "$OUT/LampsSDK.xcframework" "$BINARY_DIR/"
+cp -R "$OUT/LampsSDKResources.bundle" "$BINARY_DIR/"
 cp -R "$OUT/LampsCSJAdapter.xcframework" "$BINARY_DIR/Adapters/"
 cp -R "$OUT/LampsGDTAdapter.xcframework" "$BINARY_DIR/Adapters/"
 cp -R "$OUT/LampsNoahAdapter.xcframework" "$BINARY_DIR/Adapters/"
@@ -149,5 +221,5 @@ cp "$ROOT/scripts/FRAMEWORK_INTEGRATION.md" "$RELEASE/README-手动集成.md"
 
 echo ""
 echo "==> Done"
-ls -la "$OUT"/*.xcframework
+ls -la "$OUT"/*.xcframework "$OUT"/*.bundle
 echo "Release folder: $RELEASE"

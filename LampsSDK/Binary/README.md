@@ -5,6 +5,7 @@
 ```text
 LampsSDK/Binary/
   LampsSDK.xcframework
+  LampsSDKResources.bundle
   Adapters/
     LampsCSJAdapter.xcframework
     LampsGDTAdapter.xcframework
