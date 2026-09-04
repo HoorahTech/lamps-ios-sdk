@@ -25,6 +25,8 @@ public let LampsSDKErrorDomain = "com.hupu.lamps.sdk"
     case gameCenterUnavailable = -1009
     /// 找不到可用于展示的页面。
     case noHostViewController = -1010
+    /// 游戏页地址为空或 URL 不合法。
+    case gamePageUnavailable = -1011
 }
 
 /// SDK 内部错误构造。跨模块 Adapter 使用；宿主请识别 `NSError`。
@@ -40,6 +42,7 @@ public enum LampsSDKError {
     case rewardShowError(String)
     case gameCenterUnavailable(String)
     case noHostViewController(String)
+    case gamePageUnavailable(String)
 
     public var nsError: NSError {
         NSError(
@@ -61,6 +64,7 @@ public enum LampsSDKError {
         case .rewardShowError: return .rewardShowError
         case .gameCenterUnavailable: return .gameCenterUnavailable
         case .noHostViewController: return .noHostViewController
+        case .gamePageUnavailable: return .gamePageUnavailable
         }
     }
 
@@ -75,7 +79,8 @@ public enum LampsSDKError {
              .rewardLoadError(let message),
              .rewardShowError(let message),
              .gameCenterUnavailable(let message),
-             .noHostViewController(let message):
+             .noHostViewController(let message),
+             .gamePageUnavailable(let message):
             return message
         }
     }

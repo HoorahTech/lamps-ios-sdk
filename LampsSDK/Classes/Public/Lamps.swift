@@ -13,7 +13,7 @@ public typealias LampsStartCompletion = (Bool, Error?) -> Void
 ///   - error: 失败原因，`domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
 public typealias LampsShowGameCenterCompletion = (Bool, Error?) -> Void
 
-/// Lamps SDK 入口。接入方 `import LampsSDK` 后先 `start`，再 `showGameCent   er(from:)` 打开游戏中心，或 `makeGameCenterView()` 嵌入页面。
+/// Lamps SDK 入口。接入方 `import LampsSDK` 后先 `start`，再 `showGameCenter(from:)` 打开游戏中心，`showGame(gameId:)` 打开具体游戏，或 `makeGameCenterView()` 嵌入页面。
 /// 类名不用 `LampsSDK`，避免与模块名冲突。
 @objcMembers
 public final class Lamps: NSObject {
@@ -114,6 +114,55 @@ public final class Lamps: NSObject {
         }
     }
 
+    /// 在宿主导航栈中打开具体游戏页。请先 `start` 成功。
+    ///
+    /// 使用配置下发的 `gamePageUrl`，将链接中的 `__GAMEID__` 替换为 `gameId` 后加载。
+    /// 当前页有导航栈则 `push`，否则全屏 `present`。容器为 `LampsGameWebViewController`。
+    /// 若希望独立全屏打开、不进入宿主导航栈，请用 `presentGame`。
+    ///
+    /// - Parameters:
+    ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
+    ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
+    @objc(showGameWithGameId:fromViewController:completion:)
+    public static func showGame(
+        gameId: String,
+        from viewController: UIViewController? = nil,
+        completion: LampsShowGameCenterCompletion? = nil
+    ) {
+        switch prepareGamePage(gameId: gameId, from: viewController) {
+        case .ready(let host, let page):
+            LampsNavigator.pushOrPresent(page, from: host)
+            completion?(true, nil)
+        case .failure(let error):
+            completeGame(error, completion: completion)
+        }
+    }
+
+    /// 全屏打开具体游戏页，不进入宿主导航栈。请先 `start` 成功。
+    ///
+    /// 使用配置下发的 `gamePageUrl`，将链接中的 `__GAMEID__` 替换为 `gameId` 后加载。
+    /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。
+    ///
+    /// - Parameters:
+    ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
+    ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
+    @objc(presentGameWithGameId:fromViewController:completion:)
+    public static func presentGame(
+        gameId: String,
+        from viewController: UIViewController? = nil,
+        completion: LampsShowGameCenterCompletion? = nil
+    ) {
+        switch prepareGamePage(gameId: gameId, from: viewController) {
+        case .ready(let host, let page):
+            LampsNavigator.presentInNavigationController(page, from: host)
+            completion?(true, nil)
+        case .failure(let error):
+            completeGame(error, completion: completion)
+        }
+    }
+
     /// 使用配置下发的 `gameCenterPage` 创建可内嵌视图。请先 `start` 成功。
     /// 返回的是内部 WebView，类型对外为 `UIView`。地址不可用时返回 `nil`。
     /// 请由宿主加入自己的视图层级并设置约束。
@@ -203,6 +252,7 @@ public final class Lamps: NSObject {
         let slots = remote?.rewardAdSlots.map { "\($0.channelName)/\($0.slotId)" }.joined(separator: ", ") ?? "-"
         let channels = remote?.channelList.map { "\($0.channelId)/\($0.channelAppId)" }.joined(separator: ", ") ?? "-"
         let gameCenter = remote?.gameCenterPage ?? ""
+        let gamePage = remote?.gamePageUrl ?? ""
         return """
         remoteConfig: \(remote == nil ? "nil" : "ok")
         tokenLen: \(remote?.token.count ?? 0)
@@ -210,6 +260,7 @@ public final class Lamps: NSObject {
         channels(\(remote?.channelList.count ?? 0)): \(channels)
         slots(\(remote?.rewardAdSlots.count ?? 0)): \(slots)
         gameCenterPage: \(gameCenter.isEmpty ? "-" : gameCenter)
+        gamePageUrl: \(gamePage.isEmpty ? "-" : gamePage)
         personalizedRecommend: \(config?.personalizedRecommendEnabled ?? true)
         shakeAds: \(config?.shakeAdsEnabled ?? true)
         allowLocation: \(config?.allowLocation ?? false)
@@ -281,6 +332,31 @@ public final class Lamps: NSObject {
         completion?(false, nsError)
     }
 
+    /// 只负责解析游戏页地址和宿主，不跳转、不回调。
+    private static func prepareGamePage(
+        gameId: String,
+        from viewController: UIViewController?
+    ) -> GamePagePrepareResult {
+        switch resolveGamePageURL(gameId: gameId) {
+        case .success(let url):
+            guard let host = viewController ?? LampsNavigator.currentHostViewController() else {
+                return .failure(.noHostViewController("找不到可用于打开游戏页的页面"))
+            }
+            return .ready(host: host, page: LampsGameWebViewController(urlString: url))
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    private static func completeGame(
+        _ error: LampsSDKError,
+        completion: LampsShowGameCenterCompletion?
+    ) {
+        let nsError = error.nsError
+        LampsSDKLog.debug("showGame failed: \(nsError.localizedDescription)")
+        completion?(false, nsError)
+    }
+
     private static func resolvedGameCenterPageURL() -> String? {
         switch resolveGameCenterPageURL() {
         case .success(let url):
@@ -302,6 +378,25 @@ public final class Lamps: NSObject {
         }
         return .success(url)
     }
+
+    private static func resolveGamePageURL(gameId: String) -> GameCenterPageResult {
+        guard started else {
+            LampsSDKLog.debug("gamePageUrl skipped: not started")
+            return .failure(.notStarted("尚未调用 Lamps.start"))
+        }
+        let trimmedId = gameId.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedId.isEmpty else {
+            LampsSDKLog.debug("gamePageUrl skipped: empty gameId")
+            return .failure(.invalidConfig("gameId 不能为空"))
+        }
+        let template = storedRemoteConfig?.gamePageUrl.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let url = template.replacingOccurrences(of: "__GAMEID__", with: trimmedId)
+        guard !url.isEmpty, LampsWebView.makeURL(from: url) != nil else {
+            LampsSDKLog.debug("gamePageUrl unavailable url=\(url)")
+            return .failure(.gamePageUnavailable("游戏页地址不可用"))
+        }
+        return .success(url)
+    }
 }
 
 private enum GameCenterPageResult {
@@ -311,5 +406,10 @@ private enum GameCenterPageResult {
 
 private enum GameCenterPrepareResult {
     case ready(host: UIViewController, page: LampsWebViewController)
+    case failure(LampsSDKError)
+}
+
+private enum GamePagePrepareResult {
+    case ready(host: UIViewController, page: LampsGameWebViewController)
     case failure(LampsSDKError)
 }
