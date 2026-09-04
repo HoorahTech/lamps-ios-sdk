@@ -5,10 +5,15 @@ platform :ios, '12.0'
 
 target 'LampsSDK_Example' do
   # 静态链接，避免 Ads-CN 等静态 xcframework 与动态 Framework 冲突
-  pod 'LampsSDK', :path => '../'
-  # 独立模块 LampsDevTools，源码 / 二进制都 `import LampsDevTools`
-  # （不要用 LampsSDK/DevTools 的源码 subspec：那会把调试页编进 LampsSDK 模块）
-  pod 'LampsDevTools', :path => '../'
+  pod 'LampsSDK', :path => '../',:subspecs => [
+    'Core',
+    # 主工程三方 SDK 已由 HPByteThirdParty / GDTMobSDK / NoahAdSdks 提供 → 用 *Adapter
+    # 若走 Lamps 再拉一份 Pod SDK，改用 CSJ / GDT / Noah
+    'CSJ',
+    'GDT',
+    'Noah',
+    'DevTools'
+  ]
 
   target 'LampsSDK_Tests' do
     inherit! :search_paths

@@ -20,8 +20,8 @@
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		A01111111111111111111102 /* LAMPSSDKAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111101 /* LAMPSSDKAppDelegate.swift */; };
 		A01111111111111111111104 /* LAMPSSDKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111103 /* LAMPSSDKViewController.swift */; };
-		A01111111111111111111108 /* LAMPSSDKGameCenterEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111107 /* LAMPSSDKGameCenterEmbedViewController.swift */; };
 		A01111111111111111111106 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111105 /* Tests.swift */; };
+		A01111111111111111111108 /* LAMPSSDKGameCenterEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01111111111111111111107 /* LAMPSSDKGameCenterEmbedViewController.swift */; };
 		D094AF57D651AF4DF2A842C1 /* libPods-LampsSDK_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0859E0DDAFC2DF327DF691 /* libPods-LampsSDK_Example.a */; };
 		E561276284549A1924AD0C24 /* libPods-LampsSDK_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF82C9325203947600B11A78 /* libPods-LampsSDK_Tests.a */; };
 /* End PBXBuildFile section */
@@ -59,8 +59,8 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A01111111111111111111101 /* LAMPSSDKAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKAppDelegate.swift; sourceTree = "<group>"; };
 		A01111111111111111111103 /* LAMPSSDKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKViewController.swift; sourceTree = "<group>"; };
-		A01111111111111111111107 /* LAMPSSDKGameCenterEmbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKGameCenterEmbedViewController.swift; sourceTree = "<group>"; };
 		A01111111111111111111105 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		A01111111111111111111107 /* LAMPSSDKGameCenterEmbedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAMPSSDKGameCenterEmbedViewController.swift; sourceTree = "<group>"; };
 		B749028FDBCAF72F86D318F3 /* Pods-LampsSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampsSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-LampsSDK_Tests/Pods-LampsSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C6BC21A48FC032426EAD1F36 /* Pods-LampsSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampsSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		CF82C9325203947600B11A78 /* libPods-LampsSDK_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LampsSDK_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,8 +203,8 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				4468F05E58EF75F05E28F606 /* [CP] Embed Pods Frameworks */,
 				46B0179FAF9E30F54A09D831 /* [CP] Copy Pods Resources */,
+				D135467DCA9D8DE81671A77C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,7 +245,7 @@
 				ORGANIZATIONNAME = yujianchao;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = 2DJ994BZUB;
+						DevelopmentTeam = AK56KJ3A8K;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -317,7 +317,37 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4468F05E58EF75F05E28F606 /* [CP] Embed Pods Frameworks */ = {
+		46B0179FAF9E30F54A09D831 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-resources.sh",
+				"${PODS_ROOT}/Ads-CN/SDK/CSJAdSDK.bundle",
+				"${PODS_ROOT}/Ads-CN/SDK/BUAdTestMeasurement.bundle",
+				"${PODS_ROOT}/GDTDevToolSDK/Products/GDTDevToolBundle.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/LampsSDK/LampsSDKResources.bundle",
+				"${PODS_ROOT}/../../LampsSDK/Vendor/Noah/NoahSDK.framework/HCAdSDK.bundle",
+				"${PODS_ROOT}/../../LampsSDK/Vendor/Noah/NoahSDK.framework/noahSDK.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage/SDWebImage.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSJAdSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdTestMeasurement.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GDTDevToolBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LampsSDKResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HCAdSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/noahSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SDWebImage.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D135467DCA9D8DE81671A77C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,34 +365,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		46B0179FAF9E30F54A09D831 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-resources.sh",
-				"${PODS_ROOT}/Ads-CN/SDK/CSJAdSDK.bundle",
-				"${PODS_ROOT}/Ads-CN/SDK/BUAdTestMeasurement.bundle",
-				"${PODS_ROOT}/GDTDevToolSDK/Products/GDTDevToolBundle.bundle",
-				"${PODS_ROOT}/../../LampsSDK/Vendor/Noah/NoahSDK.framework/HCAdSDK.bundle",
-				"${PODS_ROOT}/../../LampsSDK/Vendor/Noah/NoahSDK.framework/noahSDK.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage/SDWebImage.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSJAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdTestMeasurement.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GDTDevToolBundle.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HCAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/noahSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SDWebImage.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LampsSDK_Example/Pods-LampsSDK_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FCBF6A24124300144790EB8B /* [CP] Check Pods Manifest.lock */ = {
@@ -526,12 +528,12 @@
 			baseConfigurationReference = C6BC21A48FC032426EAD1F36 /* Pods-LampsSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2DJ994BZUB;
+				DEVELOPMENT_TEAM = AK56KJ3A8K;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LampsSDK/LampsSDK-Prefix.pch";
 				INFOPLIST_FILE = "LampsSDK/LampsSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.games.pro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.games.pro11111;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -544,12 +546,12 @@
 			baseConfigurationReference = 771F8966A9645B6AA44A3A87 /* Pods-LampsSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2DJ994BZUB;
+				DEVELOPMENT_TEAM = AK56KJ3A8K;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LampsSDK/LampsSDK-Prefix.pch";
 				INFOPLIST_FILE = "LampsSDK/LampsSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.games.pro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.games.pro11111;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
