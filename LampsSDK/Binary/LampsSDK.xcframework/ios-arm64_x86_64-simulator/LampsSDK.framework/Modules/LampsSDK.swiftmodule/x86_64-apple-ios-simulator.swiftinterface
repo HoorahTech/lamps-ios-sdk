@@ -19,6 +19,7 @@ import _StringProcessing
 import _SwiftConcurrencyShims
 import zlib
 public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swift.Void
+public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?) -> Swift.Void
 @objc @_inheritsConvenienceInitializers @objcMembers final public class Lamps : ObjectiveC.NSObject {
   @objc public static let sdkVersion: Swift.String
   #if compiler(>=5.3) && $NonescapableTypes
@@ -32,12 +33,30 @@ public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swif
     @objc get
   }
   #endif
-  @discardableResult
-  @objc(showGameCenterFromViewController:) public static func showGameCenter(from viewController: UIKit.UIViewController) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(showGameCenterFromViewController:completion:) public static func showGameCenter(from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(presentGameCenterFromViewController:completion:) public static func presentGameCenter(from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(showGameWithGameId:fromViewController:completion:) public static func showGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(presentGameWithGameId:fromViewController:completion:) public static func presentGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  #endif
   #if compiler(>=5.3) && $NonescapableTypes
   @objc(makeGameCenterView) public static func makeGameCenterView() -> UIKit.UIView?
   #endif
   @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsGameWebViewController : LampsSDK.LampsWebViewController {
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLayoutSubviews()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc override public init(urlString: Swift.String, htmlString: Swift.String?)
+  #endif
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @objcMembers final public class LampsSDKConfig : ObjectiveC.NSObject, Foundation.NSCopying {
@@ -62,6 +81,9 @@ public let LampsSDKErrorDomain: Swift.String
   case rewardBusy = -1006
   case rewardLoadError = -1007
   case rewardShowError = -1008
+  case gameCenterUnavailable = -1009
+  case noHostViewController = -1010
+  case gamePageUnavailable = -1011
   #if compiler(>=5.3) && $NonescapableTypes
   public init?(rawValue: Swift.Int)
   #endif
@@ -70,7 +92,7 @@ public let LampsSDKErrorDomain: Swift.String
     get
   }
 }
-@objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsWebViewController : UIKit.UIViewController {
+@objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency public class LampsWebViewController : UIKit.UIViewController {
   @objc @_Concurrency.MainActor @preconcurrency final public let urlString: Swift.String
   @objc @_Concurrency.MainActor @preconcurrency final public let htmlString: Swift.String?
   @objc(initWithURLString:) @_Concurrency.MainActor @preconcurrency convenience public init(urlString: Swift.String)
@@ -78,10 +100,17 @@ public let LampsSDKErrorDomain: Swift.String
   #if compiler(>=5.3) && $NonescapableTypes
   @objc @_Concurrency.MainActor @preconcurrency public init(urlString: Swift.String, htmlString: Swift.String?)
   #endif
-  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
-  @_Concurrency.MainActor @preconcurrency @objc override final public func viewWillAppear(_ animated: Swift.Bool)
-  @_Concurrency.MainActor @preconcurrency @objc override final public func viewWillDisappear(_ animated: Swift.Bool)
-  @objc @_Concurrency.MainActor @preconcurrency final public func closePage()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public var prefersStatusBarHidden: Swift.Bool {
+    @objc get
+  }
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
+  @objc @_Concurrency.MainActor @preconcurrency public func closePage()
+  @objc @_Concurrency.MainActor @preconcurrency public func reloadPage()
   @objc deinit
 }
 extension LampsSDK.LampsSDKErrorCode : Swift.Equatable {}

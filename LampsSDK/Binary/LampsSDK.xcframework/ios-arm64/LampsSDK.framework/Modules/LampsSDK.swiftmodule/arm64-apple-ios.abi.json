@@ -273,32 +273,363 @@
           {
             "kind": "Function",
             "name": "showGameCenter",
-            "printedName": "showGameCenter(from:)",
+            "printedName": "showGameCenter(from:completion:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
+                "name": "Void",
+                "printedName": "()"
               },
               {
                 "kind": "TypeNominal",
-                "name": "UIViewController",
-                "printedName": "UIKit.UIViewController",
-                "usr": "c:objc(cs)UIViewController"
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Swift.Bool, (any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Bool, (any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(Swift.Bool, (any Swift.Error)?)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "(any Swift.Error)?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Error",
+                                "printedName": "any Swift.Error",
+                                "usr": "s:s5ErrorP"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Func",
-            "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)showGameCenterFromViewController:",
-            "mangledName": "$s8LampsSDK0A0C14showGameCenter4fromSbSo16UIViewControllerC_tFZ",
+            "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)showGameCenterFromViewController:completion:",
+            "mangledName": "$s8LampsSDK0A0C14showGameCenter4from10completionySo16UIViewControllerCSg_ySb_s5Error_pSgtcSgtFZ",
             "moduleName": "LampsSDK",
             "static": true,
-            "objc_name": "showGameCenterFromViewController:",
+            "objc_name": "showGameCenterFromViewController:completion:",
             "declAttributes": [
               "Final",
               "AccessControl",
               "ObjC",
-              "DiscardableResult",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "presentGameCenter",
+            "printedName": "presentGameCenter(from:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Swift.Bool, (any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Bool, (any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(Swift.Bool, (any Swift.Error)?)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "(any Swift.Error)?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Error",
+                                "printedName": "any Swift.Error",
+                                "usr": "s:s5ErrorP"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)presentGameCenterFromViewController:completion:",
+            "mangledName": "$s8LampsSDK0A0C17presentGameCenter4from10completionySo16UIViewControllerCSg_ySb_s5Error_pSgtcSgtFZ",
+            "moduleName": "LampsSDK",
+            "static": true,
+            "objc_name": "presentGameCenterFromViewController:completion:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "showGame",
+            "printedName": "showGame(gameId:from:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Swift.Bool, (any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Bool, (any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(Swift.Bool, (any Swift.Error)?)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "(any Swift.Error)?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Error",
+                                "printedName": "any Swift.Error",
+                                "usr": "s:s5ErrorP"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)showGameWithGameId:fromViewController:completion:",
+            "mangledName": "$s8LampsSDK0A0C8showGame6gameId4from10completionySS_So16UIViewControllerCSgySb_s5Error_pSgtcSgtFZ",
+            "moduleName": "LampsSDK",
+            "static": true,
+            "objc_name": "showGameWithGameId:fromViewController:completion:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "presentGame",
+            "printedName": "presentGame(gameId:from:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Swift.Bool, (any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Bool, (any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(Swift.Bool, (any Swift.Error)?)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "(any Swift.Error)?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Error",
+                                "printedName": "any Swift.Error",
+                                "usr": "s:s5ErrorP"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)presentGameWithGameId:fromViewController:completion:",
+            "mangledName": "$s8LampsSDK0A0C11presentGame6gameId4from10completionySS_So16UIViewControllerCSgySb_s5Error_pSgtcSgtFZ",
+            "moduleName": "LampsSDK",
+            "static": true,
+            "objc_name": "presentGameWithGameId:fromViewController:completion:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
               "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
@@ -884,6 +1215,249 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LampsGameWebViewController",
+        "printedName": "LampsGameWebViewController",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "viewDidLoad",
+            "printedName": "viewDidLoad()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsGameWebViewController(im)viewDidLoad",
+            "mangledName": "$s8LampsSDK0A21GameWebViewControllerC11viewDidLoadyyF",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "objc_name": "viewDidLoad",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidLayoutSubviews",
+            "printedName": "viewDidLayoutSubviews()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsGameWebViewController(im)viewDidLayoutSubviews",
+            "mangledName": "$s8LampsSDK0A21GameWebViewControllerC21viewDidLayoutSubviewsyyF",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "objc_name": "viewDidLayoutSubviews",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(urlString:htmlString:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LampsGameWebViewController",
+                "printedName": "LampsSDK.LampsGameWebViewController",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsGameWebViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsGameWebViewController(im)initWithUrlString:htmlString:",
+            "mangledName": "$s8LampsSDK0A21GameWebViewControllerC9urlString04htmlH0ACSS_SSSgtcfc",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithUrlString:htmlString:",
+            "declAttributes": [
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@LampsSDK@objc(cs)LampsGameWebViewController",
+        "mangledName": "$s8LampsSDK0A21GameWebViewControllerC",
+        "moduleName": "LampsSDK",
+        "declAttributes": [
+          "Preconcurrency",
+          "Custom",
+          "Final",
+          "AccessControl",
+          "ObjCMembers",
+          "RawDocComment",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@LampsSDK@objc(cs)LampsWebViewController",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "LampsSDK.LampsWebViewController",
+          "UIKit.UIViewController",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -905,6 +1479,13 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -914,6 +1495,13 @@
         "kind": "Import",
         "name": "CommonCrypto",
         "printedName": "CommonCrypto",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "LampsSDK"
       },
@@ -4522,6 +5110,132 @@
             "fixedbinaryorder": 7
           },
           {
+            "kind": "Var",
+            "name": "gameCenterUnavailable",
+            "printedName": "gameCenterUnavailable",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(LampsSDK.LampsSDKErrorCode.Type) -> LampsSDK.LampsSDKErrorCode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LampsSDKErrorCode",
+                    "printedName": "LampsSDK.LampsSDKErrorCode",
+                    "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "LampsSDK.LampsSDKErrorCode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKErrorCode",
+                        "printedName": "LampsSDK.LampsSDKErrorCode",
+                        "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode@LampsSDKErrorCodeGameCenterUnavailable",
+            "mangledName": "$s8LampsSDK0A12SDKErrorCodeO21gameCenterUnavailableyA2CmF",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "fixedbinaryorder": 8
+          },
+          {
+            "kind": "Var",
+            "name": "noHostViewController",
+            "printedName": "noHostViewController",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(LampsSDK.LampsSDKErrorCode.Type) -> LampsSDK.LampsSDKErrorCode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LampsSDKErrorCode",
+                    "printedName": "LampsSDK.LampsSDKErrorCode",
+                    "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "LampsSDK.LampsSDKErrorCode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKErrorCode",
+                        "printedName": "LampsSDK.LampsSDKErrorCode",
+                        "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode@LampsSDKErrorCodeNoHostViewController",
+            "mangledName": "$s8LampsSDK0A12SDKErrorCodeO20noHostViewControlleryA2CmF",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "fixedbinaryorder": 9
+          },
+          {
+            "kind": "Var",
+            "name": "gamePageUnavailable",
+            "printedName": "gamePageUnavailable",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(LampsSDK.LampsSDKErrorCode.Type) -> LampsSDK.LampsSDKErrorCode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LampsSDKErrorCode",
+                    "printedName": "LampsSDK.LampsSDKErrorCode",
+                    "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "LampsSDK.LampsSDKErrorCode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKErrorCode",
+                        "printedName": "LampsSDK.LampsSDKErrorCode",
+                        "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@LampsSDK@E@LampsSDKErrorCode@LampsSDKErrorCodeGamePageUnavailable",
+            "mangledName": "$s8LampsSDK0A12SDKErrorCodeO19gamePageUnavailableyA2CmF",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "fixedbinaryorder": 10
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(rawValue:)",
@@ -5088,6 +5802,165 @@
           },
           {
             "kind": "Var",
+            "name": "gameCenterUnavailable",
+            "printedName": "gameCenterUnavailable",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(LampsSDK.LampsSDKError.Type) -> (Swift.String) -> LampsSDK.LampsSDKError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> LampsSDK.LampsSDKError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKError",
+                        "printedName": "LampsSDK.LampsSDKError",
+                        "usr": "s:8LampsSDK0A8SDKErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "LampsSDK.LampsSDKError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKError",
+                        "printedName": "LampsSDK.LampsSDKError",
+                        "usr": "s:8LampsSDK0A8SDKErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:8LampsSDK0A8SDKErrorO21gameCenterUnavailableyACSScACmF",
+            "mangledName": "$s8LampsSDK0A8SDKErrorO21gameCenterUnavailableyACSScACmF",
+            "moduleName": "LampsSDK",
+            "spi_group_names": [
+              "LampsAdapter"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "noHostViewController",
+            "printedName": "noHostViewController",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(LampsSDK.LampsSDKError.Type) -> (Swift.String) -> LampsSDK.LampsSDKError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> LampsSDK.LampsSDKError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKError",
+                        "printedName": "LampsSDK.LampsSDKError",
+                        "usr": "s:8LampsSDK0A8SDKErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "LampsSDK.LampsSDKError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKError",
+                        "printedName": "LampsSDK.LampsSDKError",
+                        "usr": "s:8LampsSDK0A8SDKErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:8LampsSDK0A8SDKErrorO20noHostViewControlleryACSScACmF",
+            "mangledName": "$s8LampsSDK0A8SDKErrorO20noHostViewControlleryACSScACmF",
+            "moduleName": "LampsSDK",
+            "spi_group_names": [
+              "LampsAdapter"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "gamePageUnavailable",
+            "printedName": "gamePageUnavailable",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(LampsSDK.LampsSDKError.Type) -> (Swift.String) -> LampsSDK.LampsSDKError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> LampsSDK.LampsSDKError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKError",
+                        "printedName": "LampsSDK.LampsSDKError",
+                        "usr": "s:8LampsSDK0A8SDKErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "LampsSDK.LampsSDKError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsSDKError",
+                        "printedName": "LampsSDK.LampsSDKError",
+                        "usr": "s:8LampsSDK0A8SDKErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:8LampsSDK0A8SDKErrorO19gamePageUnavailableyACSScACmF",
+            "mangledName": "$s8LampsSDK0A8SDKErrorO19gamePageUnavailableyACSScACmF",
+            "moduleName": "LampsSDK",
+            "spi_group_names": [
+              "LampsAdapter"
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "nsError",
             "printedName": "nsError",
             "children": [
@@ -5368,6 +6241,27 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
         "name": "WebKit",
         "printedName": "WebKit",
         "declKind": "Import",
@@ -5402,9 +6296,9 @@
             "mangledName": "$s8LampsSDK0A17WebViewControllerC9urlStringSSvp",
             "moduleName": "LampsSDK",
             "declAttributes": [
-              "Final",
               "Preconcurrency",
               "Custom",
+              "Final",
               "HasStorage",
               "AccessControl",
               "RawDocComment",
@@ -5463,9 +6357,9 @@
             "mangledName": "$s8LampsSDK0A17WebViewControllerC10htmlStringSSSgvp",
             "moduleName": "LampsSDK",
             "declAttributes": [
-              "Final",
               "Preconcurrency",
               "Custom",
+              "Final",
               "HasStorage",
               "AccessControl",
               "RawDocComment",
@@ -5618,6 +6512,112 @@
             "init_kind": "Designated"
           },
           {
+            "kind": "Var",
+            "name": "prefersStatusBarHidden",
+            "printedName": "prefersStatusBarHidden",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsWebViewController(py)prefersStatusBarHidden",
+            "mangledName": "$s8LampsSDK0A17WebViewControllerC22prefersStatusBarHiddenSbvp",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "objc_name": "prefersStatusBarHidden",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsWebViewController(im)prefersStatusBarHidden",
+                "mangledName": "$s8LampsSDK0A17WebViewControllerC22prefersStatusBarHiddenSbvg",
+                "moduleName": "LampsSDK",
+                "overriding": true,
+                "objc_name": "prefersStatusBarHidden",
+                "declAttributes": [
+                  "Dynamic",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "preferredStatusBarStyle",
+            "printedName": "preferredStatusBarStyle",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UIStatusBarStyle",
+                "printedName": "UIKit.UIStatusBarStyle",
+                "usr": "c:@E@UIStatusBarStyle"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsWebViewController(py)preferredStatusBarStyle",
+            "mangledName": "$s8LampsSDK0A17WebViewControllerC23preferredStatusBarStyleSo08UIStatushI0Vvp",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "objc_name": "preferredStatusBarStyle",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIStatusBarStyle",
+                    "printedName": "UIKit.UIStatusBarStyle",
+                    "usr": "c:@E@UIStatusBarStyle"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsWebViewController(im)preferredStatusBarStyle",
+                "mangledName": "$s8LampsSDK0A17WebViewControllerC23preferredStatusBarStyleSo08UIStatushI0Vvg",
+                "moduleName": "LampsSDK",
+                "overriding": true,
+                "objc_name": "preferredStatusBarStyle",
+                "declAttributes": [
+                  "Dynamic",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
             "kind": "Function",
             "name": "viewDidLoad",
             "printedName": "viewDidLoad()",
@@ -5635,7 +6635,7 @@
             "overriding": true,
             "objc_name": "viewDidLoad",
             "declAttributes": [
-              "Final",
+              "Dynamic",
               "ObjC",
               "Preconcurrency",
               "Custom",
@@ -5668,7 +6668,7 @@
             "overriding": true,
             "objc_name": "viewWillAppear:",
             "declAttributes": [
-              "Final",
+              "Dynamic",
               "ObjC",
               "Preconcurrency",
               "Custom",
@@ -5701,7 +6701,7 @@
             "overriding": true,
             "objc_name": "viewWillDisappear:",
             "declAttributes": [
-              "Final",
+              "Dynamic",
               "ObjC",
               "Preconcurrency",
               "Custom",
@@ -5726,7 +6726,30 @@
             "mangledName": "$s8LampsSDK0A17WebViewControllerC9closePageyyF",
             "moduleName": "LampsSDK",
             "declAttributes": [
-              "Final",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "reloadPage",
+            "printedName": "reloadPage()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsWebViewController(im)reloadPage",
+            "mangledName": "$s8LampsSDK0A17WebViewControllerC10reloadPageyyF",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
               "Preconcurrency",
               "Custom",
               "AccessControl",
@@ -5799,7 +6822,6 @@
         "declAttributes": [
           "Preconcurrency",
           "Custom",
-          "Final",
           "AccessControl",
           "ObjCMembers",
           "RawDocComment",
@@ -5906,28 +6928,28 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 698,
+      "offset": 1015,
       "length": 7,
       "value": "\"0.0.1\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 855,
+      "offset": 1172,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 906,
+      "offset": 1223,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 4844,
+      "offset": 8712,
       "length": 2,
       "value": "\"\""
     },
@@ -5962,28 +6984,28 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "Dictionary",
-      "offset": 1584,
+      "offset": 2025,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "StringLiteral",
-      "offset": 3674,
+      "offset": 4115,
       "length": 8,
       "value": "\"method\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "StringLiteral",
-      "offset": 3709,
+      "offset": 4150,
       "length": 6,
       "value": "\"data\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridge.swift",
       "kind": "StringLiteral",
-      "offset": 3748,
+      "offset": 4189,
       "length": 4,
       "value": "\"id\""
     },
@@ -6021,6 +7043,209 @@
       "offset": 346,
       "length": 19,
       "value": "\"02:00:00:00:00:00\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "BooleanLiteral",
+      "offset": 661,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "BooleanLiteral",
+      "offset": 696,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "BooleanLiteral",
+      "offset": 742,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15193,
+      "length": 2,
+      "value": "32"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15231,
+      "length": 2,
+      "value": "18"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "FloatLiteral",
+      "offset": 15278,
+      "length": 4,
+      "value": "12.5"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15317,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "FloatLiteral",
+      "offset": 15358,
+      "length": 3,
+      "value": "0.5"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15402,
+      "length": 2,
+      "value": "19"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15443,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15490,
+      "length": 2,
+      "value": "40"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15527,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15566,
+      "length": 1,
+      "value": "9"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15613,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15655,
+      "length": 2,
+      "value": "20"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15711,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15851,
+      "length": 2,
+      "value": "12"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15863,
+      "length": 2,
+      "value": "14"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15927,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15942,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15956,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 16095,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 16105,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "IntegerLiteral",
+      "offset": 16114,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsGameMenuBar.swift",
+      "kind": "FloatLiteral",
+      "offset": 16124,
+      "length": 4,
+      "value": "0.10"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsGamePageBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 1579,
+      "length": 17,
+      "value": "\"lamps.game.open\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsJSONValue.swift",
+      "kind": "BooleanLiteral",
+      "offset": 161,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsJSONValue.swift",
+      "kind": "IntegerLiteral",
+      "offset": 576,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsJSONValue.swift",
+      "kind": "BooleanLiteral",
+      "offset": 993,
+      "length": 5,
+      "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsReadyBridgeHandler.swift",
@@ -6067,98 +7292,105 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 1923,
+      "offset": 663,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 1974,
+      "offset": 2040,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 2007,
+      "offset": 2091,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 2090,
+      "offset": 2124,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
+      "kind": "StringLiteral",
+      "offset": 2207,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 2206,
+      "offset": 2323,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 2334,
+      "offset": 2451,
       "length": 4,
       "value": "\"PD\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 3390,
+      "offset": 3325,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 3473,
+      "offset": 3408,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "StringLiteral",
-      "offset": 3572,
+      "offset": 3507,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 4278,
+      "offset": 4022,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 4304,
+      "offset": 4048,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 4330,
+      "offset": 4074,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 4356,
+      "offset": 4100,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsRemoteConfig.swift",
       "kind": "Array",
-      "offset": 4382,
+      "offset": 4126,
       "length": 2,
       "value": "[]"
     },
@@ -6200,7 +7432,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsRequestBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 2491,
+      "offset": 2545,
       "length": 22,
       "value": "\"lamps.common.request\""
     },
@@ -6340,21 +7572,21 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsRewardBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 1699,
+      "offset": 1726,
       "length": 28,
       "value": "\"lamps.ad.showRewardedVideo\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsRewardBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 1769,
+      "offset": 1796,
       "length": 30,
       "value": "\"lamps.ad.rewardedVideoStatus\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsRewardBridgeHandler.swift",
       "kind": "IntegerLiteral",
-      "offset": 2640,
+      "offset": 2667,
       "length": 1,
       "value": "0"
     },
@@ -6508,86 +7740,219 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "StringLiteral",
-      "offset": 100,
+      "offset": 90,
       "length": 20,
       "value": "\"com.hupu.lamps.sdk\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 271,
+      "offset": 251,
       "length": 5,
       "value": "-1001"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 362,
+      "offset": 342,
       "length": 5,
       "value": "-1002"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 491,
+      "offset": 471,
       "length": 5,
       "value": "-1003"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 644,
+      "offset": 624,
       "length": 5,
       "value": "-1004"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 761,
+      "offset": 741,
       "length": 5,
       "value": "-1005"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 849,
+      "offset": 829,
       "length": 5,
       "value": "-1006"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 1004,
+      "offset": 984,
       "length": 5,
       "value": "-1007"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
       "kind": "IntegerLiteral",
-      "offset": 1114,
+      "offset": 1094,
       "length": 5,
       "value": "-1008"
     },
     {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1186,
+      "length": 5,
+      "value": "-1009"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1269,
+      "length": 5,
+      "value": "-1010"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Core\/LampsSDKError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1356,
+      "length": 5,
+      "value": "-1011"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
+      "kind": "Array",
+      "offset": 888,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
+      "kind": "Array",
+      "offset": 942,
+      "length": 2,
+      "value": "[]"
+    },
+    {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 1554,
+      "offset": 2268,
       "length": 20,
       "value": "\"lamps.common.track\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 1604,
+      "offset": 2347,
+      "length": 8,
+      "value": "\"onload\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 2413,
+      "length": 8,
+      "value": "\"action\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 2482,
+      "length": 4,
+      "value": "\"vt\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 2518,
+      "length": 4,
+      "value": "\"lt\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 2654,
       "length": 22,
       "value": "\"\/api\/v1\/event\/report\""
     },
     {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsUIBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 853,
+      "length": 20,
+      "value": "\"lamps.ui.pageclose\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsUIBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 905,
+      "length": 24,
+      "value": "\"lamps.common.statusBar\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsUIBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 996,
+      "length": 15,
+      "value": "\"showStatusBar\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsUIBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 1043,
+      "length": 20,
+      "value": "\"statusBarImmersive\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsUIBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 1101,
+      "length": 17,
+      "value": "\"backgroundColor\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsUIBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 1150,
+      "length": 20,
+      "value": "\"statusBarFontStyle\""
+    },
+    {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 705,
+      "offset": 698,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 851,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 956,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1214,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2346,
+      "length": 1,
+      "value": "0"
     }
   ]
 }

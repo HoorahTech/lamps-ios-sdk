@@ -310,7 +310,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class LampsSDKConfig;
 @class UIViewController;
 @class UIView;
-/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，或 <code>makeGameCenterView()</code> 嵌入页面。
+/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入页面。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 @interface Lamps : NSObject
@@ -332,17 +332,85 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 /// 最近一次 <code>start</code> 使用的配置；尚未启动时为 <code>nil</code>。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConfig * _Nullable config;)
 + (LampsSDKConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
-/// 打开配置下发的游戏中心页。请先 <code>start</code> 成功。
-/// 参数可以是 <code>UINavigationController</code>，也可以是栈内任意页面：有导航栈则 <code>push</code>，否则全屏 <code>present</code>。
+/// 在宿主导航栈中打开游戏中心。请先 <code>start</code> 成功。
+/// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。关闭由 H5 触发，或调用页内关闭。
+/// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGameCenter</code>。
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// returns:
-/// 已发起跳转为 <code>true</code>；未 start、地址为空或 URL 不合法为 <code>false</code>。
-+ (BOOL)showGameCenterFromViewController:(UIViewController * _Nonnull)viewController;
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 全屏打开游戏中心，不进入宿主导航栈。请先 <code>start</code> 成功。
+/// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
+///
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 在宿主导航栈中打开具体游戏页。请先 <code>start</code> 成功。
+/// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
+/// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。容器为 <code>LampsGameWebViewController</code>。
+/// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGame</code>。
+/// \param gameId 游戏 ID，替换 <code>gamePageUrl</code> 中的 <code>__GAMEID__</code>。
+///
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
+///
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 全屏打开具体游戏页，不进入宿主导航栈。请先 <code>start</code> 成功。
+/// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
+/// SDK 会用自有导航容器 present，系统导航栏默认隐藏。
+/// \param gameId 游戏 ID，替换 <code>gamePageUrl</code> 中的 <code>__GAMEID__</code>。
+///
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
+///
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
 /// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
 + (UIView * _Nullable)makeGameCenterView SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class NSCoder;
+@class NSBundle;
+/// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
+/// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
+/// 游戏 H5 请使用 <code>LampsGameWebViewController</code>。
+SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
+@interface LampsWebViewController : UIViewController
+/// 当前活动 URL；本地 HTML 模式下为空字符串。
+@property (nonatomic, readonly, copy) NSString * _Nonnull urlString;
+/// 本地 HTML；通过 URL 打开时为 <code>nil</code>。
+@property (nonatomic, readonly, copy) NSString * _Nullable htmlString;
+/// 打开远端活动页。
+- (nonnull instancetype)initWithURLString:(NSString * _Nonnull)urlString;
+/// 加载本地 HTML，建议仅用于调试。
+- (nonnull instancetype)initWithHTMLString:(NSString * _Nonnull)htmlString;
+- (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+@property (nonatomic, readonly) BOOL prefersStatusBarHidden;
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+/// 关闭当前页：栈内有上级则 <code>pop</code>，自身或所在导航容器为模态根页时才 <code>dismiss</code>。
+- (void)closePage;
+/// 重新加载当前页：本地 HTML 再注入一次，否则按原 URL 重新请求。
+- (void)reloadPage;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+/// 游戏 H5 容器：在 <code>LampsWebViewController</code> 之上增加悬浮菜单条（更多 + 关闭）。
+/// 菜单可拖拽吸边，静止 3s 收成贴边半圆弧。Bridge、加载、导航栏隐藏与 <code>closePage()</code> 行为与父类一致。
+SWIFT_CLASS("_TtC8LampsSDK26LampsGameWebViewController")
+@interface LampsGameWebViewController : LampsWebViewController
+- (void)viewDidLoad;
+- (void)viewDidLayoutSubviews;
+- (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
 @end
 
 /// 单次激励候选素材（由 rewardAdSlots 映射，无 getOther）。
@@ -370,7 +438,7 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-/// <code>Lamps.start</code> 失败时 <code>NSError.code</code>。
+/// SDK 失败时 <code>NSError.code</code>。
 typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
 /// 尚未调用 <code>Lamps.start</code>。
   LampsSDKErrorCodeNotStarted = -1001,
@@ -388,31 +456,13 @@ typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
   LampsSDKErrorCodeRewardLoadError = -1007,
 /// 激励视频展示失败。具体原因看 <code>localizedDescription</code>。
   LampsSDKErrorCodeRewardShowError = -1008,
+/// 游戏中心地址为空或 URL 不合法。
+  LampsSDKErrorCodeGameCenterUnavailable = -1009,
+/// 找不到可用于展示的页面。
+  LampsSDKErrorCodeNoHostViewController = -1010,
+/// 游戏页地址为空或 URL 不合法。
+  LampsSDKErrorCodeGamePageUnavailable = -1011,
 };
-
-@class NSCoder;
-@class NSBundle;
-/// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
-/// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
-SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
-@interface LampsWebViewController : UIViewController
-/// 当前活动 URL；本地 HTML 模式下为空字符串。
-@property (nonatomic, readonly, copy) NSString * _Nonnull urlString;
-/// 本地 HTML；通过 URL 打开时为 <code>nil</code>。
-@property (nonatomic, readonly, copy) NSString * _Nullable htmlString;
-/// 打开远端活动页。
-- (nonnull instancetype)initWithURLString:(NSString * _Nonnull)urlString;
-/// 加载本地 HTML，建议仅用于调试。
-- (nonnull instancetype)initWithHTMLString:(NSString * _Nonnull)htmlString;
-- (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
-- (void)viewDidLoad;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
-/// 关闭当前页：模态则 <code>dismiss</code>，否则 <code>pop</code>。
-- (void)closePage;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
 
 #endif
 #if __has_attribute(external_source_symbol)
@@ -734,7 +784,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class LampsSDKConfig;
 @class UIViewController;
 @class UIView;
-/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，或 <code>makeGameCenterView()</code> 嵌入页面。
+/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入页面。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 @interface Lamps : NSObject
@@ -756,17 +806,85 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 /// 最近一次 <code>start</code> 使用的配置；尚未启动时为 <code>nil</code>。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConfig * _Nullable config;)
 + (LampsSDKConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
-/// 打开配置下发的游戏中心页。请先 <code>start</code> 成功。
-/// 参数可以是 <code>UINavigationController</code>，也可以是栈内任意页面：有导航栈则 <code>push</code>，否则全屏 <code>present</code>。
+/// 在宿主导航栈中打开游戏中心。请先 <code>start</code> 成功。
+/// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。关闭由 H5 触发，或调用页内关闭。
+/// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGameCenter</code>。
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// returns:
-/// 已发起跳转为 <code>true</code>；未 start、地址为空或 URL 不合法为 <code>false</code>。
-+ (BOOL)showGameCenterFromViewController:(UIViewController * _Nonnull)viewController;
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 全屏打开游戏中心，不进入宿主导航栈。请先 <code>start</code> 成功。
+/// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
+///
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 在宿主导航栈中打开具体游戏页。请先 <code>start</code> 成功。
+/// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
+/// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。容器为 <code>LampsGameWebViewController</code>。
+/// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGame</code>。
+/// \param gameId 游戏 ID，替换 <code>gamePageUrl</code> 中的 <code>__GAMEID__</code>。
+///
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
+///
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
+/// 全屏打开具体游戏页，不进入宿主导航栈。请先 <code>start</code> 成功。
+/// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
+/// SDK 会用自有导航容器 present，系统导航栏默认隐藏。
+/// \param gameId 游戏 ID，替换 <code>gamePageUrl</code> 中的 <code>__GAMEID__</code>。
+///
+/// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
+///
+/// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
+///
++ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
 /// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
 + (UIView * _Nullable)makeGameCenterView SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class NSCoder;
+@class NSBundle;
+/// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
+/// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
+/// 游戏 H5 请使用 <code>LampsGameWebViewController</code>。
+SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
+@interface LampsWebViewController : UIViewController
+/// 当前活动 URL；本地 HTML 模式下为空字符串。
+@property (nonatomic, readonly, copy) NSString * _Nonnull urlString;
+/// 本地 HTML；通过 URL 打开时为 <code>nil</code>。
+@property (nonatomic, readonly, copy) NSString * _Nullable htmlString;
+/// 打开远端活动页。
+- (nonnull instancetype)initWithURLString:(NSString * _Nonnull)urlString;
+/// 加载本地 HTML，建议仅用于调试。
+- (nonnull instancetype)initWithHTMLString:(NSString * _Nonnull)htmlString;
+- (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+@property (nonatomic, readonly) BOOL prefersStatusBarHidden;
+@property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+/// 关闭当前页：栈内有上级则 <code>pop</code>，自身或所在导航容器为模态根页时才 <code>dismiss</code>。
+- (void)closePage;
+/// 重新加载当前页：本地 HTML 再注入一次，否则按原 URL 重新请求。
+- (void)reloadPage;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
+@end
+
+/// 游戏 H5 容器：在 <code>LampsWebViewController</code> 之上增加悬浮菜单条（更多 + 关闭）。
+/// 菜单可拖拽吸边，静止 3s 收成贴边半圆弧。Bridge、加载、导航栏隐藏与 <code>closePage()</code> 行为与父类一致。
+SWIFT_CLASS("_TtC8LampsSDK26LampsGameWebViewController")
+@interface LampsGameWebViewController : LampsWebViewController
+- (void)viewDidLoad;
+- (void)viewDidLayoutSubviews;
+- (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
 @end
 
 /// 单次激励候选素材（由 rewardAdSlots 映射，无 getOther）。
@@ -794,7 +912,7 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-/// <code>Lamps.start</code> 失败时 <code>NSError.code</code>。
+/// SDK 失败时 <code>NSError.code</code>。
 typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
 /// 尚未调用 <code>Lamps.start</code>。
   LampsSDKErrorCodeNotStarted = -1001,
@@ -812,31 +930,13 @@ typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
   LampsSDKErrorCodeRewardLoadError = -1007,
 /// 激励视频展示失败。具体原因看 <code>localizedDescription</code>。
   LampsSDKErrorCodeRewardShowError = -1008,
+/// 游戏中心地址为空或 URL 不合法。
+  LampsSDKErrorCodeGameCenterUnavailable = -1009,
+/// 找不到可用于展示的页面。
+  LampsSDKErrorCodeNoHostViewController = -1010,
+/// 游戏页地址为空或 URL 不合法。
+  LampsSDKErrorCodeGamePageUnavailable = -1011,
 };
-
-@class NSCoder;
-@class NSBundle;
-/// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
-/// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
-SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
-@interface LampsWebViewController : UIViewController
-/// 当前活动 URL；本地 HTML 模式下为空字符串。
-@property (nonatomic, readonly, copy) NSString * _Nonnull urlString;
-/// 本地 HTML；通过 URL 打开时为 <code>nil</code>。
-@property (nonatomic, readonly, copy) NSString * _Nullable htmlString;
-/// 打开远端活动页。
-- (nonnull instancetype)initWithURLString:(NSString * _Nonnull)urlString;
-/// 加载本地 HTML，建议仅用于调试。
-- (nonnull instancetype)initWithHTMLString:(NSString * _Nonnull)htmlString;
-- (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
-- (void)viewDidLoad;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
-/// 关闭当前页：模态则 <code>dismiss</code>，否则 <code>pop</code>。
-- (void)closePage;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
-@end
 
 #endif
 #if __has_attribute(external_source_symbol)
