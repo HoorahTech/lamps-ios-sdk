@@ -252,7 +252,7 @@ public final class Lamps: NSObject {
         let slots = remote?.rewardAdSlots.map { "\($0.channelName)/\($0.slotId)" }.joined(separator: ", ") ?? "-"
         let channels = remote?.channelList.map { "\($0.channelId)/\($0.channelAppId)" }.joined(separator: ", ") ?? "-"
         let gameCenter = remote?.gameCenterPage ?? ""
-        let gamePage = remote?.gamePageUrl ?? ""
+        let gamePage = remote?.gamePlayPageTemplate ?? ""
         return """
         remoteConfig: \(remote == nil ? "nil" : "ok")
         tokenLen: \(remote?.token.count ?? 0)
@@ -389,7 +389,7 @@ public final class Lamps: NSObject {
             LampsSDKLog.debug("gamePageUrl skipped: empty gameId")
             return .failure(.invalidConfig("gameId 不能为空"))
         }
-        let template = storedRemoteConfig?.gamePageUrl.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let template = storedRemoteConfig?.gamePlayPageTemplate.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let url = template.replacingOccurrences(of: "__GAMEID__", with: trimmedId)
         guard !url.isEmpty, LampsWebView.makeURL(from: url) != nil else {
             LampsSDKLog.debug("gamePageUrl unavailable url=\(url)")
