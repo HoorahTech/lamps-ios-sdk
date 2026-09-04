@@ -3,9 +3,12 @@ import LampsSDK
 
 @objc(LAMPSSDKViewController)
 final class LAMPSSDKViewController: UIViewController {
+    private static let demoGameId = "10001"
+
     private lazy var stackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [
-            makeButton(title: "打开游戏中心", action: #selector(openWebView)),
+            makeButton(title: "打开游戏中心", action: #selector(openGameCenter)),
+            makeButton(title: "打开单个游戏", action: #selector(openGame)),
             makeButton(title: "makeGameCenterView 测试", action: #selector(openGameCenterEmbed)),
             makeButton(title: "调试工具", action: #selector(openDevTools))
         ])
@@ -40,7 +43,7 @@ final class LAMPSSDKViewController: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
             stackView.widthAnchor.constraint(equalToConstant: 320),
-            stackView.heightAnchor.constraint(equalToConstant: 320)
+            stackView.heightAnchor.constraint(equalToConstant: 400)
         ])
     }
 
@@ -61,10 +64,18 @@ final class LAMPSSDKViewController: UIViewController {
         return button
     }
 
-    @objc private func openWebView() {
+    @objc private func openGameCenter() {
         Lamps.showGameCenter(from: self) { success, error in
             if !success {
                 NSLog("[LampsSDK Demo] %@", error?.localizedDescription ?? "gameCenter unavailable")
+            }
+        }
+    }
+
+    @objc private func openGame() {
+        Lamps.showGame(gameId: "2", from: self) { success, error in
+            if !success {
+                NSLog("[LampsSDK Demo] %@", error?.localizedDescription ?? "game unavailable")
             }
         }
     }
