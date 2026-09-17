@@ -176,7 +176,7 @@ public final class Lamps: NSObject {
     public static func makeGameCenterView(config: LampsGameCenterConfig? = nil) -> UIView? {
         guard let urlString = resolvedGameCenterPageURL() else { return nil }
         let webView = LampsWebView()
-        webView.displayMode = LampsBridgeClientInfo.DisplayMode.page
+        webView.displayMode = LampsBridgeClientInfo.DisplayMode.embed
         webView.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
         webView.scrollView.contentInsetAdjustmentBehavior = .never
         guard webView.load(urlString: urlString) else { return nil }
@@ -328,7 +328,7 @@ public final class Lamps: NSObject {
                 return .failure(.noHostViewController("找不到可用于打开游戏中心的页面"))
             }
             let page = LampsWebViewController(urlString: url)
-            page.displayMode = LampsBridgeClientInfo.DisplayMode.embed
+            page.displayMode = LampsBridgeClientInfo.DisplayMode.page
             page.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
             return .ready(host: host, page: page)
         case .failure(let error):
