@@ -4,10 +4,10 @@ enum LampsNavigator {
     /// 有导航栈则 `push`，否则全屏 `present`。游戏中心与游戏页共用。
     static func pushOrPresent(_ page: UIViewController, from host: UIViewController) {
         if let nav = host as? UINavigationController {
-            preferHostNavigationBarHidden(on: page)
+            prepareForPush(page)
             nav.pushViewController(page, animated: true)
         } else if let nav = host.navigationController {
-            preferHostNavigationBarHidden(on: page)
+            prepareForPush(page)
             nav.pushViewController(page, animated: true)
         } else {
             page.modalPresentationStyle = .fullScreen
@@ -47,6 +47,14 @@ enum LampsNavigator {
             return topViewController(from: visible)
         }
         return root
+    }
+
+    /// 三方宿主通常不会像虎扑 `HPNavigationController` 那样在 `push` 里统一设
+    /// `hidesBottomBarWhenPushed`。SDK 在 push 前自行声明，WebView 嵌在 Tab 子页时
+    /// 才能把宿主 TabBar 藏掉。无 TabBar 时该属性无效果。
+    private static func prepareForPush(_ page: UIViewController) {
+        page.hidesBottomBarWhenPushed = true
+        preferHostNavigationBarHidden(on: page)
     }
 
     /// 虎扑 `HPNavigationController` + FD 会在 `viewWillAppear` 之后按该属性重设系统栏。
