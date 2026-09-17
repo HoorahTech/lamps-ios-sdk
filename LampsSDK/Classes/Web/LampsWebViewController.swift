@@ -10,6 +10,8 @@ public class LampsWebViewController: UIViewController {
     public let urlString: String
     /// 本地 HTML；通过 URL 打开时为 `nil`。
     public let htmlString: String?
+    /// 透传给 H5 的展示形态，见 `LampsBridgeClientInfo.DisplayMode`。未设置时为空。
+    var displayMode: String = ""
 
     private var previousNavigationBarHidden: Bool?
     private var webViewTopConstraint: NSLayoutConstraint?
@@ -24,8 +26,11 @@ public class LampsWebViewController: UIViewController {
     /// 页面内 WebView，仅 SDK 内部使用。
     private lazy var webView: LampsWebView = {
         let webView = LampsWebView()
+        webView.displayMode = displayMode
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.contentInsetAdjustmentBehavior = .never
+        webView.scrollView.showsVerticalScrollIndicator = false
+        webView.scrollView.showsHorizontalScrollIndicator = false
         webView.closeHandler = { [weak self] in
             self?.closePage()
         }

@@ -19,7 +19,7 @@ final class LampsReadyBridgeHandler: NSObject, LampsBridgeHandler {
             error?(["msg": "unsupported method: \(method)"])
             return
         }
-        let info = LampsBridgeClientInfo.dictionary()
+        let info = LampsBridgeClientInfo.dictionary(displayMode: bridge?.webView?.displayMode ?? "")
         guard JSONSerialization.isValidJSONObject(info) else {
             error?(["msg": "device info 序列化失败"])
             return

@@ -5,6 +5,8 @@ import WebKit
 final class LampsWebView: WKWebView {
     var bridge: LampsBridge!
     var closeHandler: (() -> Void)?
+    /// 透传给 H5 的展示形态，见 `LampsBridgeClientInfo.DisplayMode`。未设置时为空。
+    var displayMode: String = ""
 
     convenience init() {
         self.init(frame: .zero, configuration: LampsWebView.makeConfiguration())

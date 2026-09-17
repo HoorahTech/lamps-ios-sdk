@@ -150,7 +150,7 @@ private extension LampsTrackBridgeHandler {
     }
 
     func makeReportBody(from data: [AnyHashable: Any], extra: [String: String]) -> [String: Any] {
-        var body = LampsBridgeClientInfo.dictionary()
+        var body = LampsBridgeClientInfo.dictionary(displayMode: bridge?.webView?.displayMode ?? "")
         body[OuterField.action] = LampsJSONValue.stringValue(data[OuterField.action])
         var pdata: [String: Any] = [:]
         for (key, value) in data {

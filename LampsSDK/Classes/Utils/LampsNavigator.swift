@@ -33,17 +33,7 @@ enum LampsNavigator {
         if let root = UIApplication.shared.delegate?.window??.rootViewController {
             return root
         }
-        return keyWindow()?.rootViewController
-    }
-
-    private static func keyWindow() -> UIWindow? {
-        if #available(iOS 13.0, *) {
-            let windows = UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap { $0.windows }
-            return windows.first(where: { $0.isKeyWindow }) ?? windows.first
-        }
-        return UIApplication.shared.keyWindow
+        return LampsDeviceLayout.keyWindow()?.rootViewController
     }
 
     private static func topViewController(from root: UIViewController) -> UIViewController {
