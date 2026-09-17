@@ -78,13 +78,15 @@ public final class Lamps: NSObject {
     ///
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(showGameCenterFromViewController:completion:)
+    @objc(showGameCenterFromViewController:config:completion:)
     public static func showGameCenter(
         from viewController: UIViewController? = nil,
+        config: LampsGameCenterConfig? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGameCenter(from: viewController) {
+        switch prepareGameCenter(from: viewController, config: config) {
         case .ready(let host, let page):
             LampsNavigator.pushOrPresent(page, from: host)
             completion?(true, nil)
@@ -99,13 +101,15 @@ public final class Lamps: NSObject {
     ///
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(presentGameCenterFromViewController:completion:)
+    @objc(presentGameCenterFromViewController:config:completion:)
     public static func presentGameCenter(
         from viewController: UIViewController? = nil,
+        config: LampsGameCenterConfig? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGameCenter(from: viewController) {
+        switch prepareGameCenter(from: viewController, config: config) {
         case .ready(let host, let page):
             LampsNavigator.presentInNavigationController(page, from: host)
             completion?(true, nil)
@@ -166,11 +170,14 @@ public final class Lamps: NSObject {
     /// 使用配置下发的 `gameCenterPage` 创建可内嵌视图。请先 `start` 成功。
     /// 返回的是内部 WebView，类型对外为 `UIView`。地址不可用时返回 `nil`。
     /// 请由宿主加入自己的视图层级并设置约束。
-    @objc(makeGameCenterView)
-    public static func makeGameCenterView() -> UIView? {
+    ///
+    /// - Parameter config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
+    @objc(makeGameCenterViewWithConfig:)
+    public static func makeGameCenterView(config: LampsGameCenterConfig? = nil) -> UIView? {
         guard let urlString = resolvedGameCenterPageURL() else { return nil }
         let webView = LampsWebView()
         webView.displayMode = LampsBridgeClientInfo.DisplayMode.page
+        webView.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
         webView.scrollView.contentInsetAdjustmentBehavior = .never
         guard webView.load(urlString: urlString) else { return nil }
         return webView
@@ -239,6 +246,7 @@ public final class Lamps: NSObject {
         sdkVersion: \(sdkVersion)
         started: \(started)
         appId: \(config?.appId ?? "-")
+        dayNight: \(config?.dayNightMode.logName ?? "-")
         env: \(LampsEnvironmentStore.current.logName)
         debugLog: \(config?.debugLogEnabled ?? false)
         """
@@ -311,7 +319,8 @@ public final class Lamps: NSObject {
 
     /// 只负责解析地址和宿主，不跳转、不回调。
     private static func prepareGameCenter(
-        from viewController: UIViewController?
+        from viewController: UIViewController?,
+        config: LampsGameCenterConfig?
     ) -> GameCenterPrepareResult {
         switch resolveGameCenterPageURL() {
         case .success(let url):
@@ -320,10 +329,16 @@ public final class Lamps: NSObject {
             }
             let page = LampsWebViewController(urlString: url)
             page.displayMode = LampsBridgeClientInfo.DisplayMode.embed
+            page.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
             return .ready(host: host, page: page)
         case .failure(let error):
             return .failure(error)
         }
+    }
+
+    /// 本次展示配置优先，否则用初始化配置，默认日间。
+    static func resolvedDayNightMode(_ mode: LampsDayNightMode?) -> LampsDayNightMode {
+        mode ?? storedConfig?.dayNightMode ?? .day
     }
 
     private static func completeGameCenter(

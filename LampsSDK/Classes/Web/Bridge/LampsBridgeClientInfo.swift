@@ -9,7 +9,7 @@ enum LampsBridgeClientInfo {
         static let page = "page"
     }
 
-    static func dictionary(displayMode: String = "") -> [String: Any] {
+    static func dictionary(displayMode: String = "", dayNightMode: LampsDayNightMode? = nil) -> [String: Any] {
         var info: [String: Any] = [:]
         info["ts"] = "\(Int(Date().timeIntervalSince1970))"
         info["ua"] = LampsDeviceInfo.userAgent
@@ -31,6 +31,7 @@ enum LampsBridgeClientInfo {
         info["statusBarHeight"] = "\(Int(LampsDeviceLayout.statusBarHeight.rounded()))"
         info["env"] = LampsEnvironmentStore.current.logName
         info["displayMode"] = displayMode
+        info["night"] = Lamps.resolvedDayNightMode(dayNightMode).bridgeNightValue
         return info
     }
 }

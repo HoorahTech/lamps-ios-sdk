@@ -7,6 +7,8 @@ final class LampsWebView: WKWebView {
     var closeHandler: (() -> Void)?
     /// 透传给 H5 的展示形态，见 `LampsBridgeClientInfo.DisplayMode`。未设置时为空。
     var displayMode: String = ""
+    /// 日夜间。未设置时由 Bridge 回落到 `LampsSDKConfig.dayNightMode`。
+    var dayNightMode: LampsDayNightMode?
 
     convenience init() {
         self.init(frame: .zero, configuration: LampsWebView.makeConfiguration())

@@ -12,6 +12,9 @@ public class LampsWebViewController: UIViewController {
     public let htmlString: String?
     /// 透传给 H5 的展示形态，见 `LampsBridgeClientInfo.DisplayMode`。未设置时为空。
     var displayMode: String = ""
+    /// 日夜间。未设置时由 Bridge 回落到 `LampsSDKConfig.dayNightMode`。
+    @nonobjc
+    var dayNightMode: LampsDayNightMode?
 
     private var previousNavigationBarHidden: Bool?
     private var webViewTopConstraint: NSLayoutConstraint?
@@ -27,6 +30,7 @@ public class LampsWebViewController: UIViewController {
     private lazy var webView: LampsWebView = {
         let webView = LampsWebView()
         webView.displayMode = displayMode
+        webView.dayNightMode = dayNightMode
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.contentInsetAdjustmentBehavior = .never
         webView.scrollView.showsVerticalScrollIndicator = false
