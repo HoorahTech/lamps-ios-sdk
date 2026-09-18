@@ -178,7 +178,6 @@ public final class Lamps: NSObject {
         let webView = LampsWebView()
         webView.displayMode = LampsBridgeClientInfo.DisplayMode.embed
         webView.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
-        webView.scrollView.contentInsetAdjustmentBehavior = .never
         guard webView.load(urlString: urlString) else { return nil }
         return webView
     }

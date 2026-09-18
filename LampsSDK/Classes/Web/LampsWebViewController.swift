@@ -31,10 +31,6 @@ public class LampsWebViewController: UIViewController {
         let webView = LampsWebView()
         webView.displayMode = displayMode
         webView.dayNightMode = dayNightMode
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.scrollView.contentInsetAdjustmentBehavior = .never
-        webView.scrollView.showsVerticalScrollIndicator = false
-        webView.scrollView.showsHorizontalScrollIndicator = false
         webView.closeHandler = { [weak self] in
             self?.closePage()
         }

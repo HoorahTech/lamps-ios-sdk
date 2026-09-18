@@ -87,6 +87,10 @@ final class LampsWebView: WKWebView {
 
 private extension LampsWebView {
     func commonSetup() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        translatesAutoresizingMaskIntoConstraints = false
         applyCustomUserAgent()
         uiDelegate = self
         let bridge = LampsBridge(webView: self)
