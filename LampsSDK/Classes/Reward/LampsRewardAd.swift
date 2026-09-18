@@ -121,7 +121,8 @@ final class LampsRewardVideoManager: NSObject {
         handler: LampsRewardEventHandler?
     ) -> LampsRewardLoadListener {
         LampsRewardLoadListener(
-            onReqError: { [weak self] code, message in
+            onReqError: { [weak self, weak session] code, message in
+                guard let session else { return }
                 self?.deliver(
                     self?.makeCallback(name: .reqError, status: false, code: code, message: message),
                     from: session,
@@ -131,7 +132,8 @@ final class LampsRewardVideoManager: NSObject {
                     finishError: LampsSDKError.rewardLoadError(message ?? "请求失败").nsError
                 )
             },
-            onLoadSuccess: { [weak self] model in
+            onLoadSuccess: { [weak self, weak session] model in
+                guard let session else { return }
                 self?.deliver(
                     self?.makeCallback(name: .loadSuccess, model: model),
                     from: session,
@@ -141,7 +143,8 @@ final class LampsRewardVideoManager: NSObject {
                     finishError: nil
                 )
             },
-            onLoadError: { [weak self] in
+            onLoadError: { [weak self, weak session] in
+                guard let session else { return }
                 self?.deliver(
                     self?.makeCallback(
                         name: .loadError,
@@ -164,7 +167,8 @@ final class LampsRewardVideoManager: NSObject {
         handler: LampsRewardEventHandler?
     ) -> LampsRewardInteractionListener {
         LampsRewardInteractionListener(
-            onAdShow: { [weak self] model in
+            onAdShow: { [weak self, weak session] model in
+                guard let session else { return }
                 self?.deliver(
                     self?.makeCallback(name: .showSuccess, model: model),
                     from: session,
@@ -174,7 +178,8 @@ final class LampsRewardVideoManager: NSObject {
                     finishError: nil
                 )
             },
-            onAdShowError: { [weak self] model, code, message in
+            onAdShowError: { [weak self, weak session] model, code, message in
+                guard let session else { return }
                 self?.deliver(
                     self?.makeCallback(
                         name: .showError,
@@ -190,7 +195,8 @@ final class LampsRewardVideoManager: NSObject {
                     finishError: LampsSDKError.rewardShowError(message ?? "展示失败").nsError
                 )
             },
-            onAdRewardArrived: { [weak self] model in
+            onAdRewardArrived: { [weak self, weak session] model in
+                guard let session else { return }
                 self?.deliver(
                     self?.makeCallback(name: .rewardArrived, model: model, rewardStatus: true),
                     from: session,
@@ -200,7 +206,8 @@ final class LampsRewardVideoManager: NSObject {
                     finishError: nil
                 )
             },
-            onAdClose: { [weak self] model, hasRewarded in
+            onAdClose: { [weak self, weak session] model, hasRewarded in
+                guard let session else { return }
                 self?.deliver(
                     self?.makeCallback(name: .close, model: model, rewardStatus: hasRewarded),
                     from: session,

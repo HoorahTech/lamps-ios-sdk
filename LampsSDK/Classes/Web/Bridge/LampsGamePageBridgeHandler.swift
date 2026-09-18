@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 /// 打开游戏页：H5 `lamps.game.open`，原生打开 `LampsGameWebViewController`。
+/// 内嵌游戏中心（`displayMode=embed`）走 present；独立游戏中心页走 `pushOrPresent`。
 @objcMembers
 final class LampsGamePageBridgeHandler: NSObject, LampsBridgeHandler {
     weak var bridge: LampsBridge?
@@ -36,9 +37,14 @@ final class LampsGamePageBridgeHandler: NSObject, LampsBridgeHandler {
             return
         }
 
-        LampsSDKLog.debug("bridge game.open url=\(urlString)")
+        LampsSDKLog.debug("bridge game.open url=\(urlString) embed=\(isEmbedDisplayMode)")
         let page = LampsGameWebViewController(urlString: urlString)
-        LampsNavigator.pushOrPresent(page, from: host)
+        // 内嵌游戏中心不能 push 进宿主栈：侧滑、导航栏都由宿主导航容器接管，接入方无法配置。
+        if isEmbedDisplayMode {
+            LampsNavigator.presentInNavigationController(page, from: host)
+        } else {
+            LampsNavigator.pushOrPresent(page, from: host)
+        }
         success?(["msg": "success"])
     }
 }
@@ -46,6 +52,11 @@ final class LampsGamePageBridgeHandler: NSObject, LampsBridgeHandler {
 private extension LampsGamePageBridgeHandler {
     enum Method {
         static let open = "lamps.game.open"
+    }
+
+    /// `makeGameCenterView` 会把 WebView 标成 `embed`。
+    var isEmbedDisplayMode: Bool {
+        bridge?.webView?.displayMode == LampsBridgeClientInfo.DisplayMode.embed
     }
 
     func hostViewController() -> UIViewController? {

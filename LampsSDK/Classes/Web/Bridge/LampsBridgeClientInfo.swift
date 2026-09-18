@@ -3,7 +3,7 @@ import UIKit
 
 /// Bridge 共用的客户端参数，供 `bridgeReady` 回给 H5、以及 `track` 上报。
 enum LampsBridgeClientInfo {
-    /// H5 展示形态。`embed`：`showGameCenter` / `presentGameCenter`；`page`：`makeGameCenterView`；其余为空。
+    /// H5 展示形态。`embed`：`makeGameCenterView`；`page`：`showGameCenter` / `presentGameCenter`；其余为空。
     enum DisplayMode {
         static let embed = "embed"
         static let page = "page"

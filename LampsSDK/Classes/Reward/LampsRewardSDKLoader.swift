@@ -16,6 +16,10 @@ final class LampsRewardSDKLoader: NSObject {
         adapters
     }
 
+    deinit {
+        clearShowWaitTimer()
+    }
+
     func load(
         models: [LampsRewardAdModel],
         from viewController: UIViewController?,

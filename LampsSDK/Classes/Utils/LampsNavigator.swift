@@ -16,6 +16,7 @@ enum LampsNavigator {
     }
 
     /// 包一层普通 `UINavigationController` 后全屏 present，不进入宿主导航栈。
+    /// `presentGameCenter` / `presentGame`，以及内嵌游戏中心的 `lamps.game.open` 走这条。
     static func presentInNavigationController(_ page: UIViewController, from host: UIViewController) {
         let navigationController = UINavigationController(rootViewController: page)
         navigationController.isNavigationBarHidden = true

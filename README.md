@@ -360,6 +360,9 @@ H5 调用 `lamps.common.statusBar`，控制状态栏显隐、沉浸式布局、�
 
 游戏中心仍走 `LampsWebViewController` / `makeGameCenterView()`。从中心跳进具体游戏时，H5 调用 `lamps.game.open`，客户端打开带右上角关闭按钮的 `LampsGameWebViewController`。
 
+- `showGameCenter` / `presentGameCenter`：有导航栈则 `push`，否则全屏 `present`。
+- `makeGameCenterView`：全屏 present 到 SDK 自有导航容器，不进入宿主导航栈，避免宿主侧滑手势介入。
+
 入参 `data`：
 
 | 字段 | 类型 | 必填 | 说明 |
@@ -370,7 +373,7 @@ H5 调用 `lamps.common.statusBar`，控制状态栏显隐、沉浸式布局、�
 { "url": "https://example.com/game?appid=xxx" }
 ```
 
-有导航栈则 `push`，否则全屏 `present`。成功 `{ "msg": "" }`；`url` 非法或找不到宿主页面走 error 回调。
+成功 `{ "msg": "success" }`；`url` 非法或找不到宿主页面走 error 回调。
 
 ## 手动 Framework（xcframework）集成
 

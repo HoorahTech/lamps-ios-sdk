@@ -170,6 +170,7 @@ public final class Lamps: NSObject {
     /// 使用配置下发的 `gameCenterPage` 创建可内嵌视图。请先 `start` 成功。
     /// 返回的是内部 WebView，类型对外为 `UIView`。地址不可用时返回 `nil`。
     /// 请由宿主加入自己的视图层级并设置约束。
+    /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
     ///
     /// - Parameter config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
     @objc(makeGameCenterViewWithConfig:)

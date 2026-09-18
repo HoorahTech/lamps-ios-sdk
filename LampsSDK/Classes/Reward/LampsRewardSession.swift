@@ -3,7 +3,7 @@ import UIKit
 
 /// 单次激励会话：config.rewardAdSlots → 并行 SDK → 竞价 → 展示赢家。
 final class LampsRewardSession: NSObject {
-    private let viewController: UIViewController
+    private weak var viewController: UIViewController?
     private let forwardSource: String
     private var sdkLoader: LampsRewardSDKLoader?
     private var models: [LampsRewardAdModel] = []
