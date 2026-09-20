@@ -34,10 +34,10 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   }
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(showGameCenterFromViewController:completion:) public static func showGameCenter(from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(showGameCenterFromViewController:config:completion:) public static func showGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(presentGameCenterFromViewController:completion:) public static func presentGameCenter(from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(presentGameCenterFromViewController:config:completion:) public static func presentGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
   @objc(showGameWithGameId:fromViewController:completion:) public static func showGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
@@ -46,7 +46,7 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @objc(presentGameWithGameId:fromViewController:completion:) public static func presentGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(makeGameCenterView) public static func makeGameCenterView() -> UIKit.UIView?
+  @objc(makeGameCenterViewWithConfig:) public static func makeGameCenterView(config: LampsSDK.LampsGameCenterConfig? = nil) -> UIKit.UIView?
   #endif
   @_spi(LampsDevTools) @nonobjc public static var debugEnvironment: LampsSDK.LampsSDKEnvironment {
     @_spi(LampsDevTools) get
@@ -65,6 +65,12 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
     @_spi(LampsDevTools) get
   }
   @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsGameCenterConfig : ObjectiveC.NSObject {
+  @objc final public var dayNightMode: LampsSDK.LampsDayNightMode
+  @objc override dynamic public init()
+  @objc convenience public init(dayNightMode: LampsSDK.LampsDayNightMode)
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsGameWebViewController : LampsSDK.LampsWebViewController {
@@ -147,8 +153,20 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @_spi(LampsAdapter) public static func register(channel: LampsSDK.LampsRewardChannel, maker: @escaping LampsSDK.LampsRewardAdapterMaker)
   @_spi(LampsAdapter) public static func registerInitializer(channel: LampsSDK.LampsRewardChannel, initializer: any LampsSDK.LampsSDKInitializing.Type)
 }
+@objc public enum LampsDayNightMode : Swift.Int {
+  case day
+  case night
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
 @objc @_inheritsConvenienceInitializers @objcMembers final public class LampsSDKConfig : ObjectiveC.NSObject, Foundation.NSCopying {
   @objc final public var appId: Swift.String
+  @objc final public var dayNightMode: LampsSDK.LampsDayNightMode
   @objc final public var debugLogEnabled: Swift.Bool
   @objc final public var personalizedRecommendEnabled: Swift.Bool
   @objc final public var shakeAdsEnabled: Swift.Bool
@@ -239,6 +257,9 @@ public let LampsSDKErrorDomain: Swift.String
 @_spi(LampsAdapter) extension LampsSDK.LampsRewardChannel : Swift.Equatable {}
 @_spi(LampsAdapter) extension LampsSDK.LampsRewardChannel : Swift.Hashable {}
 @_spi(LampsAdapter) extension LampsSDK.LampsRewardChannel : Swift.RawRepresentable {}
+extension LampsSDK.LampsDayNightMode : Swift.Equatable {}
+extension LampsSDK.LampsDayNightMode : Swift.Hashable {}
+extension LampsSDK.LampsDayNightMode : Swift.RawRepresentable {}
 @_spi(LampsDevTools) extension LampsSDK.LampsSDKEnvironment : Swift.Equatable {}
 @_spi(LampsDevTools) extension LampsSDK.LampsSDKEnvironment : Swift.Hashable {}
 @_spi(LampsDevTools) extension LampsSDK.LampsSDKEnvironment : Swift.RawRepresentable {}

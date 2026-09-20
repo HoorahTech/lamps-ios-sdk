@@ -309,6 +309,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class NSString;
 @class LampsSDKConfig;
 @class UIViewController;
+@class LampsGameCenterConfig;
 @class UIView;
 /// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入页面。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
@@ -337,16 +338,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 /// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGameCenter</code>。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
+/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开游戏中心，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
+/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 在宿主导航栈中打开具体游戏页。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。容器为 <code>LampsGameWebViewController</code>。
@@ -371,8 +376,26 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
 /// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
-+ (UIView * _Nullable)makeGameCenterView SWIFT_WARN_UNUSED_RESULT;
+/// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
+/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+///
++ (UIView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+/// 日夜间。
+typedef SWIFT_ENUM(NSInteger, LampsDayNightMode, open) {
+  LampsDayNightModeDay = 0,
+  LampsDayNightModeNight = 1,
+};
+
+/// 打开或嵌入游戏中心时的展示配置。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+SWIFT_CLASS("_TtC8LampsSDK21LampsGameCenterConfig")
+@interface LampsGameCenterConfig : NSObject
+/// 日夜间，默认日间。
+@property (nonatomic) enum LampsDayNightMode dayNightMode;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDayNightMode:(enum LampsDayNightMode)dayNightMode;
 @end
 
 @class NSCoder;
@@ -426,6 +449,8 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @interface LampsSDKConfig : NSObject <NSCopying>
 /// 分配给宿主 App 的应用 ID，必填。
 @property (nonatomic, copy) NSString * _Nonnull appId;
+/// 日夜间，默认日间。打开游戏中心时未传 <code>LampsGameCenterConfig</code> 则用该值。
+@property (nonatomic) enum LampsDayNightMode dayNightMode;
 /// 是否打印 <code>[LampsSDK]</code> 调试日志。正式包请保持关闭。
 @property (nonatomic) BOOL debugLogEnabled;
 /// 是否开启个性化推荐广告，默认开启。
@@ -783,6 +808,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class NSString;
 @class LampsSDKConfig;
 @class UIViewController;
+@class LampsGameCenterConfig;
 @class UIView;
 /// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入页面。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
@@ -811,16 +837,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 /// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGameCenter</code>。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
+/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开游戏中心，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
+/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 在宿主导航栈中打开具体游戏页。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。容器为 <code>LampsGameWebViewController</code>。
@@ -845,8 +875,26 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
 /// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
-+ (UIView * _Nullable)makeGameCenterView SWIFT_WARN_UNUSED_RESULT;
+/// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
+/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+///
++ (UIView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+/// 日夜间。
+typedef SWIFT_ENUM(NSInteger, LampsDayNightMode, open) {
+  LampsDayNightModeDay = 0,
+  LampsDayNightModeNight = 1,
+};
+
+/// 打开或嵌入游戏中心时的展示配置。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+SWIFT_CLASS("_TtC8LampsSDK21LampsGameCenterConfig")
+@interface LampsGameCenterConfig : NSObject
+/// 日夜间，默认日间。
+@property (nonatomic) enum LampsDayNightMode dayNightMode;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDayNightMode:(enum LampsDayNightMode)dayNightMode;
 @end
 
 @class NSCoder;
@@ -900,6 +948,8 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @interface LampsSDKConfig : NSObject <NSCopying>
 /// 分配给宿主 App 的应用 ID，必填。
 @property (nonatomic, copy) NSString * _Nonnull appId;
+/// 日夜间，默认日间。打开游戏中心时未传 <code>LampsGameCenterConfig</code> 则用该值。
+@property (nonatomic) enum LampsDayNightMode dayNightMode;
 /// 是否打印 <code>[LampsSDK]</code> 调试日志。正式包请保持关闭。
 @property (nonatomic) BOOL debugLogEnabled;
 /// 是否开启个性化推荐广告，默认开启。
