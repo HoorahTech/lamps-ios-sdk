@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LampsNoahAdapter'
-  s.version          = '0.0.2'
+  s.version          = '0.0.3'
   s.summary          = 'LampsSDK 汇川激励 Adapter（独立模块，供 xcframework 出包）'
   s.homepage         = 'http://gitlab.hupu.com/HPBase/lamps-ios-sdk'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
