@@ -281,6 +281,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreFoundation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -310,8 +311,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class LampsSDKConfig;
 @class UIViewController;
 @class LampsGameCenterConfig;
-@class UIView;
-/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入页面。
+@class LampsGameCenterView;
+/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入 <code>LampsGameCenterView</code>。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 @interface Lamps : NSObject
@@ -374,12 +375,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 + (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
-/// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
+/// 返回 <code>LampsGameCenterView</code>；地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
+/// 宿主自有日夜间变化时调用 <code>updateDayNightMode</code>，无需重建本视图。
 /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
 /// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
-+ (UIView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
++ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -392,13 +394,27 @@ typedef SWIFT_ENUM(NSInteger, LampsDayNightMode, open) {
 /// 打开或嵌入游戏中心时的展示配置。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 SWIFT_CLASS("_TtC8LampsSDK21LampsGameCenterConfig")
 @interface LampsGameCenterConfig : NSObject
-/// 日夜间，默认日间。
+/// 日夜间，默认日间。创建内嵌游戏中心后若宿主日夜间变化，请调 <code>LampsGameCenterView.updateDayNightMode</code>。
 @property (nonatomic) enum LampsDayNightMode dayNightMode;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithDayNightMode:(enum LampsDayNightMode)dayNightMode;
 @end
 
 @class NSCoder;
+/// <code>makeGameCenterView</code> 返回的内嵌游戏中心容器。内部是 WebView，对外提供日夜间更新。
+/// 接入方自有日夜间（不跟系统 Dark Mode）变化时调用 <code>updateDayNightMode</code>，无需重建本视图。
+SWIFT_CLASS("_TtC8LampsSDK19LampsGameCenterView")
+@interface LampsGameCenterView : UIView
+/// 当前日夜间。创建时取自本次 <code>LampsGameCenterConfig</code> 或 <code>Lamps.start</code> 配置。
+@property (nonatomic, readonly) enum LampsDayNightMode dayNightMode;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+/// 更新日夜间，并 Native → H5 派发 <code>lamps.common.onnightmodechange</code>。
+/// 参数 <code>{ "night": 0|1 }</code>，取值与 <code>lamps.common.bridgeReady</code> 的 <code>night</code> 一致。
+/// 与当前值相同则不重复通知。H5 尚未 <code>bridgeReady</code> 时事件可能丢失，随后 <code>bridgeReady</code> 会带回最新值。
+- (void)updateDayNightMode:(enum LampsDayNightMode)mode;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
 @class NSBundle;
 /// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
 /// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
@@ -780,6 +796,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreFoundation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -809,8 +826,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class LampsSDKConfig;
 @class UIViewController;
 @class LampsGameCenterConfig;
-@class UIView;
-/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入页面。
+@class LampsGameCenterView;
+/// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入 <code>LampsGameCenterView</code>。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
 SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 @interface Lamps : NSObject
@@ -873,12 +890,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 + (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
-/// 返回的是内部 WebView，类型对外为 <code>UIView</code>。地址不可用时返回 <code>nil</code>。
+/// 返回 <code>LampsGameCenterView</code>；地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
+/// 宿主自有日夜间变化时调用 <code>updateDayNightMode</code>，无需重建本视图。
 /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
 /// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
-+ (UIView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
++ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -891,13 +909,27 @@ typedef SWIFT_ENUM(NSInteger, LampsDayNightMode, open) {
 /// 打开或嵌入游戏中心时的展示配置。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 SWIFT_CLASS("_TtC8LampsSDK21LampsGameCenterConfig")
 @interface LampsGameCenterConfig : NSObject
-/// 日夜间，默认日间。
+/// 日夜间，默认日间。创建内嵌游戏中心后若宿主日夜间变化，请调 <code>LampsGameCenterView.updateDayNightMode</code>。
 @property (nonatomic) enum LampsDayNightMode dayNightMode;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithDayNightMode:(enum LampsDayNightMode)dayNightMode;
 @end
 
 @class NSCoder;
+/// <code>makeGameCenterView</code> 返回的内嵌游戏中心容器。内部是 WebView，对外提供日夜间更新。
+/// 接入方自有日夜间（不跟系统 Dark Mode）变化时调用 <code>updateDayNightMode</code>，无需重建本视图。
+SWIFT_CLASS("_TtC8LampsSDK19LampsGameCenterView")
+@interface LampsGameCenterView : UIView
+/// 当前日夜间。创建时取自本次 <code>LampsGameCenterConfig</code> 或 <code>Lamps.start</code> 配置。
+@property (nonatomic, readonly) enum LampsDayNightMode dayNightMode;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+/// 更新日夜间，并 Native → H5 派发 <code>lamps.common.onnightmodechange</code>。
+/// 参数 <code>{ "night": 0|1 }</code>，取值与 <code>lamps.common.bridgeReady</code> 的 <code>night</code> 一致。
+/// 与当前值相同则不重复通知。H5 尚未 <code>bridgeReady</code> 时事件可能丢失，随后 <code>bridgeReady</code> 会带回最新值。
+- (void)updateDayNightMode:(enum LampsDayNightMode)mode;
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
 @class NSBundle;
 /// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
 /// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。

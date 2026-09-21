@@ -672,13 +672,13 @@
               {
                 "kind": "TypeNominal",
                 "name": "Optional",
-                "printedName": "UIKit.UIView?",
+                "printedName": "LampsSDK.LampsGameCenterView?",
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "UIView",
-                    "printedName": "UIKit.UIView",
-                    "usr": "c:objc(cs)UIView"
+                    "name": "LampsGameCenterView",
+                    "printedName": "LampsSDK.LampsGameCenterView",
+                    "usr": "c:@M@LampsSDK@objc(cs)LampsGameCenterView"
                   }
                 ],
                 "usr": "s:Sq"
@@ -701,7 +701,7 @@
             ],
             "declKind": "Func",
             "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)makeGameCenterViewWithConfig:",
-            "mangledName": "$s8LampsSDK0A0C18makeGameCenterView6configSo6UIViewCSgAA0adE6ConfigCSg_tFZ",
+            "mangledName": "$s8LampsSDK0A0C18makeGameCenterView6configAA0adeF0CSgAA0adE6ConfigCSg_tFZ",
             "moduleName": "LampsSDK",
             "static": true,
             "objc_name": "makeGameCenterViewWithConfig:",
@@ -1512,6 +1512,238 @@
             "printedName": "CustomDebugStringConvertible",
             "usr": "s:s28CustomDebugStringConvertibleP",
             "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LampsGameCenterView",
+        "printedName": "LampsGameCenterView",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "dayNightMode",
+            "printedName": "dayNightMode",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LampsDayNightMode",
+                "printedName": "LampsSDK.LampsDayNightMode",
+                "usr": "c:@M@LampsSDK@E@LampsDayNightMode"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsGameCenterView(py)dayNightMode",
+            "mangledName": "$s8LampsSDK0A14GameCenterViewC12dayNightModeAA0a3DaygH0Ovp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "Preconcurrency",
+              "Custom",
+              "HasStorage",
+              "SetterAccess",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LampsDayNightMode",
+                    "printedName": "LampsSDK.LampsDayNightMode",
+                    "usr": "c:@M@LampsSDK@E@LampsDayNightMode"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsGameCenterView(im)dayNightMode",
+                "mangledName": "$s8LampsSDK0A14GameCenterViewC12dayNightModeAA0a3DaygH0Ovg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "updateDayNightMode",
+            "printedName": "updateDayNightMode(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "LampsDayNightMode",
+                "printedName": "LampsSDK.LampsDayNightMode",
+                "usr": "c:@M@LampsSDK@E@LampsDayNightMode"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsGameCenterView(im)updateDayNightMode:",
+            "mangledName": "$s8LampsSDK0A14GameCenterViewC18updateDayNightModeyyAA0aghI0OF",
+            "moduleName": "LampsSDK",
+            "objc_name": "updateDayNightMode:",
+            "declAttributes": [
+              "Final",
+              "Preconcurrency",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(frame:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LampsGameCenterView",
+                "printedName": "LampsSDK.LampsGameCenterView",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsGameCenterView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGRect",
+                "printedName": "CoreFoundation.CGRect",
+                "usr": "c:@S@CGRect"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsGameCenterView(im)initWithFrame:",
+            "mangledName": "$s8LampsSDK0A14GameCenterViewC5frameACSo6CGRectV_tcfc",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithFrame:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@LampsSDK@objc(cs)LampsGameCenterView",
+        "mangledName": "$s8LampsSDK0A14GameCenterViewC",
+        "moduleName": "LampsSDK",
+        "declAttributes": [
+          "Preconcurrency",
+          "Custom",
+          "Final",
+          "AccessControl",
+          "ObjCMembers",
+          "RawDocComment",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)UIView",
+        "hasMissingDesignatedInitializers": true,
+        "superclassNames": [
+          "UIKit.UIView",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "__DefaultCustomPlaygroundQuickLookable",
+            "printedName": "__DefaultCustomPlaygroundQuickLookable",
+            "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
+            "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
           }
         ]
       },
@@ -7553,28 +7785,28 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 1015,
+      "offset": 1031,
       "length": 7,
-      "value": "\"0.0.3\""
+      "value": "\"0.0.4\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 1172,
+      "offset": 1188,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 1223,
+      "offset": 1239,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 9371,
+      "offset": 9498,
       "length": 2,
       "value": "\"\""
     },
@@ -7651,7 +7883,14 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridgeClientInfo.swift",
       "kind": "StringLiteral",
-      "offset": 426,
+      "offset": 520,
+      "length": 32,
+      "value": "\"lamps.common.onnightmodechange\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsBridgeClientInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 603,
       "length": 2,
       "value": "\"\""
     },

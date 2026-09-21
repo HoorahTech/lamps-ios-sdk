@@ -46,7 +46,7 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @objc(presentGameWithGameId:fromViewController:completion:) public static func presentGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(makeGameCenterViewWithConfig:) public static func makeGameCenterView(config: LampsSDK.LampsGameCenterConfig? = nil) -> UIKit.UIView?
+  @objc(makeGameCenterViewWithConfig:) public static func makeGameCenterView(config: LampsSDK.LampsGameCenterConfig? = nil) -> LampsSDK.LampsGameCenterView?
   #endif
   @_spi(LampsDevTools) @nonobjc public static var debugEnvironment: LampsSDK.LampsSDKEnvironment {
     @_spi(LampsDevTools) get
@@ -71,6 +71,13 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @objc final public var dayNightMode: LampsSDK.LampsDayNightMode
   @objc override dynamic public init()
   @objc convenience public init(dayNightMode: LampsSDK.LampsDayNightMode)
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsGameCenterView : UIKit.UIView {
+  @objc @_Concurrency.MainActor @preconcurrency final public var dayNightMode: LampsSDK.LampsDayNightMode {
+    get
+  }
+  @objc(updateDayNightMode:) @_Concurrency.MainActor @preconcurrency final public func updateDayNightMode(_ mode: LampsSDK.LampsDayNightMode)
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsGameWebViewController : LampsSDK.LampsWebViewController {
