@@ -4,10 +4,11 @@ import LampsSDK
 /// `makeGameCenterView` 测试容器：顶部 Tab + 左右滑动切换列表 / 整页场景。
 final class LAMPSSDKGameCenterEmbedViewController: UIViewController,
     UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    private let pages: [UIViewController] = [
-        LAMPSSDKGameCenterListViewController(),
-        LAMPSSDKGameCenterPageViewController()
-    ]
+    private let listPage = LAMPSSDKGameCenterListViewController()
+    private let pagePage = LAMPSSDKGameCenterPageViewController()
+    private var isNight = false
+
+    private var pages: [UIViewController] { [listPage, pagePage] }
 
     private lazy var segment: UISegmentedControl = {
         let control = UISegmentedControl(items: ["列表场景", "整页场景"])
@@ -73,6 +74,12 @@ final class LAMPSSDKGameCenterEmbedViewController: UIViewController,
         super.viewDidLoad()
         title = "makeGameCenterView"
         view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "切夜间",
+            style: .plain,
+            target: self,
+            action: #selector(toggleDayNight)
+        )
         view.addSubview(headerView)
 
         addChild(pageController)
@@ -95,6 +102,14 @@ final class LAMPSSDKGameCenterEmbedViewController: UIViewController,
 
     @objc private func segmentChanged() {
         showPage(at: segment.selectedSegmentIndex, animated: true)
+    }
+
+    @objc private func toggleDayNight() {
+        isNight.toggle()
+        let mode: LampsDayNightMode = isNight ? .night : .day
+        listPage.gameView?.updateDayNightMode(mode)
+        pagePage.gameView?.updateDayNightMode(mode)
+        navigationItem.rightBarButtonItem?.title = isNight ? "切日间" : "切夜间"
     }
 
     private func showPage(at index: Int, animated: Bool) {
@@ -140,7 +155,7 @@ final class LAMPSSDKGameCenterListViewController: UIViewController, UITableViewD
     private let gameViewRow = 1
     private let gameViewRowHeight: CGFloat = 420
     private let plainRowHeight: CGFloat = 88
-    private let gameView: UIView?
+    let gameView: LampsGameCenterView?
 
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -208,10 +223,22 @@ final class LAMPSSDKGameCenterListViewController: UIViewController, UITableViewD
 
 /// 整页使用场景：VC 只展示一个 `makeGameCenterView()`。
 final class LAMPSSDKGameCenterPageViewController: UIViewController {
+    let gameView: LampsGameCenterView?
+
+    init() {
+        gameView = Lamps.makeGameCenterView()
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        gameView = Lamps.makeGameCenterView()
+        super.init(coder: coder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        if let gameView = Lamps.makeGameCenterView() {
+        if let gameView {
             LAMPSSDKGameCenterEmbed.pin(gameView, to: view)
         } else {
             LAMPSSDKGameCenterEmbed.showEmpty(in: view)
@@ -276,7 +303,7 @@ private final class LAMPSSDKGameCenterListCell: UITableViewCell {
         LAMPSSDKGameCenterEmbed.applyWhiteBackground(to: self)
     }
 
-    func show(_ gameView: UIView?) {
+    func show(_ gameView: LampsGameCenterView?) {
         contentView.subviews.forEach { $0.removeFromSuperview() }
 
         let titleLabel = UILabel()
