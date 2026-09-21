@@ -38,7 +38,7 @@ public final class LampsSDKConfig: NSObject, NSCopying {
 }
 
 extension LampsDayNightMode {
-    /// H5 `night` 字段：日间 `1`，夜间 `0`。
+    /// H5 `night` 字段：日间 `0`，夜间 `1`。
     var bridgeNightValue: Int {
         switch self {
         case .day:

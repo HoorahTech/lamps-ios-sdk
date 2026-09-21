@@ -13,7 +13,7 @@ public typealias LampsStartCompletion = (Bool, Error?) -> Void
 ///   - error: 失败原因，`domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
 public typealias LampsShowGameCenterCompletion = (Bool, Error?) -> Void
 
-/// Lamps SDK 入口。接入方 `import LampsSDK` 后先 `start`，再 `showGameCenter(from:)` 打开游戏中心，`showGame(gameId:)` 打开具体游戏，或 `makeGameCenterView()` 嵌入页面。
+/// Lamps SDK 入口。接入方 `import LampsSDK` 后先 `start`，再 `showGameCenter(from:)` 打开游戏中心，`showGame(gameId:)` 打开具体游戏，或 `makeGameCenterView()` 嵌入 `LampsGameCenterView`。
 /// 类名不用 `LampsSDK`，避免与模块名冲突。
 @objcMembers
 public final class Lamps: NSObject {
@@ -168,19 +168,20 @@ public final class Lamps: NSObject {
     }
 
     /// 使用配置下发的 `gameCenterPage` 创建可内嵌视图。请先 `start` 成功。
-    /// 返回的是内部 WebView，类型对外为 `UIView`。地址不可用时返回 `nil`。
+    /// 返回 `LampsGameCenterView`；地址不可用时返回 `nil`。
     /// 请由宿主加入自己的视图层级并设置约束。
+    /// 宿主自有日夜间变化时调用 `updateDayNightMode`，无需重建本视图。
     /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
     ///
     /// - Parameter config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
     @objc(makeGameCenterViewWithConfig:)
-    public static func makeGameCenterView(config: LampsGameCenterConfig? = nil) -> UIView? {
+    public static func makeGameCenterView(config: LampsGameCenterConfig? = nil) -> LampsGameCenterView? {
         guard let urlString = resolvedGameCenterPageURL() else { return nil }
         let webView = LampsWebView()
         webView.displayMode = LampsBridgeClientInfo.DisplayMode.embed
         webView.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
         guard webView.load(urlString: urlString) else { return nil }
-        return webView
+        return LampsGameCenterView(webView: webView)
     }
 
     /// 远端配置；未拉取成功时为 nil。仅 SDK 内部使用。

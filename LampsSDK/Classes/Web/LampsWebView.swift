@@ -28,6 +28,15 @@ final class LampsWebView: WKWebView {
         bridge?.uninstall()
     }
 
+    func applyDayNightMode(_ mode: LampsDayNightMode) {
+        dayNightMode = mode
+        LampsSDKLog.debug("nightMode change night=\(mode.bridgeNightValue)")
+        bridge.send(
+            method: LampsBridgeClientInfo.nightModeChangeMethod,
+            data: ["night": mode.bridgeNightValue]
+        )
+    }
+
     func notifyContainerWillAppear() {
         bridge?.notifyContainerWillAppear()
     }

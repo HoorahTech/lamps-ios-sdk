@@ -115,6 +115,13 @@ Lamps.presentGameCenter { success, error in
     }
 }
 
+// 内嵌游戏中心（如 Tab 一级页）。宿主自有日夜间变化时调用 updateDayNightMode，无需重建。
+if let gameView = Lamps.makeGameCenterView() {
+    container.addSubview(gameView)
+    // ... 约束
+    gameView.updateDayNightMode(.night)
+}
+
 let webVC = LampsWebViewController(urlString: "https://www.hupu.com")
 present(UINavigationController(rootViewController: webVC), animated: true)
 
@@ -227,6 +234,10 @@ Native 主动调 H5 会执行（H5 需实现 `window.HoorahBridge._handle_`）�
 ```js
 window.HoorahBridge._handle_(method, data, successcb, errorcb)
 ```
+
+Native → H5 事件：
+
+- `lamps.common.onnightmodechange`
 
 ### 激励视频 Bridge
 
@@ -374,6 +385,26 @@ H5 调用 `lamps.common.statusBar`，控制状态栏显隐、沉浸式布局、�
 ```
 
 成功 `{ "msg": "success" }`；`url` 非法或找不到宿主页面走 error 回调。
+
+### 日夜间变化 Bridge
+
+接入方自有日夜间（不跟系统 Dark Mode）变化时，对 `makeGameCenterView()` 返回的 `LampsGameCenterView` 调用 `updateDayNightMode`。SDK 更新内存中的日夜间，并 Native → H5 派发 `lamps.common.onnightmodechange`，无需重建视图。
+
+参数 `data`：
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `night` | number | `1` 夜间，`0` 日间。与 `lamps.common.bridgeReady` 的 `night` 一致 |
+
+```json
+{ "night": 1 }
+```
+
+H5 尚未 `bridgeReady` 时这次事件可能丢失；随后 `bridgeReady` 会带回最新 `night`。与当前值相同则不重复通知。
+
+```swift
+gameView.updateDayNightMode(.night)
+```
 
 ## 手动 Framework（xcframework）集成
 
