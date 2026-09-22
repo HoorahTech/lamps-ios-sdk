@@ -96,6 +96,13 @@ final class LampsWebView: WKWebView {
 
 private extension LampsWebView {
     func commonSetup() {
+        isOpaque = false
+        backgroundColor = .clear
+        scrollView.isOpaque = false
+        scrollView.backgroundColor = .clear
+        if #available(iOS 15.0, *) {
+            underPageBackgroundColor = .clear
+        }
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never

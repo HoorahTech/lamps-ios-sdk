@@ -176,7 +176,9 @@ public final class Lamps: NSObject {
     /// - Parameter config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
     @objc(makeGameCenterViewWithConfig:)
     public static func makeGameCenterView(config: LampsGameCenterConfig? = nil) -> LampsGameCenterView? {
-        guard let urlString = resolvedGameCenterPageURL() else { return nil }
+        guard let urlString = resolvedGameCenterPageURL(
+            dayNightMode: resolvedDayNightMode(config?.dayNightMode)
+        ) else { return nil }
         let webView = LampsWebView()
         webView.displayMode = LampsBridgeClientInfo.DisplayMode.embed
         webView.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
@@ -323,7 +325,7 @@ public final class Lamps: NSObject {
         from viewController: UIViewController?,
         config: LampsGameCenterConfig?
     ) -> GameCenterPrepareResult {
-        switch resolveGameCenterPageURL() {
+        switch resolveGameCenterPageURL(dayNightMode: resolvedDayNightMode(config?.dayNightMode)) {
         case .success(let url):
             guard let host = viewController ?? LampsNavigator.currentHostViewController() else {
                 return .failure(.noHostViewController("找不到可用于打开游戏中心的页面"))
@@ -376,8 +378,8 @@ public final class Lamps: NSObject {
         completion?(false, nsError)
     }
 
-    private static func resolvedGameCenterPageURL() -> String? {
-        switch resolveGameCenterPageURL() {
+    private static func resolvedGameCenterPageURL(dayNightMode: LampsDayNightMode) -> String? {
+        switch resolveGameCenterPageURL(dayNightMode: dayNightMode) {
         case .success(let url):
             return url
         case .failure:
@@ -385,7 +387,7 @@ public final class Lamps: NSObject {
         }
     }
 
-    private static func resolveGameCenterPageURL() -> GameCenterPageResult {
+    private static func resolveGameCenterPageURL(dayNightMode: LampsDayNightMode) -> GameCenterPageResult {
         guard started else {
             LampsSDKLog.debug("gameCenterPage skipped: not started")
             return .failure(.notStarted("尚未调用 Lamps.start"))
@@ -395,7 +397,8 @@ public final class Lamps: NSObject {
             LampsSDKLog.debug("gameCenterPage unavailable url=\(url)")
             return .failure(.gameCenterUnavailable("游戏中心地址不可用"))
         }
-        return .success(url)
+        let separator = url.contains("?") ? "&" : "?"
+        return .success(url + separator + "night=\(dayNightMode.bridgeNightValue)")
     }
 
     private static func resolveGamePageURL(gameId: String) -> GameCenterPageResult {
