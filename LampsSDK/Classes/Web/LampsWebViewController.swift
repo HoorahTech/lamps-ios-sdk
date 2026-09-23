@@ -28,9 +28,7 @@ public class LampsWebViewController: UIViewController {
 
     /// 页面内 WebView，仅 SDK 内部使用。
     private lazy var webView: LampsWebView = {
-        let webView = LampsWebView()
-        webView.displayMode = displayMode
-        webView.dayNightMode = dayNightMode
+        let webView = LampsWebView(displayMode: displayMode, dayNightMode: dayNightMode)
         webView.closeHandler = { [weak self] in
             self?.closePage()
         }

@@ -179,9 +179,10 @@ public final class Lamps: NSObject {
         guard let urlString = resolvedGameCenterPageURL(
             dayNightMode: resolvedDayNightMode(config?.dayNightMode)
         ) else { return nil }
-        let webView = LampsWebView()
-        webView.displayMode = LampsBridgeClientInfo.DisplayMode.embed
-        webView.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
+        let webView = LampsWebView(
+            displayMode: LampsBridgeClientInfo.DisplayMode.embed,
+            dayNightMode: resolvedDayNightMode(config?.dayNightMode)
+        )
         guard webView.load(urlString: urlString) else { return nil }
         return LampsGameCenterView(webView: webView)
     }

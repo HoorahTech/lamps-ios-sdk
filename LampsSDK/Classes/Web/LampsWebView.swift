@@ -6,20 +6,20 @@ final class LampsWebView: WKWebView {
     var bridge: LampsBridge!
     var closeHandler: (() -> Void)?
     /// 透传给 H5 的展示形态，见 `LampsBridgeClientInfo.DisplayMode`。未设置时为空。
-    var displayMode: String = ""
+    let displayMode: String
     /// 日夜间。未设置时由 Bridge 回落到 `LampsSDKConfig.dayNightMode`。
     var dayNightMode: LampsDayNightMode?
 
-    convenience init() {
-        self.init(frame: .zero, configuration: LampsWebView.makeConfiguration())
-    }
-
-    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
-        super.init(frame: frame, configuration: configuration)
+    init(displayMode: String = "", dayNightMode: LampsDayNightMode? = nil) {
+        self.displayMode = displayMode
+        self.dayNightMode = dayNightMode
+        super.init(frame: .zero, configuration: LampsWebView.makeConfiguration())
         commonSetup()
     }
 
     required init?(coder: NSCoder) {
+        displayMode = ""
+        dayNightMode = nil
         super.init(coder: coder)
         commonSetup()
     }
@@ -97,12 +97,7 @@ final class LampsWebView: WKWebView {
 private extension LampsWebView {
     func commonSetup() {
         isOpaque = false
-        backgroundColor = .clear
-        scrollView.isOpaque = false
-        scrollView.backgroundColor = .clear
-        if #available(iOS 15.0, *) {
-            underPageBackgroundColor = .clear
-        }
+        applyPageBackgroundColor()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -133,6 +128,20 @@ private extension LampsWebView {
         }
         customUserAgent = Self.makeCustomUserAgent(base: base)
         LampsSDKLog.debug("customUserAgent=\(customUserAgent ?? "")")
+    }
+
+    func applyPageBackgroundColor() {
+        let color: UIColor
+        switch Lamps.resolvedDayNightMode(dayNightMode) {
+        case .day:
+            color = LampsColor.color(fromHex: "#FFFFFF") ?? .white
+        case .night:
+            color = LampsColor.color(fromHex: "#141218") ?? .black
+        }
+        backgroundColor = color
+        if #available(iOS 15.0, *) {
+            underPageBackgroundColor = color
+        }
     }
 }
 
