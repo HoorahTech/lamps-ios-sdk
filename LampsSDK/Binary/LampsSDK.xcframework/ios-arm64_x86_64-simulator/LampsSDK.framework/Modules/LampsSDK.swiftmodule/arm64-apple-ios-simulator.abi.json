@@ -1190,6 +1190,13 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -7787,7 +7794,7 @@
       "kind": "StringLiteral",
       "offset": 1031,
       "length": 7,
-      "value": "\"0.0.4\""
+      "value": "\"0.0.5\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
@@ -7806,7 +7813,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 9498,
+      "offset": 9576,
       "length": 2,
       "value": "\"\""
     },
@@ -7932,7 +7939,133 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
       "kind": "IntegerLiteral",
-      "offset": 2025,
+      "offset": 2949,
+      "length": 4,
+      "value": "2868"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2955,
+      "length": 4,
+      "value": "2622"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3030,
+      "length": 2,
+      "value": "62"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3046,
+      "length": 4,
+      "value": "2736"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3085,
+      "length": 2,
+      "value": "68"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3101,
+      "length": 4,
+      "value": "2796"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3107,
+      "length": 4,
+      "value": "2556"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3194,
+      "length": 2,
+      "value": "59"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3210,
+      "length": 4,
+      "value": "2340"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3256,
+      "length": 2,
+      "value": "50"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3272,
+      "length": 4,
+      "value": "1792"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3308,
+      "length": 2,
+      "value": "48"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3324,
+      "length": 4,
+      "value": "2778"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3330,
+      "length": 4,
+      "value": "2532"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3431,
+      "length": 2,
+      "value": "47"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3447,
+      "length": 4,
+      "value": "2688"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3453,
+      "length": 4,
+      "value": "2436"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3519,
+      "length": 2,
+      "value": "44"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Utils\/LampsDeviceLayout.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3591,
       "length": 2,
       "value": "20"
     },
@@ -8142,7 +8275,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsReadyBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 1063,
+      "offset": 1537,
       "length": 26,
       "value": "\"lamps.common.bridgeReady\""
     },
@@ -8821,7 +8954,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebView.swift",
       "kind": "StringLiteral",
-      "offset": 372,
+      "offset": 529,
       "length": 2,
       "value": "\"\""
     },
@@ -8856,7 +8989,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/LampsWebViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 2575,
+      "offset": 2541,
       "length": 1,
       "value": "0"
     }
