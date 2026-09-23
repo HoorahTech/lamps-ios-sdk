@@ -11,7 +11,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIST="$ROOT/Distribution"
 OUT="$ROOT/build/xcframeworks"
 ARCHIVES="$ROOT/build/archives"
-VERSION="${LAMPS_SDK_VERSION:-0.0.4}"
+VERSION="${LAMPS_SDK_VERSION:-0.0.5}"
 
 export LANG="${LANG:-en_US.UTF-8}"
 export LC_ALL="${LC_ALL:-en_US.UTF-8}"

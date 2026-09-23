@@ -412,7 +412,7 @@ gameView.updateDayNightMode(.night)
 
 ```bash
 ./scripts/build_xcframeworks.sh
-# 产物：build/xcframeworks/LampsSDK-iOS-0.0.4/
+# 产物：build/xcframeworks/LampsSDK-iOS-0.0.5/
 ```
 
 产出 5 个包：`LampsSDK`（Core）+ 三家 Adapter + `LampsDevTools`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。
