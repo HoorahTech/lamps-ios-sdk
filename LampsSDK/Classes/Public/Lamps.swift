@@ -181,7 +181,8 @@ public final class Lamps: NSObject {
         ) else { return nil }
         let webView = LampsWebView(
             displayMode: LampsBridgeClientInfo.DisplayMode.embed,
-            dayNightMode: resolvedDayNightMode(config?.dayNightMode)
+            dayNightMode: resolvedDayNightMode(config?.dayNightMode),
+            hideTitle: config?.hideTitle ?? false
         )
         guard webView.load(urlString: urlString) else { return nil }
         return LampsGameCenterView(webView: webView)
@@ -334,6 +335,7 @@ public final class Lamps: NSObject {
             let page = LampsWebViewController(urlString: url)
             page.displayMode = LampsBridgeClientInfo.DisplayMode.page
             page.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
+            page.hideTitle = config?.hideTitle ?? false
             return .ready(host: host, page: page)
         case .failure(let error):
             return .failure(error)

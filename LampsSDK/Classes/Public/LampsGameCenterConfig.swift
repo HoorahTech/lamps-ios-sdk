@@ -5,6 +5,8 @@ import Foundation
 public final class LampsGameCenterConfig: NSObject {
     /// 日夜间，默认日间。创建内嵌游戏中心后若宿主日夜间变化，请调 `LampsGameCenterView.updateDayNightMode`。
     public var dayNightMode: LampsDayNightMode = .day
+    /// 是否隐藏 H5 标题栏，默认不隐藏。`true` 时 `bridgeReady.hideTitle` 为 `1`。
+    public var hideTitle: Bool = false
 
     public override init() {
         super.init()

@@ -9,10 +9,13 @@ final class LampsWebView: WKWebView {
     let displayMode: String
     /// 日夜间。未设置时由 Bridge 回落到 `LampsSDKConfig.dayNightMode`。
     var dayNightMode: LampsDayNightMode?
+    /// 是否隐藏 H5 标题栏。来自本次 `LampsGameCenterConfig`，未设置时不隐藏。
+    var hideTitle: Bool
 
-    init(displayMode: String = "", dayNightMode: LampsDayNightMode? = nil) {
+    init(displayMode: String = "", dayNightMode: LampsDayNightMode? = nil, hideTitle: Bool = false) {
         self.displayMode = displayMode
         self.dayNightMode = dayNightMode
+        self.hideTitle = hideTitle
         super.init(frame: .zero, configuration: LampsWebView.makeConfiguration())
         commonSetup()
     }
@@ -20,6 +23,7 @@ final class LampsWebView: WKWebView {
     required init?(coder: NSCoder) {
         displayMode = ""
         dayNightMode = nil
+        hideTitle = false
         super.init(coder: coder)
         commonSetup()
     }

@@ -12,7 +12,11 @@ enum LampsBridgeClientInfo {
     /// Native → H5：日夜间变化。参数 `{ "night": 0|1 }`，与 `bridgeReady.night` 一致。
     static let nightModeChangeMethod = "lamps.common.onnightmodechange"
 
-    static func dictionary(displayMode: String = "", dayNightMode: LampsDayNightMode? = nil) -> [String: Any] {
+    static func dictionary(
+        displayMode: String = "",
+        dayNightMode: LampsDayNightMode? = nil,
+        hideTitle: Bool = false
+    ) -> [String: Any] {
         var info: [String: Any] = [:]
         info["ts"] = "\(Int(Date().timeIntervalSince1970))"
         info["ua"] = LampsDeviceInfo.userAgent
@@ -36,6 +40,7 @@ enum LampsBridgeClientInfo {
         info["env"] = LampsEnvironmentStore.current.logName
         info["displayMode"] = displayMode
         info["night"] = Lamps.resolvedDayNightMode(dayNightMode).bridgeNightValue
+        info["hideTitle"] = hideTitle ? 1 : 0
         return info
     }
 }

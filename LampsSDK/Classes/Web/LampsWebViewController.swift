@@ -15,6 +15,8 @@ public class LampsWebViewController: UIViewController {
     /// 日夜间。未设置时由 Bridge 回落到 `LampsSDKConfig.dayNightMode`。
     @nonobjc
     var dayNightMode: LampsDayNightMode?
+    /// 是否隐藏 H5 标题栏。来自本次 `LampsGameCenterConfig`，未设置时不隐藏。
+    var hideTitle = false
 
     private var previousNavigationBarHidden: Bool?
     private var webViewTopConstraint: NSLayoutConstraint?
@@ -28,7 +30,7 @@ public class LampsWebViewController: UIViewController {
 
     /// 页面内 WebView，仅 SDK 内部使用。
     private lazy var webView: LampsWebView = {
-        let webView = LampsWebView(displayMode: displayMode, dayNightMode: dayNightMode)
+        let webView = LampsWebView(displayMode: displayMode, dayNightMode: dayNightMode, hideTitle: hideTitle)
         webView.closeHandler = { [weak self] in
             self?.closePage()
         }

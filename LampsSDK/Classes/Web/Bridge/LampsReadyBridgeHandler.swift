@@ -21,10 +21,11 @@ final class LampsReadyBridgeHandler: NSObject, LampsBridgeHandler {
         }
         let info = LampsBridgeClientInfo.dictionary(
             displayMode: bridge?.webView?.displayMode ?? "",
-            dayNightMode: bridge?.webView?.dayNightMode
+            dayNightMode: bridge?.webView?.dayNightMode,
+            hideTitle: bridge?.webView?.hideTitle ?? false
         )
         LampsSDKLog.debug(
-            "bridgeReady os=\(info["os"] ?? "")/\(info["osVer"] ?? "") brand=\(info["phoneBrand"] ?? "") network=\(info["network"] ?? "") size=\(info["clientWidth"] ?? "")x\(info["clientHeight"] ?? "") density=\(info["density"] ?? "") statusBar=\(info["statusBarHeight"] ?? "") sdk=\(info["sdkVersion"] ?? "") appVer=\(info["appVer"] ?? "") displayMode=\(info["displayMode"] ?? "") night=\(info["night"] ?? "") env=\(info["env"] ?? "")"
+            "bridgeReady os=\(info["os"] ?? "")/\(info["osVer"] ?? "") brand=\(info["phoneBrand"] ?? "") network=\(info["network"] ?? "") size=\(info["clientWidth"] ?? "")x\(info["clientHeight"] ?? "") density=\(info["density"] ?? "") statusBar=\(info["statusBarHeight"] ?? "") sdk=\(info["sdkVersion"] ?? "") appVer=\(info["appVer"] ?? "") displayMode=\(info["displayMode"] ?? "") night=\(info["night"] ?? "") hideTitle=\(info["hideTitle"] ?? "") env=\(info["env"] ?? "")"
         )
         guard JSONSerialization.isValidJSONObject(info) else {
             error?(["msg": "device info 序列化失败"])

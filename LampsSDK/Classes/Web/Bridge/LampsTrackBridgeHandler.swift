@@ -152,7 +152,8 @@ private extension LampsTrackBridgeHandler {
     func makeReportBody(from data: [AnyHashable: Any], extra: [String: String]) -> [String: Any] {
         var body = LampsBridgeClientInfo.dictionary(
             displayMode: bridge?.webView?.displayMode ?? "",
-            dayNightMode: bridge?.webView?.dayNightMode
+            dayNightMode: bridge?.webView?.dayNightMode,
+            hideTitle: bridge?.webView?.hideTitle ?? false
         )
         body[OuterField.action] = LampsJSONValue.stringValue(data[OuterField.action])
         var pdata: [String: Any] = [:]
