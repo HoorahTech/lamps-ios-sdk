@@ -396,6 +396,8 @@ SWIFT_CLASS("_TtC8LampsSDK21LampsGameCenterConfig")
 @interface LampsGameCenterConfig : NSObject
 /// 日夜间，默认日间。创建内嵌游戏中心后若宿主日夜间变化，请调 <code>LampsGameCenterView.updateDayNightMode</code>。
 @property (nonatomic) enum LampsDayNightMode dayNightMode;
+/// 是否隐藏 H5 标题栏，默认不隐藏。<code>true</code> 时 <code>bridgeReady.hideTitle</code> 为 <code>1</code>。
+@property (nonatomic) BOOL hideTitle;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithDayNightMode:(enum LampsDayNightMode)dayNightMode;
 @end

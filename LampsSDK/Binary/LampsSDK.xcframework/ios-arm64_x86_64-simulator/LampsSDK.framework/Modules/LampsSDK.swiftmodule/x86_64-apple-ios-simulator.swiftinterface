@@ -53,6 +53,7 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
 }
 @objc @_inheritsConvenienceInitializers @objcMembers final public class LampsGameCenterConfig : ObjectiveC.NSObject {
   @objc final public var dayNightMode: LampsSDK.LampsDayNightMode
+  @objc final public var hideTitle: Swift.Bool
   @objc override dynamic public init()
   @objc convenience public init(dayNightMode: LampsSDK.LampsDayNightMode)
   @objc deinit
