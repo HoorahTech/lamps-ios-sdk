@@ -9,7 +9,6 @@ import BUAdSDK
 /// 穿山甲激励 Adapter。无 adm，客户端竞价读 mediaExt.price。
 final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
     let model: LampsRewardAdModel
-    private(set) var isReadyToShow = false
     weak var delegate: LampsRewardAdapterDelegate?
 
     private weak var viewController: UIViewController?
@@ -101,12 +100,6 @@ private extension LampsCSJRewardAdapter {
         delegate?.rewardAdapter(self, didFinishLoad: success, error: error)
     }
 
-    func markReady() {
-        guard !isReadyToShow else { return }
-        isReadyToShow = true
-        delegate?.rewardAdapterDidBecomeReadyToShow(self)
-    }
-
     func updatePrice(from ad: BUNativeExpressRewardedVideoAd) {
         if let mediaExt = ad.mediaExt as? [AnyHashable: Any] {
             if let number = mediaExt["price"] as? NSNumber {
@@ -146,11 +139,6 @@ extension LampsCSJRewardAdapter: BUNativeExpressRewardedVideoAdDelegate {
             error: error
         )
         finishLoad(success: false, error: error)
-    }
-
-    func nativeExpressRewardedVideoAdDidDownLoadVideo(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-        guard !timedOut else { return }
-        markReady()
     }
 
     func nativeExpressRewardedVideoAdViewRenderFail(

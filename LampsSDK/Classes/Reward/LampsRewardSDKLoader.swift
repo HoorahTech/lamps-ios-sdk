@@ -7,17 +7,11 @@ final class LampsRewardSDKLoader: NSObject {
     private var adapters: [ObjectIdentifier: LampsRewardAdapting] = [:]
     private var hasFinished = false
     private var hasShown = false
-    private var committedWinner: LampsRewardAdModel?
     private var loadListener: LampsRewardSDKLoadListener?
     private var interactionListener: LampsRewardInteractionListener?
-    private var showWaitTimer: DispatchSourceTimer?
 
     var currentAdapters: [ObjectIdentifier: LampsRewardAdapting] {
         adapters
-    }
-
-    deinit {
-        clearShowWaitTimer()
     }
 
     func load(
@@ -48,11 +42,16 @@ final class LampsRewardSDKLoader: NSObject {
         }
     }
 
+    /// 请求已结束并完成竞价后直接展示，不等待视频下载完成。
     func show(_ model: LampsRewardAdModel, listener: LampsRewardInteractionListener) {
-        committedWinner = model
+        guard !hasShown else { return }
+        hasShown = true
         interactionListener = listener
-        showCommittedWinnerIfNeeded()
-        startShowWaitTimerIfNeeded()
+        guard let adapter = adapters[ObjectIdentifier(model)] else {
+            interactionListener?.onAdShowError?(model, -19, "激励视频未就绪")
+            return
+        }
+        adapter.show()
     }
 
     private func reset() {
@@ -60,10 +59,8 @@ final class LampsRewardSDKLoader: NSObject {
         adapters.removeAll()
         hasFinished = false
         hasShown = false
-        committedWinner = nil
         loadListener = nil
         interactionListener = nil
-        clearShowWaitTimer()
     }
 
     private func checkFinish(_ model: LampsRewardAdModel, success: Bool) {
@@ -91,47 +88,11 @@ final class LampsRewardSDKLoader: NSObject {
             .filter { $0.requestState == .success }
             .max { $0.price < $1.price }
     }
-
-    private func showCommittedWinnerIfNeeded() {
-        guard hasFinished, !hasShown, let winner = committedWinner else { return }
-        guard let adapter = adapters[ObjectIdentifier(winner)], adapter.isReadyToShow else { return }
-        hasShown = true
-        clearShowWaitTimer()
-        adapter.show()
-    }
-
-    private func startShowWaitTimerIfNeeded() {
-        guard !hasShown, committedWinner != nil else { return }
-        clearShowWaitTimer()
-        let timer = DispatchSource.makeTimerSource(queue: .main)
-        timer.schedule(deadline: .now() + .seconds(8), repeating: .never)
-        timer.setEventHandler { [weak self] in
-            self?.handleShowWaitTimeout()
-        }
-        timer.resume()
-        showWaitTimer = timer
-    }
-
-    private func handleShowWaitTimeout() {
-        guard !hasShown, let winner = committedWinner else { return }
-        hasShown = true
-        clearShowWaitTimer()
-        interactionListener?.onAdShowError?(winner, -19, "激励视频未就绪")
-    }
-
-    private func clearShowWaitTimer() {
-        showWaitTimer?.cancel()
-        showWaitTimer = nil
-    }
 }
 
 extension LampsRewardSDKLoader: LampsRewardAdapterDelegate {
     func rewardAdapter(_ adapter: LampsRewardAdapting, didFinishLoad success: Bool, error: Error?) {
         checkFinish(adapter.model, success: success)
-    }
-
-    func rewardAdapterDidBecomeReadyToShow(_ adapter: LampsRewardAdapting) {
-        showCommittedWinnerIfNeeded()
     }
 
     func rewardAdapterDidShow(_ adapter: LampsRewardAdapting) {

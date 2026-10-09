@@ -7,7 +7,6 @@ import CoreGraphics
 @_spi(LampsAdapter)
 public protocol LampsRewardAdapting: AnyObject {
     var model: LampsRewardAdModel { get }
-    var isReadyToShow: Bool { get }
     var delegate: LampsRewardAdapterDelegate? { get set }
 
     func load(from viewController: UIViewController?)
@@ -22,7 +21,6 @@ public protocol LampsRewardAdapting: AnyObject {
 @_spi(LampsAdapter)
 public protocol LampsRewardAdapterDelegate: AnyObject {
     func rewardAdapter(_ adapter: LampsRewardAdapting, didFinishLoad success: Bool, error: Error?)
-    func rewardAdapterDidBecomeReadyToShow(_ adapter: LampsRewardAdapting)
     func rewardAdapterDidShow(_ adapter: LampsRewardAdapting)
     func rewardAdapter(_ adapter: LampsRewardAdapting, didFailToShow error: Error?)
     func rewardAdapterDidReceiveReward(_ adapter: LampsRewardAdapting)

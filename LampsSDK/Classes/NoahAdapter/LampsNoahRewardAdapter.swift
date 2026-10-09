@@ -9,7 +9,6 @@ import NoahSDK
 /// 汇川激励 Adapter。价格取 SDK 返回；竞价后 win/loss 回告。
 final class LampsNoahRewardAdapter: NSObject, LampsRewardAdapting {
     let model: LampsRewardAdModel
-    private(set) var isReadyToShow = false
     weak var delegate: LampsRewardAdapterDelegate?
 
     private weak var viewController: UIViewController?
@@ -102,11 +101,6 @@ private extension LampsNoahRewardAdapter {
         delegate?.rewardAdapter(self, didFinishLoad: success, error: error)
     }
 
-    func markReady() {
-        isReadyToShow = true
-        delegate?.rewardAdapterDidBecomeReadyToShow(self)
-    }
-
     func notifyRewardIfNeeded() {
         guard !hasRewarded else { return }
         hasRewarded = true
@@ -125,7 +119,6 @@ extension LampsNoahRewardAdapter: NoahSdkRewardedVideoListener {
 
         LampsRewardMonitorReporter.reportRM(model: model, isSuccess: true)
         finishLoad(success: true, error: nil)
-        markReady()
     }
 
     func onReVidoAdLoadFail(_ reqInfo: RequestInfo, error: AdError?) {

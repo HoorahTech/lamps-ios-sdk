@@ -9,7 +9,6 @@ import GDTMobSDK
 /// 优量汇激励 Adapter。无 bidding token / adm，价格取 eCPM。
 final class LampsGDTRewardAdapter: NSObject, LampsRewardAdapting {
     let model: LampsRewardAdModel
-    private(set) var isReadyToShow = false
     weak var delegate: LampsRewardAdapterDelegate?
 
     private weak var viewController: UIViewController?
@@ -18,6 +17,8 @@ final class LampsGDTRewardAdapter: NSObject, LampsRewardAdapting {
     private var startLoadTime = Date()
     private var loadTimeMs = 0
     private var timedOut = false
+    /// 加载是否已结束。优量汇加载失败和展示/播放失败共用 `didFailWithError`，结束后再来的错误要按展示失败处理。
+    private var loadSettled = false
     private var hasRewarded = false
     private var didShow = false
 
@@ -123,13 +124,8 @@ private extension LampsGDTRewardAdapter {
 
     func finishLoad(success: Bool, error: Error?) {
         clearTimer()
+        loadSettled = true
         delegate?.rewardAdapter(self, didFinishLoad: success, error: error)
-    }
-
-    func markReady() {
-        guard !isReadyToShow else { return }
-        isReadyToShow = true
-        delegate?.rewardAdapterDidBecomeReadyToShow(self)
     }
 }
 
@@ -147,6 +143,11 @@ extension LampsGDTRewardAdapter: GDTRewardedVideoAdDelegate {
 
     func gdt_rewardVideoAd(_ rewardedVideoAd: GDTRewardVideoAd, didFailWithError error: Error) {
         guard !timedOut else { return }
+        // 竞价已结束后再进此回调时，上层会丢掉重复的加载结果。改报展示失败，避免激励停在请求中。
+        if loadSettled {
+            delegate?.rewardAdapter(self, didFailToShow: error)
+            return
+        }
         loadTimeMs = elapsedMs()
         LampsRewardMonitorReporter.reportRM(
             model: model,
@@ -154,11 +155,6 @@ extension LampsGDTRewardAdapter: GDTRewardedVideoAdDelegate {
             error: error
         )
         finishLoad(success: false, error: error)
-    }
-
-    func gdt_rewardVideoAdVideoDidLoad(_ rewardedVideoAd: GDTRewardVideoAd) {
-        guard !timedOut else { return }
-        markReady()
     }
 
     func gdt_rewardVideoAdDidExposed(_ rewardedVideoAd: GDTRewardVideoAd) {
