@@ -308,6 +308,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__OBJC__)
 
 @class NSString;
+@class LampsTrackEvent;
 @class LampsSDKConfig;
 @class UIViewController;
 @class LampsGameCenterConfig;
@@ -319,6 +320,12 @@ SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 /// 当前 SDK 版本号。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull sdkVersion;)
 + (NSString * _Nonnull)sdkVersion SWIFT_WARN_UNUSED_RESULT;
+/// 埋点回调。<code>access</code> / <code>click</code> / <code>exposure</code> 都在 SDK 自行上报之前于主线程调用。
+/// 请在主线程设置。回调与 SDK 自己的 <code>/api/v1/event/report</code> 并行，不表示服务端已收到。
+/// 未设置时只走 SDK 自己的上报。回调里不要做耗时操作。
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable trackHandler)(LampsTrackEvent * _Nonnull);)
++ (void (^ _Nullable)(LampsTrackEvent * _Nonnull))trackHandler SWIFT_WARN_UNUSED_RESULT;
++ (void)setTrackHandler:(void (^ _Nullable)(LampsTrackEvent * _Nonnull))value;
 /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
 /// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
 /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
@@ -506,6 +513,25 @@ typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
 /// 游戏页地址为空或 URL 不合法。
   LampsSDKErrorCodeGamePageUnavailable = -1011,
 };
+
+/// 一次 <code>lamps.common.track</code> 上报。在客户端即将上报时回调，含访问、点击、曝光。
+/// <code>type == onload</code> 的访问会在容器不可见或 App 进后台才回调，并带上这段可见时间的 <code>visitTime</code> / <code>leaveTime</code>。
+/// 其它事件没有这两个时间时为 <code>0</code>。
+SWIFT_CLASS("_TtC8LampsSDK15LampsTrackEvent")
+@interface LampsTrackEvent : NSObject
+/// 外层行为。<code>access</code> / <code>click</code> / <code>exposure</code>。
+@property (nonatomic, readonly, copy) NSString * _Nonnull action;
+/// H5 <code>type</code>。页面访问时长为 <code>onload</code>。
+@property (nonatomic, readonly, copy) NSString * _Nonnull type;
+/// 进入时间，秒级时间戳。没有时为 <code>0</code>。
+@property (nonatomic, readonly) int64_t visitTime;
+/// 离开时间，秒级时间戳。没有时为 <code>0</code>。
+@property (nonatomic, readonly) int64_t leaveTime;
+/// H5 业务字段，以及客户端补上的 <code>vt</code> / <code>lt</code>。与上报 body 里的 <code>pdata</code> 同一份内容。
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull pdata;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #endif
 #if __has_attribute(external_source_symbol)
@@ -825,6 +851,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__OBJC__)
 
 @class NSString;
+@class LampsTrackEvent;
 @class LampsSDKConfig;
 @class UIViewController;
 @class LampsGameCenterConfig;
@@ -836,6 +863,12 @@ SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 /// 当前 SDK 版本号。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull sdkVersion;)
 + (NSString * _Nonnull)sdkVersion SWIFT_WARN_UNUSED_RESULT;
+/// 埋点回调。<code>access</code> / <code>click</code> / <code>exposure</code> 都在 SDK 自行上报之前于主线程调用。
+/// 请在主线程设置。回调与 SDK 自己的 <code>/api/v1/event/report</code> 并行，不表示服务端已收到。
+/// 未设置时只走 SDK 自己的上报。回调里不要做耗时操作。
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable trackHandler)(LampsTrackEvent * _Nonnull);)
++ (void (^ _Nullable)(LampsTrackEvent * _Nonnull))trackHandler SWIFT_WARN_UNUSED_RESULT;
++ (void)setTrackHandler:(void (^ _Nullable)(LampsTrackEvent * _Nonnull))value;
 /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
 /// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
 /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
@@ -1023,6 +1056,25 @@ typedef SWIFT_ENUM(NSInteger, LampsSDKErrorCode, open) {
 /// 游戏页地址为空或 URL 不合法。
   LampsSDKErrorCodeGamePageUnavailable = -1011,
 };
+
+/// 一次 <code>lamps.common.track</code> 上报。在客户端即将上报时回调，含访问、点击、曝光。
+/// <code>type == onload</code> 的访问会在容器不可见或 App 进后台才回调，并带上这段可见时间的 <code>visitTime</code> / <code>leaveTime</code>。
+/// 其它事件没有这两个时间时为 <code>0</code>。
+SWIFT_CLASS("_TtC8LampsSDK15LampsTrackEvent")
+@interface LampsTrackEvent : NSObject
+/// 外层行为。<code>access</code> / <code>click</code> / <code>exposure</code>。
+@property (nonatomic, readonly, copy) NSString * _Nonnull action;
+/// H5 <code>type</code>。页面访问时长为 <code>onload</code>。
+@property (nonatomic, readonly, copy) NSString * _Nonnull type;
+/// 进入时间，秒级时间戳。没有时为 <code>0</code>。
+@property (nonatomic, readonly) int64_t visitTime;
+/// 离开时间，秒级时间戳。没有时为 <code>0</code>。
+@property (nonatomic, readonly) int64_t leaveTime;
+/// H5 业务字段，以及客户端补上的 <code>vt</code> / <code>lt</code>。与上报 body 里的 <code>pdata</code> 同一份内容。
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull pdata;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #endif
 #if __has_attribute(external_source_symbol)

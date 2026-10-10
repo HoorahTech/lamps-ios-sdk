@@ -78,6 +78,170 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "trackHandler",
+            "printedName": "trackHandler",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((LampsSDK.LampsTrackEvent) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(LampsSDK.LampsTrackEvent) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LampsTrackEvent",
+                        "printedName": "LampsSDK.LampsTrackEvent",
+                        "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)Lamps(cpy)trackHandler",
+            "mangledName": "$s8LampsSDK0A0C12trackHandleryAA0A10TrackEventCcSgvpZ",
+            "moduleName": "LampsSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((LampsSDK.LampsTrackEvent) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(LampsSDK.LampsTrackEvent) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "LampsTrackEvent",
+                            "printedName": "LampsSDK.LampsTrackEvent",
+                            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)trackHandler",
+                "mangledName": "$s8LampsSDK0A0C12trackHandleryAA0A10TrackEventCcSgvgZ",
+                "moduleName": "LampsSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((LampsSDK.LampsTrackEvent) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(LampsSDK.LampsTrackEvent) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "LampsTrackEvent",
+                            "printedName": "LampsSDK.LampsTrackEvent",
+                            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)Lamps(cm)setTrackHandler:",
+                "mangledName": "$s8LampsSDK0A0C12trackHandleryAA0A10TrackEventCcSgvsZ",
+                "moduleName": "LampsSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8LampsSDK0A0C12trackHandleryAA0A10TrackEventCcSgvMZ",
+                "mangledName": "$s8LampsSDK0A0C12trackHandleryAA0A10TrackEventCcSgvMZ",
+                "moduleName": "LampsSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Function",
             "name": "start",
             "printedName": "start(config:completion:)",
@@ -2292,54 +2456,6 @@
           },
           {
             "kind": "Var",
-            "name": "isReadyToShow",
-            "printedName": "isReadyToShow",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:8LampsSDK0A14RewardAdaptingP13isReadyToShowSbvp",
-            "mangledName": "$s8LampsSDK0A14RewardAdaptingP13isReadyToShowSbvp",
-            "moduleName": "LampsSDK",
-            "protocolReq": true,
-            "spi_group_names": [
-              "LampsAdapter"
-            ],
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Bool",
-                    "printedName": "Swift.Bool",
-                    "usr": "s:Sb"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:8LampsSDK0A14RewardAdaptingP13isReadyToShowSbvg",
-                "mangledName": "$s8LampsSDK0A14RewardAdaptingP13isReadyToShowSbvg",
-                "moduleName": "LampsSDK",
-                "genericSig": "<τ_0_0 where τ_0_0 : LampsSDK.LampsRewardAdapting>",
-                "sugared_genericSig": "<Self where Self : LampsSDK.LampsRewardAdapting>",
-                "protocolReq": true,
-                "spi_group_names": [
-                  "LampsAdapter"
-                ],
-                "reqNewWitnessTableEntry": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
             "name": "delegate",
             "printedName": "delegate",
             "children": [
@@ -2684,36 +2800,6 @@
             "declKind": "Func",
             "usr": "s:8LampsSDK0A21RewardAdapterDelegateP06rewardD0_13didFinishLoad5erroryAA0aC8Adapting_p_Sbs5Error_pSgtF",
             "mangledName": "$s8LampsSDK0A21RewardAdapterDelegateP06rewardD0_13didFinishLoad5erroryAA0aC8Adapting_p_Sbs5Error_pSgtF",
-            "moduleName": "LampsSDK",
-            "genericSig": "<τ_0_0 where τ_0_0 : LampsSDK.LampsRewardAdapterDelegate>",
-            "sugared_genericSig": "<Self where Self : LampsSDK.LampsRewardAdapterDelegate>",
-            "protocolReq": true,
-            "spi_group_names": [
-              "LampsAdapter"
-            ],
-            "reqNewWitnessTableEntry": true,
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "rewardAdapterDidBecomeReadyToShow",
-            "printedName": "rewardAdapterDidBecomeReadyToShow(_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "LampsRewardAdapting",
-                "printedName": "any LampsSDK.LampsRewardAdapting",
-                "usr": "s:8LampsSDK0A14RewardAdaptingP"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:8LampsSDK0A21RewardAdapterDelegateP06rewardD20DidBecomeReadyToShowyyAA0aC8Adapting_pF",
-            "mangledName": "$s8LampsSDK0A21RewardAdapterDelegateP06rewardD20DidBecomeReadyToShowyyAA0aC8Adapting_pF",
             "moduleName": "LampsSDK",
             "genericSig": "<τ_0_0 where τ_0_0 : LampsSDK.LampsRewardAdapterDelegate>",
             "sugared_genericSig": "<Self where Self : LampsSDK.LampsRewardAdapterDelegate>",
@@ -7211,6 +7297,408 @@
         "moduleName": "LampsSDK"
       },
       {
+        "kind": "TypeDecl",
+        "name": "LampsTrackEvent",
+        "printedName": "LampsTrackEvent",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "action",
+            "printedName": "action",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(py)action",
+            "mangledName": "$s8LampsSDK0A10TrackEventC6actionSSvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(im)action",
+                "mangledName": "$s8LampsSDK0A10TrackEventC6actionSSvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "type",
+            "printedName": "type",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(py)type",
+            "mangledName": "$s8LampsSDK0A10TrackEventC4typeSSvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(im)type",
+                "mangledName": "$s8LampsSDK0A10TrackEventC4typeSSvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "visitTime",
+            "printedName": "visitTime",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int64",
+                "printedName": "Swift.Int64",
+                "usr": "s:s5Int64V"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(py)visitTime",
+            "mangledName": "$s8LampsSDK0A10TrackEventC9visitTimes5Int64Vvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int64",
+                    "printedName": "Swift.Int64",
+                    "usr": "s:s5Int64V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(im)visitTime",
+                "mangledName": "$s8LampsSDK0A10TrackEventC9visitTimes5Int64Vvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "leaveTime",
+            "printedName": "leaveTime",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int64",
+                "printedName": "Swift.Int64",
+                "usr": "s:s5Int64V"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(py)leaveTime",
+            "mangledName": "$s8LampsSDK0A10TrackEventC9leaveTimes5Int64Vvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int64",
+                    "printedName": "Swift.Int64",
+                    "usr": "s:s5Int64V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(im)leaveTime",
+                "mangledName": "$s8LampsSDK0A10TrackEventC9leaveTimes5Int64Vvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "pdata",
+            "printedName": "pdata",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(py)pdata",
+            "mangledName": "$s8LampsSDK0A10TrackEventC5pdataSDySSypGvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(im)pdata",
+                "mangledName": "$s8LampsSDK0A10TrackEventC5pdataSDySSypGvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LampsTrackEvent",
+                "printedName": "LampsSDK.LampsTrackEvent",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent(im)init",
+            "mangledName": "$s8LampsSDK0A10TrackEventCACycfc",
+            "moduleName": "LampsSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@LampsSDK@objc(cs)LampsTrackEvent",
+        "mangledName": "$s8LampsSDK0A10TrackEventC",
+        "moduleName": "LampsSDK",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjCMembers",
+          "RawDocComment",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "hasMissingDesignatedInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsSDK"
+      },
+      {
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
@@ -7894,26 +8382,26 @@
       "kind": "StringLiteral",
       "offset": 1031,
       "length": 7,
-      "value": "\"0.0.6\""
+      "value": "\"0.0.7\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 1188,
+      "offset": 1560,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 1239,
+      "offset": 1611,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 9627,
+      "offset": 9999,
       "length": 2,
       "value": "\"\""
     },
@@ -8970,56 +9458,63 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "Array",
-      "offset": 888,
+      "offset": 1008,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "Array",
-      "offset": 942,
+      "offset": 1062,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 2268,
+      "offset": 2388,
       "length": 20,
       "value": "\"lamps.common.track\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 2347,
+      "offset": 2467,
       "length": 8,
       "value": "\"onload\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 2413,
+      "offset": 2533,
       "length": 8,
       "value": "\"action\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 2482,
+      "offset": 2602,
       "length": 4,
       "value": "\"vt\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 2518,
+      "offset": 2638,
       "length": 4,
       "value": "\"lt\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
       "kind": "StringLiteral",
-      "offset": 2654,
+      "offset": 2669,
+      "length": 6,
+      "value": "\"type\""
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsTrackBridgeHandler.swift",
+      "kind": "StringLiteral",
+      "offset": 2807,
       "length": 22,
       "value": "\"\/api\/v1\/event\/report\""
     },

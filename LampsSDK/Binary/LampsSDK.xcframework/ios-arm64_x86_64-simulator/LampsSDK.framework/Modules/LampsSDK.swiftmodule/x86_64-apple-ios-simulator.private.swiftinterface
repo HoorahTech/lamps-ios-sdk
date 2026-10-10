@@ -22,6 +22,7 @@ public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swif
 public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?) -> Swift.Void
 @objc @_inheritsConvenienceInitializers @objcMembers final public class Lamps : ObjectiveC.NSObject {
   @objc public static let sdkVersion: Swift.String
+  @objc public static var trackHandler: LampsSDK.LampsTrackHandler?
   #if compiler(>=5.3) && $NonescapableTypes
   @objc(startWithConfig:completion:) public static func start(config: LampsSDK.LampsSDKConfig, completion: LampsSDK.LampsStartCompletion? = nil)
   #endif
@@ -91,7 +92,6 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
 }
 @_spi(LampsAdapter) public protocol LampsRewardAdapting : AnyObject {
   @_spi(LampsAdapter) var model: LampsSDK.LampsRewardAdModel { get }
-  @_spi(LampsAdapter) var isReadyToShow: Swift.Bool { get }
   #if compiler(>=5.3) && $NonescapableTypes
   @_spi(LampsAdapter) var delegate: (any LampsSDK.LampsRewardAdapterDelegate)? { get set }
   #endif
@@ -108,7 +108,6 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   #if compiler(>=5.3) && $NonescapableTypes
   @_spi(LampsAdapter) func rewardAdapter(_ adapter: any LampsSDK.LampsRewardAdapting, didFinishLoad success: Swift.Bool, error: (any Swift.Error)?)
   #endif
-  @_spi(LampsAdapter) func rewardAdapterDidBecomeReadyToShow(_ adapter: any LampsSDK.LampsRewardAdapting)
   @_spi(LampsAdapter) func rewardAdapterDidShow(_ adapter: any LampsSDK.LampsRewardAdapting)
   #if compiler(>=5.3) && $NonescapableTypes
   @_spi(LampsAdapter) func rewardAdapter(_ adapter: any LampsSDK.LampsRewardAdapting, didFailToShow error: (any Swift.Error)?)
@@ -240,6 +239,15 @@ public let LampsSDKErrorDomain: Swift.String
 }
 @_spi(LampsAdapter) public enum LampsSDKLog {
   @_spi(LampsAdapter) public static func debug(_ message: Swift.String)
+}
+public typealias LampsTrackHandler = (LampsSDK.LampsTrackEvent) -> Swift.Void
+@objc @_hasMissingDesignatedInitializers @objcMembers final public class LampsTrackEvent : ObjectiveC.NSObject {
+  @objc final public let action: Swift.String
+  @objc final public let type: Swift.String
+  @objc final public let visitTime: Swift.Int64
+  @objc final public let leaveTime: Swift.Int64
+  @objc final public let pdata: [Swift.String : Any]
+  @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency public class LampsWebViewController : UIKit.UIViewController {
   @objc @_Concurrency.MainActor @preconcurrency final public let urlString: Swift.String
