@@ -10,6 +10,7 @@ import UIKit
 /// 先缓存，可见时段结束时上报并补 `vt` / `lt`（秒级时间戳）；缓存保留以便
 /// 进后台/盖住后再回来重新计时。仅容器销毁时清空缓存。
 /// 请求 body：JSON UTF-8 → GZIP → Base64（无换行）。
+/// 每次上报前把同一份数据交给 `Lamps.trackHandler`（access / click / exposure）。未设置则忽略。
 @objcMembers
 final class LampsTrackBridgeHandler: NSObject, LampsBridgeHandler {
     weak var bridge: LampsBridge?
@@ -82,6 +83,7 @@ private extension LampsTrackBridgeHandler {
     enum PdataField {
         static let visitTime = "vt"
         static let leaveTime = "lt"
+        static let type = "type"
     }
 
     struct PendingPageLoad {
@@ -175,12 +177,14 @@ private extension LampsTrackBridgeHandler {
         success: LampsBridgeToH5Callback?,
         error: LampsBridgeToH5Callback?
     ) {
+        let params = makeReportBody(from: data, extra: extra)
+        forwardTrackIfNeeded(body: params)
+
         guard let url = makeReportURL() else {
             error?(["msg": "上报地址无效"])
             return
         }
 
-        let params = makeReportBody(from: data, extra: extra)
         guard JSONSerialization.isValidJSONObject(params),
               let jsonUTF8 = try? JSONSerialization.data(withJSONObject: params) else {
             error?(["msg": "data 无法序列化为 JSON"])
@@ -192,6 +196,29 @@ private extension LampsTrackBridgeHandler {
         }
         let body = gzipData.base64EncodedData(options: [])
         postTrack(url: url, body: body, success: success, error: error)
+    }
+
+    /// 上报数据交给宿主。与本次 POST 是否成功无关。
+    func forwardTrackIfNeeded(body: [String: Any]) {
+        guard let handler = Lamps.trackHandler else { return }
+        let pdata = body["pdata"] as? [String: Any] ?? [:]
+        let event = LampsTrackEvent(
+            action: LampsJSONValue.stringValue(body[OuterField.action]),
+            type: LampsJSONValue.stringValue(pdata[PdataField.type]),
+            visitTime: Int64(LampsJSONValue.stringValue(pdata[PdataField.visitTime])) ?? 0,
+            leaveTime: Int64(LampsJSONValue.stringValue(pdata[PdataField.leaveTime])) ?? 0,
+            pdata: pdata
+        )
+        LampsSDKLog.debug(
+            "bridge track forward action=\(event.action) type=\(event.type) vt=\(event.visitTime) lt=\(event.leaveTime)"
+        )
+        if Thread.isMainThread {
+            handler(event)
+        } else {
+            DispatchQueue.main.async {
+                handler(event)
+            }
+        }
     }
 
     func postTrack(

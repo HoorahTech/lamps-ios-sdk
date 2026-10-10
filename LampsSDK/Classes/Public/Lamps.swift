@@ -20,6 +20,12 @@ public final class Lamps: NSObject {
     /// 当前 SDK 版本号。
     public static let sdkVersion = "0.0.6"
 
+    /// 埋点回调。`access` / `click` / `exposure` 都在 SDK 自行上报之前于主线程调用。
+    ///
+    /// 请在主线程设置。回调与 SDK 自己的 `/api/v1/event/report` 并行，不表示服务端已收到。
+    /// 未设置时只走 SDK 自己的上报。回调里不要做耗时操作。
+    public static var trackHandler: LampsTrackHandler?
+
     private static var storedConfig: LampsSDKConfig?
     private static var storedRemoteConfig: LampsRemoteConfig?
     private static var started = false
