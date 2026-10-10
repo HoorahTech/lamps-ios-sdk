@@ -18,7 +18,7 @@ public typealias LampsShowGameCenterCompletion = (Bool, Error?) -> Void
 @objcMembers
 public final class Lamps: NSObject {
     /// 当前 SDK 版本号。
-    public static let sdkVersion = "0.0.6"
+    public static let sdkVersion = "0.0.7"
 
     /// 埋点回调。`access` / `click` / `exposure` 都在 SDK 自行上报之前于主线程调用。
     ///
