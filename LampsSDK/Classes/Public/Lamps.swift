@@ -33,7 +33,7 @@ public final class Lamps: NSObject {
 
     /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
     ///
-    /// 会校验 `appId`、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
+    /// 会校验 `appId`、读取本地配置缓存并请求远端配置，再按 `initializeCSJEnabled` / `initializeYlhEnabled` / `initializeNoahEnabled` 初始化已接入的广告 SDK。
     /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
     /// 默认正式环境；测试环境请用 `LampsDevTools` 切换。
     ///
@@ -284,6 +284,9 @@ public final class Lamps: NSObject {
         personalizedRecommend: \(config?.personalizedRecommendEnabled ?? true)
         shakeAds: \(config?.shakeAdsEnabled ?? true)
         allowLocation: \(config?.allowLocation ?? false)
+        initCSJ: \(config?.initializeCSJEnabled ?? true)
+        initYlh: \(config?.initializeYlhEnabled ?? true)
+        initNoah: \(config?.initializeNoahEnabled ?? true)
         """
     }
 

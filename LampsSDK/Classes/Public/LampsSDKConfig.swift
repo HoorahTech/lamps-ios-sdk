@@ -25,6 +25,15 @@ public final class LampsSDKConfig: NSObject, NSCopying {
     /// 是否允许广告 SDK 使用定位，默认关闭。
     public var allowLocation: Bool = false
 
+    // MARK: - 是否由 Lamps 初始化对应广告 SDK（默认都需要）
+
+    /// 是否由 Lamps 初始化穿山甲。默认需要。宿主自行初始化时设为 `false`。
+    public var initializeCSJEnabled: Bool = true
+    /// 是否由 Lamps 初始化优量汇。默认需要。宿主自行初始化时设为 `false`。
+    public var initializeYlhEnabled: Bool = true
+    /// 是否由 Lamps 初始化汇川。默认需要。宿主自行初始化时设为 `false`。
+    public var initializeNoahEnabled: Bool = true
+
     public func copy(with zone: NSZone? = nil) -> Any {
         let config = LampsSDKConfig()
         config.appId = appId
@@ -33,6 +42,9 @@ public final class LampsSDKConfig: NSObject, NSCopying {
         config.personalizedRecommendEnabled = personalizedRecommendEnabled
         config.shakeAdsEnabled = shakeAdsEnabled
         config.allowLocation = allowLocation
+        config.initializeCSJEnabled = initializeCSJEnabled
+        config.initializeYlhEnabled = initializeYlhEnabled
+        config.initializeNoahEnabled = initializeNoahEnabled
         return config
     }
 }

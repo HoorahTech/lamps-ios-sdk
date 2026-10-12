@@ -48,6 +48,10 @@ public enum LampsSDKAdapterCenter {
         }
         let group = DispatchGroup()
         for (channel, initializer) in pairs {
+            guard shouldInitialize(channel, config: config) else {
+                LampsSDKLog.debug("sdk init skipped by host config: \(channel.name)")
+                continue
+            }
             group.enter()
             let channelAppId = Lamps.remoteConfig?.channelAppId(for: channel) ?? ""
             initializer.initialize(config: config, channelAppId: channelAppId) { success, error in
@@ -62,5 +66,16 @@ public enum LampsSDKAdapterCenter {
             }
         }
         group.notify(queue: .main, execute: completion)
+    }
+
+    private static func shouldInitialize(_ channel: LampsRewardChannel, config: LampsSDKConfig) -> Bool {
+        switch channel {
+        case .csj:
+            return config.initializeCSJEnabled
+        case .gdt:
+            return config.initializeYlhEnabled
+        case .noah:
+            return config.initializeNoahEnabled
+        }
     }
 }

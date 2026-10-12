@@ -171,7 +171,11 @@ Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用 `channe
 
 ```swift
 // 三方广告 SDK 的 AppId / AppKey 来自配置接口 `channelList.channelAppId`，宿主不必再传。
-// channelAppId 为空或未下发该渠道时，Lamps 跳过对应 SDK init。
+// 是否由 Lamps 初始化由下面三个开关决定，默认都需要。宿主自行初始化时设为 false。
+// channelAppId 为空时仍跳过对应 SDK init。
+// config.initializeCSJEnabled = true
+// config.initializeYlhEnabled = true
+// config.initializeNoahEnabled = true
 
 // 由 Lamps 负责 init 时可用的通用开关（有默认值，可不设）：
 // config.personalizedRecommendEnabled = true  // 个性化推荐（优量汇）
