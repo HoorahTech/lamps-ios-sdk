@@ -178,6 +178,9 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @objc final public var personalizedRecommendEnabled: Swift.Bool
   @objc final public var shakeAdsEnabled: Swift.Bool
   @objc final public var allowLocation: Swift.Bool
+  @objc final public var initializeCSJEnabled: Swift.Bool
+  @objc final public var initializeYlhEnabled: Swift.Bool
+  @objc final public var initializeNoahEnabled: Swift.Bool
   #if compiler(>=5.3) && $NonescapableTypes
   @objc final public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
   #endif

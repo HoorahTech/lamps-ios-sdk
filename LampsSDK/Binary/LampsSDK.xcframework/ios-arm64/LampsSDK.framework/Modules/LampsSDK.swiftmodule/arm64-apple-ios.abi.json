@@ -5379,6 +5379,306 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "initializeCSJEnabled",
+            "printedName": "initializeCSJEnabled",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)initializeCSJEnabled",
+            "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeCSJEnabledSbvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)initializeCSJEnabled",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeCSJEnabledSbvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setInitializeCSJEnabled:",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeCSJEnabledSbvs",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8LampsSDK0A9SDKConfigC20initializeCSJEnabledSbvM",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeCSJEnabledSbvM",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "initializeYlhEnabled",
+            "printedName": "initializeYlhEnabled",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)initializeYlhEnabled",
+            "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeYlhEnabledSbvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)initializeYlhEnabled",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeYlhEnabledSbvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setInitializeYlhEnabled:",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeYlhEnabledSbvs",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8LampsSDK0A9SDKConfigC20initializeYlhEnabledSbvM",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC20initializeYlhEnabledSbvM",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "initializeNoahEnabled",
+            "printedName": "initializeNoahEnabled",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(py)initializeNoahEnabled",
+            "mangledName": "$s8LampsSDK0A9SDKConfigC21initializeNoahEnabledSbvp",
+            "moduleName": "LampsSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)initializeNoahEnabled",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC21initializeNoahEnabledSbvg",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@LampsSDK@objc(cs)LampsSDKConfig(im)setInitializeNoahEnabled:",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC21initializeNoahEnabledSbvs",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8LampsSDK0A9SDKConfigC21initializeNoahEnabledSbvM",
+                "mangledName": "$s8LampsSDK0A9SDKConfigC21initializeNoahEnabledSbvM",
+                "moduleName": "LampsSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Function",
             "name": "copy",
             "printedName": "copy(with:)",
@@ -8382,7 +8682,7 @@
       "kind": "StringLiteral",
       "offset": 1031,
       "length": 7,
-      "value": "\"0.0.7\""
+      "value": "\"0.0.8\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
@@ -8401,7 +8701,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
       "kind": "StringLiteral",
-      "offset": 9999,
+      "offset": 10068,
       "length": 2,
       "value": "\"\""
     },
@@ -9349,6 +9649,27 @@
       "offset": 1028,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1260,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1411,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/LampsSDKConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1560,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Config\/LampsSDKEnvironment.swift",

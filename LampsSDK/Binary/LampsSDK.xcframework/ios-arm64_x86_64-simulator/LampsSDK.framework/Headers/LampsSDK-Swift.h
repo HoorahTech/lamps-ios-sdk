@@ -327,7 +327,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable trackH
 + (void (^ _Nullable)(LampsTrackEvent * _Nonnull))trackHandler SWIFT_WARN_UNUSED_RESULT;
 + (void)setTrackHandler:(void (^ _Nullable)(LampsTrackEvent * _Nonnull))value;
 /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
-/// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
+/// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按 <code>initializeCSJEnabled</code> / <code>initializeYlhEnabled</code> / <code>initializeNoahEnabled</code> 初始化已接入的广告 SDK。
 /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
 /// 默认正式环境；测试环境请用 <code>LampsDevTools</code> 切换。
 /// \param config 初始化配置，<code>appId</code> 必填。SDK 会拷贝一份，之后修改原对象不会生效。
@@ -484,6 +484,12 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @property (nonatomic) BOOL shakeAdsEnabled;
 /// 是否允许广告 SDK 使用定位，默认关闭。
 @property (nonatomic) BOOL allowLocation;
+/// 是否由 Lamps 初始化穿山甲。默认需要。宿主自行初始化时设为 <code>false</code>。
+@property (nonatomic) BOOL initializeCSJEnabled;
+/// 是否由 Lamps 初始化优量汇。默认需要。宿主自行初始化时设为 <code>false</code>。
+@property (nonatomic) BOOL initializeYlhEnabled;
+/// 是否由 Lamps 初始化汇川。默认需要。宿主自行初始化时设为 <code>false</code>。
+@property (nonatomic) BOOL initializeNoahEnabled;
 - (id _Nonnull)copyWithZone:(struct _NSZone * _Nullable)zone SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -870,7 +876,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable trackH
 + (void (^ _Nullable)(LampsTrackEvent * _Nonnull))trackHandler SWIFT_WARN_UNUSED_RESULT;
 + (void)setTrackHandler:(void (^ _Nullable)(LampsTrackEvent * _Nonnull))value;
 /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
-/// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按配置初始化已接入的广告 SDK。
+/// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按 <code>initializeCSJEnabled</code> / <code>initializeYlhEnabled</code> / <code>initializeNoahEnabled</code> 初始化已接入的广告 SDK。
 /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
 /// 默认正式环境；测试环境请用 <code>LampsDevTools</code> 切换。
 /// \param config 初始化配置，<code>appId</code> 必填。SDK 会拷贝一份，之后修改原对象不会生效。
@@ -1027,6 +1033,12 @@ SWIFT_CLASS("_TtC8LampsSDK14LampsSDKConfig")
 @property (nonatomic) BOOL shakeAdsEnabled;
 /// 是否允许广告 SDK 使用定位，默认关闭。
 @property (nonatomic) BOOL allowLocation;
+/// 是否由 Lamps 初始化穿山甲。默认需要。宿主自行初始化时设为 <code>false</code>。
+@property (nonatomic) BOOL initializeCSJEnabled;
+/// 是否由 Lamps 初始化优量汇。默认需要。宿主自行初始化时设为 <code>false</code>。
+@property (nonatomic) BOOL initializeYlhEnabled;
+/// 是否由 Lamps 初始化汇川。默认需要。宿主自行初始化时设为 <code>false</code>。
+@property (nonatomic) BOOL initializeNoahEnabled;
 - (id _Nonnull)copyWithZone:(struct _NSZone * _Nullable)zone SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
