@@ -59,6 +59,11 @@ final class LampsRewardAdSlot: NSObject {
         type.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == "PD"
     }
 
+    /// 是否服务端竞价位。
+    var isBD: Bool {
+        type.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == "BD"
+    }
+
     static func parse(from dict: [String: Any]) -> LampsRewardAdSlot? {
         let slot = LampsRewardAdSlot()
         slot.slotId = LampsJSONValue.stringValue(dict["slotId"])

@@ -161,7 +161,7 @@ Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用 `channe
 
 激励视频 **不向宿主开放 Native API**。宿主打开 Web 页后，由 H5 调用 `hra.ad.showRewardedVideo`，客户端完成 load → 竞价 → show。
 
-流程对齐 `HCADCommonRewardVideoManager`（无 getOther、无 adm）：
+流程对齐 `HCADCommonRewardVideoManager`（无 getOther）。穿山甲 BD 走服务端竞价 adm，PD 仍客户端加载。
 
 1. 读内部 `remoteConfig.rewardAdSlots`
 2. `channelId` 映射渠道：`CSJ`→穿山甲，`GDT`→优量汇，`NOAH`→汇川

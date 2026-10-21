@@ -58,6 +58,7 @@ public final class LampsRewardAdModel: NSObject {
 
     public var slotId: String { slot.slotId }
     public var isPD: Bool { slot.isPD }
+    public var isBD: Bool { slot.isBD }
 
     init(
         slot: LampsRewardAdSlot,

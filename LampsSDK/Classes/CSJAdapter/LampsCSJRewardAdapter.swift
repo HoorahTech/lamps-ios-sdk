@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import BUAdSDK
 
-/// 穿山甲激励 Adapter。无 adm，客户端竞价读 mediaExt.price。
+/// 穿山甲激励 Adapter。BD 用服务端竞价 adm 加载；PD 走 loadData。加载成功后都读 mediaExt 价格。
 final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
     let model: LampsRewardAdModel
     weak var delegate: LampsRewardAdapterDelegate?
@@ -35,13 +35,11 @@ final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
         }
         startLoadTime = Date()
         startTimer()
-
-        let rewardedModel = BURewardedVideoModel()
-        rewardedModel.userId = model.userId
-        let ad = BUNativeExpressRewardedVideoAd(slotID: model.slotId, rewardedVideoModel: rewardedModel)
-        ad.delegate = self
-        expressAd = ad
-        ad.loadData()
+        if model.isBD {
+            loadServerBid()
+        } else {
+            loadFromClient()
+        }
     }
 
     func show() {
@@ -64,6 +62,61 @@ final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
 }
 
 private extension LampsCSJRewardAdapter {
+    func loadFromClient() {
+        makeRewardedAd().loadData()
+    }
+
+    /// BD：超时从进入 load 开始计，包住 token、服务端请求和 setAdMarkup 后的 SDK 回调。
+    func loadServerBid() {
+        let token = biddingToken(slotId: model.slotId)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !token.isEmpty else {
+            failServerBid(LampsSDKError.rewardLoadError("穿山甲竞价 token 为空").nsError)
+            return
+        }
+        LampsRewardServerBid.fetch(ttToken: token, slotId: model.slotId) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self, !self.timedOut else { return }
+                switch result {
+                case .success(let bid):
+                    self.applySDKPriceIfValid(bid.price)
+                    self.makeRewardedAd().setAdMarkup(bid.adm)
+                case .failure(let error):
+                    self.failServerBid(error)
+                }
+            }
+        }
+    }
+
+    func makeRewardedAd() -> BUNativeExpressRewardedVideoAd {
+        let rewardedModel = BURewardedVideoModel()
+        rewardedModel.userId = model.userId
+        let ad = BUNativeExpressRewardedVideoAd(slotID: model.slotId, rewardedVideoModel: rewardedModel)
+        ad.delegate = self
+        expressAd = ad
+        return ad
+    }
+
+    func failServerBid(_ error: Error) {
+        guard !timedOut else { return }
+        loadTimeMs = elapsedMs()
+        LampsRewardMonitorReporter.reportRM(model: model, isSuccess: false, error: error)
+        finishLoad(success: false, error: error)
+    }
+
+    /// 激励视频 bidding token。不区分信息流混出代码位。
+    func biddingToken(slotId: String) -> String {
+        let slot = BUAdSlot()
+        slot.position = .fullscreen
+        slot.imgSize = BUSize(by: .drawFullScreen)
+        slot.id = slotId
+        slot.adType = .rewardVideo
+        return BUNativeExpressAdManager(
+            slot: slot,
+            adSize: CGSize(width: UIScreen.main.bounds.width, height: 0)
+        ).biddingToken()
+    }
+
     func startTimer() {
         clearTimer()
         timedOut = false
