@@ -33,7 +33,8 @@ public enum LampsRewardServerBid {
             "ttToken": ttToken,
             "slotId": slotId,
             "appid": appId,
-            "version": Lamps.sdkVersion
+            "version": Lamps.sdkVersion,
+            "os": LampsDeviceInfo.os
         ]
         guard let httpBody = try? JSONSerialization.data(withJSONObject: body) else {
             completion(.failure(LampsSDKError.rewardLoadError("穿山甲竞价请求体组装失败").nsError))
