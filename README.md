@@ -99,7 +99,7 @@ Lamps.start(config: config) { success, error in
         print(error?.localizedDescription ?? "")
         return
     }
-    // 启动时会请求 GET /v1/lamps/config；代码位与监测链接由 SDK 内部使用
+    // 启动时会请求配置接口；进入游戏容器且距上次成功超过 5 分钟会再请求。代码位与监测链接由 SDK 内部使用
 }
 
 // 打开游戏中心。可不传页面，SDK 会取当前最上层 VC。
@@ -137,7 +137,7 @@ webView.load(urlString: "https://www.hupu.com")
 
 ### 配置接口
 
-`start` 本地校验通过后请求（默认正式环境）：
+`start` 本地校验通过后会请求一次（默认正式环境）。之后进入游戏容器时，若距上次成功更新已超过 5 分钟，会再请求一次；本次进页仍使用已有配置，不阻塞打开。
 
 - prd: `https://api.hoorahgo.com/v1/lamps/config`
 - dev: `https://api-dev.hoorahgo.com/v1/lamps/config`
@@ -146,7 +146,7 @@ webView.load(urlString: "https://www.hupu.com")
 
 Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用 `channelList`（广告 SDK AppId）、代码位、`token`、`monitorLinks`，不向宿主开放。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
 
-启动时会先读本地磁盘缓存（按 `appId` + 环境隔离），再请求网络；请求成功覆盖内存并写回缓存，失败则保留已有缓存。
+启动时会先读本地磁盘缓存（按 `appId` + 环境隔离），再请求网络；请求成功覆盖内存并写回缓存，失败则保留已有缓存。游戏容器上的再次请求同样如此：成功覆盖，失败保留当前配置。
 
 ### 激励视频 / Adapter
 

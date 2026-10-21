@@ -20,6 +20,11 @@ public final class LampsGameWebViewController: LampsWebViewController {
         view.addSubview(menuBar)
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Lamps.refreshConfigIfNeededOnGameEnter()
+    }
+
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         menuBar.relayoutForSuperviewBoundsChange()

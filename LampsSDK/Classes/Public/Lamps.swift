@@ -28,6 +28,12 @@ public final class Lamps: NSObject {
 
     private static var storedConfig: LampsSDKConfig?
     private static var storedRemoteConfig: LampsRemoteConfig?
+    /// 最近一次 Config 接口成功时间。失败不更新；没有成功记录时视为过期。
+    private static var configUpdatedAt: Date?
+    /// Config 请求进行中。`start`、切环境和进游戏容器共用，避免并发重入。
+    private static var isFetchingConfig = false
+    /// 进游戏容器时，距上次成功超过该间隔才再请求。
+    private static let configRefreshInterval: TimeInterval = 5 * 60
     private static var started = false
     private static var didInitializeAdSDKs = false
 
@@ -220,6 +226,7 @@ public final class Lamps: NSObject {
     ) {
         LampsEnvironmentStore.current = environment
         LampsSDKLog.debug("switch env=\(environment.logName)")
+        configUpdatedAt = nil
         guard started, let config = storedConfig else {
             storedRemoteConfig = nil
             LampsSDKLog.debug("switch env saved, waiting for start")
@@ -290,15 +297,33 @@ public final class Lamps: NSObject {
         """
     }
 
+    /// 进入游戏容器时调用。距上次 Config 成功超过 5 分钟才后台再请求；不阻塞进页。
+    static func refreshConfigIfNeededOnGameEnter() {
+        guard started, let config = storedConfig else { return }
+        if isFetchingConfig {
+            LampsSDKLog.debug("config refresh skipped: in flight")
+            return
+        }
+        if let configUpdatedAt, Date().timeIntervalSince(configUpdatedAt) < configRefreshInterval {
+            LampsSDKLog.debug("config refresh skipped: fresh")
+            return
+        }
+        LampsSDKLog.debug("config refresh: game enter stale")
+        applyRemoteConfigFetch(config: config, completion: nil)
+    }
+
     private static func applyRemoteConfigFetch(
         config: LampsSDKConfig,
         completion: LampsStartCompletion?
     ) {
+        isFetchingConfig = true
         LampsConfigService.fetch(config: config) { result in
             DispatchQueue.main.async {
+                isFetchingConfig = false
                 switch result {
                 case .success(let remote):
                     storedRemoteConfig = remote
+                    configUpdatedAt = Date()
                     LampsSDKLog.debug("config fetch ok env=\(LampsEnvironmentStore.current.logName)")
                     initializeAdSDKsIfNeeded(config: config) {
                         completion?(true, nil)
