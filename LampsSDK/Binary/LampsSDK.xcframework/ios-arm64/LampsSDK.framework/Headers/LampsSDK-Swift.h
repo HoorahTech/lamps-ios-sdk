@@ -427,6 +427,7 @@ SWIFT_CLASS("_TtC8LampsSDK19LampsGameCenterView")
 @class NSBundle;
 /// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
 /// 请 <code>push</code> 或 <code>present</code> 本页。关闭由 H5 Bridge <code>close</code> 触发，也可调用 <code>closePage()</code>。
+/// 主文档加载失败时，页内会盖原生失败页，可重试或关闭，避免白屏后无法返回。
 /// 游戏 H5 请使用 <code>LampsGameWebViewController</code>。
 SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 @interface LampsWebViewController : UIViewController
@@ -457,6 +458,7 @@ SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 SWIFT_CLASS("_TtC8LampsSDK26LampsGameWebViewController")
 @interface LampsGameWebViewController : LampsWebViewController
 - (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
 - (void)viewDidLayoutSubviews;
 - (nonnull instancetype)initWithUrlString:(NSString * _Nonnull)urlString htmlString:(NSString * _Nullable)htmlString OBJC_DESIGNATED_INITIALIZER;
 @end

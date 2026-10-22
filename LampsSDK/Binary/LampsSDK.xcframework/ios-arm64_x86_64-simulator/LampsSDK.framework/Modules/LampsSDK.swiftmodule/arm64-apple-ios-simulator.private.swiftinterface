@@ -84,6 +84,7 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
 }
 @objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsGameWebViewController : LampsSDK.LampsWebViewController {
   @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidAppear(_ animated: Swift.Bool)
   @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLayoutSubviews()
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor @preconcurrency @objc override public init(urlString: Swift.String, htmlString: Swift.String?)
@@ -141,6 +142,9 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @_spi(LampsAdapter) final public var isPD: Swift.Bool {
     @_spi(LampsAdapter) get
   }
+  @_spi(LampsAdapter) final public var isBD: Swift.Bool {
+    @_spi(LampsAdapter) get
+  }
   @_spi(LampsAdapter) final public var adInfo: [Swift.AnyHashable : Any] {
     @_spi(LampsAdapter) get
   }
@@ -154,6 +158,15 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @_spi(LampsAdapter) public static func reportCM(model: LampsSDK.LampsRewardAdModel)
   @_spi(LampsAdapter) public static func reportWM(model: LampsSDK.LampsRewardAdModel)
   @_spi(LampsAdapter) public static func reportREM(model: LampsSDK.LampsRewardAdModel)
+}
+@_spi(LampsAdapter) public struct LampsRewardServerBidResult {
+  @_spi(LampsAdapter) public let adm: Swift.String
+  @_spi(LampsAdapter) public let price: CoreFoundation.CGFloat
+}
+@_spi(LampsAdapter) public enum LampsRewardServerBid {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_spi(LampsAdapter) public static func fetch(ttToken: Swift.String, slotId: Swift.String, completion: @escaping (Swift.Result<LampsSDK.LampsRewardServerBidResult, any Swift.Error>) -> Swift.Void)
+  #endif
 }
 @_spi(LampsAdapter) public typealias LampsRewardAdapterMaker = (LampsSDK.LampsRewardAdModel) -> any LampsSDK.LampsRewardAdapting
 @_spi(LampsAdapter) public enum LampsSDKAdapterCenter {

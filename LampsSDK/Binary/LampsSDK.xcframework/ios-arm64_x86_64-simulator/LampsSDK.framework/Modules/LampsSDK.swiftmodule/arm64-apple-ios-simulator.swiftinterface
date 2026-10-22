@@ -68,6 +68,7 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
 }
 @objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsGameWebViewController : LampsSDK.LampsWebViewController {
   @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidAppear(_ animated: Swift.Bool)
   @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLayoutSubviews()
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor @preconcurrency @objc override public init(urlString: Swift.String, htmlString: Swift.String?)
