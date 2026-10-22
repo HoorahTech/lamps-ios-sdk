@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   # true = LampsSDK/Binary xcframework；false = Classes 源码。切换后宿主需 pod install。
   # 二进制请先执行 ./scripts/build_xcframeworks.sh（会同步到 Binary/）。
-  use_binary = true
+  use_binary = false
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
