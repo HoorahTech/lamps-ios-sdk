@@ -14,6 +14,8 @@ final class LampsRemoteConfig: NSObject {
     /// 接口下发的游戏页 H5 地址模板，用 `__GAMEID__` 占位，例如
     /// `https://www.hoorahgo.com/mg/index.html#/play?gameId=__GAMEID__&inClient=Y`。
     var gamePlayPageTemplate: String = ""
+    /// Config 接口刷新间隔，单位秒。未下发或小于等于 0 时为 5 分钟。
+    var autoReloadTime: TimeInterval = 5 * 60
 
     static func parse(from data: [String: Any]?) -> LampsRemoteConfig? {
         guard let data = data else { return nil }
@@ -28,6 +30,10 @@ final class LampsRemoteConfig: NSObject {
         config.clientIp = LampsJSONValue.stringValue(data["clientIp"])
         config.gameCenterPage = LampsJSONValue.stringValue(data["gameCenterPage"])
         config.gamePlayPageTemplate = LampsJSONValue.stringValue(data["gamePlayPageTemplate"])
+        let reloadSeconds = LampsJSONValue.intValue(data["autoReloadTime"])
+        if reloadSeconds > 0 {
+            config.autoReloadTime = TimeInterval(reloadSeconds)
+        }
         if let links = data["monitorLinks"] as? [String: Any] {
             config.monitorLinks = LampsMonitorLinks.parse(from: links)
         }

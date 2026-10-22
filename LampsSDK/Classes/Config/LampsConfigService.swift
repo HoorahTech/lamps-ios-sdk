@@ -16,6 +16,7 @@ enum LampsConfigService {
             URLQueryItem(name: "appid", value: config.appId),
             URLQueryItem(name: "version", value: Lamps.sdkVersion),
             URLQueryItem(name: "idfa", value: LampsDeviceInfo.idfa),
+            URLQueryItem(name: "idfv", value: LampsDeviceInfo.idfv),
             URLQueryItem(name: "os", value: LampsDeviceInfo.os)
         ]
         guard let url = components.url else {
