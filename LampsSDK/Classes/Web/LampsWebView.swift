@@ -2,15 +2,20 @@ import UIKit
 import WebKit
 
 /// 带 Lamps JSBridge 的 WKWebView。仅 SDK 内部使用，宿主请走 `Lamps.showGameCenter(from:)`。
+/// 主文档加载失败时，在页面上方盖原生失败页。无网用网络文案，其他错误用通用文案。
+/// 有 `closeHandler` 时失败页提供关闭；内嵌未设置时只提供重试。
 final class LampsWebView: WKWebView {
     var bridge: LampsBridge!
     var closeHandler: (() -> Void)?
+    /// 失败页点重试时调用。页面容器走 `reloadPage()`，内嵌容器按原地址再加载。
+    var reloadHandler: (() -> Void)?
     /// 透传给 H5 的展示形态，见 `LampsBridgeClientInfo.DisplayMode`。未设置时为空。
     let displayMode: String
     /// 日夜间。未设置时由 Bridge 回落到 `LampsSDKConfig.dayNightMode`。
     var dayNightMode: LampsDayNightMode?
     /// 是否隐藏 H5 标题栏。来自本次 `LampsGameCenterConfig`，未设置时不隐藏。
     var hideTitle: Bool
+    private let loadGuard = LampsWebLoadGuard()
 
     init(displayMode: String = "", dayNightMode: LampsDayNightMode? = nil, hideTitle: Bool = false) {
         self.displayMode = displayMode
@@ -34,6 +39,8 @@ final class LampsWebView: WKWebView {
 
     func applyDayNightMode(_ mode: LampsDayNightMode) {
         dayNightMode = mode
+        applyPageBackgroundColor()
+        loadGuard.applyDayNightMode()
         LampsSDKLog.debug("nightMode change night=\(mode.bridgeNightValue)")
         bridge.send(
             method: LampsBridgeClientInfo.nightModeChangeMethod,
@@ -58,6 +65,11 @@ final class LampsWebView: WKWebView {
         LampsSDKLog.debug("load url=\(url.absoluteString)")
         load(URLRequest(url: url))
         return true
+    }
+
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        loadGuard.webViewDidMoveToSuperview()
     }
 
     static func makeURL(from string: String) -> URL? {
@@ -108,6 +120,8 @@ private extension LampsWebView {
         translatesAutoresizingMaskIntoConstraints = false
         applyCustomUserAgent()
         uiDelegate = self
+        navigationDelegate = self
+        loadGuard.attach(self)
         let bridge = LampsBridge(webView: self)
         self.bridge = bridge
         bridge.install()
@@ -146,6 +160,37 @@ private extension LampsWebView {
         if #available(iOS 15.0, *) {
             underPageBackgroundColor = color
         }
+    }
+}
+
+extension LampsWebView: WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        loadGuard.willNavigate(navigationAction)
+        decisionHandler(.allow)
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        loadGuard.didStartNavigation(navigation)
+    }
+
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        loadGuard.didCommitNavigation(navigation)
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        loadGuard.didFinishNavigation(navigation)
+    }
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        loadGuard.didFailNavigation(navigation, error: error)
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        loadGuard.didFailNavigation(navigation, error: error)
     }
 }
 

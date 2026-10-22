@@ -3,6 +3,7 @@ import UIKit
 /// 全屏活动容器：隐藏系统导航栏，整页交给 H5。
 ///
 /// 请 `push` 或 `present` 本页。关闭由 H5 Bridge `close` 触发，也可调用 `closePage()`。
+/// 主文档加载失败时，页内会盖原生失败页，可重试或关闭，避免白屏后无法返回。
 /// 游戏 H5 请使用 `LampsGameWebViewController`。
 @objcMembers
 public class LampsWebViewController: UIViewController {
@@ -33,6 +34,9 @@ public class LampsWebViewController: UIViewController {
         let webView = LampsWebView(displayMode: displayMode, dayNightMode: dayNightMode, hideTitle: hideTitle)
         webView.closeHandler = { [weak self] in
             self?.closePage()
+        }
+        webView.reloadHandler = { [weak self] in
+            self?.reloadPage()
         }
         return webView
     }()

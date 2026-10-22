@@ -201,6 +201,9 @@ public final class Lamps: NSObject {
             dayNightMode: resolvedDayNightMode(config?.dayNightMode),
             hideTitle: config?.hideTitle ?? false
         )
+        webView.reloadHandler = { [weak webView] in
+            webView?.load(urlString: urlString)
+        }
         guard webView.load(urlString: urlString) else { return nil }
         return LampsGameCenterView(webView: webView)
     }
