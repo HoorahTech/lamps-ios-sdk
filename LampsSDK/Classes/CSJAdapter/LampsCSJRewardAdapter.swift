@@ -34,10 +34,10 @@ final class LampsCSJRewardAdapter: NSObject, LampsRewardAdapting {
             return
         }
         startLoadTime = Date()
-        startTimer()
         if model.isBD {
             loadServerBid()
         } else {
+            startTimer()
             loadFromClient()
         }
     }
@@ -66,7 +66,7 @@ private extension LampsCSJRewardAdapter {
         makeRewardedAd().loadData()
     }
 
-    /// BD：超时从进入 load 开始计，包住 token、服务端请求和 setAdMarkup 后的 SDK 回调。
+    /// BD：竞价请求单独超时。adm 返回后再启动与 PD 相同的 SDK 超时。
     func loadServerBid() {
         let token = biddingToken(slotId: model.slotId)
             .trimmingCharacters(in: .whitespacesAndNewlines)
@@ -80,6 +80,7 @@ private extension LampsCSJRewardAdapter {
                 switch result {
                 case .success(let bid):
                     self.applySDKPriceIfValid(bid.price)
+                    self.startTimer()
                     self.makeRewardedAd().setAdMarkup(bid.adm)
                 case .failure(let error):
                     self.failServerBid(error)

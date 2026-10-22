@@ -45,7 +45,7 @@ public enum LampsRewardServerBid {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.timeoutInterval = 15
+        request.timeoutInterval = 3
         request.httpBody = httpBody
 
         LampsSDKLog.debug("reward bid request slotId=\(slotId) tokenLen=\(ttToken.count)")
