@@ -263,6 +263,12 @@ H5 调用 `hra.ad.showRewardedVideo` 一次，客户端完成 load → 竞价 �
 { "callbackName": "onLoadSuccess" }
 ```
 
+`onClose` 额外带本次是否已发奖。`true` 表示关闭前已经收到发奖，`false` 表示未发奖：
+
+```json
+{ "callbackName": "onClose", "rewardStatus": true }
+```
+
 失败时带 `data.errCode` / `data.errMsg`，例如全部 SDK 加载失败：
 
 ```json

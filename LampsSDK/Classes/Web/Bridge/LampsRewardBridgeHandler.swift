@@ -63,6 +63,9 @@ private extension LampsRewardBridgeHandler {
         var payload: [AnyHashable: Any] = [
             "callbackName": callback.name.h5CallbackName
         ]
+        if callback.name == .close {
+            payload["rewardStatus"] = callback.rewardStatus
+        }
         let errMsg = callback.errMessage ?? ""
         if callback.errCode != 0 || !errMsg.isEmpty {
             payload["data"] = [
