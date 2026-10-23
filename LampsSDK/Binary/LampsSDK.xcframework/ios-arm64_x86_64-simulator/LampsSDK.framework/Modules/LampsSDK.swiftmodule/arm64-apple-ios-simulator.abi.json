@@ -9044,7 +9044,7 @@
       "kind": "StringLiteral",
       "offset": 1031,
       "length": 7,
-      "value": "\"0.0.9\""
+      "value": "\"1.0.0\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
@@ -9917,7 +9917,7 @@
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Web\/Bridge\/LampsRewardBridgeHandler.swift",
       "kind": "IntegerLiteral",
-      "offset": 2667,
+      "offset": 2774,
       "length": 1,
       "value": "0"
     },
