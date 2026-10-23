@@ -4635,12 +4635,18 @@
           {
             "kind": "Function",
             "name": "fetch",
-            "printedName": "fetch(ttToken:slotId:completion:)",
+            "printedName": "fetch(ttToken:slotId:requestId:completion:)",
             "children": [
               {
                 "kind": "TypeNominal",
                 "name": "Void",
                 "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               },
               {
                 "kind": "TypeNominal",
@@ -4688,8 +4694,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:8LampsSDK0A15RewardServerBidO5fetch7ttToken6slotId10completionySS_SSys6ResultOyAA0acdeL0Vs5Error_pGctFZ",
-            "mangledName": "$s8LampsSDK0A15RewardServerBidO5fetch7ttToken6slotId10completionySS_SSys6ResultOyAA0acdeL0Vs5Error_pGctFZ",
+            "usr": "s:8LampsSDK0A15RewardServerBidO5fetch7ttToken6slotId07requestJ010completionySS_S2Sys6ResultOyAA0acdeM0Vs5Error_pGctFZ",
+            "mangledName": "$s8LampsSDK0A15RewardServerBidO5fetch7ttToken6slotId07requestJ010completionySS_S2Sys6ResultOyAA0acdeM0Vs5Error_pGctFZ",
             "moduleName": "LampsSDK",
             "static": true,
             "declAttributes": [

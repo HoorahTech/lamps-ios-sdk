@@ -165,7 +165,7 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
 }
 @_spi(LampsAdapter) public enum LampsRewardServerBid {
   #if compiler(>=5.3) && $NonescapableTypes
-  @_spi(LampsAdapter) public static func fetch(ttToken: Swift.String, slotId: Swift.String, completion: @escaping (Swift.Result<LampsSDK.LampsRewardServerBidResult, any Swift.Error>) -> Swift.Void)
+  @_spi(LampsAdapter) public static func fetch(ttToken: Swift.String, slotId: Swift.String, requestId: Swift.String, completion: @escaping (Swift.Result<LampsSDK.LampsRewardServerBidResult, any Swift.Error>) -> Swift.Void)
   #endif
 }
 @_spi(LampsAdapter) public typealias LampsRewardAdapterMaker = (LampsSDK.LampsRewardAdModel) -> any LampsSDK.LampsRewardAdapting
