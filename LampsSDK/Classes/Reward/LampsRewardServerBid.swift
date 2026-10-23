@@ -17,6 +17,7 @@ public enum LampsRewardServerBid {
     public static func fetch(
         ttToken: String,
         slotId: String,
+        requestId: String,
         completion: @escaping (Result<LampsRewardServerBidResult, Error>) -> Void
     ) {
         let appId = Lamps.config?.appId.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -34,7 +35,8 @@ public enum LampsRewardServerBid {
             "slotId": slotId,
             "appid": appId,
             "version": Lamps.sdkVersion,
-            "os": LampsDeviceInfo.os
+            "os": LampsDeviceInfo.os,
+            "requestId": requestId
         ]
         guard let httpBody = try? JSONSerialization.data(withJSONObject: body) else {
             completion(.failure(LampsSDKError.rewardLoadError("穿山甲竞价请求体组装失败").nsError))

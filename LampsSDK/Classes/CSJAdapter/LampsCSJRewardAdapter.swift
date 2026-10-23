@@ -74,7 +74,7 @@ private extension LampsCSJRewardAdapter {
             failServerBid(LampsSDKError.rewardLoadError("穿山甲竞价 token 为空").nsError)
             return
         }
-        LampsRewardServerBid.fetch(ttToken: token, slotId: model.slotId) { [weak self] result in
+        LampsRewardServerBid.fetch(ttToken: token, slotId: model.slotId, requestId: model.requestId) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self, !self.timedOut else { return }
                 switch result {
