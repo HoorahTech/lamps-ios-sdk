@@ -28,6 +28,9 @@ public class LampsWebViewController: UIViewController {
     /// `0` 浅色状态栏文字，`1` 深色。默认 `1`。
     private var statusBarFontStyle = 1
     private var statusBarBackgroundColor: UIColor = .white
+    /// 直接改系统状态栏前记下的原样式，离开页面后还原。
+    private var previousApplicationStatusBarStyle: UIStatusBarStyle?
+    private var previousApplicationStatusBarHidden: Bool?
 
     /// 页面内 WebView，仅 SDK 内部使用。
     private lazy var webView: LampsWebView = {
@@ -101,22 +104,29 @@ public class LampsWebViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         webView.notifyContainerWillAppear()
-        guard let navigationController else { return }
-        if previousNavigationBarHidden == nil {
-            previousNavigationBarHidden = navigationController.isNavigationBarHidden
+        if let navigationController {
+            if previousNavigationBarHidden == nil {
+                previousNavigationBarHidden = navigationController.isNavigationBarHidden
+            }
+            navigationController.setNavigationBarHidden(true, animated: animated)
         }
-        navigationController.setNavigationBarHidden(true, animated: animated)
+        if previousApplicationStatusBarStyle != nil {
+            updateStatusBarAppearance()
+        }
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         webView.notifyContainerWillDisappear()
-        guard let navigationController,
+        let leaving = isMovingFromParent || isBeingDismissed
+        if leaving {
+            restoreApplicationStatusBarIfNeeded()
+        }
+        guard leaving,
+              let navigationController,
               let previousNavigationBarHidden else { return }
         // 仅在自身被移出导航栈时恢复，避免 push 下级页时误恢复
-        if isMovingFromParent || isBeingDismissed {
-            navigationController.setNavigationBarHidden(previousNavigationBarHidden, animated: animated)
-        }
+        navigationController.setNavigationBarHidden(previousNavigationBarHidden, animated: animated)
     }
 
     /// 由 `lamps.common.statusBar` 调用。`backgroundColor` 为 `nil` 时不改容器背景。
@@ -149,7 +159,7 @@ public class LampsWebViewController: UIViewController {
             }
         }
         if statusBarNeedsUpdate {
-            setNeedsStatusBarAppearanceUpdate()
+            updateStatusBarAppearance()
         }
     }
 
@@ -194,5 +204,33 @@ public class LampsWebViewController: UIViewController {
         top.isActive = true
         webViewTopConstraint = top
         view.setNeedsLayout()
+    }
+
+    /// 虎扑把 `UIViewControllerBasedStatusBarAppearance` 设为 false 后，系统不读 `preferredStatusBarStyle`，只能改 `UIApplication`。
+    private func updateStatusBarAppearance() {
+        let viewControllerBased = (Bundle.main.object(
+            forInfoDictionaryKey: "UIViewControllerBasedStatusBarAppearance"
+        ) as? NSNumber)?.boolValue ?? true
+        if viewControllerBased {
+            setNeedsStatusBarAppearanceUpdate()
+            return
+        }
+        let application = UIApplication.shared
+        if previousApplicationStatusBarStyle == nil {
+            previousApplicationStatusBarStyle = application.statusBarStyle
+            previousApplicationStatusBarHidden = application.isStatusBarHidden
+        }
+        application.setStatusBarHidden(!showsStatusBar, with: .none)
+        application.setStatusBarStyle(preferredStatusBarStyle, animated: false)
+    }
+
+    private func restoreApplicationStatusBarIfNeeded() {
+        guard let style = previousApplicationStatusBarStyle,
+              let hidden = previousApplicationStatusBarHidden else { return }
+        let application = UIApplication.shared
+        application.setStatusBarHidden(hidden, with: .none)
+        application.setStatusBarStyle(style, animated: false)
+        previousApplicationStatusBarStyle = nil
+        previousApplicationStatusBarHidden = nil
     }
 }
