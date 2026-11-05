@@ -1,0 +1,4 @@
+module AlipaySDK {
+    header "LampsAlipaySDKUmbrella.h"
+    export *
+}

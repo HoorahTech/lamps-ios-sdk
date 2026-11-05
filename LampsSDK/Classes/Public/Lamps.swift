@@ -112,6 +112,20 @@ public final class Lamps: NSObject {
         LampsSDKLog.debug("clear user")
     }
 
+    /// 把支付宝 App 支付回跳交给 SDK。请在 `application(_:open:options:)` 或 Scene 的 `openURLContexts` 里优先调用。
+    ///
+    /// 仅当存在进行中的 `lamps.thirdPartyPay.order`，且 `url.host` 为 `safepay` 时返回 `true`。
+    /// 内部以空的 standbyCallback 调用支付宝，结果回到本次 Bridge 回调。
+    /// 返回 `false` 时，宿主继续处理自己的 URL，包括宿主自己的支付宝支付。
+    ///
+    /// 宿主若已经用空 standbyCallback 调用 `processOrderWithPaymentResult`，可以不调用本方法，Bridge 仍能收到结果。
+    /// standbyCallback 非空时，支付宝不会回调本次 Bridge，请改为先调用本方法。
+    @discardableResult
+    @objc(handleOpenURL:)
+    public static func handleOpenURL(_ url: URL) -> Bool {
+        LampsAlipayPay.handleOpenURL(url)
+    }
+
     /// 在宿主导航栈中打开游戏中心。请先 `start` 成功。
     ///
     /// 当前页有导航栈则 `push`，否则全屏 `present`。关闭由 H5 触发，或调用页内关闭。

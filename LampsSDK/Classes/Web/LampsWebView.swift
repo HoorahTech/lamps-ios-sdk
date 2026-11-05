@@ -131,6 +131,7 @@ private extension LampsWebView {
         bridge.addHandler(LampsReadyBridgeHandler())
         bridge.addHandler(LampsGamePageBridgeHandler())
         bridge.addHandler(LampsUIBridgeHandler())
+        bridge.addHandler(LampsPayBridgeHandler())
     }
 
     func applyCustomUserAgent() {

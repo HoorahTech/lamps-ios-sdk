@@ -28,6 +28,14 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         return true
     }
+
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        Lamps.handleOpenURL(url)
+    }
 }
 
 /// Demo 导航容器：隐藏导航栏或自定义返回按钮时，仍启用系统侧滑返回。
