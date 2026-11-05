@@ -96,14 +96,16 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
     ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
+    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(showGameCenterFromViewController:config:completion:)
+    @objc(showGameCenterFromViewController:config:params:completion:)
     public static func showGameCenter(
         from viewController: UIViewController? = nil,
         config: LampsGameCenterConfig? = nil,
+        params: [String: String]? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGameCenter(from: viewController, config: config) {
+        switch prepareGameCenter(from: viewController, config: config, params: params) {
         case .ready(let host, let page):
             LampsNavigator.pushOrPresent(page, from: host)
             completion?(true, nil)
@@ -119,14 +121,16 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
     ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
+    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(presentGameCenterFromViewController:config:completion:)
+    @objc(presentGameCenterFromViewController:config:params:completion:)
     public static func presentGameCenter(
         from viewController: UIViewController? = nil,
         config: LampsGameCenterConfig? = nil,
+        params: [String: String]? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGameCenter(from: viewController, config: config) {
+        switch prepareGameCenter(from: viewController, config: config, params: params) {
         case .ready(let host, let page):
             LampsNavigator.presentInNavigationController(page, from: host)
             completion?(true, nil)
@@ -144,14 +148,16 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(showGameWithGameId:fromViewController:completion:)
+    @objc(showGameWithGameId:fromViewController:params:completion:)
     public static func showGame(
         gameId: String,
         from viewController: UIViewController? = nil,
+        params: [String: String]? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGamePage(gameId: gameId, from: viewController) {
+        switch prepareGamePage(gameId: gameId, from: viewController, params: params) {
         case .ready(let host, let page):
             LampsNavigator.pushOrPresent(page, from: host)
             completion?(true, nil)
@@ -168,14 +174,16 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
+    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(presentGameWithGameId:fromViewController:completion:)
+    @objc(presentGameWithGameId:fromViewController:params:completion:)
     public static func presentGame(
         gameId: String,
         from viewController: UIViewController? = nil,
+        params: [String: String]? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGamePage(gameId: gameId, from: viewController) {
+        switch prepareGamePage(gameId: gameId, from: viewController, params: params) {
         case .ready(let host, let page):
             LampsNavigator.presentInNavigationController(page, from: host)
             completion?(true, nil)
@@ -190,11 +198,17 @@ public final class Lamps: NSObject {
     /// 宿主自有日夜间变化时调用 `updateDayNightMode`，无需重建本视图。
     /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
     ///
-    /// - Parameter config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
-    @objc(makeGameCenterViewWithConfig:)
-    public static func makeGameCenterView(config: LampsGameCenterConfig? = nil) -> LampsGameCenterView? {
+    /// - Parameters:
+    ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
+    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
+    @objc(makeGameCenterViewWithConfig:params:)
+    public static func makeGameCenterView(
+        config: LampsGameCenterConfig? = nil,
+        params: [String: String]? = nil
+    ) -> LampsGameCenterView? {
         guard let urlString = resolvedGameCenterPageURL(
-            dayNightMode: resolvedDayNightMode(config?.dayNightMode)
+            dayNightMode: resolvedDayNightMode(config?.dayNightMode),
+            params: params
         ) else { return nil }
         let webView = LampsWebView(
             displayMode: LampsBridgeClientInfo.DisplayMode.embed,
@@ -367,9 +381,13 @@ public final class Lamps: NSObject {
     /// 只负责解析地址和宿主，不跳转、不回调。
     private static func prepareGameCenter(
         from viewController: UIViewController?,
-        config: LampsGameCenterConfig?
+        config: LampsGameCenterConfig?,
+        params: [String: String]?
     ) -> GameCenterPrepareResult {
-        switch resolveGameCenterPageURL(dayNightMode: resolvedDayNightMode(config?.dayNightMode)) {
+        switch resolveGameCenterPageURL(
+            dayNightMode: resolvedDayNightMode(config?.dayNightMode),
+            params: params
+        ) {
         case .success(let url):
             guard let host = viewController ?? LampsNavigator.currentHostViewController() else {
                 return .failure(.noHostViewController("找不到可用于打开游戏中心的页面"))
@@ -401,9 +419,10 @@ public final class Lamps: NSObject {
     /// 只负责解析游戏页地址和宿主，不跳转、不回调。
     private static func prepareGamePage(
         gameId: String,
-        from viewController: UIViewController?
+        from viewController: UIViewController?,
+        params: [String: String]?
     ) -> GamePagePrepareResult {
-        switch resolveGamePageURL(gameId: gameId) {
+        switch resolveGamePageURL(gameId: gameId, params: params) {
         case .success(let url):
             guard let host = viewController ?? LampsNavigator.currentHostViewController() else {
                 return .failure(.noHostViewController("找不到可用于打开游戏页的页面"))
@@ -423,8 +442,11 @@ public final class Lamps: NSObject {
         completion?(false, nsError)
     }
 
-    private static func resolvedGameCenterPageURL(dayNightMode: LampsDayNightMode) -> String? {
-        switch resolveGameCenterPageURL(dayNightMode: dayNightMode) {
+    private static func resolvedGameCenterPageURL(
+        dayNightMode: LampsDayNightMode,
+        params: [String: String]?
+    ) -> String? {
+        switch resolveGameCenterPageURL(dayNightMode: dayNightMode, params: params) {
         case .success(let url):
             return url
         case .failure:
@@ -432,7 +454,10 @@ public final class Lamps: NSObject {
         }
     }
 
-    private static func resolveGameCenterPageURL(dayNightMode: LampsDayNightMode) -> GameCenterPageResult {
+    private static func resolveGameCenterPageURL(
+        dayNightMode: LampsDayNightMode,
+        params: [String: String]?
+    ) -> GameCenterPageResult {
         guard started else {
             LampsSDKLog.debug("gameCenterPage skipped: not started")
             return .failure(.notStarted("尚未调用 Lamps.start"))
@@ -443,10 +468,14 @@ public final class Lamps: NSObject {
             return .failure(.gameCenterUnavailable("游戏中心地址不可用"))
         }
         let separator = url.contains("?") ? "&" : "?"
-        return .success(url + separator + "night=\(dayNightMode.bridgeNightValue)")
+        let pageURL = url + separator + "night=\(dayNightMode.bridgeNightValue)"
+        return .success(appendingQuery(params, to: pageURL))
     }
 
-    private static func resolveGamePageURL(gameId: String) -> GameCenterPageResult {
+    private static func resolveGamePageURL(
+        gameId: String,
+        params: [String: String]?
+    ) -> GameCenterPageResult {
         guard started else {
             LampsSDKLog.debug("gamePageUrl skipped: not started")
             return .failure(.notStarted("尚未调用 Lamps.start"))
@@ -462,7 +491,33 @@ public final class Lamps: NSObject {
             LampsSDKLog.debug("gamePageUrl unavailable url=\(url)")
             return .failure(.gamePageUnavailable("游戏页地址不可用"))
         }
-        return .success(url)
+        return .success(appendingQuery(params, to: url))
+    }
+
+    /// 把字典拼到链接末尾。已有 `?` 时用 `&`，否则用 `?`。游戏页模板的 query 在 `#` 后面，因此直接拼在整段链接末尾。
+    private static func appendingQuery(_ params: [String: String]?, to urlString: String) -> String {
+        guard let query = queryString(from: params) else { return urlString }
+        let separator = urlString.contains("?") ? "&" : "?"
+        return urlString + separator + query
+    }
+
+    private static func queryString(from params: [String: String]?) -> String? {
+        guard let params, !params.isEmpty else { return nil }
+        let pairs = params.keys.sorted().compactMap { key -> String? in
+            let name = key.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !name.isEmpty else { return nil }
+            let value = params[key] ?? ""
+            return "\(percentEncodingQueryComponent(name))=\(percentEncodingQueryComponent(value))"
+        }
+        guard !pairs.isEmpty else { return nil }
+        return pairs.joined(separator: "&")
+    }
+
+    /// 与 JS `encodeURIComponent` 对齐，避免 `&`、`=`、`?`、`#` 破坏原链接。
+    private static func percentEncodingQueryComponent(_ string: String) -> String {
+        var allowed = CharacterSet.alphanumerics
+        allowed.insert(charactersIn: "-_.!~*'()")
+        return string.addingPercentEncoding(withAllowedCharacters: allowed) ?? string
     }
 }
 
