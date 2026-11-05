@@ -10,6 +10,7 @@ LampsSDK/Binary/
     LampsCSJAdapter.xcframework
     LampsGDTAdapter.xcframework
     LampsNoahAdapter.xcframework
+    LampsAlipayAdapter.xcframework
 ```
 
 切换源码 / 二进制：改 `LampsSDK.podspec` 顶部的 `use_binary`，然后宿主 `pod install`。

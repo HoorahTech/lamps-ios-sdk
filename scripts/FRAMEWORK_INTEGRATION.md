@@ -10,6 +10,7 @@ LampsSDK-iOS-x.y.z/
     LampsCSJAdapter.xcframework
     LampsGDTAdapter.xcframework
     LampsNoahAdapter.xcframework
+    LampsAlipayAdapter.xcframework
   DevTools/
     LampsDevTools.xcframework       # 可选调试页
   ThirdParty/                       # 仅补「宿主没有」的渠道
@@ -54,6 +55,8 @@ LampsSDK-iOS-x.y.z/
 
 - `LampsSDK.xcframework` + 三个 Adapter，**不要**再拖 ThirdParty 广告包（避免双份）
 
+支付宝不进 `ThirdParty`。需要支付 Bridge 时只链 `Adapters/LampsAlipayAdapter.xcframework`，宿主必须已经有 `AlipaySDK`。
+
 ## 与 CocoaPods Subspec 对照
 
 | Pod | Framework |
@@ -65,12 +68,14 @@ LampsSDK-iOS-x.y.z/
 | `LampsSDK/GDT` | Adapter + ThirdParty/GDTMobSDK |
 | `LampsSDK/NoahAdapter` | `LampsNoahAdapter.xcframework`（宿主自备 Noah） |
 | `LampsSDK/Noah` | Adapter + ThirdParty/Noah |
+| `LampsSDK/AlipayAdapter` | `LampsAlipayAdapter.xcframework`（宿主自备 AlipaySDK，无 ThirdParty 包） |
 | `LampsSDK/DevTools` | `DevTools/LampsDevTools.xcframework`（另需调试依赖） |
 
 ## 注意
 
 - Adapter 源码无条件 `import` 三方 SDK；`*Adapter` 场景须保证编译期能看到对应 module（post_install 挂路径，或改用 `CSJ`/`GDT`/`Noah`）。
 - 预编译 Adapter 包在出包机上已编入广告调用，宿主运行时仍须提供对应广告 SDK（自有或 ThirdParty）。
+- 支付宝 Adapter 出包时用 `AlipaySDK-iOS` 15.8.16 编译，xcframework 不内嵌支付宝。宿主运行时提供自己的 `AlipaySDK`。
 - 宿主已有广告 SDK 时，主版本尽量与 `VERSIONS.txt` 中出包版本一致。
 - 汇川：`Noah` 与 `NoahAdapter` 不要同时再拖两份 Noah 二进制。
 

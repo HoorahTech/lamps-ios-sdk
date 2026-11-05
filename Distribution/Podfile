@@ -17,5 +17,8 @@ target 'XCBuildHost' do
   pod 'LampsCSJAdapter', :path => '../'
   pod 'LampsGDTAdapter', :path => '../'
   pod 'LampsNoahAdapter', :path => '../'
+  # 与虎扑当前 AlipaySDK-iOS 对齐。只给 LampsAlipayAdapter 编译，不打进 xcframework。
+  pod 'AlipaySDK-iOS', '15.8.16'
+  pod 'LampsAlipayAdapter', :path => '../'
   pod 'LampsDevTools', :path => '../'
 end

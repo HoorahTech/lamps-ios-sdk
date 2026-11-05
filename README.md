@@ -43,6 +43,7 @@ pod 'LampsSDK', :git => 'git@gitlab.hupu.com:HPBase/lamps-ios-sdk.git', :branch 
 # pod 'LampsSDK/CSJAdapter'
 # pod 'LampsSDK/GDTAdapter'
 # pod 'LampsSDK/NoahAdapter'   # 已有 NoahSDK 时用这个，勿与 Noah 同时开
+# pod 'LampsSDK/AlipayAdapter' # 宿主已有 AlipaySDK 时打开。不拉支付宝 SDK，须挂搜索路径
 #
 # 注意：*Adapter 不声明三方 dependency，但源码无条件 import 对应 module。
 # 宿主须在 post_install 把已有 SDK 的 FRAMEWORK_SEARCH_PATHS 挂到 LampsSDK（并建议 add_dependency），
@@ -257,6 +258,7 @@ window.webkit.messageHandlers.chatMessage.postMessage({
 - `lamps.common.request`
 - `lamps.common.track`
 - `lamps.game.open`
+- `lamps.thirdPartyPay.order`
 
 `lamps.common.bridgeReady` 成功回调带回客户端参数。与本次相关的字段：
 
@@ -452,6 +454,82 @@ H5 尚未 `bridgeReady` 时这次事件可能丢失；随后 `bridgeReady` 会�
 gameView.updateDayNightMode(.night)
 ```
 
+### 支付宝支付 Bridge
+
+H5 调用 `lamps.thirdPartyPay.order`。入参对齐虎扑 `hupu.thirdPartyPay.order` 的支付宝渠道。Core 不链接支付宝。宿主已有 `AlipaySDK` 时再打开 `LampsSDK/AlipayAdapter`，Adapter 里直接调用 `AlipaySDK`。不打开这个 subspec 时，Bridge 会失败。
+
+源码里是 `import AlipaySDK`。支付宝 framework 自身没有 module map，Adapter 补了一份同名 module。`AlipaySDK-iOS` 按 CocoaPods 默认路径挂到 `FRAMEWORK_SEARCH_PATHS`。`LampsSDK/AlipayAdapter` 不会自己拉 `AlipaySDK-iOS`。宿主还要让 `LampsSDK` 依赖已有的支付宝 target，保证 xcframework 先展开再编译。
+
+二进制由 `LampsAlipayAdapter.podspec` 单独出包，编译期依赖 `AlipaySDK-iOS` 15.8.16，xcframework 不内嵌支付宝。宿主运行时仍使用自己的 `AlipaySDK`。
+
+`lamps.common.bridgeReady` 额外带回 `alipayPay`：`1` 表示 `AlipayAdapter` 已注册，`0` 表示未接入。这个字段只在 `bridgeReady` 里，不进 `lamps.common.track`。
+
+宿主在 `Lamps.start` 之前设置回跳 Scheme，值与 Info.plist 的 `CFBundleURLSchemes` 一致，不要带 `://`：
+
+```swift
+config.alipayScheme = "your-scheme"
+```
+
+支付宝 App 支付完成后会跳回 `your-scheme://safepay/...`。请在宿主里优先交给 SDK：
+
+```swift
+func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+) -> Bool {
+    if Lamps.handleOpenURL(url) { return true }
+    return false
+}
+
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    for context in URLContexts where Lamps.handleOpenURL(context.url) {
+        return
+    }
+}
+```
+
+`handleOpenURL` 仅在有进行中的 Lamps 支付且 `url.host` 为 `safepay` 时返回 `true`，并用空的 standbyCallback 把结果交回本次 Bridge。返回 `false` 时继续走宿主自己的跳转，包括宿主自己的支付宝支付。
+
+宿主如果已经对 `safepay` 调用 `processOrderWithPaymentResult` 且 standbyCallback 为空，可以不接 `handleOpenURL`。standbyCallback 非空时，支付宝不会回调本次 Bridge，需要改成先调用 `handleOpenURL`。
+
+入参 `data`：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `channel` | string | 是 | 目前只支持 `alipay` |
+| `orderInfo` | string | 是 | 支付宝订单串 |
+| `scheme` | string | 否 | 覆盖 `alipayScheme`。未传时用初始化配置 |
+
+```json
+{
+  "channel": "alipay",
+  "orderInfo": "app_id=..."
+}
+```
+
+支付宝 `resultStatus` 为 `9000` 走成功回调，其余走 error 回调：
+
+| `resultStatus` | 回调 | `msg` |
+| --- | --- | --- |
+| `9000` | success | `success` |
+| `6001` | error | `cancel` |
+| 其它 | error | `fail` |
+
+成功示例：
+
+```json
+{
+  "msg": "success",
+  "channel": "alipay",
+  "resultStatus": "9000",
+  "result": "",
+  "memo": ""
+}
+```
+
+参数不合法、未配置 Scheme，或未接入 `AlipayAdapter` 时，error 回调只有 `msg`，例如 `宿主未集成支付宝 SDK`。
+
 ## 手动 Framework（xcframework）集成
 
 ### 出包
@@ -461,7 +539,7 @@ gameView.updateDayNightMode(.night)
 # 产物：build/xcframeworks/LampsSDK-iOS-1.0.1/
 ```
 
-产出 5 个包：`LampsSDK`（Core）+ 三家 Adapter + `LampsDevTools`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。
+产出 6 个包：`LampsSDK`（Core）+ 三家广告 Adapter + `LampsAlipayAdapter` + `LampsDevTools`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。支付宝不进 `ThirdParty`，宿主自备 `AlipaySDK`。
 
 详细接入（无 / 全有 / 只有部分广告 SDK）见 [scripts/FRAMEWORK_INTEGRATION.md](scripts/FRAMEWORK_INTEGRATION.md)。
 
@@ -481,3 +559,4 @@ gameView.updateDayNightMode(.night)
 | `LampsSDK/GDT` | Adapter + `ThirdParty/GDTMobSDK` |
 | `LampsSDK/NoahAdapter` | `Adapters/LampsNoahAdapter.xcframework` |
 | `LampsSDK/Noah` | Adapter + `ThirdParty/Noah` |
+| `LampsSDK/AlipayAdapter` | `Adapters/LampsAlipayAdapter.xcframework`（宿主自备 AlipaySDK） |

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# 产出 LampsSDK / LampsCSJAdapter / LampsGDTAdapter / LampsNoahAdapter / LampsDevTools
-# 共 5 个 xcframework、LampsSDKResources.bundle，以及可选 ThirdParty
+# 产出 LampsSDK / LampsCSJAdapter / LampsGDTAdapter / LampsNoahAdapter /
+# LampsAlipayAdapter / LampsDevTools
+# 共 6 个 xcframework、LampsSDKResources.bundle，以及可选 ThirdParty
 # （汇川 Vendor；穿山甲/优量汇来自 Pods 时可一并拷贝）。
+# 支付宝不进 ThirdParty，产物不内嵌 AlipaySDK，宿主自备。
 #
 # 资源不能打进静态 xcframework：静态 linkage 下 .framework 不会进 App 包，
 # 宿主拿不到里面的图片。因此单独编 LampsSDKResources.bundle，与 xcframework 并列分发。
@@ -156,7 +158,7 @@ build_xcframework() {
 
 xcodebuild -workspace "$WORKSPACE" -list
 
-for scheme in LampsSDK LampsCSJAdapter LampsGDTAdapter LampsNoahAdapter LampsDevTools; do
+for scheme in LampsSDK LampsCSJAdapter LampsGDTAdapter LampsNoahAdapter LampsAlipayAdapter LampsDevTools; do
   build_xcframework "$scheme"
 done
 
@@ -169,6 +171,7 @@ cp -R "$OUT/LampsSDKResources.bundle" "$RELEASE/"
 cp -R "$OUT/LampsCSJAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsGDTAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsNoahAdapter.xcframework" "$RELEASE/Adapters/"
+cp -R "$OUT/LampsAlipayAdapter.xcframework" "$RELEASE/Adapters/"
 cp -R "$OUT/LampsDevTools.xcframework" "$RELEASE/DevTools/"
 
 # 同步到仓库 Binary 目录，供 LampsSDK.podspec use_binary = true 引用
@@ -180,12 +183,14 @@ rm -rf "$BINARY_DIR/LampsSDKResources.bundle"
 rm -rf "$BINARY_DIR/Adapters/LampsCSJAdapter.xcframework"
 rm -rf "$BINARY_DIR/Adapters/LampsGDTAdapter.xcframework"
 rm -rf "$BINARY_DIR/Adapters/LampsNoahAdapter.xcframework"
+rm -rf "$BINARY_DIR/Adapters/LampsAlipayAdapter.xcframework"
 rm -rf "$BINARY_DIR/DevTools/LampsDevTools.xcframework"
 cp -R "$OUT/LampsSDK.xcframework" "$BINARY_DIR/"
 cp -R "$OUT/LampsSDKResources.bundle" "$BINARY_DIR/"
 cp -R "$OUT/LampsCSJAdapter.xcframework" "$BINARY_DIR/Adapters/"
 cp -R "$OUT/LampsGDTAdapter.xcframework" "$BINARY_DIR/Adapters/"
 cp -R "$OUT/LampsNoahAdapter.xcframework" "$BINARY_DIR/Adapters/"
+cp -R "$OUT/LampsAlipayAdapter.xcframework" "$BINARY_DIR/Adapters/"
 cp -R "$OUT/LampsDevTools.xcframework" "$BINARY_DIR/DevTools/"
 
 if [[ -d "$ROOT/LampsSDK/Vendor/Noah" ]]; then
@@ -213,7 +218,7 @@ if [[ -f "$DIST/Podfile.lock" ]]; then
   {
     echo ""
     echo "--- Podfile.lock (Distribution) ---"
-    grep -E '^\s+- (Ads-CN|BUAdSDK|GDTMobSDK|GDTDevTool|LampsSDK|LampsCSJ|LampsGDT|LampsNoah|LampsDevTools)' "$DIST/Podfile.lock" || true
+    grep -E '^\s+- (Ads-CN|BUAdSDK|GDTMobSDK|GDTDevTool|AlipaySDK-iOS|LampsSDK|LampsCSJ|LampsGDT|LampsNoah|LampsAlipay|LampsDevTools)' "$DIST/Podfile.lock" || true
   } >> "$RELEASE/VERSIONS.txt"
 fi
 
