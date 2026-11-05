@@ -102,6 +102,13 @@ Lamps.start(config: config) { success, error in
     // 启动时会请求配置接口；进入游戏容器且距上次成功超过 5 分钟会再请求。代码位与监测链接由 SDK 内部使用
 }
 
+// 登录后传入用户。退出登录调用 Lamps.clearUserInfo()。只保存在内存。
+let user = LampsUserInfo()
+user.userId = "123"
+user.nickname = "昵称"
+user.avatar = "https://example.com/avatar.png"
+Lamps.setUserInfo(user)
+
 // 打开游戏中心。可不传页面，SDK 会取当前最上层 VC。
 // 有宿主导航则 push；要避开宿主导航栏时用 presentGameCenter。
 Lamps.showGameCenter { success, error in
@@ -144,7 +151,9 @@ webView.load(urlString: "https://www.hupu.com")
 
 测试环境请在 `LampsDevTools` 中切换；选择会写到本机，下次启动仍生效。宿主不要、也无法在 `LampsSDKConfig` 上设置环境。
 
-Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用 `channelList`（广告 SDK AppId）、代码位、`token`、`monitorLinks`，不向宿主开放。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
+Query：`appid` / `version` / `idfa` / `os`。成功后 SDK 内部使用 `channelList`（广告 SDK AppId）、代码位、`token`、`cid`、`monitorLinks`，不向宿主开放。`data.cid` 是客户端 ID：有本地缓存时本次请求就会带上，否则等本次成功后再用于后续请求。IDFA 仅在宿主已获 ATT 授权时读取，SDK 不主动弹授权框。
+
+SDK 自己发出的 HTTP 请求（配置、竞价、事件上报、监测、H5 `lamps.common.request`）都会在 Header 写入 `L-CID`，值为当前 `cid`，尚未下发时为空串。`L-UID` 只在请求 host 为 `www.lampsgame.com` 或 `lamps-api.hoorahgo.com`，且已通过 `setUserInfo` 传入用户 ID 时写入。其它域名不带 `L-UID`。用户 ID 为空或已 `clearUserInfo` 时，命中域名的请求会去掉 `L-UID`。
 
 启动时会先读本地磁盘缓存（按 `appId` + 环境隔离），再请求网络；请求成功覆盖内存并写回缓存，失败则保留已有缓存。游戏容器上的再次请求同样如此：成功覆盖，失败保留当前配置。
 
@@ -207,6 +216,21 @@ REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL
 - `__REQUEST_ID__`：激励会话 requestId（同一次激励内 RM/WM/CM/PM/REM 共用）
 - `__FORWARD_SOURCE__`：H5 传入的场景来源
 
+## 用户信息
+
+媒体在用户登录、资料变更、退出登录时同步给 SDK。三个字段都是字符串：用户 ID、昵称、头像地址。
+
+```swift
+let user = LampsUserInfo()
+user.userId = "123"
+user.nickname = "昵称"
+user.avatar = "https://example.com/avatar.png"
+Lamps.setUserInfo(user)   // 覆盖上一次
+Lamps.clearUserInfo()     // 退出登录
+```
+
+`setUserInfo` 会拷贝入参，调用后修改原对象不会再生效。未调用或已清除时，`bridgeReady` 的 `uid` / `nickname` / `avatar` 为空串。`userId` 非空时，发往 `www.lampsgame.com` 与 `lamps-api.hoorahgo.com` 的 SDK 请求会带 `L-UID`。用户信息不会写入磁盘。
+
 ## Bridge
 
 Bridge 挂在 `LampsWebView` 内部，**不作为宿主 Native API 开放**（不能 `addHandler` / `send`）。打开 `LampsWebViewController` / `LampsGameWebViewController` 或嵌入 `LampsWebView` 后，H5 即可调用内置方法。
@@ -226,12 +250,24 @@ window.webkit.messageHandlers.chatMessage.postMessage({
 内置方法：
 
 - `ping`
+- `lamps.common.bridgeReady`
 - `lamps.ui.pageclose`
 - `lamps.common.statusBar`
 - `lamps.ad.showRewardedVideo`
 - `lamps.common.request`
 - `lamps.common.track`
 - `lamps.game.open`
+
+`lamps.common.bridgeReady` 成功回调带回客户端参数。与本次相关的字段：
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `cid` | string | 配置接口 `data.cid`。未下发时为空串 |
+| `uid` | string | `LampsUserInfo.userId`。未传入或已 `clearUserInfo` 时为空串 |
+| `nickname` | string | 昵称 |
+| `avatar` | string | 头像地址 |
+
+同一份客户端参数也会放进 `lamps.common.track` 的上报 body。
 
 Native 主动调 H5 会执行（H5 需实现 `window.HoorahBridge._handle_`）：
 

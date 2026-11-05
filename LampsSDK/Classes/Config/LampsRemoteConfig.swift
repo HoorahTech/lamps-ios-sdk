@@ -8,6 +8,8 @@ final class LampsRemoteConfig: NSObject {
     var channelList: [LampsAdChannel] = []
     var token: String = ""
     var clientIp: String = ""
+    /// 配置接口下发的客户端 ID。请求头 `L-CID` 与 `bridgeReady.cid` 都用它。
+    var cid: String = ""
     var monitorLinks: LampsMonitorLinks = LampsMonitorLinks()
     /// 接口下发的游戏中心 H5 地址。
     var gameCenterPage: String = ""
@@ -28,6 +30,7 @@ final class LampsRemoteConfig: NSObject {
         }
         config.token = LampsJSONValue.stringValue(data["token"])
         config.clientIp = LampsJSONValue.stringValue(data["clientIp"])
+        config.cid = LampsJSONValue.stringValue(data["cid"])
         config.gameCenterPage = LampsJSONValue.stringValue(data["gameCenterPage"])
         config.gamePlayPageTemplate = LampsJSONValue.stringValue(data["gamePlayPageTemplate"])
         let reloadSeconds = LampsJSONValue.intValue(data["autoReloadTime"])

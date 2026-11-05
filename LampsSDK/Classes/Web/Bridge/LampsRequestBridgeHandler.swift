@@ -115,6 +115,7 @@ private extension LampsRequestBridgeHandler {
         request.httpMethod = method.uppercased()
         request.timeoutInterval = 15
         applyHeaders(&request, headers)
+        LampsRequestHeader.apply(&request)
 
         if method == "post", !params.isEmpty {
             let contentType = headerValue(headers, name: "Content-Type") ?? ""

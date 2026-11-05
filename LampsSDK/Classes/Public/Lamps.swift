@@ -28,6 +28,7 @@ public final class Lamps: NSObject {
 
     private static var storedConfig: LampsSDKConfig?
     private static var storedRemoteConfig: LampsRemoteConfig?
+    private static var storedUserInfo: LampsUserInfo?
     /// 最近一次 Config 接口成功时间。失败不更新；没有成功记录时视为过期。
     private static var configUpdatedAt: Date?
     /// Config 请求进行中。`start`、切环境和进游戏容器共用，避免并发重入。
@@ -86,6 +87,29 @@ public final class Lamps: NSObject {
     /// 最近一次 `start` 使用的配置；尚未启动时为 `nil`。
     public static var config: LampsSDKConfig? {
         storedConfig
+    }
+
+    /// 传入当前登录用户。可重复调用覆盖。SDK 会拷贝一份，之后修改原对象不会生效。
+    ///
+    /// 只保存在内存中。`bridgeReady` 用 `userId` / `nickname` / `avatar` 回传 `uid` / `nickname` / `avatar`。
+    /// 退出登录请调用 `clearUserInfo`。请在主线程调用。
+    @objc(setUserInfo:)
+    public static func setUserInfo(_ userInfo: LampsUserInfo) {
+        let copy = LampsUserInfo()
+        copy.userId = userInfo.userId
+        copy.nickname = userInfo.nickname
+        copy.avatar = userInfo.avatar
+        storedUserInfo = copy
+        LampsSDKLog.debug(
+            "set user idLen=\(copy.userId.count) nickLen=\(copy.nickname.count) avatarLen=\(copy.avatar.count)"
+        )
+    }
+
+    /// 清除当前用户。之后 `bridgeReady` 的 `uid` / `nickname` / `avatar` 为空。请在主线程调用。
+    @objc(clearUserInfo)
+    public static func clearUserInfo() {
+        storedUserInfo = nil
+        LampsSDKLog.debug("clear user")
     }
 
     /// 在宿主导航栈中打开游戏中心。请先 `start` 成功。
@@ -232,6 +256,26 @@ public final class Lamps: NSObject {
         storedRemoteConfig?.token ?? ""
     }
 
+    /// 配置接口下发的客户端 ID。请求头 `L-CID` 与 `bridgeReady.cid` 使用。未下发时为空。
+    static var clientId: String {
+        storedRemoteConfig?.cid ?? ""
+    }
+
+    /// 媒体传入的用户 ID。`bridgeReady.uid` 使用；非空时写入命中域名请求的 `L-UID`。未传入或已清除时为空。
+    static var userId: String {
+        storedUserInfo?.userId ?? ""
+    }
+
+    /// 媒体传入的昵称。`bridgeReady.nickname` 使用。
+    static var userNickname: String {
+        storedUserInfo?.nickname ?? ""
+    }
+
+    /// 媒体传入的头像地址。`bridgeReady.avatar` 使用。
+    static var userAvatar: String {
+        storedUserInfo?.avatar ?? ""
+    }
+
     /// 当前配置环境。仅调试工具使用。
     @_spi(LampsDevTools)
     @nonobjc
@@ -289,6 +333,9 @@ public final class Lamps: NSObject {
         dayNight: \(config?.dayNightMode.logName ?? "-")
         env: \(LampsEnvironmentStore.current.logName)
         debugLog: \(config?.debugLogEnabled ?? false)
+        userIdLen: \(storedUserInfo?.userId.count ?? 0)
+        nicknameLen: \(storedUserInfo?.nickname.count ?? 0)
+        avatarLen: \(storedUserInfo?.avatar.count ?? 0)
         """
     }
 
@@ -302,9 +349,11 @@ public final class Lamps: NSObject {
         let channels = remote?.channelList.map { "\($0.channelId)/\($0.channelAppId)" }.joined(separator: ", ") ?? "-"
         let gameCenter = remote?.gameCenterPage ?? ""
         let gamePage = remote?.gamePlayPageTemplate ?? ""
+        let cid = remote?.cid ?? ""
         return """
         remoteConfig: \(remote == nil ? "nil" : "ok")
         tokenLen: \(remote?.token.count ?? 0)
+        cid: \(cid.isEmpty ? "-" : cid)
         clientIp: \(remote?.clientIp ?? "-")
         channels(\(remote?.channelList.count ?? 0)): \(channels)
         slots(\(remote?.rewardAdSlots.count ?? 0)): \(slots)

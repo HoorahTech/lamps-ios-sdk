@@ -25,7 +25,7 @@ final class LampsReadyBridgeHandler: NSObject, LampsBridgeHandler {
             hideTitle: bridge?.webView?.hideTitle ?? false
         )
         LampsSDKLog.debug(
-            "bridgeReady os=\(info["os"] ?? "")/\(info["osVer"] ?? "") brand=\(info["phoneBrand"] ?? "") network=\(info["network"] ?? "") size=\(info["clientWidth"] ?? "")x\(info["clientHeight"] ?? "") density=\(info["density"] ?? "") statusBar=\(info["statusBarHeight"] ?? "") sdk=\(info["sdkVersion"] ?? "") appVer=\(info["appVer"] ?? "") displayMode=\(info["displayMode"] ?? "") night=\(info["night"] ?? "") hideTitle=\(info["hideTitle"] ?? "") env=\(info["env"] ?? "")"
+            "bridgeReady os=\(info["os"] ?? "")/\(info["osVer"] ?? "") brand=\(info["phoneBrand"] ?? "") network=\(info["network"] ?? "") size=\(info["clientWidth"] ?? "")x\(info["clientHeight"] ?? "") density=\(info["density"] ?? "") statusBar=\(info["statusBarHeight"] ?? "") sdk=\(info["sdkVersion"] ?? "") appVer=\(info["appVer"] ?? "") displayMode=\(info["displayMode"] ?? "") night=\(info["night"] ?? "") hideTitle=\(info["hideTitle"] ?? "") env=\(info["env"] ?? "") cidLen=\((info["cid"] as? String)?.count ?? 0) uidLen=\((info["uid"] as? String)?.count ?? 0)"
         )
         guard JSONSerialization.isValidJSONObject(info) else {
             error?(["msg": "device info 序列化失败"])

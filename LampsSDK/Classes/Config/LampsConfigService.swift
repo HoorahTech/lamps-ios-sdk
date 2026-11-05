@@ -28,6 +28,7 @@ enum LampsConfigService {
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        LampsRequestHeader.apply(&request)
         request.timeoutInterval = 15
 
         LampsSDKLog.debug("config request: \(url.absoluteString)")
@@ -58,7 +59,7 @@ enum LampsConfigService {
                     environment: LampsEnvironmentStore.current
                 )
                 LampsSDKLog.debug(
-                    "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) ip=\(remote.clientIp) gameCenter=\(!remote.gameCenterPage.isEmpty) gamePage=\(!remote.gamePlayPageTemplate.isEmpty)"
+                    "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) cidLen=\(remote.cid.count) ip=\(remote.clientIp) gameCenter=\(!remote.gameCenterPage.isEmpty) gamePage=\(!remote.gamePlayPageTemplate.isEmpty)"
                 )
                 completion(.success(remote))
             } catch {

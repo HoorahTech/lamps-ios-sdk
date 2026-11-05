@@ -21,6 +21,10 @@ enum LampsBridgeClientInfo {
         info["ts"] = "\(Int(Date().timeIntervalSince1970))"
         info["ua"] = LampsDeviceInfo.userAgent
         info["ip"] = Lamps.remoteConfig?.clientIp ?? ""
+        info["cid"] = Lamps.clientId
+        info["uid"] = Lamps.userId
+        info["nickname"] = Lamps.userNickname
+        info["avatar"] = Lamps.userAvatar
         info["mac"] = LampsDeviceInfo.macAddress
         info["os"] = "iOS"
         info["appid"] = Lamps.config?.appId ?? ""

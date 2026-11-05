@@ -232,6 +232,7 @@ private extension LampsTrackBridgeHandler {
         request.timeoutInterval = 15
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        LampsRequestHeader.apply(&request)
         request.httpBody = body
         LampsSDKLog.debug("bridge track POST \(url.absoluteString)")
         URLSession.shared.dataTask(with: request) { _, response, requestError in

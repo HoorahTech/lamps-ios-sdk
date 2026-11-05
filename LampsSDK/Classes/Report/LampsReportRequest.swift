@@ -26,6 +26,7 @@ enum LampsReportRequest {
         if !ua.isEmpty {
             request.setValue(ua, forHTTPHeaderField: "User-Agent")
         }
+        LampsRequestHeader.apply(&request)
         URLSession.shared.dataTask(with: request) { _, response, error in
             if let error = error {
                 LampsSDKLog.debug("report fail: \(error.localizedDescription) url=\(trimmed)")
