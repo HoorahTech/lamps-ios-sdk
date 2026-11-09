@@ -3,7 +3,9 @@
 #endif
 
 import Foundation
-import AlipaySDK
+// 编进 LampsSDK 模块。普通 import 会写进 swiftinterface，下游 import LampsSDK 时必须能找到 AlipaySDK。
+// 支付宝 framework 没有 module map，这份搜索路径只挂在 LampsSDK target 上，所以必须藏进实现。
+@_implementationOnly import AlipaySDK
 
 /// 直接调用宿主已链接的支付宝 SDK。本文件只在 `AlipayAdapter` 中编译。
 final class LampsAlipaySDKPay: LampsAlipayPaying {
