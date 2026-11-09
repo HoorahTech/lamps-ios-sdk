@@ -6,8 +6,11 @@ import Foundation
 final class LampsPayBridgeHandler: NSObject, LampsBridgeHandler {
     weak var bridge: LampsBridge?
 
+    /// H5 支付方法名。`bridgeReady.supportedBridges` 在支付宝可用时带回。
+    static let orderMethod = "lamps.thirdPartyPay.order"
+
     var supportedMethods: [String] {
-        [Method.order]
+        [Self.orderMethod]
     }
 
     func handle(
@@ -16,7 +19,7 @@ final class LampsPayBridgeHandler: NSObject, LampsBridgeHandler {
         success: LampsBridgeToH5Callback?,
         error: LampsBridgeToH5Callback?
     ) {
-        guard method == Method.order else {
+        guard method == Self.orderMethod else {
             error?(["msg": "unsupported method: \(method)"])
             return
         }
@@ -52,10 +55,6 @@ final class LampsPayBridgeHandler: NSObject, LampsBridgeHandler {
 }
 
 private extension LampsPayBridgeHandler {
-    enum Method {
-        static let order = "lamps.thirdPartyPay.order"
-    }
-
     func complete(
         _ outcome: LampsAlipayPay.Outcome,
         success: LampsBridgeToH5Callback?,

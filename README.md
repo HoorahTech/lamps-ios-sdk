@@ -462,7 +462,7 @@ H5 调用 `lamps.thirdPartyPay.order`。入参对齐虎扑 `hupu.thirdPartyPay.o
 
 二进制由 `LampsAlipayAdapter.podspec` 单独出包，编译期依赖 `AlipaySDK-iOS` 15.8.16，xcframework 不内嵌支付宝。宿主运行时仍使用自己的 `AlipaySDK`。
 
-`lamps.common.bridgeReady` 额外带回 `alipayPay`：`1` 表示 `AlipayAdapter` 已注册，`0` 表示未接入。这个字段只在 `bridgeReady` 里，不进 `lamps.common.track`。
+`lamps.common.bridgeReady` 额外带回 `supportedBridges`：字符串数组，表示当前客户端实际可用的 Bridge。第一版只收录支付；`AlipayAdapter` 已注册时包含 `lamps.thirdPartyPay.order`，未接入时为空数组。这个字段只在 `bridgeReady` 里，不进 `lamps.common.track`。
 
 回跳 Scheme 固定为 `lampsalipay`（`Lamps.alipayURLScheme`），不通过 `LampsSDKConfig` 设置。宿主把它写入 Info.plist 的 `CFBundleURLSchemes`，不要带 `://`。
 
