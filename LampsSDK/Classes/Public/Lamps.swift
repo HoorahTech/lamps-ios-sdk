@@ -134,7 +134,7 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
     ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
-    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
+    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
     @objc(showGameCenterFromViewController:config:params:completion:)
     public static func showGameCenter(
@@ -159,7 +159,7 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
     ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
-    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
+    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
     @objc(presentGameCenterFromViewController:config:params:completion:)
     public static func presentGameCenter(
@@ -186,7 +186,7 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
-    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
+    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
     @objc(showGameWithGameId:fromViewController:params:completion:)
     public static func showGame(
@@ -212,7 +212,7 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
-    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
+    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
     @objc(presentGameWithGameId:fromViewController:params:completion:)
     public static func presentGame(
@@ -238,7 +238,7 @@ public final class Lamps: NSObject {
     ///
     /// - Parameters:
     ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
-    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。
+    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
     @objc(makeGameCenterViewWithConfig:params:)
     public static func makeGameCenterView(
         config: LampsGameCenterConfig? = nil,
@@ -530,8 +530,7 @@ public final class Lamps: NSObject {
             LampsSDKLog.debug("gameCenterPage unavailable url=\(url)")
             return .failure(.gameCenterUnavailable("游戏中心地址不可用"))
         }
-        let separator = url.contains("?") ? "&" : "?"
-        let pageURL = url + separator + "night=\(dayNightMode.bridgeNightValue)"
+        let pageURL = appendingQuery(["night": "\(dayNightMode.bridgeNightValue)"], to: url)
         return .success(appendingQuery(params, to: pageURL))
     }
 
@@ -557,18 +556,43 @@ public final class Lamps: NSObject {
         return .success(appendingQuery(params, to: url))
     }
 
-    /// 把字典拼到链接末尾。已有 `?` 时用 `&`，否则用 `?`。游戏页模板的 query 在 `#` 后面，因此直接拼在整段链接末尾。
+    /// 把字典拼到链接末尾。整段链接里已有 `?` 时用 `&`，否则用 `?`。游戏页参数写在 `#` 后面，直接拼在末尾即可落在同一段。
+    /// 同名参数不再追加，保留链接原值。
     private static func appendingQuery(_ params: [String: String]?, to urlString: String) -> String {
-        guard let query = queryString(from: params) else { return urlString }
+        guard let query = queryString(from: params, excluding: existingQueryKeys(in: urlString)) else {
+            return urlString
+        }
         let separator = urlString.contains("?") ? "&" : "?"
         return urlString + separator + query
     }
 
-    private static func queryString(from params: [String: String]?) -> String? {
+    /// 按整段链接里的每个 `?` 收集已有参数名，不单独处理 `#`。
+    private static func existingQueryKeys(in urlString: String) -> Set<String> {
+        let sections = urlString.split(separator: "?", omittingEmptySubsequences: true)
+        guard sections.count > 1 else { return [] }
+        var keys = Set<String>()
+        for section in sections.dropFirst() {
+            for pair in section.split(separator: "&", omittingEmptySubsequences: true) {
+                let rawKey = String(pair.split(separator: "=", maxSplits: 1).first ?? "")
+                let trimmed = rawKey.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !trimmed.isEmpty else { continue }
+                keys.insert(trimmed)
+                if let decoded = trimmed.removingPercentEncoding {
+                    let decodedName = decoded.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if !decodedName.isEmpty {
+                        keys.insert(decodedName)
+                    }
+                }
+            }
+        }
+        return keys
+    }
+
+    private static func queryString(from params: [String: String]?, excluding existingKeys: Set<String> = []) -> String? {
         guard let params, !params.isEmpty else { return nil }
         let pairs = params.keys.sorted().compactMap { key -> String? in
             let name = key.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !name.isEmpty else { return nil }
+            guard !name.isEmpty, !existingKeys.contains(name) else { return nil }
             let value = params[key] ?? ""
             return "\(percentEncodingQueryComponent(name))=\(percentEncodingQueryComponent(value))"
         }
