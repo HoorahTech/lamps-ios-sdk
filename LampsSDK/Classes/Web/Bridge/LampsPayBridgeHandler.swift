@@ -37,17 +37,12 @@ final class LampsPayBridgeHandler: NSObject, LampsBridgeHandler {
             return
         }
 
-        let scheme = resolvedScheme(data)
-        guard !scheme.isEmpty else {
-            fail(error, message: "未配置支付宝 URL Scheme")
-            return
-        }
         guard LampsAlipayPay.isAvailable else {
             fail(error, message: "宿主未集成支付宝 SDK")
             return
         }
 
-        let started = LampsAlipayPay.pay(order: order, scheme: scheme) { [weak self] outcome in
+        let started = LampsAlipayPay.pay(order: order, scheme: Lamps.alipayURLScheme) { [weak self] outcome in
             self?.complete(outcome, success: success, error: error)
         }
         if !started {
@@ -59,12 +54,6 @@ final class LampsPayBridgeHandler: NSObject, LampsBridgeHandler {
 private extension LampsPayBridgeHandler {
     enum Method {
         static let order = "lamps.thirdPartyPay.order"
-    }
-
-    func resolvedScheme(_ data: [AnyHashable: Any]) -> String {
-        let override = LampsJSONValue.stringValue(data["scheme"], trim: true)
-        let raw = override.isEmpty ? (Lamps.config?.alipayScheme ?? "") : override
-        return raw
     }
 
     func complete(

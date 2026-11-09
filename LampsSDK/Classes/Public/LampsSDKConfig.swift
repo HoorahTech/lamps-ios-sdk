@@ -15,9 +15,6 @@ public final class LampsSDKConfig: NSObject, NSCopying {
     public var dayNightMode: LampsDayNightMode = .day
     /// 是否打印 `[LampsSDK]` 调试日志。正式包请保持关闭。
     public var debugLogEnabled: Bool = false
-    /// 支付宝支付回跳 URL Scheme，与宿主 Info.plist 的 `CFBundleURLSchemes` 一致，不要带 `://`。
-    /// 需同时接入 `LampsSDK/AlipayAdapter`，且宿主已链接 `AlipaySDK`。SDK 不拉取支付宝 SDK。
-    public var alipayScheme: String = ""
 
     // MARK: - 三方广告 SDK 初始化开关（由 Lamps 在 start 时写入各家 SDK）
 
@@ -42,7 +39,6 @@ public final class LampsSDKConfig: NSObject, NSCopying {
         config.appId = appId
         config.dayNightMode = dayNightMode
         config.debugLogEnabled = debugLogEnabled
-        config.alipayScheme = alipayScheme
         config.personalizedRecommendEnabled = personalizedRecommendEnabled
         config.shakeAdsEnabled = shakeAdsEnabled
         config.allowLocation = allowLocation

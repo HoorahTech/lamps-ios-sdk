@@ -464,13 +464,9 @@ H5 调用 `lamps.thirdPartyPay.order`。入参对齐虎扑 `hupu.thirdPartyPay.o
 
 `lamps.common.bridgeReady` 额外带回 `alipayPay`：`1` 表示 `AlipayAdapter` 已注册，`0` 表示未接入。这个字段只在 `bridgeReady` 里，不进 `lamps.common.track`。
 
-宿主在 `Lamps.start` 之前设置回跳 Scheme，值与 Info.plist 的 `CFBundleURLSchemes` 一致，不要带 `://`：
+回跳 Scheme 固定为 `lampsalipay`（`Lamps.alipayURLScheme`），不通过 `LampsSDKConfig` 设置。宿主把它写入 Info.plist 的 `CFBundleURLSchemes`，不要带 `://`。
 
-```swift
-config.alipayScheme = "your-scheme"
-```
-
-支付宝 App 支付完成后会跳回 `your-scheme://safepay/...`。请在宿主里优先交给 SDK：
+支付宝 App 支付完成后会跳回 `lampsalipay://safepay/...`。宿主收到 URL 后直接交给 SDK，不用判断 Scheme：
 
 ```swift
 func application(
@@ -489,9 +485,7 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
 }
 ```
 
-`handleOpenURL` 仅在有进行中的 Lamps 支付且 `url.host` 为 `safepay` 时返回 `true`，并用空的 standbyCallback 把结果交回本次 Bridge。返回 `false` 时继续走宿主自己的跳转，包括宿主自己的支付宝支付。
-
-宿主如果已经对 `safepay` 调用 `processOrderWithPaymentResult` 且 standbyCallback 为空，可以不接 `handleOpenURL`。standbyCallback 非空时，支付宝不会回调本次 Bridge，需要改成先调用 `handleOpenURL`。
+`handleOpenURL` 仅在 Scheme 为 `lampsalipay`、`url.host` 为 `safepay`，且有进行中的 Lamps 支付时返回 `true`，并用空的 standbyCallback 把结果交回本次 Bridge。返回 `false` 时继续走宿主自己的跳转，包括宿主自己的支付宝支付。
 
 入参 `data`：
 
@@ -499,7 +493,6 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
 | --- | --- | --- | --- |
 | `channel` | string | 是 | 目前只支持 `alipay` |
 | `orderInfo` | string | 是 | 支付宝订单串 |
-| `scheme` | string | 否 | 覆盖 `alipayScheme`。未传时用初始化配置 |
 
 ```json
 {
@@ -528,7 +521,7 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
 }
 ```
 
-参数不合法、未配置 Scheme，或未接入 `AlipayAdapter` 时，error 回调只有 `msg`，例如 `宿主未集成支付宝 SDK`。
+参数不合法，或未接入 `AlipayAdapter` 时，error 回调只有 `msg`，例如 `宿主未集成支付宝 SDK`。
 
 ## 手动 Framework（xcframework）集成
 

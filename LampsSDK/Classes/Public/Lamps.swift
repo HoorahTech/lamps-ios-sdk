@@ -20,6 +20,10 @@ public final class Lamps: NSObject {
     /// 当前 SDK 版本号。
     public static let sdkVersion = "1.0.1"
 
+    /// 支付宝支付回跳 Scheme。宿主写入 Info.plist 的 `CFBundleURLSchemes`，不要带 `://`。
+    /// 这个值由 SDK 固定，不通过 `LampsSDKConfig` 设置。
+    public static let alipayURLScheme = "lampsalipay"
+
     /// 埋点回调。`access` / `click` / `exposure` 都在 SDK 自行上报之前于主线程调用。
     ///
     /// 请在主线程设置。回调与 SDK 自己的 `/api/v1/event/report` 并行，不表示服务端已收到。
@@ -112,14 +116,11 @@ public final class Lamps: NSObject {
         LampsSDKLog.debug("clear user")
     }
 
-    /// 把支付宝 App 支付回跳交给 SDK。请在 `application(_:open:options:)` 或 Scene 的 `openURLContexts` 里优先调用。
+    /// 把支付宝 App 支付回跳交给 SDK。请在 `application(_:open:options:)` 或 Scene 的 `openURLContexts` 里调用，宿主不用判断 Scheme。
     ///
-    /// 仅当存在进行中的 `lamps.thirdPartyPay.order`，且 `url.host` 为 `safepay` 时返回 `true`。
+    /// 仅当 `url.scheme` 为 `alipayURLScheme`、`url.host` 为 `safepay`，且存在进行中的 `lamps.thirdPartyPay.order` 时返回 `true`。
     /// 内部以空的 standbyCallback 调用支付宝，结果回到本次 Bridge 回调。
     /// 返回 `false` 时，宿主继续处理自己的 URL，包括宿主自己的支付宝支付。
-    ///
-    /// 宿主若已经用空 standbyCallback 调用 `processOrderWithPaymentResult`，可以不调用本方法，Bridge 仍能收到结果。
-    /// standbyCallback 非空时，支付宝不会回调本次 Bridge，请改为先调用本方法。
     @discardableResult
     @objc(handleOpenURL:)
     public static func handleOpenURL(_ url: URL) -> Bool {

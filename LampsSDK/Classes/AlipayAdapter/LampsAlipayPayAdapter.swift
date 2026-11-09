@@ -34,7 +34,7 @@ final class LampsAlipaySDKPay: LampsAlipayPaying {
     }
 
     func handleOpenURL(_ url: URL) -> Bool {
-        guard isSafepay(url), completion != nil, let service = AlipaySDK.defaultService() else {
+        guard isLampsPayCallback(url), completion != nil, let service = AlipaySDK.defaultService() else {
             return false
         }
         // standbyCallback 传空，支付宝才会回到 payOrder 的 callback。
@@ -52,8 +52,10 @@ final class LampsAlipaySDKPay: LampsAlipayPaying {
         current(outcome)
     }
 
-    private func isSafepay(_ url: URL) -> Bool {
-        url.host?.caseInsensitiveCompare("safepay") == .orderedSame
+    /// 只认 SDK 固定 Scheme 下的支付宝回跳，宿主自己的 Scheme 在这里直接放过。
+    private func isLampsPayCallback(_ url: URL) -> Bool {
+        url.scheme?.caseInsensitiveCompare(Lamps.alipayURLScheme) == .orderedSame
+            && url.host?.caseInsensitiveCompare("safepay") == .orderedSame
     }
 
     private static func outcome(from result: [AnyHashable: Any]?) -> LampsAlipayPayOutcome {
