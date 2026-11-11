@@ -458,7 +458,7 @@ gameView.updateDayNightMode(.night)
 
 H5 调用 `lamps.thirdPartyPay.order`。入参对齐虎扑 `hupu.thirdPartyPay.order` 的支付宝渠道。Core 不链接支付宝。宿主已有 `AlipaySDK` 时再打开 `LampsSDK/AlipayAdapter`，Adapter 里直接调用 `AlipaySDK`。不打开这个 subspec 时，Bridge 会失败。
 
-源码里是 `import AlipaySDK`。支付宝 framework 自身没有 module map，Adapter 补了一份同名 module。`AlipaySDK-iOS` 按 CocoaPods 默认路径挂到 `FRAMEWORK_SEARCH_PATHS`。`LampsSDK/AlipayAdapter` 不会自己拉 `AlipaySDK-iOS`。宿主还要让 `LampsSDK` 依赖已有的支付宝 target，保证 xcframework 先展开再编译。
+源码里是 `import AlipaySDK`。支付宝 framework 自身没有 module map，Adapter 补了一份同名 module（`AlipayAdapter/Module`）。这份目录不参与编译，podspec 用 `preserve_paths` 留在沙盒里：`:path` 开发库本来就保留原目录；从 `:git` 或中心仓安装时，CocoaPods 会删掉未声明文件，少了它就会报 `No such module 'AlipaySDK'`。`AlipaySDK-iOS` 按 CocoaPods 默认路径挂到 `FRAMEWORK_SEARCH_PATHS`。`LampsSDK/AlipayAdapter` 不会自己拉 `AlipaySDK-iOS`。宿主还要让 `LampsSDK` 依赖已有的支付宝 target，保证 xcframework 先展开再编译。
 
 二进制由 `LampsAlipayAdapter.podspec` 单独出包，编译期依赖 `AlipaySDK-iOS` 15.8.16，xcframework 不内嵌支付宝。宿主运行时仍使用自己的 `AlipaySDK`。
 

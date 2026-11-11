@@ -100,6 +100,8 @@ Pod::Spec.new do |s|
   # 不声明 AlipaySDK-iOS，避免再拉一份。支付宝 framework 没有 module map，
   # 这里补一份同名 module，源码才能 `import AlipaySDK`。
   # 搜索路径按 CocoaPods 的 AlipaySDK-iOS 布局写；宿主把 SDK 放在别处时要自行改路径。
+  # Module 不进 source_files。:path 开发库保留原目录，所以能编过；
+  # :git / 版本库会删掉未声明文件，必须 preserve_paths，否则报 No such module 'AlipaySDK'。
   s.subspec 'AlipayAdapter' do |ss|
     ss.dependency 'LampsSDK/Core'
     if use_binary
@@ -107,6 +109,7 @@ Pod::Spec.new do |s|
       ss.pod_target_xcconfig = binary_adapter_xcconfig
     else
       ss.source_files = 'LampsSDK/Classes/AlipayAdapter/*.{swift,m,h}'
+      ss.preserve_paths = 'LampsSDK/Classes/AlipayAdapter/Module/*'
       ss.pod_target_xcconfig = {
         'SWIFT_INCLUDE_PATHS' => '$(inherited) $(PODS_TARGET_SRCROOT)/LampsSDK/Classes/AlipayAdapter/Module',
         'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "${PODS_ROOT}/AlipaySDK-iOS" "${PODS_XCFRAMEWORKS_BUILD_DIR}/AlipaySDK-iOS"'

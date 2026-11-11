@@ -17,6 +17,8 @@ Pod::Spec.new do |s|
   s.dependency 'AlipaySDK-iOS'
 
   s.source_files = 'LampsSDK/Classes/AlipayAdapter/*.{swift,m,h}'
+  # 同 LampsSDK/AlipayAdapter：:git 安装会清掉未声明的 Module，须保留才能 import AlipaySDK。
+  s.preserve_paths = 'LampsSDK/Classes/AlipayAdapter/Module/*'
 
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
