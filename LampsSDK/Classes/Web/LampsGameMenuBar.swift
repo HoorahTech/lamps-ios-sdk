@@ -2,6 +2,7 @@ import UIKit
 
 /// 游戏菜单条：更多 + 分割线 + 关闭。
 /// 悬浮跟手拖拽，松手按左右距离吸边；静止 3s 收成贴边半圆弧，点击再展开。
+/// 首次落到屏幕上时，在条下方展示一次拖动引导；引导未关闭前不自动收起。
 final class LampsGameMenuBar: UIView {
     var onClose: (() -> Void)?
     var onRestart: (() -> Void)?
@@ -13,6 +14,7 @@ final class LampsGameMenuBar: UIView {
     private let handleView = UIImageView()
     private weak var overlayView: UIView?
     private weak var dropdownView: UIView?
+    private weak var dragGuideView: LampsGameMenuDragGuideView?
 
     private var dockEdge: DockEdge = .right
     private var isCollapsed = false
@@ -41,6 +43,7 @@ final class LampsGameMenuBar: UIView {
         super.didMoveToWindow()
         if window == nil {
             dismissDropdown(animated: false)
+            dismissDragGuide(animated: false, resumeCollapse: false)
             stopCollapseTimer()
         } else {
             scheduleCollapse()
@@ -67,12 +70,14 @@ final class LampsGameMenuBar: UIView {
             )
             frame = dockedFrame(tucked: false, in: superview)
             isHidden = false
+            presentDragGuideIfNeeded()
             scheduleCollapse()
             return
         }
         guard superview.bounds.size != lastSuperviewSize else { return }
         lastSuperviewSize = superview.bounds.size
         frame = dockedFrame(tucked: isCollapsed, in: superview)
+        updateDragGuideFrame()
     }
 
     private func setup() {
@@ -158,6 +163,7 @@ final class LampsGameMenuBar: UIView {
             panStartCenter = center
             stopCollapseTimer()
             dismissDropdown(animated: true)
+            dismissDragGuide(animated: false, resumeCollapse: false)
             layer.removeAllAnimations()
         case .changed:
             let translation = gesture.translation(in: superview)
@@ -215,6 +221,7 @@ final class LampsGameMenuBar: UIView {
         host.addSubview(dropdown)
         overlayView = overlay
         dropdownView = dropdown
+        dismissDragGuide(animated: false, resumeCollapse: false)
 
         NSLayoutConstraint.activate([
             overlay.topAnchor.constraint(equalTo: host.topAnchor),
@@ -276,7 +283,8 @@ final class LampsGameMenuBar: UIView {
     }
 
     private var canCollapse: Bool {
-        !isCollapsed && !isDragging && overlayView == nil && window != nil && !needsInitialPlacement
+        !isCollapsed && !isDragging && overlayView == nil && dragGuideView == nil
+            && window != nil && !needsInitialPlacement
     }
 
     private func collapseIfNeeded() {
@@ -334,6 +342,65 @@ final class LampsGameMenuBar: UIView {
         ) {
             self.frame = target
         }
+    }
+
+    private func presentDragGuideIfNeeded() {
+        guard dragGuideView == nil,
+              !LampsGameMenuDragGuideStore.hasShown,
+              let host = superview,
+              host.bounds.width > 0 else { return }
+        let guide = LampsGameMenuDragGuideView()
+        guide.onClose = { [weak self] in
+            self?.dismissDragGuide(animated: true)
+        }
+        guide.alpha = 0
+        host.insertSubview(guide, belowSubview: self)
+        dragGuideView = guide
+        updateDragGuideFrame()
+        LampsGameMenuDragGuideStore.markShown()
+        UIView.animate(withDuration: 0.2) {
+            guide.alpha = 1
+        }
+    }
+
+    private func dismissDragGuide(animated: Bool, resumeCollapse: Bool = true) {
+        guard let guide = dragGuideView else { return }
+        dragGuideView = nil
+        let remove = { guide.removeFromSuperview() }
+        if animated {
+            UIView.animate(withDuration: 0.12, animations: {
+                guide.alpha = 0
+            }, completion: { _ in
+                remove()
+            })
+        } else {
+            remove()
+        }
+        if resumeCollapse {
+            scheduleCollapse()
+        }
+    }
+
+    /// 气泡放在菜单下方，箭头对准菜单中心；下方放不下时翻到上方。横向贴边夹紧。
+    private func updateDragGuideFrame() {
+        guard let guide = dragGuideView, let superview else { return }
+        let size = guide.preferredSize()
+        let margin = Metrics.edgeMargin
+        let gap = Metrics.guideGap
+        let spaceBelow = superview.bounds.height - superview.safeAreaInsets.bottom - margin - frame.maxY - gap
+        let spaceAbove = frame.minY - gap - superview.safeAreaInsets.top - margin
+        let pointsUp = spaceBelow >= size.height || spaceBelow >= spaceAbove
+        var y = pointsUp ? frame.maxY + gap : frame.minY - gap - size.height
+        let minY = superview.safeAreaInsets.top + margin
+        let maxY = superview.bounds.height - superview.safeAreaInsets.bottom - size.height - margin
+        y = minY <= maxY ? min(max(y, minY), maxY) : minY
+        var x = frame.midX - size.width / 2
+        let minX = margin
+        let maxX = superview.bounds.width - size.width - margin
+        x = minX <= maxX ? min(max(x, minX), maxX) : minX
+        guide.pointsUp = pointsUp
+        guide.arrowCenterX = frame.midX - x
+        guide.frame = CGRect(origin: CGPoint(x: x, y: y), size: size)
     }
 
     private func updateDockEdge(in superview: UIView) {
@@ -412,6 +479,14 @@ private enum Metrics {
     static let expandedWidth: CGFloat = horizontalPadding * 2 + iconSize * 2 + iconGap * 2 + dividerWidth
     static let expandedSize = CGSize(width: expandedWidth, height: barHeight)
     static let barBackground = UIColor(red: 0, green: 0, blue: 0, alpha: 0.10)
+    static let guideGap: CGFloat = 4
+    static let guideArrowHeight: CGFloat = 6
+    static let guideArrowWidth: CGFloat = 12
+    static let guideCornerRadius: CGFloat = 8
+    static let guideHorizontalPadding: CGFloat = 12
+    static let guideVerticalPadding: CGFloat = 8
+    static let guideCloseGap: CGFloat = 6
+    static let guideCloseColor = UIColor(red: 137 / 255, green: 144 / 255, blue: 159 / 255, alpha: 1)
 }
 
 /// 18×18 图标，四周各扩 8pt 热区，对齐 `setEnlargeEdgeWithTop:8`。
@@ -494,6 +569,163 @@ private final class LampsGameMenuDropdownView: UIView {
 
     @objc private func restartTapped() {
         onRestart?()
+    }
+}
+
+/// 安装后只记一次。`UserDefaults` 随 App 删除清空，重装后会再提示。
+private enum LampsGameMenuDragGuideStore {
+    private static let key = "com.hupu.lamps.sdk.gameMenuDragGuideShown"
+
+    static var hasShown: Bool {
+        UserDefaults.standard.bool(forKey: key)
+    }
+
+    static func markShown() {
+        UserDefaults.standard.set(true, forKey: key)
+    }
+}
+
+/// 菜单拖动引导：白底圆角气泡，箭头指向菜单，右侧关闭。
+private final class LampsGameMenuDragGuideView: UIView {
+    var onClose: (() -> Void)?
+    var arrowCenterX: CGFloat = 0 {
+        didSet { setNeedsLayout() }
+    }
+    var pointsUp = true {
+        didSet { setNeedsLayout() }
+    }
+
+    private let textLabel = UILabel()
+    private let closeButton = UIButton(type: .custom)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+        isOpaque = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.12
+        layer.shadowRadius = 4
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+
+        textLabel.text = "可移动位置，按住拖动"
+        textLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        textLabel.textColor = .black
+        textLabel.isUserInteractionEnabled = false
+        addSubview(textLabel)
+
+        closeButton.setTitle("×", for: .normal)
+        closeButton.setTitleColor(Metrics.guideCloseColor, for: .normal)
+        closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        closeButton.contentHorizontalAlignment = .right
+        closeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: Metrics.guideHorizontalPadding)
+        closeButton.accessibilityLabel = "关闭"
+        closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+        addSubview(closeButton)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func preferredSize() -> CGSize {
+        let text = textLabel.intrinsicContentSize
+        let closeSide = ceil(text.height)
+        let width = Metrics.guideHorizontalPadding
+            + ceil(text.width)
+            + Metrics.guideCloseGap
+            + closeSide
+            + Metrics.guideHorizontalPadding
+        let height = Metrics.guideArrowHeight + Metrics.guideVerticalPadding * 2 + max(ceil(text.height), closeSide)
+        return CGSize(width: width, height: height)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let text = textLabel.intrinsicContentSize
+        let contentTop = (pointsUp ? Metrics.guideArrowHeight : 0) + Metrics.guideVerticalPadding
+        let contentHeight = bounds.height - Metrics.guideArrowHeight - Metrics.guideVerticalPadding * 2
+        textLabel.frame = CGRect(
+            x: Metrics.guideHorizontalPadding,
+            y: contentTop + (contentHeight - ceil(text.height)) / 2,
+            width: ceil(text.width),
+            height: ceil(text.height)
+        )
+        let closeX = textLabel.frame.maxX + Metrics.guideCloseGap
+        closeButton.frame = CGRect(
+            x: closeX,
+            y: pointsUp ? Metrics.guideArrowHeight : 0,
+            width: max(0, bounds.width - closeX),
+            height: bounds.height - Metrics.guideArrowHeight
+        )
+        layer.shadowPath = bubblePath().cgPath
+        setNeedsDisplay()
+    }
+
+    override func draw(_ rect: CGRect) {
+        UIColor.white.setFill()
+        bubblePath().fill()
+    }
+
+    @objc private func closeTapped() {
+        onClose?()
+    }
+
+    private func bubblePath() -> UIBezierPath {
+        let width = bounds.width
+        let height = bounds.height
+        let arrowH = Metrics.guideArrowHeight
+        let arrowW = Metrics.guideArrowWidth
+        let radius = Metrics.guideCornerRadius
+        let top = pointsUp ? arrowH : 0
+        let bottom = pointsUp ? height : height - arrowH
+        let tipX = min(max(arrowCenterX, radius + arrowW / 2), width - radius - arrowW / 2)
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: radius, y: top))
+        path.addLine(to: CGPoint(x: tipX - arrowW / 2, y: top))
+        if pointsUp {
+            path.addLine(to: CGPoint(x: tipX, y: 0))
+            path.addLine(to: CGPoint(x: tipX + arrowW / 2, y: top))
+        }
+        path.addLine(to: CGPoint(x: width - radius, y: top))
+        path.addArc(
+            withCenter: CGPoint(x: width - radius, y: top + radius),
+            radius: radius,
+            startAngle: -.pi / 2,
+            endAngle: 0,
+            clockwise: true
+        )
+        path.addLine(to: CGPoint(x: width, y: bottom - radius))
+        path.addArc(
+            withCenter: CGPoint(x: width - radius, y: bottom - radius),
+            radius: radius,
+            startAngle: 0,
+            endAngle: .pi / 2,
+            clockwise: true
+        )
+        path.addLine(to: CGPoint(x: tipX + arrowW / 2, y: bottom))
+        if !pointsUp {
+            path.addLine(to: CGPoint(x: tipX, y: height))
+            path.addLine(to: CGPoint(x: tipX - arrowW / 2, y: bottom))
+        }
+        path.addLine(to: CGPoint(x: radius, y: bottom))
+        path.addArc(
+            withCenter: CGPoint(x: radius, y: bottom - radius),
+            radius: radius,
+            startAngle: .pi / 2,
+            endAngle: .pi,
+            clockwise: true
+        )
+        path.addLine(to: CGPoint(x: 0, y: top + radius))
+        path.addArc(
+            withCenter: CGPoint(x: radius, y: top + radius),
+            radius: radius,
+            startAngle: .pi,
+            endAngle: .pi * 3 / 2,
+            clockwise: true
+        )
+        path.close()
+        return path
     }
 }
 

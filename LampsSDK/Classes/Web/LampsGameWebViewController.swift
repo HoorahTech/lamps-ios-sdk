@@ -1,7 +1,8 @@
 import UIKit
 
 /// 游戏 H5 容器：在 `LampsWebViewController` 之上增加悬浮菜单条（更多 + 关闭）。
-/// 菜单可拖拽吸边，静止 3s 收成贴边半圆弧。Bridge、加载、导航栏隐藏与 `closePage()` 行为与父类一致。
+/// 菜单可拖拽吸边，静止 3s 收成贴边半圆弧。首次进入在菜单下提示可拖动，安装周期内只出现一次。
+/// Bridge、加载、导航栏隐藏与 `closePage()` 行为与父类一致。
 @objcMembers
 public final class LampsGameWebViewController: LampsWebViewController {
     private lazy var menuBar: LampsGameMenuBar = {
