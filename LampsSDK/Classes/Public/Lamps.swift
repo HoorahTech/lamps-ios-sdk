@@ -18,7 +18,7 @@ public typealias LampsShowGameCenterCompletion = (Bool, Error?) -> Void
 @objcMembers
 public final class Lamps: NSObject {
     /// 当前 SDK 版本号。
-    public static let sdkVersion = "1.0.1"
+    public static let sdkVersion = "1.0.2"
 
     /// 支付宝支付回跳 Scheme。宿主写入 Info.plist 的 `CFBundleURLSchemes`，不要带 `://`。
     /// 这个值由 SDK 固定，不通过 `LampsSDKConfig` 设置。

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LampsAlipayAdapter'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'LampsSDK 支付宝支付 Adapter（独立模块，供 xcframework 出包）'
   s.homepage         = 'http://gitlab.hupu.com/HPBase/lamps-ios-sdk'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
