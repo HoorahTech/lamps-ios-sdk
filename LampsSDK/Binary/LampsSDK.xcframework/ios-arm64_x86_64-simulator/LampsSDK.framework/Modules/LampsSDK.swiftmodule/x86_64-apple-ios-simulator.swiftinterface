@@ -22,6 +22,7 @@ public typealias LampsStartCompletion = (Swift.Bool, (any Swift.Error)?) -> Swif
 public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?) -> Swift.Void
 @objc @_inheritsConvenienceInitializers @objcMembers final public class Lamps : ObjectiveC.NSObject {
   @objc public static let sdkVersion: Swift.String
+  @objc public static let alipayURLScheme: Swift.String
   @objc public static var trackHandler: LampsSDK.LampsTrackHandler?
   #if compiler(>=5.3) && $NonescapableTypes
   @objc(startWithConfig:completion:) public static func start(config: LampsSDK.LampsSDKConfig, completion: LampsSDK.LampsStartCompletion? = nil)
@@ -34,20 +35,24 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
     @objc get
   }
   #endif
+  @objc(setUserInfo:) public static func setUserInfo(_ userInfo: LampsSDK.LampsUserInfo)
+  @objc(clearUserInfo) public static func clearUserInfo()
+  @discardableResult
+  @objc(handleOpenURL:) public static func handleOpenURL(_ url: Foundation.URL) -> Swift.Bool
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(showGameCenterFromViewController:config:completion:) public static func showGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(showGameCenterFromViewController:config:params:completion:) public static func showGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(presentGameCenterFromViewController:config:completion:) public static func presentGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(presentGameCenterFromViewController:config:params:completion:) public static func presentGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(showGameWithGameId:fromViewController:completion:) public static func showGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(showGameWithGameId:fromViewController:params:completion:) public static func showGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(presentGameWithGameId:fromViewController:completion:) public static func presentGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(presentGameWithGameId:fromViewController:params:completion:) public static func presentGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(makeGameCenterViewWithConfig:) public static func makeGameCenterView(config: LampsSDK.LampsGameCenterConfig? = nil) -> LampsSDK.LampsGameCenterView?
+  @objc(makeGameCenterViewWithConfig:params:) public static func makeGameCenterView(config: LampsSDK.LampsGameCenterConfig? = nil, params: [Swift.String : Swift.String]? = nil) -> LampsSDK.LampsGameCenterView?
   #endif
   @objc override dynamic public init()
   @objc deinit
@@ -130,6 +135,16 @@ public typealias LampsTrackHandler = (LampsSDK.LampsTrackEvent) -> Swift.Void
   @objc final public let visitTime: Swift.Int64
   @objc final public let leaveTime: Swift.Int64
   @objc final public let pdata: [Swift.String : Any]
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsUserInfo : ObjectiveC.NSObject, Foundation.NSCopying {
+  @objc final public var userId: Swift.String
+  @objc final public var nickname: Swift.String
+  @objc final public var avatar: Swift.String
+  @objc override dynamic public init()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  #endif
   @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor @preconcurrency public class LampsWebViewController : UIKit.UIViewController {

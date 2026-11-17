@@ -310,6 +310,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class NSString;
 @class LampsTrackEvent;
 @class LampsSDKConfig;
+@class LampsUserInfo;
+@class NSURL;
 @class UIViewController;
 @class LampsGameCenterConfig;
 @class LampsGameCenterView;
@@ -320,6 +322,10 @@ SWIFT_CLASS("_TtC8LampsSDK5Lamps")
 /// 当前 SDK 版本号。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull sdkVersion;)
 + (NSString * _Nonnull)sdkVersion SWIFT_WARN_UNUSED_RESULT;
+/// 支付宝支付回跳 Scheme。宿主写入 Info.plist 的 <code>CFBundleURLSchemes</code>，不要带 <code>://</code>。
+/// 这个值由 SDK 固定，不通过 <code>LampsSDKConfig</code> 设置。
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull alipayURLScheme;)
++ (NSString * _Nonnull)alipayURLScheme SWIFT_WARN_UNUSED_RESULT;
 /// 埋点回调。<code>access</code> / <code>click</code> / <code>exposure</code> 都在 SDK 自行上报之前于主线程调用。
 /// 请在主线程设置。回调与 SDK 自己的 <code>/api/v1/event/report</code> 并行，不表示服务端已收到。
 /// 未设置时只走 SDK 自己的上报。回调里不要做耗时操作。
@@ -341,6 +347,17 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isStarted;)
 /// 最近一次 <code>start</code> 使用的配置；尚未启动时为 <code>nil</code>。
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConfig * _Nullable config;)
 + (LampsSDKConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
+/// 传入当前登录用户。可重复调用覆盖。SDK 会拷贝一份，之后修改原对象不会生效。
+/// 只保存在内存中。<code>bridgeReady</code> 用 <code>userId</code> / <code>nickname</code> / <code>avatar</code> 回传 <code>uid</code> / <code>nickname</code> / <code>avatar</code>。
+/// 退出登录请调用 <code>clearUserInfo</code>。请在主线程调用。
++ (void)setUserInfo:(LampsUserInfo * _Nonnull)userInfo;
+/// 清除当前用户。之后 <code>bridgeReady</code> 的 <code>uid</code> / <code>nickname</code> / <code>avatar</code> 为空。请在主线程调用。
++ (void)clearUserInfo;
+/// 把支付宝 App 支付回跳交给 SDK。请在 <code>application(_:open:options:)</code> 或 Scene 的 <code>openURLContexts</code> 里调用，宿主不用判断 Scheme。
+/// 仅当 <code>url.scheme</code> 为 <code>alipayURLScheme</code>、<code>url.host</code> 为 <code>safepay</code>，且存在进行中的 <code>lamps.thirdPartyPay.order</code> 时返回 <code>true</code>。
+/// 内部以空的 standbyCallback 调用支付宝，结果回到本次 Bridge 回调。
+/// 返回 <code>false</code> 时，宿主继续处理自己的 URL，包括宿主自己的支付宝支付。
++ (BOOL)handleOpenURL:(NSURL * _Nonnull)url;
 /// 在宿主导航栈中打开游戏中心。请先 <code>start</code> 成功。
 /// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。关闭由 H5 触发，或调用页内关闭。
 /// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGameCenter</code>。
@@ -348,18 +365,22 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 /// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
+/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开游戏中心，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
 /// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
+/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 在宿主导航栈中打开具体游戏页。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。容器为 <code>LampsGameWebViewController</code>。
@@ -368,9 +389,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
+/// \param params 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开具体游戏页，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。
@@ -378,9 +401,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
+/// \param params 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
 /// 返回 <code>LampsGameCenterView</code>；地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
@@ -388,7 +413,9 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
 /// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
-+ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
+/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+///
++ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -454,7 +481,8 @@ SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 @end
 
 /// 游戏 H5 容器：在 <code>LampsWebViewController</code> 之上增加悬浮菜单条（更多 + 关闭）。
-/// 菜单可拖拽吸边，静止 3s 收成贴边半圆弧。Bridge、加载、导航栏隐藏与 <code>closePage()</code> 行为与父类一致。
+/// 菜单可拖拽吸边，静止 3s 收成贴边半圆弧。首次进入在菜单下提示可拖动，安装周期内只出现一次。
+/// Bridge、加载、导航栏隐藏与 <code>closePage()</code> 行为与父类一致。
 SWIFT_CLASS("_TtC8LampsSDK26LampsGameWebViewController")
 @interface LampsGameWebViewController : LampsWebViewController
 - (void)viewDidLoad;
@@ -539,6 +567,20 @@ SWIFT_CLASS("_TtC8LampsSDK15LampsTrackEvent")
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull pdata;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// 媒体侧当前用户。登录后调用 <code>Lamps.setUserInfo</code>，退出登录后调用 <code>Lamps.clearUserInfo</code>。
+/// SDK 只保存在内存里，进程结束后失效。请在主线程设置。
+SWIFT_CLASS("_TtC8LampsSDK13LampsUserInfo")
+@interface LampsUserInfo : NSObject <NSCopying>
+/// 媒体用户 ID。<code>bridgeReady</code> 字段名为 <code>uid</code>。
+@property (nonatomic, copy) NSString * _Nonnull userId;
+/// 昵称。<code>bridgeReady</code> 字段名为 <code>nickname</code>。
+@property (nonatomic, copy) NSString * _Nonnull nickname;
+/// 头像地址。<code>bridgeReady</code> 字段名为 <code>avatar</code>。
+@property (nonatomic, copy) NSString * _Nonnull avatar;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (id _Nonnull)copyWithZone:(struct _NSZone * _Nullable)zone SWIFT_WARN_UNUSED_RESULT;
 @end
 
 #endif

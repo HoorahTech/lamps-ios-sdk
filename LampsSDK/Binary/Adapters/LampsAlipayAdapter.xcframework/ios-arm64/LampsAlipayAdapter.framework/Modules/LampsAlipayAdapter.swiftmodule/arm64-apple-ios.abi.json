@@ -1,0 +1,47 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "LampsAlipayAdapter",
+    "printedName": "LampsAlipayAdapter",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "LampsSDK",
+        "printedName": "LampsSDK",
+        "declKind": "Import",
+        "moduleName": "LampsAlipayAdapter",
+        "declAttributes": [
+          "SPIAccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "LampsAlipayAdapter"
+      },
+      {
+        "kind": "Import",
+        "name": "AlipaySDK",
+        "printedName": "AlipaySDK",
+        "declKind": "Import",
+        "moduleName": "LampsAlipayAdapter",
+        "declAttributes": [
+          "ImplementationOnly",
+          "RawDocComment"
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/AlipayAdapter\/LampsAlipayPayAdapter.swift",
+      "kind": "BooleanLiteral",
+      "offset": 3156,
+      "length": 5,
+      "value": "false"
+    }
+  ]
+}

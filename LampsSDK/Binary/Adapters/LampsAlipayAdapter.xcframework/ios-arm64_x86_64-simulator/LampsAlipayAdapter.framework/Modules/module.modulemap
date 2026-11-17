@@ -1,0 +1,11 @@
+framework module LampsAlipayAdapter {
+  umbrella header "LampsAlipayAdapter-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module LampsAlipayAdapter.Swift {
+  header "LampsAlipayAdapter-Swift.h"
+  requires objc
+}
