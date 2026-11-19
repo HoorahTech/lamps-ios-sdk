@@ -309,11 +309,15 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSString;
 @class LampsTrackEvent;
+@class LampsBehavior;
+enum LampsBehaviorEvent : NSInteger;
+enum LampsBehaviorPageType : NSInteger;
 @class LampsSDKConfig;
 @class LampsUserInfo;
 @class NSURL;
 @class UIViewController;
 @class LampsGameCenterConfig;
+@class LampsGameConfig;
 @class LampsGameCenterView;
 /// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入 <code>LampsGameCenterView</code>。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
@@ -332,6 +336,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable trackHandler)(LampsTrackEvent * _Nonnull);)
 + (void (^ _Nullable)(LampsTrackEvent * _Nonnull))trackHandler SWIFT_WARN_UNUSED_RESULT;
 + (void)setTrackHandler:(void (^ _Nullable)(LampsTrackEvent * _Nonnull))value;
+/// ObjC 设置行为回传。传 <code>nil</code> 清除。Swift 请直接设置 <code>behaviorHandler</code>。
++ (void)setBehaviorHandler:(void (^ _Nullable)(LampsBehavior * _Nonnull))handler;
+/// ObjC 取埋点事件名。Swift 用 <code>event.name</code>。
++ (NSString * _Nonnull)behaviorNameForEvent:(enum LampsBehaviorEvent)event SWIFT_WARN_UNUSED_RESULT;
+/// ObjC 取页面类型文案。Swift 用 <code>pageType.name</code>。
++ (NSString * _Nonnull)behaviorPageTypeNameForPageType:(enum LampsBehaviorPageType)pageType SWIFT_WARN_UNUSED_RESULT;
 /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
 /// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按 <code>initializeCSJEnabled</code> / <code>initializeYlhEnabled</code> / <code>initializeNoahEnabled</code> 初始化已接入的广告 SDK。
 /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
@@ -363,24 +373,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 /// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGameCenter</code>。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
-///
-/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次展示配置。<code>urlQuery</code> 拼到游戏中心链接上，<code>trackParams</code> 并入后续行为回传。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开游戏中心，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
-///
-/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次展示配置。<code>urlQuery</code> 拼到游戏中心链接上，<code>trackParams</code> 并入后续行为回传。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 在宿主导航栈中打开具体游戏页。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。容器为 <code>LampsGameWebViewController</code>。
@@ -389,11 +395,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param params 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次打开配置。<code>urlQuery</code> 拼到游戏页链接上，<code>trackParams</code> 并入后续行为回传。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController config:(LampsGameConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开具体游戏页，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。
@@ -401,23 +407,58 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param params 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次打开配置。<code>urlQuery</code> 拼到游戏页链接上，<code>trackParams</code> 并入后续行为回传。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController config:(LampsGameConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
 /// 返回 <code>LampsGameCenterView</code>；地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
 /// 宿主自有日夜间变化时调用 <code>updateDayNightMode</code>，无需重建本视图。
 /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
-/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+/// \param config 本次展示配置。<code>urlQuery</code> 拼到游戏中心链接上。内嵌视图本身不回传行为，<code>trackParams</code> 会带给从这里打开的游戏。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
-/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
-///
-+ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params SWIFT_WARN_UNUSED_RESULT;
++ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+/// 一次游戏中心 / 游戏行为回传。
+/// <code>data</code> 仍是原来的业务字段，里面平铺了 <code>trackParams</code>。<code>trackParams</code> 同时单独给出本次打开时传入的原表。
+/// 宿主自行补 <code>model</code>、外层 <code>event</code> / <code>type</code>、用户或游客标识、事件时间和客户端版本。
+SWIFT_CLASS("_TtC8LampsSDK13LampsBehavior")
+@interface LampsBehavior : NSObject
+/// 打开页面或退出页面。埋点事件名用 <code>event.name</code>。
+@property (nonatomic, readonly) enum LampsBehaviorEvent event;
+/// 页面类型。埋点文案用 <code>pageType.name</code>。
+@property (nonatomic, readonly) enum LampsBehaviorPageType pageType;
+/// 本次行为字段。打开、退出的内容和原先回调里的 <code>data</code> 相同。
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull data;
+/// 打开时通过配置传入的埋点字段。没有传入时为空。
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, NSString *> * _Nonnull trackParams;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// 游戏中心 / 游戏行为回传的事件。
+/// 打开页面对应埋点外层 <code>type = action</code>，退出页面对应 <code>type = view</code>。
+/// 埋点事件名用 <code>name</code>。ObjC 用 <code>LampsBehaviorEventOpenPage</code> / <code>LampsBehaviorEventExitPage</code>。
+typedef SWIFT_ENUM(NSInteger, LampsBehaviorEvent, open) {
+/// 打开页面。
+  LampsBehaviorEventOpenPage = 0,
+/// 退出页面。
+  LampsBehaviorEventExitPage = 1,
+};
+
+/// 行为回传的页面类型。
+/// 埋点文案用 <code>name</code>：<code>游戏中心</code> / <code>游戏</code>。与 <code>data</code> 里的 <code>type</code> 相同。
+/// ObjC 用 <code>LampsBehaviorPageTypeGameCenter</code> / <code>LampsBehaviorPageTypeGame</code>，文案用 <code>[Lamps behaviorPageTypeNameForPageType:]</code>。
+typedef SWIFT_ENUM(NSInteger, LampsBehaviorPageType, open) {
+/// 游戏中心。
+  LampsBehaviorPageTypeGameCenter = 0,
+/// 单个游戏。
+  LampsBehaviorPageTypeGame = 1,
+};
 
 /// 日夜间。
 typedef SWIFT_ENUM(NSInteger, LampsDayNightMode, open) {
@@ -432,6 +473,11 @@ SWIFT_CLASS("_TtC8LampsSDK21LampsGameCenterConfig")
 @property (nonatomic) enum LampsDayNightMode dayNightMode;
 /// 是否隐藏 H5 标题栏，默认不隐藏。<code>true</code> 时 <code>bridgeReady.hideTitle</code> 为 <code>1</code>。
 @property (nonatomic) BOOL hideTitle;
+/// 追加到游戏中心链接上的查询参数。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull urlQuery;
+/// 本次打开带上的埋点字段。<code>showGameCenter</code> / <code>presentGameCenter</code> 的打开成功、打开失败和退出会并进行为回传，不覆盖 SDK 字段。
+/// 从该游戏中心再打开的游戏也会带上这张表。<code>makeGameCenterView</code> 的内嵌视图本身不回传。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull trackParams;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithDayNightMode:(enum LampsDayNightMode)dayNightMode;
 @end
@@ -449,6 +495,16 @@ SWIFT_CLASS("_TtC8LampsSDK19LampsGameCenterView")
 /// 与当前值相同则不重复通知。H5 尚未 <code>bridgeReady</code> 时事件可能丢失，随后 <code>bridgeReady</code> 会带回最新值。
 - (void)updateDayNightMode:(enum LampsDayNightMode)mode;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+/// 直接打开具体游戏页时的配置。
+SWIFT_CLASS("_TtC8LampsSDK15LampsGameConfig")
+@interface LampsGameConfig : NSObject
+/// 追加到游戏页链接上的查询参数。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull urlQuery;
+/// 本次打开带上的埋点字段。打开成功、打开失败和退出会并进行为回传，不覆盖 SDK 字段。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull trackParams;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSBundle;
@@ -472,6 +528,7 @@ SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidDisappear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 /// 关闭当前页：栈内有上级则 <code>pop</code>，自身或所在导航容器为模态根页时才 <code>dismiss</code>。
 - (void)closePage;
@@ -902,11 +959,15 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSString;
 @class LampsTrackEvent;
+@class LampsBehavior;
+enum LampsBehaviorEvent : NSInteger;
+enum LampsBehaviorPageType : NSInteger;
 @class LampsSDKConfig;
 @class LampsUserInfo;
 @class NSURL;
 @class UIViewController;
 @class LampsGameCenterConfig;
+@class LampsGameConfig;
 @class LampsGameCenterView;
 /// Lamps SDK 入口。接入方 <code>import LampsSDK</code> 后先 <code>start</code>，再 <code>showGameCenter(from:)</code> 打开游戏中心，<code>showGame(gameId:)</code> 打开具体游戏，或 <code>makeGameCenterView()</code> 嵌入 <code>LampsGameCenterView</code>。
 /// 类名不用 <code>LampsSDK</code>，避免与模块名冲突。
@@ -925,6 +986,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable trackHandler)(LampsTrackEvent * _Nonnull);)
 + (void (^ _Nullable)(LampsTrackEvent * _Nonnull))trackHandler SWIFT_WARN_UNUSED_RESULT;
 + (void)setTrackHandler:(void (^ _Nullable)(LampsTrackEvent * _Nonnull))value;
+/// ObjC 设置行为回传。传 <code>nil</code> 清除。Swift 请直接设置 <code>behaviorHandler</code>。
++ (void)setBehaviorHandler:(void (^ _Nullable)(LampsBehavior * _Nonnull))handler;
+/// ObjC 取埋点事件名。Swift 用 <code>event.name</code>。
++ (NSString * _Nonnull)behaviorNameForEvent:(enum LampsBehaviorEvent)event SWIFT_WARN_UNUSED_RESULT;
+/// ObjC 取页面类型文案。Swift 用 <code>pageType.name</code>。
++ (NSString * _Nonnull)behaviorPageTypeNameForPageType:(enum LampsBehaviorPageType)pageType SWIFT_WARN_UNUSED_RESULT;
 /// 启动 SDK。请在打开活动页之前调用，重复调用不会重新初始化广告 SDK。
 /// 会校验 <code>appId</code>、读取本地配置缓存并请求远端配置，再按 <code>initializeCSJEnabled</code> / <code>initializeYlhEnabled</code> / <code>initializeNoahEnabled</code> 初始化已接入的广告 SDK。
 /// 配置请求失败时：有磁盘缓存则仍回调成功并继续使用缓存；无缓存则回调失败。
@@ -956,24 +1023,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 /// 若希望独立全屏打开、不进入宿主导航栈，请用 <code>presentGameCenter</code>。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
-///
-/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次展示配置。<code>urlQuery</code> 拼到游戏中心链接上，<code>trackParams</code> 并入后续行为回传。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开游戏中心，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。从游戏中心再打开具体游戏时，仍在该容器内跳转。
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
-///
-/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次展示配置。<code>urlQuery</code> 拼到游戏中心链接上，<code>trackParams</code> 并入后续行为回传。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameCenterFromViewController:(UIViewController * _Nullable)viewController config:(LampsGameCenterConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 在宿主导航栈中打开具体游戏页。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// 当前页有导航栈则 <code>push</code>，否则全屏 <code>present</code>。容器为 <code>LampsGameWebViewController</code>。
@@ -982,11 +1045,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param params 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次打开配置。<code>urlQuery</code> 拼到游戏页链接上，<code>trackParams</code> 并入后续行为回传。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)showGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController config:(LampsGameConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 全屏打开具体游戏页，不进入宿主导航栈。请先 <code>start</code> 成功。
 /// 使用配置下发的 <code>gamePageUrl</code>，将链接中的 <code>__GAMEID__</code> 替换为 <code>gameId</code> 后加载。
 /// SDK 会用自有导航容器 present，系统导航栏默认隐藏。
@@ -994,23 +1057,58 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) LampsSDKConf
 ///
 /// \param viewController 起始页面，可不传；未传时 SDK 取当前最上层页面。
 ///
-/// \param params 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+/// \param config 本次打开配置。<code>urlQuery</code> 拼到游戏页链接上，<code>trackParams</code> 并入后续行为回传。
 ///
 /// \param completion 打开结果。失败时 <code>error</code> 的 <code>domain</code> 为 <code>LampsSDKErrorDomain</code>，<code>code</code> 见 <code>LampsSDKErrorCode</code>。
 ///
-+ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController params:(NSDictionary<NSString *, NSString *> * _Nullable)params completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
++ (void)presentGameWithGameId:(NSString * _Nonnull)gameId fromViewController:(UIViewController * _Nullable)viewController config:(LampsGameConfig * _Nullable)config completion:(void (^ _Nullable)(BOOL, NSError * _Nullable))completion;
 /// 使用配置下发的 <code>gameCenterPage</code> 创建可内嵌视图。请先 <code>start</code> 成功。
 /// 返回 <code>LampsGameCenterView</code>；地址不可用时返回 <code>nil</code>。
 /// 请由宿主加入自己的视图层级并设置约束。
 /// 宿主自有日夜间变化时调用 <code>updateDayNightMode</code>，无需重建本视图。
 /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
-/// \param config 本次展示配置；不传则用 <code>LampsSDKConfig</code> 中的对应字段。
+/// \param config 本次展示配置。<code>urlQuery</code> 拼到游戏中心链接上。内嵌视图本身不回传行为，<code>trackParams</code> 会带给从这里打开的游戏。不传则用 <code>LampsSDKConfig</code> 中的对应字段。
 ///
-/// \param params 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
-///
-+ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config params:(NSDictionary<NSString *, NSString *> * _Nullable)params SWIFT_WARN_UNUSED_RESULT;
++ (LampsGameCenterView * _Nullable)makeGameCenterViewWithConfig:(LampsGameCenterConfig * _Nullable)config SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+/// 一次游戏中心 / 游戏行为回传。
+/// <code>data</code> 仍是原来的业务字段，里面平铺了 <code>trackParams</code>。<code>trackParams</code> 同时单独给出本次打开时传入的原表。
+/// 宿主自行补 <code>model</code>、外层 <code>event</code> / <code>type</code>、用户或游客标识、事件时间和客户端版本。
+SWIFT_CLASS("_TtC8LampsSDK13LampsBehavior")
+@interface LampsBehavior : NSObject
+/// 打开页面或退出页面。埋点事件名用 <code>event.name</code>。
+@property (nonatomic, readonly) enum LampsBehaviorEvent event;
+/// 页面类型。埋点文案用 <code>pageType.name</code>。
+@property (nonatomic, readonly) enum LampsBehaviorPageType pageType;
+/// 本次行为字段。打开、退出的内容和原先回调里的 <code>data</code> 相同。
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull data;
+/// 打开时通过配置传入的埋点字段。没有传入时为空。
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, NSString *> * _Nonnull trackParams;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+/// 游戏中心 / 游戏行为回传的事件。
+/// 打开页面对应埋点外层 <code>type = action</code>，退出页面对应 <code>type = view</code>。
+/// 埋点事件名用 <code>name</code>。ObjC 用 <code>LampsBehaviorEventOpenPage</code> / <code>LampsBehaviorEventExitPage</code>。
+typedef SWIFT_ENUM(NSInteger, LampsBehaviorEvent, open) {
+/// 打开页面。
+  LampsBehaviorEventOpenPage = 0,
+/// 退出页面。
+  LampsBehaviorEventExitPage = 1,
+};
+
+/// 行为回传的页面类型。
+/// 埋点文案用 <code>name</code>：<code>游戏中心</code> / <code>游戏</code>。与 <code>data</code> 里的 <code>type</code> 相同。
+/// ObjC 用 <code>LampsBehaviorPageTypeGameCenter</code> / <code>LampsBehaviorPageTypeGame</code>，文案用 <code>[Lamps behaviorPageTypeNameForPageType:]</code>。
+typedef SWIFT_ENUM(NSInteger, LampsBehaviorPageType, open) {
+/// 游戏中心。
+  LampsBehaviorPageTypeGameCenter = 0,
+/// 单个游戏。
+  LampsBehaviorPageTypeGame = 1,
+};
 
 /// 日夜间。
 typedef SWIFT_ENUM(NSInteger, LampsDayNightMode, open) {
@@ -1025,6 +1123,11 @@ SWIFT_CLASS("_TtC8LampsSDK21LampsGameCenterConfig")
 @property (nonatomic) enum LampsDayNightMode dayNightMode;
 /// 是否隐藏 H5 标题栏，默认不隐藏。<code>true</code> 时 <code>bridgeReady.hideTitle</code> 为 <code>1</code>。
 @property (nonatomic) BOOL hideTitle;
+/// 追加到游戏中心链接上的查询参数。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull urlQuery;
+/// 本次打开带上的埋点字段。<code>showGameCenter</code> / <code>presentGameCenter</code> 的打开成功、打开失败和退出会并进行为回传，不覆盖 SDK 字段。
+/// 从该游戏中心再打开的游戏也会带上这张表。<code>makeGameCenterView</code> 的内嵌视图本身不回传。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull trackParams;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithDayNightMode:(enum LampsDayNightMode)dayNightMode;
 @end
@@ -1042,6 +1145,16 @@ SWIFT_CLASS("_TtC8LampsSDK19LampsGameCenterView")
 /// 与当前值相同则不重复通知。H5 尚未 <code>bridgeReady</code> 时事件可能丢失，随后 <code>bridgeReady</code> 会带回最新值。
 - (void)updateDayNightMode:(enum LampsDayNightMode)mode;
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+@end
+
+/// 直接打开具体游戏页时的配置。
+SWIFT_CLASS("_TtC8LampsSDK15LampsGameConfig")
+@interface LampsGameConfig : NSObject
+/// 追加到游戏页链接上的查询参数。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull urlQuery;
+/// 本次打开带上的埋点字段。打开成功、打开失败和退出会并进行为回传，不覆盖 SDK 字段。
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nonnull trackParams;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSBundle;
@@ -1065,6 +1178,7 @@ SWIFT_CLASS("_TtC8LampsSDK22LampsWebViewController")
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidDisappear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 /// 关闭当前页：栈内有上级则 <code>pop</code>，自身或所在导航容器为模态根页时才 <code>dismiss</code>。
 - (void)closePage;

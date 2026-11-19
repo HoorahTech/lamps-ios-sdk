@@ -24,6 +24,12 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @objc public static let sdkVersion: Swift.String
   @objc public static let alipayURLScheme: Swift.String
   @objc public static var trackHandler: LampsSDK.LampsTrackHandler?
+  @nonobjc public static var behaviorHandler: LampsSDK.LampsBehaviorHandler?
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc(setBehaviorHandler:) public static func setBehaviorHandler(_ handler: ((LampsSDK.LampsBehavior) -> Swift.Void)?)
+  #endif
+  @objc(behaviorNameForEvent:) public static func behaviorName(for event: LampsSDK.LampsBehaviorEvent) -> Swift.String
+  @objc(behaviorPageTypeNameForPageType:) public static func behaviorPageTypeName(for pageType: LampsSDK.LampsBehaviorPageType) -> Swift.String
   #if compiler(>=5.3) && $NonescapableTypes
   @objc(startWithConfig:completion:) public static func start(config: LampsSDK.LampsSDKConfig, completion: LampsSDK.LampsStartCompletion? = nil)
   #endif
@@ -40,19 +46,19 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
   @discardableResult
   @objc(handleOpenURL:) public static func handleOpenURL(_ url: Foundation.URL) -> Swift.Bool
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(showGameCenterFromViewController:config:params:completion:) public static func showGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(showGameCenterFromViewController:config:completion:) public static func showGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(presentGameCenterFromViewController:config:params:completion:) public static func presentGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(presentGameCenterFromViewController:config:completion:) public static func presentGameCenter(from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameCenterConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(showGameWithGameId:fromViewController:params:completion:) public static func showGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(showGameWithGameId:fromViewController:config:completion:) public static func showGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(presentGameWithGameId:fromViewController:params:completion:) public static func presentGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, params: [Swift.String : Swift.String]? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
+  @objc(presentGameWithGameId:fromViewController:config:completion:) public static func presentGame(gameId: Swift.String, from viewController: UIKit.UIViewController? = nil, config: LampsSDK.LampsGameConfig? = nil, completion: LampsSDK.LampsShowGameCenterCompletion? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @objc(makeGameCenterViewWithConfig:params:) public static func makeGameCenterView(config: LampsSDK.LampsGameCenterConfig? = nil, params: [Swift.String : Swift.String]? = nil) -> LampsSDK.LampsGameCenterView?
+  @objc(makeGameCenterViewWithConfig:) public static func makeGameCenterView(config: LampsSDK.LampsGameCenterConfig? = nil) -> LampsSDK.LampsGameCenterView?
   #endif
   @_spi(LampsDevTools) @nonobjc public static var debugEnvironment: LampsSDK.LampsSDKEnvironment {
     @_spi(LampsDevTools) get
@@ -87,9 +93,47 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
 @_spi(LampsAdapter) public enum LampsAlipayPay {
   @_spi(LampsAdapter) public static func register(_ payer: any LampsSDK.LampsAlipayPaying)
 }
+@objc public enum LampsBehaviorEvent : Swift.Int {
+  case openPage
+  case exitPage
+  public var name: Swift.String {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum LampsBehaviorPageType : Swift.Int {
+  case gameCenter
+  case game
+  public var name: Swift.String {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.Int)
+  #endif
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers final public class LampsBehavior : ObjectiveC.NSObject {
+  @objc final public let event: LampsSDK.LampsBehaviorEvent
+  @objc final public let pageType: LampsSDK.LampsBehaviorPageType
+  @objc final public let data: [Swift.String : Any]
+  @objc final public let trackParams: [Swift.String : Swift.String]
+  @objc deinit
+}
+public typealias LampsBehaviorHandler = (LampsSDK.LampsBehavior) -> Swift.Void
 @objc @_inheritsConvenienceInitializers @objcMembers final public class LampsGameCenterConfig : ObjectiveC.NSObject {
   @objc final public var dayNightMode: LampsSDK.LampsDayNightMode
   @objc final public var hideTitle: Swift.Bool
+  @objc final public var urlQuery: [Swift.String : Swift.String]
+  @objc final public var trackParams: [Swift.String : Swift.String]
   @objc override dynamic public init()
   @objc convenience public init(dayNightMode: LampsSDK.LampsDayNightMode)
   @objc deinit
@@ -99,6 +143,12 @@ public typealias LampsShowGameCenterCompletion = (Swift.Bool, (any Swift.Error)?
     get
   }
   @objc(updateDayNightMode:) @_Concurrency.MainActor @preconcurrency final public func updateDayNightMode(_ mode: LampsSDK.LampsDayNightMode)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class LampsGameConfig : ObjectiveC.NSObject {
+  @objc final public var urlQuery: [Swift.String : Swift.String]
+  @objc final public var trackParams: [Swift.String : Swift.String]
+  @objc override dynamic public init()
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor @preconcurrency final public class LampsGameWebViewController : LampsSDK.LampsWebViewController {
@@ -272,8 +322,36 @@ public let LampsSDKErrorDomain: Swift.String
   @_spi(LampsAdapter) static func initialize(config: LampsSDK.LampsSDKConfig, channelAppId: Swift.String, completion: @escaping (Swift.Bool, (any Swift.Error)?) -> Swift.Void)
   #endif
 }
-@_spi(LampsAdapter) public enum LampsSDKLog {
-  @_spi(LampsAdapter) public static func debug(_ message: Swift.String)
+@_spi(LampsDevTools) @_spi(LampsAdapter) public enum LampsSDKLogCategory : Swift.CaseIterable {
+  @_spi(LampsDevTools) @_spi(LampsAdapter) case startup
+  @_spi(LampsDevTools) @_spi(LampsAdapter) case reward
+  @_spi(LampsDevTools) @_spi(LampsAdapter) case monitor
+  @_spi(LampsDevTools) @_spi(LampsAdapter) case behavior
+  @_spi(LampsDevTools) @_spi(LampsAdapter) case other
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public var title: Swift.String {
+    @_spi(LampsDevTools) @_spi(LampsAdapter) get
+  }
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public static func == (a: LampsSDK.LampsSDKLogCategory, b: LampsSDK.LampsSDKLogCategory) -> Swift.Bool
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public typealias AllCases = [LampsSDK.LampsSDKLogCategory]
+  @_spi(LampsDevTools) @_spi(LampsAdapter) nonisolated public static var allCases: [LampsSDK.LampsSDKLogCategory] {
+    @_spi(LampsDevTools) @_spi(LampsAdapter) get
+  }
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public func hash(into hasher: inout Swift.Hasher)
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public var hashValue: Swift.Int {
+    @_spi(LampsDevTools) @_spi(LampsAdapter) get
+  }
+}
+@_spi(LampsDevTools) @_spi(LampsAdapter) public struct LampsSDKLogEntry {
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public let id: Swift.UInt64
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public let date: Foundation.Date
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public let category: LampsSDK.LampsSDKLogCategory
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public let message: Swift.String
+}
+@_spi(LampsDevTools) @_spi(LampsAdapter) public enum LampsSDKLog {
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public static let didAppendNotification: Foundation.Notification.Name
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public static func debug(_ message: Swift.String, category: LampsSDK.LampsSDKLogCategory = .other)
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public static func snapshot() -> [LampsSDK.LampsSDKLogEntry]
+  @_spi(LampsDevTools) @_spi(LampsAdapter) public static func clear()
 }
 public typealias LampsTrackHandler = (LampsSDK.LampsTrackEvent) -> Swift.Void
 @objc @_hasMissingDesignatedInitializers @objcMembers final public class LampsTrackEvent : ObjectiveC.NSObject {
@@ -302,6 +380,7 @@ public typealias LampsTrackHandler = (LampsSDK.LampsTrackEvent) -> Swift.Void
   #if compiler(>=5.3) && $NonescapableTypes
   @objc @_Concurrency.MainActor @preconcurrency public init(urlString: Swift.String, htmlString: Swift.String?)
   #endif
+  @objc deinit
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public var prefersStatusBarHidden: Swift.Bool {
     @objc get
   }
@@ -310,11 +389,17 @@ public typealias LampsTrackHandler = (LampsSDK.LampsTrackEvent) -> Swift.Void
   }
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
   @objc @_Concurrency.MainActor @preconcurrency public func closePage()
   @objc @_Concurrency.MainActor @preconcurrency public func reloadPage()
-  @objc deinit
 }
+extension LampsSDK.LampsBehaviorEvent : Swift.Equatable {}
+extension LampsSDK.LampsBehaviorEvent : Swift.Hashable {}
+extension LampsSDK.LampsBehaviorEvent : Swift.RawRepresentable {}
+extension LampsSDK.LampsBehaviorPageType : Swift.Equatable {}
+extension LampsSDK.LampsBehaviorPageType : Swift.Hashable {}
+extension LampsSDK.LampsBehaviorPageType : Swift.RawRepresentable {}
 @_spi(LampsAdapter) extension LampsSDK.LampsRewardChannel : Swift.Equatable {}
 @_spi(LampsAdapter) extension LampsSDK.LampsRewardChannel : Swift.Hashable {}
 @_spi(LampsAdapter) extension LampsSDK.LampsRewardChannel : Swift.RawRepresentable {}
@@ -327,3 +412,5 @@ extension LampsSDK.LampsDayNightMode : Swift.RawRepresentable {}
 extension LampsSDK.LampsSDKErrorCode : Swift.Equatable {}
 extension LampsSDK.LampsSDKErrorCode : Swift.Hashable {}
 extension LampsSDK.LampsSDKErrorCode : Swift.RawRepresentable {}
+@_spi(LampsDevTools) @_spi(LampsAdapter) extension LampsSDK.LampsSDKLogCategory : Swift.Equatable {}
+@_spi(LampsDevTools) @_spi(LampsAdapter) extension LampsSDK.LampsSDKLogCategory : Swift.Hashable {}
