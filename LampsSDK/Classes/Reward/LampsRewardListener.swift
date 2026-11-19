@@ -11,6 +11,7 @@ struct LampsRewardInteractionListener {
     var onAdShowError: ((_ model: LampsRewardAdModel, _ code: Int, _ message: String?) -> Void)?
     var onAdRewardArrived: ((_ model: LampsRewardAdModel) -> Void)?
     var onAdClose: ((_ model: LampsRewardAdModel, _ hasRewarded: Bool) -> Void)?
+    var onAdClick: ((_ model: LampsRewardAdModel) -> Void)?
 }
 
 struct LampsRewardSDKLoadListener {

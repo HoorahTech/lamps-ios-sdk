@@ -39,6 +39,7 @@ final class LampsRewardBridgeHandler: NSObject, LampsBridgeHandler {
         LampsRewardAd.show(
             from: viewController,
             forwardSource: forwardSource.isEmpty ? nil : forwardSource,
+            behaviorVisit: LampsBehaviorContext.gameVisit(from: bridge?.webView),
             handler: { [weak self] callback in
                 self?.notifyStatus(callback)
             },

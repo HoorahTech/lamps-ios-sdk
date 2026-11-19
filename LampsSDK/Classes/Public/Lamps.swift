@@ -30,6 +30,33 @@ public final class Lamps: NSObject {
     /// 未设置时只走 SDK 自己的上报。回调里不要做耗时操作。
     public static var trackHandler: LampsTrackHandler?
 
+    /// 游戏中心 / 游戏行为回传。页面视图加载时回传打开成功，页面真正关闭时回传退出，都在主线程调用。
+    ///
+    /// 参数是 `LampsBehavior`：`event`、`pageType`、`data`、`trackParams`。
+    /// 请在主线程设置。未设置时不回调。回调里不要做耗时操作。
+    /// ObjC 请用 `setBehaviorHandler:`。
+    /// `@nonobjc`：避免和下面的 `setBehaviorHandler:` 抢同一个 Objective-C setter。
+    @nonobjc
+    public static var behaviorHandler: LampsBehaviorHandler?
+
+    /// ObjC 设置行为回传。传 `nil` 清除。Swift 请直接设置 `behaviorHandler`。
+    @objc(setBehaviorHandler:)
+    public static func setBehaviorHandler(_ handler: ((LampsBehavior) -> Void)?) {
+        behaviorHandler = handler
+    }
+
+    /// ObjC 取埋点事件名。Swift 用 `event.name`。
+    @objc(behaviorNameForEvent:)
+    public static func behaviorName(for event: LampsBehaviorEvent) -> String {
+        event.name
+    }
+
+    /// ObjC 取页面类型文案。Swift 用 `pageType.name`。
+    @objc(behaviorPageTypeNameForPageType:)
+    public static func behaviorPageTypeName(for pageType: LampsBehaviorPageType) -> String {
+        pageType.name
+    }
+
     private static var storedConfig: LampsSDKConfig?
     private static var storedRemoteConfig: LampsRemoteConfig?
     private static var storedUserInfo: LampsUserInfo?
@@ -134,22 +161,21 @@ public final class Lamps: NSObject {
     ///
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
-    ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
-    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+    ///   - config: 本次展示配置。`urlQuery` 拼到游戏中心链接上，`trackParams` 并入后续行为回传。不传则用 `LampsSDKConfig` 中的对应字段。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(showGameCenterFromViewController:config:params:completion:)
+    @objc(showGameCenterFromViewController:config:completion:)
     public static func showGameCenter(
         from viewController: UIViewController? = nil,
         config: LampsGameCenterConfig? = nil,
-        params: [String: String]? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGameCenter(from: viewController, config: config, params: params) {
+        let trackParams = sanitizedTrackParams(config?.trackParams)
+        switch prepareGameCenter(from: viewController, config: config, trackParams: trackParams) {
         case .ready(let host, let page):
             LampsNavigator.pushOrPresent(page, from: host)
             completion?(true, nil)
         case .failure(let error):
-            completeGameCenter(error, completion: completion)
+            completeGameCenter(error, trackParams: trackParams, completion: completion)
         }
     }
 
@@ -159,22 +185,21 @@ public final class Lamps: NSObject {
     ///
     /// - Parameters:
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
-    ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
-    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+    ///   - config: 本次展示配置。`urlQuery` 拼到游戏中心链接上，`trackParams` 并入后续行为回传。不传则用 `LampsSDKConfig` 中的对应字段。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(presentGameCenterFromViewController:config:params:completion:)
+    @objc(presentGameCenterFromViewController:config:completion:)
     public static func presentGameCenter(
         from viewController: UIViewController? = nil,
         config: LampsGameCenterConfig? = nil,
-        params: [String: String]? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGameCenter(from: viewController, config: config, params: params) {
+        let trackParams = sanitizedTrackParams(config?.trackParams)
+        switch prepareGameCenter(from: viewController, config: config, trackParams: trackParams) {
         case .ready(let host, let page):
             LampsNavigator.presentInNavigationController(page, from: host)
             completion?(true, nil)
         case .failure(let error):
-            completeGameCenter(error, completion: completion)
+            completeGameCenter(error, trackParams: trackParams, completion: completion)
         }
     }
 
@@ -187,21 +212,22 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
-    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+    ///   - config: 本次打开配置。`urlQuery` 拼到游戏页链接上，`trackParams` 并入后续行为回传。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(showGameWithGameId:fromViewController:params:completion:)
+    @objc(showGameWithGameId:fromViewController:config:completion:)
     public static func showGame(
         gameId: String,
         from viewController: UIViewController? = nil,
-        params: [String: String]? = nil,
+        config: LampsGameConfig? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGamePage(gameId: gameId, from: viewController, params: params) {
+        let trackParams = sanitizedTrackParams(config?.trackParams)
+        switch prepareGamePage(gameId: gameId, from: viewController, config: config, trackParams: trackParams) {
         case .ready(let host, let page):
             LampsNavigator.pushOrPresent(page, from: host)
             completion?(true, nil)
         case .failure(let error):
-            completeGame(error, completion: completion)
+            completeGame(error, gameId: gameId, trackParams: trackParams, completion: completion)
         }
     }
 
@@ -213,21 +239,22 @@ public final class Lamps: NSObject {
     /// - Parameters:
     ///   - gameId: 游戏 ID，替换 `gamePageUrl` 中的 `__GAMEID__`。
     ///   - viewController: 起始页面，可不传；未传时 SDK 取当前最上层页面。
-    ///   - params: 追加到游戏页链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
+    ///   - config: 本次打开配置。`urlQuery` 拼到游戏页链接上，`trackParams` 并入后续行为回传。
     ///   - completion: 打开结果。失败时 `error` 的 `domain` 为 `LampsSDKErrorDomain`，`code` 见 `LampsSDKErrorCode`。
-    @objc(presentGameWithGameId:fromViewController:params:completion:)
+    @objc(presentGameWithGameId:fromViewController:config:completion:)
     public static func presentGame(
         gameId: String,
         from viewController: UIViewController? = nil,
-        params: [String: String]? = nil,
+        config: LampsGameConfig? = nil,
         completion: LampsShowGameCenterCompletion? = nil
     ) {
-        switch prepareGamePage(gameId: gameId, from: viewController, params: params) {
+        let trackParams = sanitizedTrackParams(config?.trackParams)
+        switch prepareGamePage(gameId: gameId, from: viewController, config: config, trackParams: trackParams) {
         case .ready(let host, let page):
             LampsNavigator.presentInNavigationController(page, from: host)
             completion?(true, nil)
         case .failure(let error):
-            completeGame(error, completion: completion)
+            completeGame(error, gameId: gameId, trackParams: trackParams, completion: completion)
         }
     }
 
@@ -238,22 +265,21 @@ public final class Lamps: NSObject {
     /// 从该视图内再打开具体游戏时，SDK 会全屏 present，不进入宿主导航栈。
     ///
     /// - Parameters:
-    ///   - config: 本次展示配置；不传则用 `LampsSDKConfig` 中的对应字段。
-    ///   - params: 追加到游戏中心链接上的查询参数，可不传。键和值按原始字符串百分号编码后拼接。链接里已有的同名参数会跳过，保留原值。
-    @objc(makeGameCenterViewWithConfig:params:)
+    ///   - config: 本次展示配置。`urlQuery` 拼到游戏中心链接上。内嵌视图本身不回传行为，`trackParams` 会带给从这里打开的游戏。不传则用 `LampsSDKConfig` 中的对应字段。
+    @objc(makeGameCenterViewWithConfig:)
     public static func makeGameCenterView(
-        config: LampsGameCenterConfig? = nil,
-        params: [String: String]? = nil
+        config: LampsGameCenterConfig? = nil
     ) -> LampsGameCenterView? {
-        guard let urlString = resolvedGameCenterPageURL(
+        guard case .success(let urlString) = resolveGameCenterPageURL(
             dayNightMode: resolvedDayNightMode(config?.dayNightMode),
-            params: params
+            urlQuery: config?.urlQuery
         ) else { return nil }
         let webView = LampsWebView(
             displayMode: LampsBridgeClientInfo.DisplayMode.embed,
             dayNightMode: resolvedDayNightMode(config?.dayNightMode),
             hideTitle: config?.hideTitle ?? false
         )
+        webView.behaviorTrackParams = sanitizedTrackParams(config?.trackParams)
         webView.reloadHandler = { [weak webView] in
             webView?.load(urlString: urlString)
         }
@@ -446,11 +472,11 @@ public final class Lamps: NSObject {
     private static func prepareGameCenter(
         from viewController: UIViewController?,
         config: LampsGameCenterConfig?,
-        params: [String: String]?
+        trackParams: [String: String]
     ) -> GameCenterPrepareResult {
         switch resolveGameCenterPageURL(
             dayNightMode: resolvedDayNightMode(config?.dayNightMode),
-            params: params
+            urlQuery: config?.urlQuery
         ) {
         case .success(let url):
             guard let host = viewController ?? LampsNavigator.currentHostViewController() else {
@@ -460,6 +486,7 @@ public final class Lamps: NSObject {
             page.displayMode = LampsBridgeClientInfo.DisplayMode.page
             page.dayNightMode = resolvedDayNightMode(config?.dayNightMode)
             page.hideTitle = config?.hideTitle ?? false
+            page.beginBehaviorVisit(kind: .center, trackParams: trackParams)
             return .ready(host: host, page: page)
         case .failure(let error):
             return .failure(error)
@@ -473,10 +500,17 @@ public final class Lamps: NSObject {
 
     private static func completeGameCenter(
         _ error: LampsSDKError,
+        trackParams: [String: String],
         completion: LampsShowGameCenterCompletion?
     ) {
         let nsError = error.nsError
         LampsSDKLog.debug("showGameCenter failed: \(nsError.localizedDescription)")
+        LampsBehaviorTracker.shared.reportOpenFailure(
+            kind: .center,
+            gameId: nil,
+            error: nsError,
+            trackParams: trackParams
+        )
         completion?(false, nsError)
     }
 
@@ -484,14 +518,17 @@ public final class Lamps: NSObject {
     private static func prepareGamePage(
         gameId: String,
         from viewController: UIViewController?,
-        params: [String: String]?
+        config: LampsGameConfig?,
+        trackParams: [String: String]
     ) -> GamePagePrepareResult {
-        switch resolveGamePageURL(gameId: gameId, params: params) {
+        switch resolveGamePageURL(gameId: gameId, urlQuery: config?.urlQuery) {
         case .success(let url):
             guard let host = viewController ?? LampsNavigator.currentHostViewController() else {
                 return .failure(.noHostViewController("找不到可用于打开游戏页的页面"))
             }
-            return .ready(host: host, page: LampsGameWebViewController(urlString: url))
+            let page = LampsGameWebViewController(urlString: url)
+            page.beginBehaviorVisit(kind: .game, gameId: gameId, trackParams: trackParams)
+            return .ready(host: host, page: page)
         case .failure(let error):
             return .failure(error)
         }
@@ -499,28 +536,24 @@ public final class Lamps: NSObject {
 
     private static func completeGame(
         _ error: LampsSDKError,
+        gameId: String,
+        trackParams: [String: String],
         completion: LampsShowGameCenterCompletion?
     ) {
         let nsError = error.nsError
         LampsSDKLog.debug("showGame failed: \(nsError.localizedDescription)")
+        LampsBehaviorTracker.shared.reportOpenFailure(
+            kind: .game,
+            gameId: gameId,
+            error: nsError,
+            trackParams: trackParams
+        )
         completion?(false, nsError)
-    }
-
-    private static func resolvedGameCenterPageURL(
-        dayNightMode: LampsDayNightMode,
-        params: [String: String]?
-    ) -> String? {
-        switch resolveGameCenterPageURL(dayNightMode: dayNightMode, params: params) {
-        case .success(let url):
-            return url
-        case .failure:
-            return nil
-        }
     }
 
     private static func resolveGameCenterPageURL(
         dayNightMode: LampsDayNightMode,
-        params: [String: String]?
+        urlQuery: [String: String]?
     ) -> GameCenterPageResult {
         guard started else {
             LampsSDKLog.debug("gameCenterPage skipped: not started")
@@ -532,12 +565,12 @@ public final class Lamps: NSObject {
             return .failure(.gameCenterUnavailable("游戏中心地址不可用"))
         }
         let pageURL = appendingQuery(["night": "\(dayNightMode.bridgeNightValue)"], to: url)
-        return .success(appendingQuery(params, to: pageURL))
+        return .success(appendingQuery(urlQuery, to: pageURL))
     }
 
     private static func resolveGamePageURL(
         gameId: String,
-        params: [String: String]?
+        urlQuery: [String: String]?
     ) -> GameCenterPageResult {
         guard started else {
             LampsSDKLog.debug("gamePageUrl skipped: not started")
@@ -554,7 +587,19 @@ public final class Lamps: NSObject {
             LampsSDKLog.debug("gamePageUrl unavailable url=\(url)")
             return .failure(.gamePageUnavailable("游戏页地址不可用"))
         }
-        return .success(appendingQuery(params, to: url))
+        return .success(appendingQuery(urlQuery, to: url))
+    }
+
+    /// 丢掉空白键，避免空名字写进行为回传。值保持原样。
+    private static func sanitizedTrackParams(_ raw: [String: String]?) -> [String: String] {
+        guard let raw, !raw.isEmpty else { return [:] }
+        var result: [String: String] = [:]
+        for (key, value) in raw {
+            let name = key.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !name.isEmpty else { continue }
+            result[name] = value
+        }
+        return result
     }
 
     /// 把字典拼到链接末尾。整段链接里已有 `?` 时用 `&`，否则用 `?`。游戏页参数写在 `#` 后面，直接拼在末尾即可落在同一段。

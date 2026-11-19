@@ -10,6 +10,15 @@ final class LAMPSSDKAppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        Lamps.behaviorHandler = { behavior in
+            NSLog(
+                "[LampsSDK Demo] behavior %@ %@ %@",
+                behavior.event.name,
+                behavior.pageType.name,
+                String(describing: behavior.data)
+            )
+        }
+
         let config = LampsSDKConfig()
         config.appId = "10002"
         config.debugLogEnabled = true

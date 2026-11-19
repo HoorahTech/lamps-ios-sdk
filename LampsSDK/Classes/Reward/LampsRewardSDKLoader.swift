@@ -116,5 +116,7 @@ extension LampsRewardSDKLoader: LampsRewardAdapterDelegate {
         interactionListener?.onAdClose?(adapter.model, hasRewarded)
     }
 
-    func rewardAdapterDidClick(_ adapter: LampsRewardAdapting) {}
+    func rewardAdapterDidClick(_ adapter: LampsRewardAdapting) {
+        interactionListener?.onAdClick?(adapter.model)
+    }
 }

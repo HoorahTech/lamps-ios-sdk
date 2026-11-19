@@ -5,15 +5,33 @@ import UIKit
 final class LampsRewardSession: NSObject {
     private weak var viewController: UIViewController?
     private let forwardSource: String
+    private weak var behaviorVisit: LampsBehaviorVisit?
     private var sdkLoader: LampsRewardSDKLoader?
     private var models: [LampsRewardAdModel] = []
     private var loadListener: LampsRewardLoadListener?
     private var interactionListener: LampsRewardInteractionListener?
 
-    init(viewController: UIViewController, forwardSource: String = "") {
+    init(
+        viewController: UIViewController,
+        forwardSource: String = "",
+        behaviorVisit: LampsBehaviorVisit? = nil
+    ) {
         self.viewController = viewController
         self.forwardSource = forwardSource
+        self.behaviorVisit = behaviorVisit
         super.init()
+    }
+
+    func recordAdRequest() {
+        behaviorVisit?.recordRequest()
+    }
+
+    func recordAdShow(price: CGFloat) {
+        behaviorVisit?.recordShow(price: price)
+    }
+
+    func recordAdClick() {
+        behaviorVisit?.recordClick()
     }
 
     func start(
@@ -67,6 +85,7 @@ final class LampsRewardSession: NSObject {
         models = built
         let loader = LampsRewardSDKLoader()
         sdkLoader = loader
+        recordAdRequest()
         loader.load(
             models: built,
             from: viewController,
@@ -95,6 +114,9 @@ final class LampsRewardSession: NSObject {
             },
             onAdClose: { model, hasRewarded in
                 listener.onAdClose?(model, hasRewarded)
+            },
+            onAdClick: { model in
+                listener.onAdClick?(model)
             }
         )
     }

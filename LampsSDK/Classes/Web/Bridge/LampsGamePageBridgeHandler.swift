@@ -27,18 +27,35 @@ final class LampsGamePageBridgeHandler: NSObject, LampsBridgeHandler {
               let scheme = url.scheme?.lowercased(),
               scheme == "http" || scheme == "https" else {
             LampsSDKLog.debug("bridge game.open skip: invalid url=\(urlString)")
+            reportOpenFailure(
+                gameId: LampsGameLink.gameId(from: urlString),
+                error: LampsSDKError.gamePageUnavailable("url 无效，须为完整 http(s) URL").nsError,
+                trackParams: centerTrackParams()
+            )
             error?(["msg": "url 无效，须为完整 http(s) URL"])
             return
         }
 
         guard let host = hostViewController() else {
             LampsSDKLog.debug("bridge game.open skip: no host vc")
+            reportOpenFailure(
+                gameId: LampsGameLink.gameId(from: urlString),
+                error: LampsSDKError.noHostViewController("无法找到打开游戏页的容器").nsError,
+                trackParams: centerTrackParams()
+            )
             error?(["msg": "无法找到打开游戏页的容器"])
             return
         }
 
         LampsSDKLog.debug("bridge game.open url=\(urlString) embed=\(isEmbedDisplayMode)")
         let page = LampsGameWebViewController(urlString: urlString)
+        let parent = LampsBehaviorContext.centerVisit(from: bridge?.webView)
+        page.beginBehaviorVisit(
+            kind: .game,
+            gameId: LampsGameLink.gameId(from: urlString),
+            parent: parent,
+            trackParams: parent?.trackParams ?? centerTrackParams()
+        )
         // 内嵌游戏中心不能 push 进宿主栈：侧滑、导航栏都由宿主导航容器接管，接入方无法配置。
         if isEmbedDisplayMode {
             LampsNavigator.presentInNavigationController(page, from: host)
@@ -57,6 +74,19 @@ private extension LampsGamePageBridgeHandler {
     /// `makeGameCenterView` 会把 WebView 标成 `embed`。
     var isEmbedDisplayMode: Bool {
         bridge?.webView?.displayMode == LampsBridgeClientInfo.DisplayMode.embed
+    }
+
+    func reportOpenFailure(gameId: String?, error: NSError, trackParams: [String: String]) {
+        LampsBehaviorTracker.shared.reportOpenFailure(
+            kind: .game,
+            gameId: gameId,
+            error: error,
+            trackParams: trackParams
+        )
+    }
+
+    func centerTrackParams() -> [String: String] {
+        LampsBehaviorContext.centerTrackParams(from: bridge?.webView)
     }
 
     func hostViewController() -> UIViewController? {
