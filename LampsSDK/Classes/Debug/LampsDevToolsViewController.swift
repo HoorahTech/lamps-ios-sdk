@@ -11,11 +11,12 @@ final class LampsDevToolsViewController: UIViewController,
     UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     private let pages: [UIViewController] = [
         LampsDevToolsSDKViewController(),
-        LampsDevToolsThirdPartyViewController()
+        LampsDevToolsThirdPartyViewController(),
+        LampsDevToolsLogViewController()
     ]
 
     private lazy var segment: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["LampsSDK", "三方 SDK"])
+        let control = UISegmentedControl(items: ["LampsSDK", "三方 SDK", "日志"])
         control.selectedSegmentIndex = 0
         control.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         control.translatesAutoresizingMaskIntoConstraints = false
@@ -392,7 +393,7 @@ final class LampsDevToolsThirdPartyViewController: UIViewController {
     }
 }
 
-private enum LampsDevToolsUI {
+enum LampsDevToolsUI {
     static let environmentSelectedColor = UIColor(red: 0.10, green: 0.46, blue: 0.82, alpha: 1)
     static let environmentNormalColor = UIColor(red: 0.95, green: 0.95, blue: 0.96, alpha: 1)
 

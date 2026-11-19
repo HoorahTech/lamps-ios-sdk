@@ -10,7 +10,7 @@ enum LampsCSJSDKInitializer: LampsSDKInitializing {
         let appId = channelAppId.trimmingCharacters(in: .whitespacesAndNewlines)
         // channelList 未下发或 channelAppId 为空时跳过，避免二次 init。
         guard !appId.isEmpty else {
-            LampsSDKLog.debug("csj init skipped: empty appId")
+            LampsSDKLog.debug("csj init skipped: empty appId", category: .startup)
             completion(true, nil)
             return
         }

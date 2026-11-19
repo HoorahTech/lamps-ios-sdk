@@ -31,7 +31,7 @@ enum LampsConfigService {
         LampsRequestHeader.apply(&request)
         request.timeoutInterval = 15
 
-        LampsSDKLog.debug("config request: \(url.absoluteString)")
+        LampsSDKLog.debug("config request: \(url.absoluteString)", category: .startup)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(LampsSDKError.configFetchError("配置请求失败: \(error.localizedDescription)").nsError))
@@ -59,7 +59,8 @@ enum LampsConfigService {
                     environment: LampsEnvironmentStore.current
                 )
                 LampsSDKLog.debug(
-                    "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) cidLen=\(remote.cid.count) ip=\(remote.clientIp) gameCenter=\(!remote.gameCenterPage.isEmpty) gamePage=\(!remote.gamePlayPageTemplate.isEmpty)"
+                    "config ok slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count) cidLen=\(remote.cid.count) ip=\(remote.clientIp) gameCenter=\(!remote.gameCenterPage.isEmpty) gamePage=\(!remote.gamePlayPageTemplate.isEmpty)",
+                    category: .startup
                 )
                 completion(.success(remote))
             } catch {

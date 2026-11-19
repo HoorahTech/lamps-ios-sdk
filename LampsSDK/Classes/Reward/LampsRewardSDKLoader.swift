@@ -48,6 +48,10 @@ final class LampsRewardSDKLoader: NSObject {
         hasShown = true
         interactionListener = listener
         guard let adapter = adapters[ObjectIdentifier(model)] else {
+            LampsSDKLog.debug(
+                "reward show skipped: adapter missing slotId=\(model.slotId)",
+                category: .reward
+            )
             interactionListener?.onAdShowError?(model, -19, "激励视频未就绪")
             return
         }
@@ -92,31 +96,68 @@ final class LampsRewardSDKLoader: NSObject {
 
 extension LampsRewardSDKLoader: LampsRewardAdapterDelegate {
     func rewardAdapter(_ adapter: LampsRewardAdapting, didFinishLoad success: Bool, error: Error?) {
-        checkFinish(adapter.model, success: success)
+        let model = adapter.model
+        if success {
+            LampsSDKLog.debug(
+                "reward load ok channel=\(model.channel.name) slotId=\(model.slotId) price=\(model.price)",
+                category: .reward
+            )
+        } else {
+            LampsSDKLog.debug(
+                "reward load fail channel=\(model.channel.name) slotId=\(model.slotId) \(error?.localizedDescription ?? "")",
+                category: .reward
+            )
+        }
+        checkFinish(model, success: success)
     }
 
     func rewardAdapterDidShow(_ adapter: LampsRewardAdapting) {
-        interactionListener?.onAdShow?(adapter.model)
+        let model = adapter.model
+        LampsSDKLog.debug(
+            "reward show channel=\(model.channel.name) slotId=\(model.slotId)",
+            category: .reward
+        )
+        interactionListener?.onAdShow?(model)
     }
 
     func rewardAdapter(_ adapter: LampsRewardAdapting, didFailToShow error: Error?) {
+        let model = adapter.model
         let nsError = error as NSError?
+        LampsSDKLog.debug(
+            "reward show fail channel=\(model.channel.name) slotId=\(model.slotId) code=\(nsError?.code ?? 0) \(nsError?.localizedDescription ?? "")",
+            category: .reward
+        )
         interactionListener?.onAdShowError?(
-            adapter.model,
+            model,
             nsError?.code ?? 0,
             nsError?.localizedDescription
         )
     }
 
     func rewardAdapterDidReceiveReward(_ adapter: LampsRewardAdapting) {
-        interactionListener?.onAdRewardArrived?(adapter.model)
+        let model = adapter.model
+        LampsSDKLog.debug(
+            "reward arrived channel=\(model.channel.name) slotId=\(model.slotId)",
+            category: .reward
+        )
+        interactionListener?.onAdRewardArrived?(model)
     }
 
     func rewardAdapterDidClose(_ adapter: LampsRewardAdapting, hasRewarded: Bool) {
-        interactionListener?.onAdClose?(adapter.model, hasRewarded)
+        let model = adapter.model
+        LampsSDKLog.debug(
+            "reward close channel=\(model.channel.name) slotId=\(model.slotId) rewarded=\(hasRewarded)",
+            category: .reward
+        )
+        interactionListener?.onAdClose?(model, hasRewarded)
     }
 
     func rewardAdapterDidClick(_ adapter: LampsRewardAdapting) {
-        interactionListener?.onAdClick?(adapter.model)
+        let model = adapter.model
+        LampsSDKLog.debug(
+            "reward click channel=\(model.channel.name) slotId=\(model.slotId)",
+            category: .reward
+        )
+        interactionListener?.onAdClick?(model)
     }
 }

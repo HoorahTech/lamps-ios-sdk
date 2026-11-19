@@ -344,7 +344,10 @@ final class LampsBehaviorTracker {
             trackParams: trackParams
         )
         let send = {
-            LampsSDKLog.debug("behavior event=\(event.name) pageType=\(pageType.name) data=\(bridged)")
+            LampsSDKLog.debug(
+                "behavior event=\(event.name) pageType=\(pageType.name) data=\(Self.logJSON(bridged))",
+                category: .behavior
+            )
             Lamps.behaviorHandler?(behavior)
         }
         if Thread.isMainThread {
@@ -352,6 +355,16 @@ final class LampsBehaviorTracker {
         } else {
             DispatchQueue.main.async(execute: send)
         }
+    }
+
+    /// `NSDictionary.description` 会把汉字写成 `\U6e38`。日志用 JSON，按 UTF-8 保留汉字。
+    private static func logJSON(_ object: NSDictionary) -> String {
+        guard JSONSerialization.isValidJSONObject(object),
+              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted, .sortedKeys]),
+              let text = String(data: data, encoding: .utf8) else {
+            return String(describing: object)
+        }
+        return text
     }
 
     /// 嵌套的游戏列表也转成 `NSDictionary` / `NSNumber`，ObjC 拿到的就是字典和数字。

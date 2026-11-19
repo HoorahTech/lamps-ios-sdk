@@ -87,7 +87,7 @@ public final class Lamps: NSObject {
     public static func start(config: LampsSDKConfig, completion: LampsStartCompletion? = nil) {
         guard !config.appId.isEmpty else {
             let error = LampsSDKError.invalidConfig("appId 不能为空").nsError
-            LampsSDKLog.debug("start failed: \(error.localizedDescription)")
+            LampsSDKLog.debug("start failed: \(error.localizedDescription)", category: .startup)
             completion?(false, error)
             return
         }
@@ -99,7 +99,8 @@ public final class Lamps: NSObject {
         )
         started = true
         LampsSDKLog.debug(
-            "started local, appId=\(config.appId) env=\(environment.logName) cache=\(storedRemoteConfig != nil)"
+            "started local, appId=\(config.appId) env=\(environment.logName) cache=\(storedRemoteConfig != nil)",
+            category: .startup
         )
         LampsDeviceInfo.prepareUserAgentIfNeeded()
 
@@ -332,11 +333,11 @@ public final class Lamps: NSObject {
         completion: LampsStartCompletion? = nil
     ) {
         LampsEnvironmentStore.current = environment
-        LampsSDKLog.debug("switch env=\(environment.logName)")
+        LampsSDKLog.debug("switch env=\(environment.logName)", category: .startup)
         configUpdatedAt = nil
         guard started, let config = storedConfig else {
             storedRemoteConfig = nil
-            LampsSDKLog.debug("switch env saved, waiting for start")
+            LampsSDKLog.debug("switch env saved, waiting for start", category: .startup)
             completion?(true, nil)
             return
         }
@@ -413,14 +414,14 @@ public final class Lamps: NSObject {
     static func refreshConfigIfNeededOnGameEnter() {
         guard started, let config = storedConfig else { return }
         if isFetchingConfig {
-            LampsSDKLog.debug("config refresh skipped: in flight")
+            LampsSDKLog.debug("config refresh skipped: in flight", category: .startup)
             return
         }
         if let configUpdatedAt, Date().timeIntervalSince(configUpdatedAt) < configRefreshInterval {
-            LampsSDKLog.debug("config refresh skipped: fresh")
+            LampsSDKLog.debug("config refresh skipped: fresh", category: .startup)
             return
         }
-        LampsSDKLog.debug("config refresh: game enter stale")
+        LampsSDKLog.debug("config refresh: game enter stale", category: .startup)
         applyRemoteConfigFetch(config: config, completion: nil)
     }
 
@@ -436,21 +437,23 @@ public final class Lamps: NSObject {
                 case .success(let remote):
                     storedRemoteConfig = remote
                     configUpdatedAt = Date()
-                    LampsSDKLog.debug("config fetch ok env=\(LampsEnvironmentStore.current.logName)")
+                    LampsSDKLog.debug("config fetch ok env=\(LampsEnvironmentStore.current.logName)", category: .startup)
                     initializeAdSDKsIfNeeded(config: config) {
                         completion?(true, nil)
                     }
                 case .failure(let error):
                     if storedRemoteConfig != nil {
                         LampsSDKLog.debug(
-                            "config fetch failed keep cache: \(error.localizedDescription)"
+                            "config fetch failed keep cache: \(error.localizedDescription)",
+                            category: .startup
                         )
                         initializeAdSDKsIfNeeded(config: config) {
                             completion?(true, nil)
                         }
                     } else {
                         LampsSDKLog.debug(
-                            "config fetch failed and no cache: \(error.localizedDescription)"
+                            "config fetch failed and no cache: \(error.localizedDescription)",
+                            category: .startup
                         )
                         completion?(false, error)
                     }

@@ -42,26 +42,28 @@ final class LampsRewardSession: NSObject {
         self.interactionListener = wrap(interactionListener)
 
         guard Lamps.isStarted else {
+            LampsSDKLog.debug("reward session skipped: not started", category: .reward)
             loadListener.onReqError?(-1002, "请先调用 Lamps.start")
             return
         }
         let slots = Lamps.remoteConfig?.rewardAdSlots ?? []
         guard !slots.isEmpty else {
+            LampsSDKLog.debug("reward session skipped: empty slots", category: .reward)
             loadListener.onReqError?(0, "rewardAdSlots 为空")
             return
         }
 
         let timeout = 1500
         let requestId = UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased()
-        LampsSDKLog.debug("reward session start requestId=\(requestId)")
+        LampsSDKLog.debug("reward session start requestId=\(requestId)", category: .reward)
         var built: [LampsRewardAdModel] = []
         for slot in slots {
             guard let channel = LampsRewardChannel.from(channelId: slot.channelId) else {
-                LampsSDKLog.debug("reward skip unknown channelId=\(slot.channelId)")
+                LampsSDKLog.debug("reward skip unknown channelId=\(slot.channelId)", category: .reward)
                 continue
             }
             guard LampsSDKAdapterCenter.isAvailable(channel) else {
-                LampsSDKLog.debug("reward skip unavailable adapter=\(channel.name)")
+                LampsSDKLog.debug("reward skip unavailable adapter=\(channel.name)", category: .reward)
                 continue
             }
             let model = LampsRewardAdModel(
@@ -78,6 +80,7 @@ final class LampsRewardSession: NSObject {
         }
 
         guard !built.isEmpty else {
+            LampsSDKLog.debug("reward session skipped: no available adapter", category: .reward)
             loadListener.onLoadError?()
             return
         }
@@ -128,6 +131,10 @@ final class LampsRewardSession: NSObject {
             adapters: loader.currentAdapters,
             sdkWinner: sdkWinner
         )
+        LampsSDKLog.debug(
+            "reward winner channel=\(winner.channel.name) slotId=\(winner.slotId) price=\(winner.price)",
+            category: .reward
+        )
         LampsRewardMonitorReporter.reportWM(model: winner)
         loadListener?.onLoadSuccess?(winner)
         loader.show(
@@ -137,6 +144,7 @@ final class LampsRewardSession: NSObject {
     }
 
     private func finishAfterAllSDKFailed() {
+        LampsSDKLog.debug("reward all sdk failed", category: .reward)
         if let loader = sdkLoader {
             LampsRewardBidding.notifyAllLoss(
                 models: models,

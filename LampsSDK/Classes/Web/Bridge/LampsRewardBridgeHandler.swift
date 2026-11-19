@@ -35,7 +35,7 @@ final class LampsRewardBridgeHandler: NSObject, LampsBridgeHandler {
         }
 
         let forwardSource = LampsJSONValue.stringValue(data["forward_source"], trim: true)
-        LampsSDKLog.debug("bridge reward start forward_source=\(forwardSource)")
+        LampsSDKLog.debug("bridge reward start forward_source=\(forwardSource)", category: .reward)
         LampsRewardAd.show(
             from: viewController,
             forwardSource: forwardSource.isEmpty ? nil : forwardSource,
@@ -56,7 +56,7 @@ private extension LampsRewardBridgeHandler {
 
     func notifyStatus(_ callback: LampsRewardCallback) {
         let payload = statusPayload(from: callback)
-        LampsSDKLog.debug("bridge reward status=\(callback.name.h5CallbackName)")
+        LampsSDKLog.debug("bridge reward status=\(callback.name.h5CallbackName)", category: .reward)
         bridge?.send(method: Method.rewardedVideoStatus, data: payload)
     }
 
