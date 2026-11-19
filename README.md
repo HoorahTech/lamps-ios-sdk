@@ -579,7 +579,7 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
 
 ```bash
 ./scripts/build_xcframeworks.sh
-# 产物：build/xcframeworks/LampsSDK-iOS-1.0.3/
+# 产物：build/xcframeworks/LampsSDK-iOS-1.0.4/
 ```
 
 产出 6 个包：`LampsSDK`（Core）+ 三家广告 Adapter + `LampsAlipayAdapter` + `LampsDevTools`，以及可选 `ThirdParty/`（补宿主缺失的广告 SDK）。支付宝不进 `ThirdParty`，宿主自备 `AlipaySDK`。

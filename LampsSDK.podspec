@@ -7,7 +7,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LampsSDK'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'WebView、Bridge、激励视频与监测上报 SDK'
 
   s.description      = <<-DESC
