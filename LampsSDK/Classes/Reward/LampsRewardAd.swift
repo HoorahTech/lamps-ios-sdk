@@ -90,6 +90,22 @@ final class LampsRewardVideoManager: NSObject {
         handler: LampsRewardEventHandler?,
         completion: LampsRewardCompletion?
     ) {
+        startRequest(
+            from: viewController,
+            forwardSource: forwardSource,
+            behaviorVisit: nil,
+            handler: handler,
+            completion: completion
+        )
+    }
+
+    func startRequest(
+        from viewController: UIViewController,
+        forwardSource: String?,
+        behaviorVisit: LampsBehaviorVisit?,
+        handler: LampsRewardEventHandler?,
+        completion: LampsRewardCompletion?
+    ) {
         guard !state.isActive else {
             let busy = makeCallback(name: .busy, status: false, message: "激励视频进行中")
             handler?(busy)
@@ -107,7 +123,8 @@ final class LampsRewardVideoManager: NSObject {
         closeCompletion = completion
         let session = LampsRewardSession(
             viewController: viewController,
-            forwardSource: forwardSource ?? ""
+            forwardSource: forwardSource ?? "",
+            behaviorVisit: behaviorVisit
         )
         rewardSession = session
         session.start(
@@ -169,6 +186,7 @@ final class LampsRewardVideoManager: NSObject {
         LampsRewardInteractionListener(
             onAdShow: { [weak self, weak session] model in
                 guard let session else { return }
+                session.recordAdShow(price: model.price)
                 self?.deliver(
                     self?.makeCallback(name: .showSuccess, model: model),
                     from: session,
@@ -216,6 +234,9 @@ final class LampsRewardVideoManager: NSObject {
                     finishSuccess: hasRewarded,
                     finishError: nil
                 )
+            },
+            onAdClick: { [weak session] _ in
+                session?.recordAdClick()
             }
         )
     }
@@ -292,9 +313,26 @@ final class LampsRewardAd: NSObject {
         handler: LampsRewardEventHandler?,
         completion: LampsRewardCompletion?
     ) {
-        LampsRewardVideoManager.shared.start(
+        show(
             from: viewController,
             forwardSource: forwardSource,
+            behaviorVisit: nil,
+            handler: handler,
+            completion: completion
+        )
+    }
+
+    static func show(
+        from viewController: UIViewController,
+        forwardSource: String?,
+        behaviorVisit: LampsBehaviorVisit?,
+        handler: LampsRewardEventHandler?,
+        completion: LampsRewardCompletion?
+    ) {
+        LampsRewardVideoManager.shared.startRequest(
+            from: viewController,
+            forwardSource: forwardSource,
+            behaviorVisit: behaviorVisit,
             handler: handler,
             completion: completion
         )

@@ -10,7 +10,7 @@ enum LampsNoahSDKInitializer: LampsSDKInitializing {
         let appKey = channelAppId.trimmingCharacters(in: .whitespacesAndNewlines)
         // channelList 未下发或 channelAppId 为空时跳过，避免二次 init。
         guard !appKey.isEmpty else {
-            LampsSDKLog.debug("noah init skipped: empty appKey")
+            LampsSDKLog.debug("noah init skipped: empty appKey", category: .startup)
             completion(true, nil)
             return
         }

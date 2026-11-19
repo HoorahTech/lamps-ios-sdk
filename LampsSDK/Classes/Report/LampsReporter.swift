@@ -12,14 +12,14 @@ final class LampsReporter: NSObject {
         extra: [AnyHashable: Any]? = nil
     ) {
         guard Lamps.isStarted else {
-            LampsSDKLog.debug("report \(type.name) skipped: SDK not started")
+            LampsSDKLog.debug("report \(type.name) skipped: SDK not started", category: .monitor)
             return
         }
         let validURLs = urls
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
         guard !validURLs.isEmpty else {
-            LampsSDKLog.debug("report \(type.name) skipped: empty urls")
+            LampsSDKLog.debug("report \(type.name) skipped: empty urls", category: .monitor)
             return
         }
 
@@ -29,7 +29,7 @@ final class LampsReporter: NSObject {
             adInfo: adInfo,
             extra: extra
         )
-        LampsSDKLog.debug("report \(type.name) count=\(replaced.count)")
+        LampsSDKLog.debug("report \(type.name) count=\(replaced.count)", category: .monitor)
         LampsReportRequest.start(urls: replaced)
     }
 

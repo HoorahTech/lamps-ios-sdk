@@ -12,11 +12,12 @@ enum LampsConfigCache {
         guard let json = try? JSONSerialization.jsonObject(with: data),
               let dict = json as? [String: Any],
               let remote = LampsRemoteConfig.parse(from: dict) else {
-            LampsSDKLog.debug("config cache parse failed path=\(url.lastPathComponent)")
+            LampsSDKLog.debug("config cache parse failed path=\(url.lastPathComponent)", category: .startup)
             return nil
         }
         LampsSDKLog.debug(
-            "config cache hit slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count)"
+            "config cache hit slots=\(remote.rewardAdSlots.count) tokenLen=\(remote.token.count)",
+            category: .startup
         )
         return remote
     }
@@ -30,7 +31,7 @@ enum LampsConfigCache {
         guard !trimmed.isEmpty else { return }
         guard JSONSerialization.isValidJSONObject(dataDictionary),
               let data = try? JSONSerialization.data(withJSONObject: dataDictionary, options: []) else {
-            LampsSDKLog.debug("config cache save skipped: invalid json")
+            LampsSDKLog.debug("config cache save skipped: invalid json", category: .startup)
             return
         }
         let url = fileURL(appId: trimmed, environment: environment)
@@ -40,9 +41,9 @@ enum LampsConfigCache {
                 withIntermediateDirectories: true
             )
             try data.write(to: url, options: .atomic)
-            LampsSDKLog.debug("config cache saved path=\(url.lastPathComponent) bytes=\(data.count)")
+            LampsSDKLog.debug("config cache saved path=\(url.lastPathComponent) bytes=\(data.count)", category: .startup)
         } catch {
-            LampsSDKLog.debug("config cache save failed: \(error.localizedDescription)")
+            LampsSDKLog.debug("config cache save failed: \(error.localizedDescription)", category: .startup)
         }
     }
 
@@ -66,10 +67,10 @@ enum LampsConfigCache {
         guard FileManager.default.fileExists(atPath: url.path) else { return true }
         do {
             try FileManager.default.removeItem(at: url)
-            LampsSDKLog.debug("config cache cleared path=\(url.lastPathComponent)")
+            LampsSDKLog.debug("config cache cleared path=\(url.lastPathComponent)", category: .startup)
             return true
         } catch {
-            LampsSDKLog.debug("config cache clear failed: \(error.localizedDescription)")
+            LampsSDKLog.debug("config cache clear failed: \(error.localizedDescription)", category: .startup)
             return false
         }
     }

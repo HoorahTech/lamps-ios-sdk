@@ -18,6 +18,8 @@ public class LampsWebViewController: UIViewController {
     var dayNightMode: LampsDayNightMode?
     /// 是否隐藏 H5 标题栏。来自本次 `LampsGameCenterConfig`，未设置时不隐藏。
     var hideTitle = false
+    /// 游戏中心页或游戏页的行为访问。宿主直接创建的普通活动页为空。
+    var behaviorVisit: LampsBehaviorVisit?
 
     private var previousNavigationBarHidden: Bool?
     private var webViewTopConstraint: NSLayoutConstraint?
@@ -68,6 +70,28 @@ public class LampsWebViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        behaviorVisit?.close()
+    }
+
+    /// 开始统计这一次打开。重复调用保留第一次。须在 WebView 开始加载前调用。
+    func beginBehaviorVisit(
+        kind: LampsBehaviorVisit.Kind,
+        gameId: String? = nil,
+        parent: LampsBehaviorVisit? = nil,
+        trackParams: [String: String] = [:]
+    ) {
+        guard behaviorVisit == nil else { return }
+        let visit = LampsBehaviorVisit(
+            kind: kind,
+            gameId: gameId,
+            parent: parent,
+            trackParams: trackParams
+        )
+        behaviorVisit = visit
+        LampsBehaviorTracker.shared.track(visit)
+    }
+
     public override var prefersStatusBarHidden: Bool {
         !showsStatusBar
     }
@@ -99,6 +123,7 @@ public class LampsWebViewController: UIViewController {
         } else {
             webView.load(urlString: urlString)
         }
+        behaviorVisit?.pageDidOpen()
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +137,14 @@ public class LampsWebViewController: UIViewController {
         }
         if previousApplicationStatusBarStyle != nil {
             updateStatusBarAppearance()
+        }
+    }
+
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // 取消的侧滑不会进这里。激励视频盖住、或中心上再打开游戏，这两个标记都是 false。
+        if isMovingFromParent || isBeingDismissed || navigationController?.isBeingDismissed == true {
+            behaviorVisit?.close()
         }
     }
 

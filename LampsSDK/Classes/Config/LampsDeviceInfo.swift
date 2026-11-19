@@ -130,14 +130,15 @@ enum LampsDeviceInfo {
                     ua = text
                 } else {
                     LampsSDKLog.debug(
-                        "userAgent fetch failed: \(error?.localizedDescription ?? "empty")"
+                        "userAgent fetch failed: \(error?.localizedDescription ?? "empty")",
+                        category: .startup
                     )
                     ua = fallbackUserAgent
                 }
                 cachedUserAgent = ua
                 userAgentWebView = nil
                 UserDefaults.standard.set(ua, forKey: userAgentCacheKey)
-                LampsSDKLog.debug("userAgent ready len=\(ua.count)")
+                LampsSDKLog.debug("userAgent ready len=\(ua.count)", category: .startup)
             }
         }
 

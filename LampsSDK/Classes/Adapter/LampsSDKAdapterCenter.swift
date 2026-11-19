@@ -15,14 +15,14 @@ public enum LampsSDKAdapterCenter {
         lock.lock()
         makers[channel] = maker
         lock.unlock()
-        LampsSDKLog.debug("adapter registered: \(channel.name)")
+        LampsSDKLog.debug("adapter registered: \(channel.name)", category: .startup)
     }
 
     public static func registerInitializer(channel: LampsRewardChannel, initializer: LampsSDKInitializing.Type) {
         lock.lock()
         initializers[channel] = initializer
         lock.unlock()
-        LampsSDKLog.debug("sdk initializer registered: \(channel.name)")
+        LampsSDKLog.debug("sdk initializer registered: \(channel.name)", category: .startup)
     }
 
     static func isAvailable(_ channel: LampsRewardChannel) -> Bool {
@@ -49,17 +49,18 @@ public enum LampsSDKAdapterCenter {
         let group = DispatchGroup()
         for (channel, initializer) in pairs {
             guard shouldInitialize(channel, config: config) else {
-                LampsSDKLog.debug("sdk init skipped by host config: \(channel.name)")
+                LampsSDKLog.debug("sdk init skipped by host config: \(channel.name)", category: .startup)
                 continue
             }
             group.enter()
             let channelAppId = Lamps.remoteConfig?.channelAppId(for: channel) ?? ""
             initializer.initialize(config: config, channelAppId: channelAppId) { success, error in
                 if success {
-                    LampsSDKLog.debug("sdk init ok: \(channel.name)")
+                    LampsSDKLog.debug("sdk init ok: \(channel.name)", category: .startup)
                 } else {
                     LampsSDKLog.debug(
-                        "sdk init fail: \(channel.name) \(error?.localizedDescription ?? "")"
+                        "sdk init fail: \(channel.name) \(error?.localizedDescription ?? "")",
+                        category: .startup
                     )
                 }
                 group.leave()

@@ -15,6 +15,8 @@ final class LampsWebView: WKWebView {
     var dayNightMode: LampsDayNightMode?
     /// 是否隐藏 H5 标题栏。来自本次 `LampsGameCenterConfig`，未设置时不隐藏。
     var hideTitle: Bool
+    /// 内嵌游戏中心不回传自身行为，但从这里打开的游戏要带上这张表。
+    var behaviorTrackParams: [String: String] = [:]
     private let loadGuard = LampsWebLoadGuard()
 
     init(displayMode: String = "", dayNightMode: LampsDayNightMode? = nil, hideTitle: Bool = false) {

@@ -112,7 +112,11 @@ Lamps.setUserInfo(user)
 
 // 打开游戏中心。可不传页面，SDK 会取当前最上层 VC。
 // 有宿主导航则 push；要避开宿主导航栏时用 presentGameCenter。
-Lamps.showGameCenter { success, error in
+// urlQuery 拼到游戏中心链接上；trackParams 并入这次打开的后续行为回传。
+let centerConfig = LampsGameCenterConfig()
+centerConfig.urlQuery = ["from": "home"]
+centerConfig.trackParams = ["entrance": "home_icon"]
+Lamps.showGameCenter(config: centerConfig) { success, error in
     if !success {
         print(error?.localizedDescription ?? "")
     }
@@ -122,6 +126,12 @@ Lamps.presentGameCenter { success, error in
         print(error?.localizedDescription ?? "")
     }
 }
+
+// 直接打开某个游戏。urlQuery、trackParams 的作用与游戏中心相同。
+let gameConfig = LampsGameConfig()
+gameConfig.urlQuery = ["from": "banner"]
+gameConfig.trackParams = ["entrance": "home_banner"]
+Lamps.showGame(gameId: "2", config: gameConfig)
 
 // 内嵌游戏中心（如 Tab 一级页）。宿主自有日夜间变化时调用 updateDayNightMode，无需重建。
 if let gameView = Lamps.makeGameCenterView() {
@@ -142,6 +152,45 @@ let webView = LampsWebView()
 container.addSubview(webView)
 webView.load(urlString: "https://www.hupu.com")
 ```
+
+### 行为回传
+
+SDK 回传一个 `LampsBehavior`。`event` 是打开或退出。`pageType` 是 `LampsBehaviorPageType`：`gameCenter`（游戏中心）或 `game`（游戏），埋点文案用 `pageType.name`。`data` 含 SDK 字段，以及本次 `trackParams` 平铺进去的键，同名时保留 SDK 字段。`data.type` 与 `pageType.name` 相同。`trackParams` 同时单独给出打开时传入的原表。宿主自行补 `model`、外层 `event` / `type`、用户或游客标识、事件时间和客户端版本。请在主线程设置。未设置时不回调。
+
+`urlQuery` 只拼进页面链接，不进入行为回传。`makeGameCenterView` 本身不回传行为。从游戏中心再打开的游戏会带上中心这次的 `trackParams`。
+
+`showGameCenter` / `showGame` 的 `completion` 仍表示「已发起跳转」。打开回传发生在页面视图加载时，`status` 为 `成功`，不等 H5 加载完成。同一次访问只回传一次；从游戏返回游戏中心不会再次报打开。地址不可用、没有容器等页面根本没创建出来时为 `失败`。H5 加载失败和失败页重试不再改变这次打开结果。页面真正关闭时回传退出，加载失败后关掉也会回传。激励视频盖住页面、从中心再打开游戏，都不算退出。`makeGameCenterView` 返回的内嵌视图不回传。
+
+```swift
+Lamps.behaviorHandler = { behavior in
+    // behavior.event 为 LampsBehaviorEvent.openPage（打开页面，外层 type 用 action）
+    // 或 LampsBehaviorEvent.exitPage（退出页面，外层 type 用 view）
+    // 埋点事件名用 behavior.event.name。页面类型文案用 behavior.pageType.name。
+    // behavior.data 直接放进宿主埋点。behavior.trackParams 是打开时传入的原表。
+}
+```
+
+ObjC：`[Lamps setBehaviorHandler:^(LampsBehavior *behavior) { ... }];`，传 `nil` 清除。事件名用 `[Lamps behaviorNameForEvent:]`。页面类型文案用 `[Lamps behaviorPageTypeNameForPageType:]`。
+
+打开页面的 `data`：
+
+- `type`：`游戏中心` 或 `游戏`
+- `status`：`成功` 表示页面视图已加载；`失败` 表示页面没创建出来
+- `id`：单个游戏为游戏 ID；游戏中心为 `NSNull`
+- `code`：失败为错误码；成功为 `NSNull`
+- `message`：失败为错误描述；成功或描述为空时为 `NSNull`
+- 其余键：本次打开传入的 `trackParams`。与上面同名的键不会覆盖
+
+退出页面的 `data`：
+
+- `type`：同上
+- `duration`：从页面视图加载开始的前台秒数，向下取整。H5 未加载完和失败页上的停留也计入。进后台的时间不计。游戏中心包含其中的浏览和游戏时间
+- `game_list`：`id`、`duration`、`ad_req`、`ad_show`、`ad_clk`、`price`。没有广告时后四项为 `0`。`price` 是曝光成功的竞胜价，单位分，不是财务结算
+- 其余键：本次打开传入的 `trackParams`。与上面同名的键不会覆盖
+
+直接打开的游戏，退出时 `game_list` 只有这一局。从游戏中心进入的游戏，退出游戏回传这一局，同时按游戏 ID 累加进该次中心访问；退出中心时 `game_list` 是合并后的列表。两边都会带上同一次游玩，宿主不要再加总。
+
+广告只统计游戏页里的激励视频。一次 `lamps.ad.showRewardedVideo` 真正开始请求计 1 次 `ad_req`，多个代码位不加。展示成功计 `ad_show` 并把竞胜价累加进 `price`，点击计 `ad_clk`。
 
 ### 配置接口
 

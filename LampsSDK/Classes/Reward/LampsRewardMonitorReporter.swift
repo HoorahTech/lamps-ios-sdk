@@ -7,29 +7,44 @@ public enum LampsRewardMonitorReporter {
         isSuccess: Bool,
         error: Error? = nil
     ) {
-        guard let urls = Lamps.remoteConfig?.monitorLinks.rm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.rm, !urls.isEmpty else {
+            LampsSDKLog.debug("monitor RM skip: empty url", category: .monitor)
+            return
+        }
         var extra: [AnyHashable: Any] = ["is_success": isSuccess ? "1" : "0"]
         if let error { extra["error_code"] = "\((error as NSError).code)" }
         LampsReporter.reportRM(urls: urls, adInfo: model.adInfo, extra: extra)
     }
 
     public static func reportPM(model: LampsRewardAdModel) {
-        guard let urls = Lamps.remoteConfig?.monitorLinks.pm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.pm, !urls.isEmpty else {
+            LampsSDKLog.debug("monitor PM skip: empty url", category: .monitor)
+            return
+        }
         LampsReporter.reportPM(urls: urls, adInfo: model.adInfo, extra: ["exposure_type": "1"])
     }
 
     public static func reportCM(model: LampsRewardAdModel) {
-        guard let urls = Lamps.remoteConfig?.monitorLinks.cm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.cm, !urls.isEmpty else {
+            LampsSDKLog.debug("monitor CM skip: empty url", category: .monitor)
+            return
+        }
         LampsReporter.reportCM(urls: urls, adInfo: model.adInfo, extra: nil)
     }
 
     public static func reportWM(model: LampsRewardAdModel) {
-        guard let urls = Lamps.remoteConfig?.monitorLinks.wm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.wm, !urls.isEmpty else {
+            LampsSDKLog.debug("monitor WM skip: empty url", category: .monitor)
+            return
+        }
         LampsReporter.reportWM(urls: urls, adInfo: model.adInfo, extra: nil)
     }
 
     public static func reportREM(model: LampsRewardAdModel) {
-        guard let urls = Lamps.remoteConfig?.monitorLinks.dm, !urls.isEmpty else { return }
+        guard let urls = Lamps.remoteConfig?.monitorLinks.dm, !urls.isEmpty else {
+            LampsSDKLog.debug("monitor REM skip: empty url", category: .monitor)
+            return
+        }
         LampsReporter.reportREM(urls: urls, adInfo: model.adInfo, extra: nil)
     }
 }

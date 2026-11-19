@@ -51,7 +51,7 @@ public enum LampsRewardServerBid {
         request.timeoutInterval = 3
         request.httpBody = httpBody
 
-        LampsSDKLog.debug("reward bid request slotId=\(slotId) tokenLen=\(ttToken.count)")
+        LampsSDKLog.debug("reward bid request slotId=\(slotId) tokenLen=\(ttToken.count)", category: .reward)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(LampsSDKError.rewardLoadError("穿山甲竞价请求失败: \(error.localizedDescription)").nsError))
@@ -85,7 +85,7 @@ public enum LampsRewardServerBid {
                 return .failure(LampsSDKError.rewardLoadError("穿山甲竞价 adm 为空").nsError)
             }
             let price = cgFloatValue(ads["price"])
-            LampsSDKLog.debug("reward bid ok slotId=\(slotId) price=\(price) admLen=\(adm.count)")
+            LampsSDKLog.debug("reward bid ok slotId=\(slotId) price=\(price) admLen=\(adm.count)", category: .reward)
             return .success(LampsRewardServerBidResult(adm: adm, price: price))
         } catch {
             return .failure(LampsSDKError.rewardLoadError("穿山甲竞价 JSON 解析失败: \(error.localizedDescription)").nsError)
