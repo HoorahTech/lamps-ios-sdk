@@ -10471,7 +10471,7 @@
       "kind": "StringLiteral",
       "offset": 1031,
       "length": 7,
-      "value": "\"1.0.2\""
+      "value": "\"1.0.3\""
     },
     {
       "filePath": "\/Users\/yujianchao\/Documents\/iOS\/lamps-ios-sdk\/LampsSDK\/Classes\/Public\/Lamps.swift",
