@@ -216,6 +216,7 @@ REM 签名：使用配置接口返回的 `token`，对含 `__REM_SIGN__` 的 URL
 - `__IP__`：客户端 IP（配置接口返回的 `clientIp`；未拉取成功时为空）
 - `__REQUEST_ID__`：激励会话 requestId（同一次激励内 RM/WM/CM/PM/REM 共用）
 - `__FORWARD_SOURCE__`：H5 传入的场景来源
+- `__UNION_NAME__`：按渠道和代码位 `type` 拼接。穿山甲（`CSJ`）为 `穿山甲BD` 或 `穿山甲PD`，优量汇（`GDT`）为 `优量汇BD` 或 `优量汇PD`，汇川（`NOAH`）为 `汇川SDK`
 
 ## 用户信息
 

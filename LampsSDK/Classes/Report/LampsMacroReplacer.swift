@@ -70,9 +70,9 @@ enum LampsMacroReplacer {
             put(&info, "__REQUEST_ID__", requestId)
         }
 
-        // channel_name
-        if let channelName = firstString(ex, ad, key: "channel_name") {
-            put(&info, "__UNION_NAME__", channelName)
+        // 联盟名按渠道和代码位 type（BD / PD）拼接，不直接用配置里的 channelName。
+        if let unionName = unionName(ad: ad, extra: ex) {
+            put(&info, "__UNION_NAME__", unionName)
         }
 
         // slot_id
@@ -158,6 +158,28 @@ enum LampsMacroReplacer {
             _ = CC_MD5(buffer.baseAddress, CC_LONG(data.count), &digest)
         }
         return digest.map { String(format: "%02x", $0) }.joined()
+    }
+
+    /// `__UNION_NAME__`：穿山甲 / 优量汇按代码位 `type` 拼成「穿山甲BD」或「穿山甲PD」；汇川固定为汇川 SDK。
+    private static func unionName(ad: [AnyHashable: Any], extra: [AnyHashable: Any]) -> String? {
+        let raw = firstString(extra, ad, key: "channel_id")
+            ?? firstString(extra, ad, key: "channel_name")
+        guard let raw else { return nil }
+        let key = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        let bidType = (firstString(extra, ad, key: "type") ?? "")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .uppercased()
+        let suffix = (bidType == "BD" || bidType == "PD") ? bidType : ""
+        switch key.uppercased() {
+        case "CSJ", "穿山甲":
+            return "穿山甲" + suffix
+        case "GDT", "优量汇":
+            return "优量汇" + suffix
+        case "NOAH", "汇川":
+            return "汇川SDK"
+        default:
+            return firstString(extra, ad, key: "channel_name") ?? key
+        }
     }
 
     private static func put(_ info: inout [String: String], _ key: String, _ value: String?) {
